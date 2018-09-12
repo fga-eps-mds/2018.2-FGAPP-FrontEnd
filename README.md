@@ -17,7 +17,7 @@ cd mobile
 make
 ```
 
-Inside docker's container, execute ***yarn start*** to run the react-native app. After just get your camera 
+Inside docker's container, execute ***yarn start*** to run the react-native app. Then just get your camera and point to the QR Code on the terminal, this will launch Expo app in your device and build the project.
 
 ```shell
 yarn start
