@@ -1,5 +1,5 @@
 # Integra APP
-an application developed by university students, for university students.
+An application developed by university students, for university students.
 
 ## Requirements
 This projects needs some requirements that need to be downloaded.
