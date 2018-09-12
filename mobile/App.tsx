@@ -1,17 +1,44 @@
 import * as React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
+import {StackNavigator} from 'react-navigation'
+
+import WelcomeScreen from './screens/WelcomeScreen'
+import LoginScreen from './screens/LoginScreen'
+import SignUpScreen from './screens/SignUpScreen'
+import TabHandler from './screens/TabHandler'
+
+
+
 export default class App extends React.Component<{}> {
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Open up App.ts to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-      </View>
+      < AppStackNavigator />
     );
   }
 }
+
+const AppStackNavigator = new StackNavigator({
+
+  WelcomeScreen:{
+    screen:WelcomeScreen,
+    navigationOptions: ({ navigation }) => ({
+      header: null,
+    }),
+  },
+  LoginScreen:{
+    screen:LoginScreen
+  },
+  SignUpScreen:{
+    screen:SignUpScreen
+  },
+  TabHandler:{
+    screen:TabHandler,
+    navigationOptions: ({ navigation }) => ({
+      headerLeft: null,
+    }),
+  }
+})
 
 const styles = StyleSheet.create({
   container: {

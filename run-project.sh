@@ -1,1 +1,0 @@
-docker run -ti -v `pwd`:/usr/src/app -w /usr/src/app -p 19000:19000 -p 19001:19001 -e REACT_NATIVE_PACKAGER_HOSTNAME=$1 node:9.3.0-alpine sh -c "apk add --no-cache bash; cd mobile; yarn start"
