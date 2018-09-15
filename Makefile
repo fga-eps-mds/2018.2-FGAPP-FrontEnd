@@ -1,8 +1,8 @@
 default:
-	make build
+	make build $(IP)
 
 build:
-	python get-ip-address.py
+	python get-ip-address.py $(IP)
 	docker-compose up
 
 run:
