@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { TouchableOpacity, View, ActivityIndicator, Text, Alert} from 'react-native';
-import { AppRegistry, TextInput } from 'react-native';
+import { AppRegistry, TextInput, Button } from 'react-native';
 export default class App extends Component {
 
   constructor(props) {
@@ -8,8 +8,8 @@ export default class App extends Component {
       this.state = {email: '', password: ''};
   }
 
-  handlePress = async () => {
-      fetch('http://192.168.43.75:8000/api/signup', {
+  _onPressButton = async () => {
+      fetch('http://192.168.0.52:8000/api/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -22,8 +22,11 @@ export default class App extends Component {
   .then((response) => response.json())
   .then((responseJson) => {
    Alert.alert(responseJson.error);
-   //Alert.alert("Token:  " + responseJson.token);
-      })
+   if (responseJson.token != undefined){
+        Alert.alert("Conta criada com sucesso!");
+      }
+   })
+
       .catch((error) => {
         console.error(error);
       });
@@ -45,9 +48,10 @@ export default class App extends Component {
              onChangeText={(password) => this.setState({password})}
        />
 
-      <TouchableOpacity onPress={this.handlePress.bind(this)}>
-       <Text style={{paddingTop: 50, paddingLeft: 50, color: '#FF0000'}}> Click me to register </Text>
-      </TouchableOpacity>
+       <Button
+             onPress={this._onPressButton}
+             title="Sign Up!"
+       />
 
   </View>
     );
