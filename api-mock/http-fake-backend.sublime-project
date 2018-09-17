@@ -1,0 +1,23 @@
+{
+  "folders":
+  [
+    {
+      "path": ".",
+      "folder_exclude_patterns":
+        [
+          "node_modules",
+          "test/artifacts"
+        ],
+        "file_exclude_patterns":
+        [
+          "*.sublime-workspace",
+          ".gitattributes",
+          ".gitignore",
+          ".eslintrc",
+          ".travis.yml",
+          ".editorconfig",
+          "license"
+        ]
+    }
+  ]
+}
