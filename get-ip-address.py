@@ -10,7 +10,10 @@ if len(sys.argv) > 1:
     custom_ip = True
 
 if not custom_ip:
-    ip = socket.gethostbyname_ex(socket.gethostname())[-1][0]
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.connect(("8.8.8.8", 80))
+    ip = s.getsockname()[0]
+    s.close()
 
 if not ip.startswith("127."):
     with open('.env', 'w') as file:
