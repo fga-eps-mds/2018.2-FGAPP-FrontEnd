@@ -24,9 +24,14 @@ Inside docker's container, execute ***yarn start*** to run the react-native app.
 ```shell
 yarn start
 ```
-### Development Environment
+## Development Environment
 Inside ***mobile*** directory, has a .env file and a env.example file. In order to maintain correct domains for extenral api paths.
 
-### Mocked development
+#### Acessando variáveis de ambiente
+```
+process.env.VARIABLES_NAME
+```
+
+## Mocked development
 In order to easier the development conflicts about external APIs, it is introduced a mocked backend. [More info](https://github.com/micromata/http-fake-backend.git)
 
