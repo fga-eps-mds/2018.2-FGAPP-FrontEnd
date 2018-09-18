@@ -2,6 +2,8 @@ import socket
 import os
 import sys
 
+env_path = '.env'
+
 ip = '0.0.0.0'
 custom_ip = False
 
@@ -16,13 +18,13 @@ if not custom_ip:
     s.close()
 
 if not ip.startswith("127."):
-    with open('.env', 'w') as file:
+    with open(env_path, 'w') as file:
         file.write('REACT_NATIVE_PACKAGER_HOSTNAME=' + ip)
 else:
     error = '\n** [ERROR] could not detect ip address' + '\n\n SOLUTION:\nuse $ make IP=your-ip-here\n\n'
     print(error)
     exit(1)
-    with open('.env', 'w') as file:
+    with open(env_path, 'w') as file:
         file.write('')
 
 print(ip)
