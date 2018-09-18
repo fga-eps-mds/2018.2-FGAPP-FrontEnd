@@ -13,22 +13,20 @@ This projects needs some requirements that need to be downloaded.
 The project is setup with Docker. running ***make*** will install and build the project and dependencies. This step depends of internet bandwith and cpu, maybe last around 5 minutes to download all dependencies for development, but after downloaded make will be much faster. 
 
 ```shell
-make build
+make
 ```
-
-After installing dependencies and the container presents ***done***. Execute this following command to enter inside the docker.
-
-```shell
-make run
-```
-
 to get the containers down
 ```shell
 make down
 ```
-
 Inside docker's container, execute ***yarn start*** to run the react-native app. Then just get your camera and point to the QR Code on the terminal, this will launch Expo app in your device and build the project.
 
 ```shell
 yarn start
 ```
+### Development Environment
+Inside ***mobile*** directory, has a .env file and a env.example file. In order to maintain correct domains for extenral api paths.
+
+### Mocked development
+In order to easier the development conflicts about external APIs, it is introduced a mocked backend. [More info](https://github.com/micromata/http-fake-backend.git)
+
