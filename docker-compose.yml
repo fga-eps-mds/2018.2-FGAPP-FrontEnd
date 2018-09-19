@@ -5,7 +5,7 @@ version: "3"
 services:
   front:
     build: mobile
-    command: bash -c "yarn; bash"
+    command: bash -c "bash"
     ports:
       - "19000:19000"
       - "19001:19001"
@@ -13,5 +13,14 @@ services:
       - .env
     volumes:
       - ./mobile/:/app
+    stdin_open: true
+    tty: true
+  mock:
+    build: api-mock
+    command: bash -c "npm install --save; npm run start:dev" 
+    ports:
+      - "8081:8081"
+    volumes:
+      - ./api-mock/:/app
     stdin_open: true
     tty: true

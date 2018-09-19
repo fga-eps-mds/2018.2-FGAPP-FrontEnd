@@ -1,0 +1,10 @@
+{
+    "title": 11,
+    "price": 3,
+    "fooBar": {
+        "number": 5,
+        "object": {
+            "key": "value"
+        }
+    }
+}
