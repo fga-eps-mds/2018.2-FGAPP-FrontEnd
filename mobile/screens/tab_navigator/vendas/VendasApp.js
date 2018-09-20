@@ -1,11 +1,12 @@
 import React, { Component } from "react";
-import { 
+import {
     View,
     Text,
     StyleSheet,
     TouchableOpacity,
     Alert
 } from "react-native";
+import ProductCard from './component/ProductCard'
 
 
 class VendasApp extends Component {
@@ -29,12 +30,15 @@ class VendasApp extends Component {
 
     render(){
         return(
-            <View style={{paddingTop: 50, paddingLeft: 50 }}>
+        <View style={styles.container}>
             <Text> Vendas APP </Text>
+            <ProductCard/>
+            <ProductCard/>
+            <ProductCard/>
             <TouchableOpacity onPress={this.handlePress.bind(this)}>
             <Text style={{paddingTop: 50, paddingLeft: 50, color: '#FF0000'}}> Clica em mim para testar api mocada </Text>
             </TouchableOpacity>
-        </View> 
+        </View>
         );
     }
 }
@@ -43,7 +47,6 @@ export default VendasApp;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
+        width: '100%',
     }
 });
