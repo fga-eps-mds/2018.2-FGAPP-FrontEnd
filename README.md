@@ -25,11 +25,23 @@ Inside docker's container, execute ***yarn start*** to run the react-native app.
 yarn start
 ```
 ## Development Environment
-Inside ***mobile*** directory, has a .env file and a env.example file. In order to maintain correct domains for extenral api paths.
+Inside ***mobile*** directory, has a .env file. In order to maintain correct domains for external api paths.
 
-#### Acessando variáveis de ambiente
+#### Using environment variables on JS
+```js
+console.log(process.env.VARIABLES_NAME)
+
+fetch(process.env.USERS_API + 'users/1', {
+    method: 'GET',
+    headers: {
+    'Content-Type': 'application/json',
+    }
+})
+
 ```
-process.env.VARIABLES_NAME
+#### .env
+```
+USERS_API=https://www.users.com/
 ```
 
 ## Mocked development
