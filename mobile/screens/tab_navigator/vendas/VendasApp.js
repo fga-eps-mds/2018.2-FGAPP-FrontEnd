@@ -4,10 +4,12 @@ import {
     Text,
     StyleSheet,
     TouchableOpacity,
-    Alert
+    Alert,
+    ScrollView
 } from "react-native";
 import ProductCard from './component/ProductCard'
 
+const defaultImage = require("./assets/food.jpg");
 
 class VendasApp extends Component {
 
@@ -31,13 +33,24 @@ class VendasApp extends Component {
     render(){
         return(
         <View style={styles.container}>
-            <Text> Vendas APP </Text>
-            <ProductCard/>
-            <ProductCard/>
-            <ProductCard/>
-            <TouchableOpacity onPress={this.handlePress.bind(this)}>
-            <Text style={{paddingTop: 50, paddingLeft: 50, color: '#FF0000'}}> Clica em mim para testar api mocada </Text>
-            </TouchableOpacity>
+            <ScrollView>
+                <ProductCard
+                productImage = {defaultImage}
+                productName = "Bolo no pote"
+                productPrice = "13.00"/>
+                <ProductCard
+                productImage = {defaultImage}
+                productName = "Acai no pote"
+                productPrice = "15.00"/>
+                <ProductCard
+                productImage = {defaultImage}
+                productName = "Sorvete no pote"
+                productPrice = "12.00"/>
+
+                {/* <TouchableOpacity onPress={this.handlePress.bind(this)}>
+                <Text style={{paddingTop: 50, paddingLeft: 50, color: '#FF0000'}}> Clica em mim para testar api mocada </Text>
+                </TouchableOpacity> */}
+            </ScrollView>
         </View>
         );
     }
@@ -47,6 +60,7 @@ export default VendasApp;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: '#171717',
         width: '100%',
     }
 });

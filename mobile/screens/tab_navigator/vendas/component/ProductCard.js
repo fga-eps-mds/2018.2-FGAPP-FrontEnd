@@ -1,35 +1,30 @@
 import React, {Component} from 'react';
 import { Image } from 'react-native';
-import { Container, Content, Card, CardItem, Text, Left, Right} from 'native-base';
+import { Icon, Card, CardItem, Text, Left, Right} from 'native-base';
 import styles from "./styles";
 
 class ProductCard extends Component {
   render(){
     return (
-      <Container style = {styles.container}>
-        <Content padder>
-          <Card style = {styles.mb}>
-            <CardItem cardBody>
-              <Image
-                style={{
-                  resizeMode: "cover",
-                  width: null,
-                  height: 200,
-                  flex: 1
-                }}/>
-            </CardItem>
+      <Card style = {styles.main}>
+        <CardItem cardBody>
+          <Image
+            style={
+              styles.imageItems
+            }
+            source={this.props.productImage}/>
+        </CardItem>
 
-            <CardItem style={{ paddingVertical: 0 }}>
-              <Left>
-                <Text>Nome do produto</Text>
-              </Left>
-              <Right>
-                <Text>Preço</Text>
-              </Right>
-            </CardItem>
-          </Card>
-        </Content>
-      </Container>
+        <CardItem style={styles.items}>
+          <Left>
+            <Text>{this.props.productName}</Text>
+          </Left>
+          <Right>
+            <Icon name="md-cash"/>
+            <Text>{this.props.productPrice}</Text>
+          </Right>
+        </CardItem>
+      </Card>
     );
   }
 }
