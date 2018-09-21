@@ -70,7 +70,8 @@ export default class App extends Component {
       this.setState({ non_field_alert: ['']})
     }
     //Sucesso
-   if (responseJson.token != undefined){
+   if (responseJson.token != undefined ||
+       responseJson.key != undefined){
         Alert.alert("Conta criada com sucesso!");
         this.props.navigation.navigate('WelcomeScreen')
       }

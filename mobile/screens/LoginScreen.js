@@ -65,7 +65,8 @@ class LoginScreen extends Component {
       this.setState({ non_field_alert: ['']})
     }
     //Sucesso
-   if (responseJson.token != undefined){
+   if (responseJson.token != undefined||
+         responseJson.key != undefined){
      this.props.navigation.navigate('TabHandler')
       }
    })
