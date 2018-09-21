@@ -1,55 +1,57 @@
 import React, { Component } from "react";
 import {
     View,
-    Text,
     StyleSheet,
-    TouchableOpacity,
-    Alert,
     ScrollView
 } from "react-native";
 import ProductCard from './component/ProductCard'
 
-const defaultImage = require("./assets/food.jpg");
-
 class VendasApp extends Component {
 
-    handlePress = async () => {
+    constructor(props) {
+        super(props);
+        this.state = {
+            products: [{
+                productName: '',
+                productPrice: '',
+                productImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3DELRuKTg7K4gi9v13ELUq3ltLxlNGOsw6BDfsF0jlVKFr4h3',
+            }]
+        }
+    }
 
-            fetch(process.env.VENDAS_API + 'api/books', {
-                method: 'GET',
-                headers: {
+    componentWillMount() {
+        fetch('http://5ba400d48da2f20014654cdf.mockapi.io/products', {
+            method: 'GET',
+            headers: {
                 'Content-Type': 'application/json',
-                }
+            }
         })
-            .then((response) => response.json())
-            .then((responseJson) => {
-        Alert.alert("Title: " + responseJson.title + ", with price " + responseJson.price + "\n" +  process.env.VENDAS_API + 'api/books');
-            })
-            .catch((error) => {
-                console.error(error);
+        .then((response) => response.json())
+        .then((responseJson) => {
+            responseJson.sort((product1, product2) => {
+                return (product1.productPrice - product2.productPrice);
             });
+            this.setState({products: responseJson});
+        })
+        .catch((error) => {
+            console.error(error);
+        });
     }
 
     render(){
         return(
         <View style={styles.container}>
             <ScrollView>
-                <ProductCard
-                productImage = {defaultImage}
-                productName = "Bolo no pote"
-                productPrice = "13.00"/>
-                <ProductCard
-                productImage = {defaultImage}
-                productName = "Acai no pote"
-                productPrice = "15.00"/>
-                <ProductCard
-                productImage = {defaultImage}
-                productName = "Sorvete no pote"
-                productPrice = "12.00"/>
-
-                {/* <TouchableOpacity onPress={this.handlePress.bind(this)}>
-                <Text style={{paddingTop: 50, paddingLeft: 50, color: '#FF0000'}}> Clica em mim para testar api mocada </Text>
-                </TouchableOpacity> */}
+                {this.state.products.map( (product, index) =>  {
+                    return (
+                        <ProductCard
+                            key = {index}
+                            productImage = {product.productImage}
+                            productName = {product.productName}
+                            productPrice = {product.productPrice}
+                        />
+                    )
+                })}
             </ScrollView>
         </View>
         );

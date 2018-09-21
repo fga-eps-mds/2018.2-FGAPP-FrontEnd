@@ -9,19 +9,19 @@ class ProductCard extends Component {
       <Card style = {styles.main}>
         <CardItem cardBody>
           <Image
-            style={
-              styles.imageItems
-            }
-            source={this.props.productImage}/>
+            style={styles.imageItems}
+            source={{uri: this.props.productImage}}/>
         </CardItem>
 
         <CardItem style={styles.items}>
           <Left>
-            <Text>{this.props.productName}</Text>
+            <Text style={styles.text}>{this.props.productName}</Text>
           </Left>
           <Right>
-            <Icon name="md-cash"/>
-            <Text>{this.props.productPrice}</Text>
+            <Text>
+              <Icon name="logo-usd" style={styles.price}/>
+              <Text style={styles.text}>{this.props.productPrice}</Text>
+            </Text>
           </Right>
         </CardItem>
       </Card>
