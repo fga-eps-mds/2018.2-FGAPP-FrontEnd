@@ -53,7 +53,7 @@ export default class Field extends Component{
      />
      <FlatList
       data={this.props.fieldAlert}
-      renderItem={({item}) => <Text>{item}</Text>}
+      renderItem={({item}) => <Text style ={{color: 'red'}}>{item}</Text>}
       keyExtractor={item => this.props.keyExtractor}
 
       />

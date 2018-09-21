@@ -11,6 +11,7 @@ import {
   Button,
   FlatList,
 } from 'react-native';
+import Cookie from 'react-native-cookie';
 import Field from './components/Field';
 
 export default class App extends Component {
@@ -18,7 +19,7 @@ export default class App extends Component {
   constructor(props) {
       super(props);
       this.state = {
-        email: '', password: '',
+        email: '', password: '', cookie:'',
         email_field_is_bad: false, password_field_is_bad: false,
         email_field_alerts: [''], password_field_alerts: [''], non_field_alerts: []
       };
@@ -26,8 +27,9 @@ export default class App extends Component {
 
   _onPressButton = async () => {
       // Coloque seu ip aqui
-      fetch('http://192.168.1.18:8000/api/rest-auth/registration/', {
+      fetch('http://192.168.1.18:8000/api/rest-auth/registration/',{
         method: 'POST',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -35,11 +37,12 @@ export default class App extends Component {
         'email': this.state.email,
         'password1': this.state.password,
         'password2': this.state.password,
+
       }),
   })
   .then((response) => response.json())
   .then((responseJson) => {
-    console.log(JSON.stringify(responseJson));
+    console.log(responseJson);
     //Campo de email
     if (responseJson.email != undefined){
       this.setState({ email_field_alerts: responseJson.email})
@@ -66,14 +69,15 @@ export default class App extends Component {
       this.setState({ non_field_alert: ['']})
     }
     //Sucesso
-   if (responseJson.key != undefined){
+   if (responseJson.token != undefined){
         Alert.alert("Conta criada com sucesso!");
         this.props.navigation.navigate('WelcomeScreen')
       }
    })
-      .catch((error) => {
-        console.error(error);
-      });
+
+    .catch((error) => {
+      console.error(error);
+    });
   }
 
   render(){
@@ -106,7 +110,7 @@ export default class App extends Component {
        <View style={{height: 20}} />
        <FlatList
            data={this.state.non_field_alert}
-           renderItem={({item}) => <Text>{item}</Text>}
+           renderItem={({item}) => <Text style ={{color: 'red'}}>{item}</Text>}
            keyExtractor={item => 'non_field_errors'}
          />
 

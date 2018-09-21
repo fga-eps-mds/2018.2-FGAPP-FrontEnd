@@ -64,7 +64,7 @@ class LoginScreen extends Component {
       this.setState({ non_field_alert: ['']})
     }
     //Sucesso
-   if (responseJson.key != undefined){
+   if (responseJson.token != undefined){
      this.props.navigation.navigate('TabHandler')
       }
    })
@@ -99,7 +99,7 @@ class LoginScreen extends Component {
               <View style={{height: 20}} />
               <FlatList
                   data={this.state.non_field_alert}
-                  renderItem={({item}) => <Text>{item}</Text>}
+                  renderItem={({item}) => <Text style ={{color: 'red'}}>{item}</Text>}
                   keyExtractor={item => 'non_field_errors'}
 
                 />
