@@ -6,7 +6,7 @@ import {StackNavigator} from 'react-navigation'
 import WelcomeScreen from './screens/WelcomeScreen'
 import LoginScreen from './screens/LoginScreen'
 import SignUpScreen from './screens/SignUpScreen'
-import TabHandler from './screens/TabHandler'
+import TabStackNavigator from './screens/TabHandler'
 
 
 
@@ -33,7 +33,7 @@ const AppStackNavigator = new StackNavigator({
     screen:SignUpScreen
   },
   TabHandler:{
-    screen:TabHandler,
+    screen:TabStackNavigator,
     navigationOptions: ({ navigation }) => ({
       headerLeft: null,
     }),

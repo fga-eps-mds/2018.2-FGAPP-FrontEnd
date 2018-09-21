@@ -55,14 +55,14 @@ const TabStackNavigator = new TabNavigator({
     }
 })
 
-class TabHandler extends Component {
-    render() {
-        return (
-            <TabStackNavigator/>
-        );
-    }
-}
-export default TabHandler;
+//class TabHandler extends Component {
+//    render() {
+//        return (
+//            <TabStackNavigator/>
+//        );
+//    }
+//}
+export default TabStackNavigator;
 
 const styles = StyleSheet.create({
     container: {

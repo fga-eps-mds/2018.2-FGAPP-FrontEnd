@@ -10,7 +10,7 @@ class Profile extends Component {
   constructor(props) {
       super(props);
       this.state = {
-        url:'http://'+process.env.REACT_NATIVE_PACKAGER_HOSTNAME+':8000',      
+        url:'http://'+process.env.REACT_NATIVE_PACKAGER_HOSTNAME+':8000',
       }
   }
 
