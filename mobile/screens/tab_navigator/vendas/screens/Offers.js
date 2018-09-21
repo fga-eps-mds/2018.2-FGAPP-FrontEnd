@@ -4,9 +4,9 @@ import {
     StyleSheet,
     ScrollView
 } from "react-native";
-import ProductCard from './component/ProductCard'
+import ProductCard from '../component/ProductCard'
 
-class VendasApp extends Component {
+class MyProducts extends Component {
 
     constructor(props) {
         super(props);
@@ -57,7 +57,7 @@ class VendasApp extends Component {
         );
     }
 }
-export default VendasApp;
+export default MyProducts;
 
 const styles = StyleSheet.create({
     container: {

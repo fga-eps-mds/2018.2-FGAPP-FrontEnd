@@ -5,7 +5,7 @@ import {
 import {Icon} from 'native-base'
 
 import {TabNavigator} from 'react-navigation'
-import VendasApp from './tab_navigator/vendas/VendasApp'
+import TabHandlerVendasApp from './tab_navigator/vendas/TabHandlerVendasApp'
 import IndicaAiApp from './tab_navigator/indica_ai/IndicaAiApp'
 import RolesApp from './tab_navigator/roles/RolesApp'
 import CarDefenseApp from './tab_navigator/car_defense/CarDefenseApp'
@@ -25,7 +25,7 @@ const TabStackNavigator = new TabNavigator({
         }
     },
     Vendas:{
-        screen:VendasApp,
+        screen:TabHandlerVendasApp,
         navigationOptions:{
             tabBarLabel:'Vendas',
             tabBarIcon: ({focused}) => (
