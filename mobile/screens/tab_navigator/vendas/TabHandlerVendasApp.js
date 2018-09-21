@@ -31,6 +31,12 @@ const TabStackNavigator = new TabNavigator({
     tabBarOptions: {
         showLabel: true,
         showIcon: false,
+        labelStyle: {
+            fontSize: 10,
+        },
+        style: {
+            backgroundColor: '#5A5A5A',
+        },
         tabStyle: {
             height: 40,
         },

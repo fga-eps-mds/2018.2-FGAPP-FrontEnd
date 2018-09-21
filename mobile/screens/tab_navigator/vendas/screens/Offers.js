@@ -18,8 +18,8 @@ class MyProducts extends Component {
             }]
         }
     }
-
-    componentWillMount() {
+    
+    componentDidMount() {
         fetch('http://5ba400d48da2f20014654cdf.mockapi.io/products', {
             method: 'GET',
             headers: {

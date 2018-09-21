@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import {
-    StyleSheet
+    StatusBar,
+    View
 } from "react-native";
 import {Icon} from 'native-base'
 
@@ -87,18 +88,27 @@ const TabStackNavigator = new TabNavigator({
 })
 
 class TabHandler extends Component {
+
+    static navigationOptions = ({ navigation }) => ({
+        title: 'FGApps',
+        headerTitleStyle : {
+            textAlign: 'center',
+            alignSelf:'center',
+            color: '#FFF',
+        },
+        headerStyle:{
+            backgroundColor:'#0EAC6F',
+        },
+    });
+
     render() {
         return (
-            <TabStackNavigator/>
+            <View style={{flex: 1}}>
+                <StatusBar hidden={true}/>
+                <TabStackNavigator/>
+            </View>
+            
         );
     }
 }
 export default TabHandler;
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
-    }
-});
