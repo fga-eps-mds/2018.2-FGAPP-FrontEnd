@@ -5,16 +5,18 @@ import {
     StyleSheet
 } from "react-native";
 
-class RolesApp extends Component {
+import HomeScreen from './screens/HomeScreen'
+import CadastroEventosScreen from './screens/CadastroEventosScreen'
+
+import {StackNavigator} from 'react-navigation'
+
+export default class RolesApp extends Component {
     render() {
         return (
-            <View style={styles.container}>
-                <Text>Rolês</Text>
-            </View>
+            <RolesStackNavigator />
         );
     }
 }
-export default RolesApp;
 
 const styles = StyleSheet.create({
     container: {
@@ -23,3 +25,19 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     }
 });
+
+const RolesStackNavigator = new StackNavigator({
+
+    HomeScreen:{
+        screen:HomeScreen,
+        navigationOptions: {
+            header: null
+        }
+    },
+    CadastroEventosScreen:{
+        screen:CadastroEventosScreen,
+        navigationOptions:{
+            header:null
+        }
+    }
+})
