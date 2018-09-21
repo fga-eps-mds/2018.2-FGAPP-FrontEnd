@@ -9,11 +9,14 @@ import {
 class Profile extends Component {
   constructor(props) {
       super(props);
+      this.state = {
+        url:'http://'+process.env.REACT_NATIVE_PACKAGER_HOSTNAME+':8000',      
+      }
   }
 
   _onPressButton = async () => {
       // Coloque seu ip aqui
-      fetch('http://192.168.1.18:8000/api/rest-auth/logout/', {
+      fetch(this.state.url+'/api/rest-auth/logout/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

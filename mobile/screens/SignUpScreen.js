@@ -19,6 +19,7 @@ export default class App extends Component {
   constructor(props) {
       super(props);
       this.state = {
+        url:'http://'+process.env.REACT_NATIVE_PACKAGER_HOSTNAME+':8000',
         email: '', password: '', cookie:'',
         email_field_is_bad: false, password_field_is_bad: false,
         email_field_alerts: [''], password_field_alerts: [''], non_field_alerts: []
@@ -27,7 +28,7 @@ export default class App extends Component {
 
   _onPressButton = async () => {
       // Coloque seu ip aqui
-      fetch('http://192.168.1.18:8000/api/rest-auth/registration/',{
+      fetch(this.state.url+'/api/rest-auth/registration/',{
         method: 'POST',
         credentials: 'include',
         headers: {

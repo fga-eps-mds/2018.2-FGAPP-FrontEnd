@@ -11,10 +11,11 @@ import {
 import Field from './components/Field';
 
 class LoginScreen extends Component {
-
+  url='http://'+process.env.REACT_NATIVE_PACKAGER_HOSTNAME+':8000';
   constructor(props) {
       super(props);
       this.state = {
+        url:'http://'+process.env.REACT_NATIVE_PACKAGER_HOSTNAME+':8000',
         email: '', password: '',
         email_field_is_bad: false, password_field_is_bad: false,
         email_field_alerts: [''], password_field_alerts: [''], non_field_alert: ['']
@@ -23,7 +24,7 @@ class LoginScreen extends Component {
 
   _onPressButton = async () => {
       // Coloque seu ip aqui
-      fetch('http://192.168.1.18:8000/api/rest-auth/login/', {
+      fetch(this.state.url+'/api/rest-auth/login/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
