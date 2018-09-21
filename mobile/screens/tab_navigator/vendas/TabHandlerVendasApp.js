@@ -27,7 +27,8 @@ const TabStackNavigator = new TabNavigator({
             tabBarLabel: 'Pedidos'
         }
     }
-}, {
+},
+{
     tabBarOptions: {
         showLabel: true,
         showIcon: false,
@@ -39,6 +40,9 @@ const TabStackNavigator = new TabNavigator({
         },
         tabStyle: {
             height: 40,
+        },
+        style:{
+            backgroundColor: '#0EAC6F',
         },
     },
 })

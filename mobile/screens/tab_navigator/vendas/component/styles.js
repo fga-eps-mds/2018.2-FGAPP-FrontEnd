@@ -13,6 +13,7 @@ export default {
   text: {
     color: "white",
     fontSize: 25,
+    fontFamily: 'notoserif',
     textShadowOffset: {
       width: 2,
       height: 2,
