@@ -41,3 +41,6 @@ const RolesStackNavigator = new StackNavigator({
         }
     }
 })
+
+//Cor limegreen principal do app
+// #32CD32
