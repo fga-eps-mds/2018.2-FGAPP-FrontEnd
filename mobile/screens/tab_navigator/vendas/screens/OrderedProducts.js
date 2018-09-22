@@ -1,3 +1,7 @@
+/*
+    Screen provided to present the products already ordered by a certain user.
+*/
+
 import React, { Component } from 'react';
 import { 
     View,
@@ -5,16 +9,16 @@ import {
     StyleSheet
 } from 'react-native';
 
-class FirstScreen extends Component {
+class OrderedProducts extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text>Indica ai</Text>
+                <Text>OrderedProducts</Text>
             </View>
         );
     }
 }
-export default FirstScreen;
+export default OrderedProducts;
 
 const styles = StyleSheet.create({
     container: {
