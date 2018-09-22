@@ -34,7 +34,9 @@ class Profile extends Component {
     console.log(JSON.stringify(responseJson.detail));
     if(responseJson.detail=="Successfully logged out."){
       console.log(JSON.stringify('Log OUT'));
+      this.props.navigation.state.params.token = null
       this.props.navigation.navigate('WelcomeScreen')
+
     }
   })
   .catch( err => {
