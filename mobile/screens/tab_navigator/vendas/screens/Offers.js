@@ -22,10 +22,9 @@ class MyProducts extends Component {
             }]
         };
     }
-    
     // fetching and sorting data from a mock API
     componentDidMount() {
-        fetch('http://5ba400d48da2f20014654cdf.mockapi.io/products', {
+        fetch(`${process.env.VENDAS_PRODUCTS}/products`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
