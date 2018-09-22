@@ -5,16 +5,16 @@ import {
     StyleSheet
 } from 'react-native';
 
-class FirstScreen extends Component {
+class Settings extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text>Indica ai</Text>
+                <Text>Settings</Text>
             </View>
         );
     }
 }
-export default FirstScreen;
+export default Settings;
 
 const styles = StyleSheet.create({
     container: {
