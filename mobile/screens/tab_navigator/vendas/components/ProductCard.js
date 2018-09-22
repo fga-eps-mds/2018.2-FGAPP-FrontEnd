@@ -4,7 +4,7 @@
 
 import React, { Component } from 'react';
 import { Image } from 'react-native';
-import { Icon, Card, CardItem, Text, Left, Right } from 'native-base';
+import { Card, CardItem, Text, Left, Right } from 'native-base';
 import styles from './styles';
 
 class ProductCard extends Component {
@@ -24,8 +24,7 @@ class ProductCard extends Component {
           </Left>
           <Right>
             <Text>
-              <Icon name="logo-usd" style={styles.price} />
-              <Text style={styles.text}>{this.props.productPrice}</Text>
+              <Text style={styles.text}>R$ {this.props.productPrice}</Text>
             </Text>
           </Right>
         </CardItem>

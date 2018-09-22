@@ -39,7 +39,7 @@ const TabStackNavigator = new TabNavigator({
             height: 40,
         },
         style: {
-            backgroundColor: '#0EAC6F',
+            backgroundColor: '#5A5A5A',
         },
     },
 });

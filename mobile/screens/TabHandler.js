@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {
-    StatusBar,
     View
 } from 'react-native';
 import { Icon } from 'native-base';
@@ -78,7 +77,7 @@ const TabStackNavigator = new TabNavigator({
         showIcon: true,
         showLabel: false,
         style: {
-            backgroundColor: '#171717'
+            backgroundColor: '#171717',
         },
         tabStyle: {
             height: 60,
@@ -95,6 +94,7 @@ class TabHandler extends Component {
             textAlign: 'center',
             alignSelf: 'center',
             color: '#FFF',
+            paddingTop: 10,
         },
         headerStyle: {
             backgroundColor: '#0EAC6F',
@@ -104,9 +104,8 @@ class TabHandler extends Component {
     render() {
         return (
             <View style={{ flex: 1 }}>
-                <StatusBar hidden />
                 <TabStackNavigator />
-            </View> 
+            </View>
         );
     }
 }
