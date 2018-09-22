@@ -5,6 +5,7 @@ import {
     StyleSheet,
     Button,
     Alert,
+    Image,
 } from "react-native";
 import {StackNavigator, createStackNavigator} from 'react-navigation'
 import jwt_decode from 'jwt-decode'
@@ -54,13 +55,26 @@ class Profile extends Component {
       var jwtDecode = require('jwt-decode');
       var user = jwt_decode(token);
         return (
-            <View style={styles.container}>
-            <Text>User Email: {user.email}</Text>
-            <Button
-                  onPress={this._onPressButton}
-                  title="Sair"
-            />
+          <View style={{flex: 1, flexDirection: 'column'}}>
+            <View style={{ height: '90%', flex: 1, flexDirection: 'row'}}>
+              <View>
+              <Image
+                style={{width: 100, height: 100}}
+                source={{uri: 'https://facebook.github.io/react-native/docs/assets/favicon.png'}}
+              />
+              </View>
+              <View>
+              <Text> {"<Nome de Usuário>"}</Text>
+              <Text>{user.email}</Text>
+              </View>
             </View>
+            <View style={{ height: '10%'}}>
+              <Button
+                    onPress={this._onPressButton}
+                    title="Sair"
+              />
+            </View>
+          </View>
         );
     }
 }
