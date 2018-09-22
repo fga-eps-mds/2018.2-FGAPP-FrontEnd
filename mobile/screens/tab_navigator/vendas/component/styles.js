@@ -6,12 +6,12 @@ export default {
   },
   imageItems: {
     flexGrow: 3,
-    resizeMode: "cover",
+    resizeMode: 'cover',
     width: null,
     height: 120,
   },
   text: {
-    color: "white",
+    color: 'white',
     fontSize: 25,
     fontFamily: 'notoserif',
     textShadowOffset: {
@@ -20,7 +20,7 @@ export default {
     },
     textShadowColor: '#5A5A5A',
     textShadowRadius: 5,
-    alignSelf: "center",
+    alignSelf: 'center',
     marginLeft: 0
   },
   items: {

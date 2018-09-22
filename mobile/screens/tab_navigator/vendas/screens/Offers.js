@@ -1,13 +1,12 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import {
     View,
     StyleSheet,
     ScrollView
-} from "react-native";
-import ProductCard from '../component/ProductCard'
+} from 'react-native';
+import ProductCard from '../component/ProductCard';
 
 class MyProducts extends Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -16,7 +15,7 @@ class MyProducts extends Component {
                 productPrice: '',
                 productImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3DELRuKTg7K4gi9v13ELUq3ltLxlNGOsw6BDfsF0jlVKFr4h3',
             }]
-        }
+        };
     }
     
     componentDidMount() {
@@ -31,26 +30,26 @@ class MyProducts extends Component {
             responseJson.sort((product1, product2) => {
                 return (product1.productPrice - product2.productPrice);
             });
-            this.setState({products: responseJson});
+            this.setState({ products: responseJson });
         })
         .catch((error) => {
             console.error(error);
         });
     }
 
-    render(){
-        return(
+    render() {
+        return (
         <View style={styles.container}>
             <ScrollView>
-                {this.state.products.map( (product, index) =>  {
+                {this.state.products.map((product, index) => {
                     return (
                         <ProductCard
-                            key = {index}
-                            productImage = {product.productImage}
-                            productName = {product.productName}
-                            productPrice = {product.productPrice}
+                            key={index}
+                            productImage={product.productImage}
+                            productName={product.productName}
+                            productPrice={product.productPrice}
                         />
-                    )
+                    );
                 })}
             </ScrollView>
         </View>

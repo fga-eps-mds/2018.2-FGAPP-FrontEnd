@@ -1,21 +1,17 @@
-import React, {Component} from "react";
-import {
-    StyleSheet
-} from "react-native";
-
-import {TabNavigator} from 'react-navigation'
-import MyProducts from './screens/MyProducts'
-import Offers from './screens/Offers'
-import OrderedProducts from './screens/OrderedProducts'
+import React, { Component } from 'react';
+import { TabNavigator } from 'react-navigation';
+import MyProducts from './screens/MyProducts';
+import Offers from './screens/Offers';
+import OrderedProducts from './screens/OrderedProducts';
 
 const TabStackNavigator = new TabNavigator({
     Offers: {
         screen: Offers,
         navigationOptions: {
-            tabBarLabel: 'Ofertas'
+            tabBarLabel: 'Ofertas',
         }
     },
-    MyProducts:{
+    MyProducts: {
         screen: MyProducts,
         navigationOptions: {
             tabBarLabel: 'Meus produtos',
@@ -24,7 +20,7 @@ const TabStackNavigator = new TabNavigator({
     OrderedProducts: {
         screen: OrderedProducts,
         navigationOptions: {
-            tabBarLabel: 'Pedidos'
+            tabBarLabel: 'Pedidos',
         }
     }
 },
@@ -35,22 +31,19 @@ const TabStackNavigator = new TabNavigator({
         labelStyle: {
             fontSize: 10,
         },
-        style: {
-            backgroundColor: '#5A5A5A',
-        },
         tabStyle: {
             height: 40,
         },
-        style:{
+        style: {
             backgroundColor: '#0EAC6F',
         },
     },
-})
+});
 
 class TabHandlerVendasApp extends Component {
     render() {
         return (
-            <TabStackNavigator/>
+            <TabStackNavigator />
         );
     }
 }

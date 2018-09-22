@@ -1,62 +1,62 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import {
     StatusBar,
     View
-} from "react-native";
-import {Icon} from 'native-base'
+} from 'react-native';
+import { Icon } from 'native-base';
 
-import {TabNavigator} from 'react-navigation'
-import TabHandlerVendasApp from './tab_navigator/vendas/TabHandlerVendasApp'
-import IndicaAiApp from './tab_navigator/indica_ai/IndicaAiApp'
-import RolesApp from './tab_navigator/roles/RolesApp'
-import CarDefenseApp from './tab_navigator/car_defense/CarDefenseApp'
-import Settings from './tab_navigator/settings/settings'
+import { TabNavigator } from 'react-navigation';
+import TabHandlerVendasApp from './tab_navigator/vendas/TabHandlerVendasApp';
+import IndicaAiApp from './tab_navigator/indica_ai/IndicaAiApp';
+import RolesApp from './tab_navigator/roles/RolesApp';
+import CarDefenseApp from './tab_navigator/car_defense/CarDefenseApp';
+import Settings from './tab_navigator/settings/settings';
 
 const TabStackNavigator = new TabNavigator({
-    Roles:{
-        screen:RolesApp,
-        navigationOptions:{
-            tabBarLabel:'Eventos',
-            tabBarIcon: ({focused}) => (
+    Roles: {
+        screen: RolesApp,
+        navigationOptions: {
+            tabBarLabel: 'Eventos',
+            tabBarIcon: ({ focused }) => (
                 <Icon 
                     name="md-star"
-                    style= {{color: focused? '#1CBD24' : '#5A5A5A'}}
+                    style={{ color: focused ? '#1CBD24' : '#5A5A5A' }}
                 />
             )
         }
     },
-    Vendas:{
-        screen:TabHandlerVendasApp,
-        navigationOptions:{
-            tabBarLabel:'Vendas',
-            tabBarIcon: ({focused}) => (
+    Vendas: {
+        screen: TabHandlerVendasApp,
+        navigationOptions: {
+            tabBarLabel: 'Vendas',
+            tabBarIcon: ({ focused }) => (
                 <Icon 
                     name="md-cart"
-                    style= {{color: focused? '#0EAC6F' : '#5A5A5A'}}
+                    style={{ color: focused ? '#0EAC6F' : '#5A5A5A' }}
                 />
             )
         }
     },
-    IndicaAi:{
-        screen:IndicaAiApp,
-        navigationOptions:{
-            tabBarLabel:'IndicaAi',
-            tabBarIcon: ({focused}) => (
+    IndicaAi: {
+        screen: IndicaAiApp,
+        navigationOptions: {
+            tabBarLabel: 'IndicaAi',
+            tabBarIcon: ({ focused }) => (
                 <Icon 
                     name="md-locate"
-                    style= {{color: focused? '#0AACCC' : '#5A5A5A'}}
+                    style={{ color: focused ? '#0AACCC' : '#5A5A5A' }}
                 />
             )
         }
     },
-    CarDefense:{
-        screen:CarDefenseApp,
-        navigationOptions:{
-            tabBarLabel:'CarDefense',
-            tabBarIcon: ({focused}) => (
+    CarDefense: {
+        screen: CarDefenseApp,
+        navigationOptions: {
+            tabBarLabel: 'CarDefense',
+            tabBarIcon: ({ focused }) => (
                 <Icon
                     name="md-car"
-                    style= {{color: focused? '#5C68C3' : '#5A5A5A'}}
+                    style={{ color: focused ? '#5C68C3' : '#5A5A5A' }}
                 />
             )
         }
@@ -64,16 +64,16 @@ const TabStackNavigator = new TabNavigator({
     Settings: {
         screen: Settings,
         navigationOptions: {
-            tabBarLabel:'Configurações',
-            tabBarIcon: ({focused}) => (
+            tabBarLabel: 'Configurações',
+            tabBarIcon: ({ focused }) => (
                 <Icon 
                     name="md-settings"
-                    style= {{color: focused? '#BD1C5F' : '#5A5A5A'}}
+                    style={{ color: focused ? '#BD1C5F' : '#5A5A5A' }}
                 />
             )
         }
     }
-},{
+}, {
     tabBarOptions: {
         showIcon: true,
         showLabel: false,
@@ -85,29 +85,28 @@ const TabStackNavigator = new TabNavigator({
         },
     },
     animationEnabled: true,
-})
+});
 
 class TabHandler extends Component {
 
-    static navigationOptions = ({ navigation }) => ({
+    static navigationOptions = () => ({
         title: 'FGApps',
-        headerTitleStyle : {
+        headerTitleStyle: {
             textAlign: 'center',
-            alignSelf:'center',
+            alignSelf: 'center',
             color: '#FFF',
         },
-        headerStyle:{
-            backgroundColor:'#0EAC6F',
+        headerStyle: {
+            backgroundColor: '#0EAC6F',
         },
     });
 
     render() {
         return (
-            <View style={{flex: 1}}>
-                <StatusBar hidden={true}/>
-                <TabStackNavigator/>
-            </View>
-            
+            <View style={{ flex: 1 }}>
+                <StatusBar hidden />
+                <TabStackNavigator />
+            </View> 
         );
     }
 }
