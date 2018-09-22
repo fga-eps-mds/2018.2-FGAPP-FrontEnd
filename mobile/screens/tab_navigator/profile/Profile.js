@@ -6,8 +6,11 @@ import {
     Button,
     Alert,
 } from "react-native";
+import {StackNavigator, createStackNavigator} from 'react-navigation'
+import jwt_decode from 'jwt-decode'
 
 class Profile extends Component {
+
   constructor(props) {
       super(props);
       this.state = {
@@ -44,9 +47,15 @@ class Profile extends Component {
     }
   });
 }
+
     render() {
+      const {state} = this.props.navigation;
+      var token = state.params ? state.params.token : "<undefined>";
+      var jwtDecode = require('jwt-decode');
+      var user = jwt_decode(token);
         return (
             <View style={styles.container}>
+            <Text>User Email: {user.email}</Text>
             <Button
                   onPress={this._onPressButton}
                   title="Sair"

@@ -13,6 +13,7 @@ import CarDefenseApp from './tab_navigator/car_defense/CarDefenseApp'
 import Profile from './tab_navigator/profile/Profile'
 
 const TabStackNavigator = new TabNavigator({
+
     CarDefense:{
         screen:CarDefenseApp,
         navigationOptions:{
