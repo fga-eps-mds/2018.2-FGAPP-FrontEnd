@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { 
+import {
     View,
     Text,
     StyleSheet
@@ -10,8 +10,10 @@ import VendasApp from './tab_navigator/vendas/VendasApp'
 import IndicaAiApp from './tab_navigator/indica_ai/IndicaAiApp'
 import RolesApp from './tab_navigator/roles/RolesApp'
 import CarDefenseApp from './tab_navigator/car_defense/CarDefenseApp'
+import Profile from './tab_navigator/profile/Profile'
 
 const TabStackNavigator = new TabNavigator({
+
     CarDefense:{
         screen:CarDefenseApp,
         navigationOptions:{
@@ -43,17 +45,25 @@ const TabStackNavigator = new TabNavigator({
             tabBarIcon: () => {
             }
         }
+    },
+    Profile:{
+        screen:Profile,
+        navigationOptions:{
+            tabBarLabel:'Meu perfil',
+            tabBarIcon: () => {
+            }
+        }
     }
 })
 
-class TabHandler extends Component {
-    render() {
-        return (
-            <TabStackNavigator/>
-        );
-    }
-}
-export default TabHandler;
+//class TabHandler extends Component {
+//    render() {
+//        return (
+//            <TabStackNavigator/>
+//        );
+//    }
+//}
+export default TabStackNavigator;
 
 const styles = StyleSheet.create({
     container: {
