@@ -77,9 +77,16 @@ export default class App extends Component {
       }
    })
 
-    .catch((error) => {
-      console.error(error);
-    });
+   .catch( err => {
+     if (typeof err.text === 'function') {
+       err.text().then(errorMessage => {
+         this.props.dispatch(displayTheError(errorMessage))
+       });
+     } else {
+       Alert.alert("Erro na conexão.");
+       console.log(err)
+     }
+   });
   }
 
   render(){

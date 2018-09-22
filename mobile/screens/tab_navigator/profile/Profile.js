@@ -4,6 +4,7 @@ import {
     Text,
     StyleSheet,
     Button,
+    Alert,
 } from "react-native";
 
 class Profile extends Component {
@@ -31,7 +32,18 @@ class Profile extends Component {
       console.log(JSON.stringify('Log OUT'));
       this.props.navigation.navigate('WelcomeScreen')
     }
-  })}
+  })
+  .catch( err => {
+    if (typeof err.text === 'function') {
+      err.text().then(errorMessage => {
+        this.props.dispatch(displayTheError(errorMessage))
+      });
+    } else {
+      Alert.alert("Erro na conexão.");
+      console.log(err)
+    }
+  });
+}
     render() {
         return (
             <View style={styles.container}>
