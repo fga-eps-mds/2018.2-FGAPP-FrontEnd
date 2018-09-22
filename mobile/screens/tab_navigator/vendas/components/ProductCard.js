@@ -1,3 +1,7 @@
+/*
+  Component that renders a product (food, speacially) with name, price and image.
+*/
+
 import React, { Component } from 'react';
 import { Image } from 'react-native';
 import { Icon, Card, CardItem, Text, Left, Right } from 'native-base';

@@ -1,12 +1,17 @@
+/*
+    Screen responsible to get and show all data about offers.
+*/
+
 import React, { Component } from 'react';
 import {
     View,
     StyleSheet,
     ScrollView
 } from 'react-native';
-import ProductCard from '../component/ProductCard';
+import ProductCard from '../components/ProductCard';
 
 class MyProducts extends Component {
+    // productImage initialize with an image cause of asynchronous request
     constructor(props) {
         super(props);
         this.state = {
@@ -18,6 +23,7 @@ class MyProducts extends Component {
         };
     }
     
+    // fetching and sorting data from a mock API
     componentDidMount() {
         fetch('http://5ba400d48da2f20014654cdf.mockapi.io/products', {
             method: 'GET',

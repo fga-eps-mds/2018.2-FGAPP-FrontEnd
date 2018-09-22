@@ -1,3 +1,7 @@
+/*
+    Screen responsable to show the products of a certain owner.
+*/
+
 import React, { Component } from 'react';
 import { 
     View,

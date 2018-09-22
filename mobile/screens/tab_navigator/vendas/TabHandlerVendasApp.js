@@ -1,3 +1,7 @@
+/*
+    Tab navigator between offers, seller products and ordered products.
+*/
+
 import React, { Component } from 'react';
 import { TabNavigator } from 'react-navigation';
 import MyProducts from './screens/MyProducts';

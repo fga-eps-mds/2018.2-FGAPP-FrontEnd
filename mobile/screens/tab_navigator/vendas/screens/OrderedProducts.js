@@ -1,3 +1,7 @@
+/*
+    Screen provided to present the products already ordered by a certain user.
+*/
+
 import React, { Component } from 'react';
 import { 
     View,
