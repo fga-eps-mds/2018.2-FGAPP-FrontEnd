@@ -5,56 +5,98 @@ import {
     StyleSheet,
     TextInput,
     TouchableOpacity,
+    DatePickerAndroid,
+    TouchableWithoutFeedback
 } from "react-native";
 
+
 export default class CadastroEventosScreen extends Component {
+
+    cadastrarEvento() {
+        
+    }
+
     render() {
         return(
-            <View style={styles.container}>
-                <Text>
-                    Cadastrar Eventos
-                </Text>
-                <TextInput
-                    style={styles.input}
-                    placeholder="Digite o nome do evento"
-                    underlineColorAndroid='transparent'
-                />
-                <TextInput
-                    style={styles.input}
-                    placeholder="Digite o nome do organizador do evento"
-                    underlineColorAndroid='transparent'
+            <View style={styles.mainContainer}>
 
-                />
-                <TextInput
-                    style={styles.input}
-                    placeholder="Digite o valor"
-                    underlineColorAndroid='transparent'
-                    keyboardType='numeric'
-                />
-                <TextInput
-                    style={styles.input}
-                    placeholder="Digite o local"
-                    underlineColorAndroid='transparent'
-                />
-                <TouchableOpacity 
-                    style={styles.button} >
-                    <Text style={styles.buttonText}>
-                        Cadastrar
+                <View style={styles.titleContainer}>
+                    <Text>
+                        Cadastrar Evento
                     </Text>
+                </View>
+                <View style={styles.textInputContainer}>
+                    
+                    <TextInput
+                        style={styles.textInputStyle}
+                        placeholder="Título"
+                        underlineColorAndroid='transparent'
+                        placeholderTextColor='black'
+                    />
                 
-                </TouchableOpacity>
+                    <TextInput
+                        style={styles.textInputStyle}
+                        placeholder="Descrição"
+                        underlineColorAndroid='transparent'
+                        placeholderTextColor='black'
+                    />
+                
+                    <TextInput
+                        style={styles.textInputStyle}
+                        placeholder="Preço"
+                        underlineColorAndroid='transparent'
+                        keyboardType='numeric'
+                        placeholderTextColor='black'
+                    />
+                
+                    <TextInput
+                        style={styles.textInputStyle}
+                        placeholder="Data"
+                        underlineColorAndroid='transparent'
+                        keyboardType='numeric'
+                        placeholderTextColor='black'
+                    />
+                </View>
 
+                <View style={styles.submitButton}>
+                    <TouchableOpacity 
+                        style={styles.button}>
+                        <Text style={styles.buttonText}>
+                            Cadastrar
+                        </Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         )
     }
 }
 
 const styles = StyleSheet.create({
-    container: {
+    mainContainer: {
         flex: 1,
-        alignItems: 'center',
+        padding: 10,
+    },
+    titleContainer: {
+        flex: 1,
         justifyContent: 'center',
-        padding: 5
+        alignItems: 'center'
+    },
+    textInputContainer: {
+        flex: 2,
+    },
+    submitButton: {
+        flex: 2,
+    },
+    titleText: {
+        fontSize: 20,
+    },
+    textInputStyle: {
+        fontSize: 20,
+        height: 45,
+        borderRadius: 30,
+        backgroundColor: '#adebad',
+        marginBottom: 10,
+        color: 'black'
     },
     input: {
         height: 45,
@@ -76,5 +118,6 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         color: 'white',
+        fontSize: 20,
     },
 });
