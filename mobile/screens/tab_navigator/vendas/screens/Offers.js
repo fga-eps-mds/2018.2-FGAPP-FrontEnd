@@ -24,7 +24,9 @@ class MyProducts extends Component {
     }
     // fetching and sorting data from a mock API
     componentDidMount() {
-        fetch(`${process.env.VENDAS_PRODUCTS}/products`, {
+        var products_path = `${process.env.VENDAS_PRODUCTS}/products`;
+        
+        fetch(products_path, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
