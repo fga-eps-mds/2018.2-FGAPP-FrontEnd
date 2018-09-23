@@ -6,14 +6,39 @@ import {
     TextInput,
     TouchableOpacity,
     DatePickerAndroid,
-    TouchableWithoutFeedback
+    TouchableWithoutFeedback,
+    Alert
 } from "react-native";
 
 
 export default class CadastroEventosScreen extends Component {
 
-    cadastrarEvento() {
-        
+    constructor(props) {
+        super(props);
+    }
+
+    state = {
+        titulo:'',
+        descricao:'',
+        preco:0,
+        data:''
+    }
+
+    handleTitulo() {
+        try {
+            (titulo) => this.setState({titulo})
+        } catch (error) {
+            alert(error);
+        }
+    }
+    handleDescricao() {
+        (descricao) => this.setState({descricao})
+    }
+    handlePreco() {
+        (preco) => this.setState({preco})
+    }
+    handleData() {
+        (data) => this.setState({data})
     }
 
     render() {
@@ -32,6 +57,7 @@ export default class CadastroEventosScreen extends Component {
                         placeholder="Título"
                         underlineColorAndroid='transparent'
                         placeholderTextColor='black'
+                        onChangeText={() => this.handleTitulo()}
                     />
                 
                     <TextInput
@@ -39,6 +65,7 @@ export default class CadastroEventosScreen extends Component {
                         placeholder="Descrição"
                         underlineColorAndroid='transparent'
                         placeholderTextColor='black'
+                        onChangeText={() => this.handleDescricao()}
                     />
                 
                     <TextInput
@@ -47,6 +74,7 @@ export default class CadastroEventosScreen extends Component {
                         underlineColorAndroid='transparent'
                         keyboardType='numeric'
                         placeholderTextColor='black'
+                        onChangeText={() => this.handlePreco()}
                     />
                 
                     <TextInput
@@ -55,12 +83,14 @@ export default class CadastroEventosScreen extends Component {
                         underlineColorAndroid='transparent'
                         keyboardType='numeric'
                         placeholderTextColor='black'
+                        onChangeText={() => this.handleData()}
                     />
                 </View>
 
                 <View style={styles.submitButton}>
                     <TouchableOpacity 
-                        style={styles.button}>
+                        style={styles.button}
+                        onPress={() => {}}>
                         <Text style={styles.buttonText}>
                             Cadastrar
                         </Text>
