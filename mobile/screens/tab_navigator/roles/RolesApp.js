@@ -5,11 +5,6 @@ import {
     StyleSheet
 } from "react-native";
 
-//Redux imports
-import {Provider} from 'react-redux'
-import {createStore} from 'redux';
-import reducers from './reducers'
-
 import HomeScreen from './screens/HomeScreen'
 import CadastroEventosScreen from './screens/CadastroEventosScreen'
 

@@ -5,9 +5,6 @@ import {
     StyleSheet,
     TextInput,
     TouchableOpacity,
-    DatePickerAndroid,
-    TouchableWithoutFeedback,
-    Alert
 } from "react-native";
 
 
