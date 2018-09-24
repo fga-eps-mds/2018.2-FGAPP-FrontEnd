@@ -15,7 +15,6 @@ class LoginScreen extends Component {
   constructor(props) {
       super(props);
       this.state = {
-        url:'http://'+process.env.REACT_NATIVE_PACKAGER_HOSTNAME+':8000',
         email: '', password: '',
         email_field_is_bad: false, password_field_is_bad: false,
         email_field_alerts: [''], password_field_alerts: [''], non_field_alert: ['']
@@ -24,7 +23,8 @@ class LoginScreen extends Component {
 
   _onPressButton = async () => {
       // Coloque seu ip aqui
-      fetch(this.state.url+'/api/rest-auth/login/', {
+      var login_path = `http://${process.env.REACT_NATIVE_PACKAGER_HOSTNAME}:8000/api/rest-auth/login/`;
+      fetch(login_path, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -67,7 +67,7 @@ class LoginScreen extends Component {
     //Sucesso
    if (responseJson.token != undefined||
          responseJson.key != undefined){
-     this.props.navigation.navigate('Profile', {token:responseJson.token})
+     this.props.navigation.navigate('Settings', {token:responseJson.token})
       }
    })
    .catch( err => {
