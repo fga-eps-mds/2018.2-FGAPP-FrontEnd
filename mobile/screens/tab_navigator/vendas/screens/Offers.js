@@ -24,8 +24,8 @@ class MyProducts extends Component {
     }
     // fetching and sorting data from a mock API
     componentDidMount() {
-        var products_path = `${process.env.VENDAS_PRODUCTS}/products`;
-        
+        let products_path = 'http://5ba400d48da2f20014654cdf.mockapi.io/products'
+
         fetch(products_path, {
             method: 'GET',
             headers: {

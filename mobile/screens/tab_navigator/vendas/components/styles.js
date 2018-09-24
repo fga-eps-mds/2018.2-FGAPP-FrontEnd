@@ -1,28 +1,22 @@
 export default {
-  main: {
-    flex: 1,
-    flexDirection: 'column',
-    margin: 0,
-    padding: 0,
+  item: {
+    backgroundColor: 'transparent',
+    paddingTop: 160,
+  },
+  image: {
+    height: 210,
     width: '100%',
-    borderColor: '#171717',
   },
-  items: {
-    backgroundColor: '#171717',
-    flexGrow: 1,
-    paddingVertical: 0,
-    paddingBottom: 0,
-    paddingLeft: 20,
-    paddingRight: 20,
-    borderRadius: 0,
-  },
-  imageItems: {
-    flexGrow: 3,
-    resizeMode: 'cover',
-    width: null,
-    height: 150,
+  gradient: {
+    backgroundColor: 'transparent',
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
   },
   text: {
+    fontWeight: 'normal',
     color: 'white',
     fontSize: 25,
     textShadowOffset: {
@@ -32,6 +26,7 @@ export default {
     textShadowColor: '#5A5A5A',
     textShadowRadius: 5,
     alignSelf: 'center',
-    marginLeft: 0
+    marginLeft: 0,
+    backgroundColor: 'transparent',
   },
 };
