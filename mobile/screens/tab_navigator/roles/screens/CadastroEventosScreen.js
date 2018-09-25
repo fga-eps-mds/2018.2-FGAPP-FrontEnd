@@ -24,7 +24,19 @@ export default class CadastroEventosScreen extends Component {
 
     cadastrarRole() {
         var roles = firebase.database().ref("Roles");
-        roles.push().child("titulo").set(this.state.titulo);
+        //roles.push().child("titulo").set(this.state.titulo);
+        roles.push().set(
+            {
+                titulo: this.state.titulo,
+                descricao: this.state.descricao,
+                organizador: '',
+                preco: '',
+                quantidadeVagas: '',
+                local: '',
+                comidas: '',
+                data: '',
+            }
+        );
         //roles.ref('/roles/').set(this.state.titulo);
 
         //database.ref('/roles/').remove();
