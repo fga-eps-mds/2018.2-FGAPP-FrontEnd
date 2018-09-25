@@ -15,8 +15,8 @@ export default class CadastroEventosScreen extends Component {
         titulo: '',
         descricao: '',
         organizador: '',
-        preco: '',
-        quantidadeVagas: '',
+        preco: 0,
+        quantidadeVagas: 0,
         local: '',
         comidas: '',
         data: '',
@@ -31,10 +31,10 @@ export default class CadastroEventosScreen extends Component {
                 descricao: this.state.descricao,
                 organizador: this.state.organizador,
                 preco: this.state.preco,
-                quantidadeVagas: '',
-                local: '',
-                comidas: '',
-                data: '',
+                quantidadeVagas: this.state.quantidadeVagas,
+                local: this.state.local,
+                comidas: this.state.comidas,
+                data: this.state.data,
             }
         );
         //roles.ref('/roles/').set(this.state.titulo);
