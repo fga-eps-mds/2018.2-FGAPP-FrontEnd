@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import SearchBar from "./containers/searchBar";
 import { Provider } from "react-redux";
+import store from './store';
 
 
 class FirstScreen extends Component {
@@ -23,7 +24,7 @@ class FirstScreen extends Component {
               alignSelf: 'center'
             }}
           />
-          <Provider>
+          <Provider store={store}>
             <SearchBar />
           </Provider>
       </View>
