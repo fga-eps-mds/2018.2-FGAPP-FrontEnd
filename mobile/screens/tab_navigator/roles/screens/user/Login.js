@@ -15,6 +15,9 @@ export default class Login extends Component {
         isAuthenticated: false,
     }
 
+    componentWillMount() {
+        this.isLoged();
+    }
 
     login = async () => {
         const {email , password} = this.state;
@@ -22,18 +25,31 @@ export default class Login extends Component {
         try {
             const user = await firebase.auth();
             user.signInWithEmailAndPassword(email, password);
-
-            this.setState({ isAuthenticated: true });
-            alert(user);
-            this.props.navigation.navigate('HomeScreen');
         } catch (error) {
             alert(error);
         }
-
     }
 
     register() {
         this.props.navigation.navigate('Register')
+    }
+
+    isLoged() {
+        const user = firebase.auth();
+        user.onAuthStateChanged(
+            (actualUser) => {
+                if(actualUser) {
+                    this.props.navigation.navigate('HomeScreen')
+                } else {
+                    alert("usuario não esta logado")
+                }
+            }
+        );
+    }
+
+    logOff() {
+        const user = firebase.auth();
+        user.signOut;
     }
 
     render() {
@@ -79,9 +95,14 @@ export default class Login extends Component {
                     </Text>
                 </TouchableOpacity>
 
-                {this.state.isAuthenticated ? <Text>
-                    Logado com sucesso!
-                </Text> : null }
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => this.logOff()}
+                >
+                    <Text>
+                        Deslogar
+                    </Text>
+                </TouchableOpacity>
             </View>
         )
     }

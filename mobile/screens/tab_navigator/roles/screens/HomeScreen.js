@@ -8,6 +8,9 @@ import {
     Alert
 } from "react-native";
 import cadastroEventosScreen from './CadastroEventosScreen';
+import Login from './user/Login'
+import * as firebase from 'firebase'
+
 
 export default class HomeScreen extends Component {
 
@@ -17,7 +20,16 @@ export default class HomeScreen extends Component {
         } catch (error) {
             alert(error);
         }
-        
+    }
+
+    logOff() {
+        try {
+            const user = firebase.auth();
+            user.signOut();
+            this.props.navigation.navigate('Login');
+        } catch (error) {
+            alert(error);    
+        }
     }
 
     render() {
@@ -31,6 +43,13 @@ export default class HomeScreen extends Component {
                     onPress={() => this.cadastrarEvento()}>
                     <Text style={styles.buttonText}>
                         Cadastrar evento
+                    </Text>
+                </TouchableOpacity>
+                <TouchableOpacity 
+                    style={styles.button}
+                    onPress={() => this.logOff()}>
+                    <Text style={styles.buttonText}>
+                        Deslogar
                     </Text>
                 </TouchableOpacity>
             </View>
@@ -57,5 +76,15 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         color: 'white'
-    }
+    },
+    button: {
+        height:45,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom:20,
+        width:350,
+        borderRadius:30,
+        backgroundColor: "limegreen",
+    },
 });

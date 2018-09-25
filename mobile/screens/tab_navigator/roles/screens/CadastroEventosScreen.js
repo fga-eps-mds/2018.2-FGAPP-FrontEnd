@@ -14,28 +14,8 @@ export default class CadastroEventosScreen extends Component {
         super(props);
     }
 
-    state = {
-        titulo:'',
-        descricao:'',
-        preco:0,
-        data:''
-    }
+    cadastrarRole() {
 
-    handleTitulo() {
-        try {
-            (titulo) => this.setState({titulo})
-        } catch (error) {
-            alert(error);
-        }
-    }
-    handleDescricao() {
-        (descricao) => this.setState({descricao})
-    }
-    handlePreco() {
-        (preco) => this.setState({preco})
-    }
-    handleData() {
-        (data) => this.setState({data})
     }
 
     render() {
@@ -54,7 +34,7 @@ export default class CadastroEventosScreen extends Component {
                         placeholder="Título"
                         underlineColorAndroid='transparent'
                         placeholderTextColor='black'
-                        onChangeText={() => this.handleTitulo()}
+                        onChangeText={() => {}}
                     />
                 
                     <TextInput
@@ -62,7 +42,7 @@ export default class CadastroEventosScreen extends Component {
                         placeholder="Descrição"
                         underlineColorAndroid='transparent'
                         placeholderTextColor='black'
-                        onChangeText={() => this.handleDescricao()}
+                        onChangeText={() => {}}
                     />
                 
                     <TextInput
@@ -71,7 +51,7 @@ export default class CadastroEventosScreen extends Component {
                         underlineColorAndroid='transparent'
                         keyboardType='numeric'
                         placeholderTextColor='black'
-                        onChangeText={() => this.handlePreco()}
+                        onChangeText={() => {}}
                     />
                 
                     <TextInput
@@ -80,7 +60,7 @@ export default class CadastroEventosScreen extends Component {
                         underlineColorAndroid='transparent'
                         keyboardType='numeric'
                         placeholderTextColor='black'
-                        onChangeText={() => this.handleData()}
+                        onChangeText={() => {}}
                     />
                 </View>
 
@@ -89,7 +69,7 @@ export default class CadastroEventosScreen extends Component {
                         style={styles.button}
                         onPress={() => {}}>
                         <Text style={styles.buttonText}>
-                            Cadastrar
+                            Cadastrar Rolê
                         </Text>
                     </TouchableOpacity>
                 </View>

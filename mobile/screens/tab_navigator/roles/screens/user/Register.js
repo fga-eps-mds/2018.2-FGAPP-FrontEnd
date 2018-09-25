@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {View, Text, TextInput, StyleSheet, TouchableOpacity} from 'react-native'
 import * as firebase from 'firebase'
+import HomeScreen from '../HomeScreen'
 
 export default class Login extends Component {
     state = {
@@ -14,23 +15,11 @@ export default class Login extends Component {
         try {
             const user = await firebase.auth();
             user.createUserWithEmailAndPassword(email, password);
+            user.signOut();
             alert(user);
         } catch (error) {
             alert(error);
         }
-    }
-
-    isLoged() {
-        const user = firebase.auth();
-        user.onAuthStateChanged(
-            (actualUser) => {
-                if(actualUser) {
-                    alert("usuario está logado")
-                } else {
-                    alert("usuario não esta logado")
-                }
-            }
-        );
     }
 
     render() {
@@ -56,7 +45,7 @@ export default class Login extends Component {
 
                 <TouchableOpacity 
                     style={styles.button}
-                    onPress={() => this.register()}>
+                    onPress={() => this.logOff()}>
                     <Text style={styles.buttonText}>
                         Cadastrar
                     </Text>
