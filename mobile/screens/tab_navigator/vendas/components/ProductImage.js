@@ -8,7 +8,7 @@ import { Card, CardItem, Text, Left, Right } from 'native-base';
 import styles from './styles';
 import { LinearGradient } from 'expo';
 
-class ProductCard extends Component {
+class ProductImage extends Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
@@ -21,20 +21,10 @@ class ProductCard extends Component {
             locations={[0.2, 0.85]}
             style={styles.gradient}
           />
-          <CardItem style={styles.item}>
-            <Left>
-              <Text style={styles.text}>{this.props.productName}</Text>
-            </Left>
-            <Right>
-              <Text>
-                <Text style={styles.text}>R$ {this.props.productPrice}</Text>
-              </Text>
-            </Right>
-          </CardItem>
         </ImageBackground>
       </View>
     );
   }
 }
 
-export default ProductCard;
+export default ProductImage;

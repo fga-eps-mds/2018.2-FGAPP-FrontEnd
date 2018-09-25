@@ -16,6 +16,7 @@ class MyProducts extends Component {
         super(props);
         this.state = {
             products: [{
+                id: '',
                 name: '',
                 price: '',
                 photo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3DELRuKTg7K4gi9v13ELUq3ltLxlNGOsw6BDfsF0jlVKFr4h3',
@@ -24,9 +25,9 @@ class MyProducts extends Component {
     }
     // fetching and sorting data from a mock API
     componentDidMount() {
-        var products_path = `${process.env.VENDAS_PRODUCTS}/products/`;
+        var products_path = `${process.env.VENDAS_PRODUCTS}/products`;
 
-        fetch(products_path , {
+        fetch(products_path, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -34,12 +35,10 @@ class MyProducts extends Component {
         })
         .then((response) => response.json())
         .then((responseJson) => {
-
             responseJson.sort((product1, product2) => {
-                return (product1.price - product2.price);
+                return (product1.productPrice - product2.productPrice);
             });
             this.setState({ products: responseJson });
-            
         })
         .catch((error) => {
             console.error(error);
@@ -54,9 +53,9 @@ class MyProducts extends Component {
                     return (
                         <ProductCard
                             key={index}
-                            productImage = {product.photo}
-                            productName = {product.name}
-                            productPrice = {product.price}
+                            productImage={product.photo}
+                            productName={product.name}
+                            productPrice={product.price}
                         />
                     );
                 })}
