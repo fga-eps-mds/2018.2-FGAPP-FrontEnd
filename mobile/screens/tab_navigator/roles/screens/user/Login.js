@@ -12,7 +12,6 @@ export default class Login extends Component {
     state = {
         email: '',
         password: '',
-        isAuthenticated: false,
     }
 
     componentWillMount() {
