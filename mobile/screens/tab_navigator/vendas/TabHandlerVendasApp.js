@@ -3,10 +3,20 @@
 */
 
 import React, { Component } from 'react';
-import { TabNavigator } from 'react-navigation';
+import { TabNavigator, StackNavigator } from 'react-navigation';
 import MyProducts from './screens/MyProducts';
 import Offers from './screens/Offers';
 import OrderedProducts from './screens/OrderedProducts';
+import CreateProduct from './screens/CreateProduct';
+
+const MyProductStackNavigator = new StackNavigator({
+    MyProducts:{
+      screen: MyProducts
+    },
+    CreateProduct:{
+      screen: CreateProduct
+    }
+});
 
 const TabStackNavigator = new TabNavigator({
     Offers: {
@@ -15,11 +25,11 @@ const TabStackNavigator = new TabNavigator({
             tabBarLabel: 'Ofertas',
         }
     },
-    MyProducts: {
-        screen: MyProducts,
-        navigationOptions: {
-            tabBarLabel: 'Meus produtos',
-        }
+    MyProductStackNavigator: {
+      screen: MyProductStackNavigator,
+      navigationOptions: {
+          tabBarLabel: 'My Products',
+      }
     },
     OrderedProducts: {
         screen: OrderedProducts,

@@ -14,7 +14,7 @@ class Offers extends Component {
     render() {
         return (
             <View style={styles.container}>
-              <Fab style={{backgroundColor: '#0EAC6F'}}>
+              <Fab onPress={() => {this.props.navigation.navigate('CreateProduct');} } style={{ backgroundColor: '#0EAC6F' }}>
                 <Icon name='md-add' />
               </Fab>
             </View>
