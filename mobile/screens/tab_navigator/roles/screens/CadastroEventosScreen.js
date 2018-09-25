@@ -6,36 +6,25 @@ import {
     TextInput,
     TouchableOpacity,
 } from "react-native";
+import * as firebase from 'firebase'
 
 
 export default class CadastroEventosScreen extends Component {
 
-    constructor(props) {
-        super(props);
-    }
-
     state = {
-        titulo:'',
-        descricao:'',
-        preco:0,
-        data:''
+        titulo: '',
+        descricao: '',
+        organizador: '',
+        preco: '',
+        quantidadeVagas: '',
+        local: '',
+        comidas: '',
+        data: '',
     }
 
-    handleTitulo() {
-        try {
-            (titulo) => this.setState({titulo})
-        } catch (error) {
-            alert(error);
-        }
-    }
-    handleDescricao() {
-        (descricao) => this.setState({descricao})
-    }
-    handlePreco() {
-        (preco) => this.setState({preco})
-    }
-    handleData() {
-        (data) => this.setState({data})
+    cadastrarRole() {
+        var database = firebase.database();
+        database.ref('/roles/').set(this.state.titulo);
     }
 
     render() {
@@ -54,7 +43,8 @@ export default class CadastroEventosScreen extends Component {
                         placeholder="Título"
                         underlineColorAndroid='transparent'
                         placeholderTextColor='black'
-                        onChangeText={() => this.handleTitulo()}
+                        value={this.state.titulo}
+                        onChangeText={titulo => this.setState({titulo})}
                     />
                 
                     <TextInput
@@ -62,7 +52,15 @@ export default class CadastroEventosScreen extends Component {
                         placeholder="Descrição"
                         underlineColorAndroid='transparent'
                         placeholderTextColor='black'
-                        onChangeText={() => this.handleDescricao()}
+                        onChangeText={descricao => {this.setState({descricao})}}
+                    />
+
+                    <TextInput
+                        style={styles.textInputStyle}
+                        placeholder="Organizador"
+                        underlineColorAndroid='transparent'
+                        placeholderTextColor='black'
+                        onChangeText={organizador => {this.setState({organizador})}}
                     />
                 
                     <TextInput
@@ -71,7 +69,32 @@ export default class CadastroEventosScreen extends Component {
                         underlineColorAndroid='transparent'
                         keyboardType='numeric'
                         placeholderTextColor='black'
-                        onChangeText={() => this.handlePreco()}
+                        onChangeText={preco => {this.setState({preco})}}
+                    />
+
+                    <TextInput
+                        style={styles.textInputStyle}
+                        placeholder="Quantidade de vagas"
+                        underlineColorAndroid='transparent'
+                        keyboardType='numeric'
+                        placeholderTextColor='black'
+                        onChangeText={quantidadeVagas => {this.setState({quantidadeVagas})}}
+                    />
+
+                    <TextInput
+                        style={styles.textInputStyle}
+                        placeholder="Local"
+                        underlineColorAndroid='transparent'
+                        placeholderTextColor='black'
+                        onChangeText={local => {this.setState({local})}}
+                    />
+
+                    <TextInput
+                        style={styles.textInputStyle}
+                        placeholder="Comidas"
+                        underlineColorAndroid='transparent'
+                        placeholderTextColor='black'
+                        onChangeText={comidas => {this.setState({comidas})}}
                     />
                 
                     <TextInput
@@ -80,16 +103,16 @@ export default class CadastroEventosScreen extends Component {
                         underlineColorAndroid='transparent'
                         keyboardType='numeric'
                         placeholderTextColor='black'
-                        onChangeText={() => this.handleData()}
+                        onChangeText={data => {this.setState({data})}}
                     />
                 </View>
 
                 <View style={styles.submitButton}>
                     <TouchableOpacity 
                         style={styles.button}
-                        onPress={() => {}}>
+                        onPress={ () => { this.cadastrarRole() } }>
                         <Text style={styles.buttonText}>
-                            Cadastrar
+                            Cadastrar Rolê
                         </Text>
                     </TouchableOpacity>
                 </View>
@@ -104,15 +127,14 @@ const styles = StyleSheet.create({
         padding: 10,
     },
     titleContainer: {
-        flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
     },
     textInputContainer: {
-        flex: 2,
     },
     submitButton: {
-        flex: 2,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     titleText: {
         fontSize: 20,

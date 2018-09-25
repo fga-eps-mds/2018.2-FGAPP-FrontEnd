@@ -7,32 +7,40 @@ import {
 
 import HomeScreen from './screens/HomeScreen'
 import CadastroEventosScreen from './screens/CadastroEventosScreen'
-
+import Login from './screens/user/Login'
+import Register from './screens/user/Register'
 import {StackNavigator} from 'react-navigation'
+import * as firebase from 'firebase'
+
 
 export default class RolesApp extends Component {
 
+    componentWillMount() {
+        var config = {
+            apiKey: "AIzaSyANZUGzes8WS0ffMGQsTCMItcJH2K7THjc",
+            authDomain: "react-native-roles.firebaseapp.com",
+            databaseURL: "https://react-native-roles.firebaseio.com",
+            projectId: "react-native-roles",
+            storageBucket: "react-native-roles.appspot.com",
+            messagingSenderId: "348737140329"
+        };
+        firebase.initializeApp(config);        
+    }
+
     render() {
         return (
-            <Provider store={createStore(reducers)}>
-                <RolesStackNavigator />
-            </Provider>
+            <RolesStackNavigator />
         );
     }
 }
 
-
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
-    }
-});
-
 const RolesStackNavigator = new StackNavigator({
-
+    Login: {
+        screen: Login,
+    },
+    Register: {
+        screen: Register,
+    },
     HomeScreen:{
         screen:HomeScreen,
         navigationOptions: {
