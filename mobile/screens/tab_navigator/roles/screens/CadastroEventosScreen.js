@@ -6,6 +6,7 @@ import {
     TextInput,
     TouchableOpacity,
 } from "react-native";
+import Feed from './Feed'
 import * as firebase from 'firebase'
 
 
@@ -37,6 +38,9 @@ export default class CadastroEventosScreen extends Component {
                 data: this.state.data,
             }
         );
+
+        
+        this.props.navigation.navigate('Feed');
         //roles.ref('/roles/').set(this.state.titulo);
 
         //database.ref('/roles/').remove();

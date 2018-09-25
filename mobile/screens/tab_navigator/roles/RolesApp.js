@@ -9,6 +9,7 @@ import HomeScreen from './screens/HomeScreen'
 import CadastroEventosScreen from './screens/CadastroEventosScreen'
 import Login from './screens/user/Login'
 import Register from './screens/user/Register'
+import Feed from './screens/Feed'
 import {StackNavigator} from 'react-navigation'
 import * as firebase from 'firebase'
 
@@ -51,8 +52,11 @@ const RolesStackNavigator = new StackNavigator({
         screen:CadastroEventosScreen,
         navigationOptions:{
             header:null
-        }
-    }
+        },
+    },
+    Feed: {
+        screen: Feed,
+    },
 })
 
 //Cor limegreen principal do app
