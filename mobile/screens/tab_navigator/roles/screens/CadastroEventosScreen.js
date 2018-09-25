@@ -29,8 +29,8 @@ export default class CadastroEventosScreen extends Component {
             {
                 titulo: this.state.titulo,
                 descricao: this.state.descricao,
-                organizador: '',
-                preco: '',
+                organizador: this.state.organizador,
+                preco: this.state.preco,
                 quantidadeVagas: '',
                 local: '',
                 comidas: '',
