@@ -11,10 +11,16 @@ import CreateProduct from './screens/CreateProduct';
 
 const MyProductStackNavigator = new StackNavigator({
     MyProducts:{
-      screen: MyProducts
+      screen: MyProducts,
+      navigationOptions: {
+        header: null,
+      }
     },
     CreateProduct:{
-      screen: CreateProduct
+      screen: CreateProduct,
+      navigationOptions: {
+        header: null,
+      }
     }
 });
 
