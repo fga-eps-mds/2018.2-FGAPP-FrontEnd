@@ -22,6 +22,17 @@ export default class Login extends Component {
         }
     }
 
+    logOff() {
+        try {
+            const user = firebase.auth();
+            user.signOut;
+            this.props.navigation.navigate('Login')
+        } catch (error) {
+            alert(error);
+        }
+        
+    }
+
     render() {
         return(
             <View>

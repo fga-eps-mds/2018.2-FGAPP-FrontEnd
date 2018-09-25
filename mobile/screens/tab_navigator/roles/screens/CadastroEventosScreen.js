@@ -24,7 +24,7 @@ export default class CadastroEventosScreen extends Component {
 
     cadastrarRole() {
         var database = firebase.database();
-        database.ref("Roles").set(titulo);
+        database.ref('/roles/').set(this.state.titulo);
     }
 
     render() {
@@ -44,7 +44,7 @@ export default class CadastroEventosScreen extends Component {
                         underlineColorAndroid='transparent'
                         placeholderTextColor='black'
                         value={this.state.titulo}
-                        onChangeText={titulo => {this.setState(titulo)}}
+                        onChangeText={titulo => this.setState({titulo})}
                     />
                 
                     <TextInput
@@ -52,7 +52,7 @@ export default class CadastroEventosScreen extends Component {
                         placeholder="Descrição"
                         underlineColorAndroid='transparent'
                         placeholderTextColor='black'
-                        onChangeText={descricao => {this.setState(descricao)}}
+                        onChangeText={descricao => {this.setState({descricao})}}
                     />
 
                     <TextInput
@@ -60,7 +60,7 @@ export default class CadastroEventosScreen extends Component {
                         placeholder="Organizador"
                         underlineColorAndroid='transparent'
                         placeholderTextColor='black'
-                        onChangeText={organizador => {this.setState(organizador)}}
+                        onChangeText={organizador => {this.setState({organizador})}}
                     />
                 
                     <TextInput
@@ -69,7 +69,7 @@ export default class CadastroEventosScreen extends Component {
                         underlineColorAndroid='transparent'
                         keyboardType='numeric'
                         placeholderTextColor='black'
-                        onChangeText={preco => {this.setState(preco)}}
+                        onChangeText={preco => {this.setState({preco})}}
                     />
 
                     <TextInput
@@ -78,7 +78,7 @@ export default class CadastroEventosScreen extends Component {
                         underlineColorAndroid='transparent'
                         keyboardType='numeric'
                         placeholderTextColor='black'
-                        onChangeText={quantidadeVagas => {this.setState(quantidadeVagas)}}
+                        onChangeText={quantidadeVagas => {this.setState({quantidadeVagas})}}
                     />
 
                     <TextInput
@@ -86,7 +86,7 @@ export default class CadastroEventosScreen extends Component {
                         placeholder="Local"
                         underlineColorAndroid='transparent'
                         placeholderTextColor='black'
-                        onChangeText={local => {this.setState(local)}}
+                        onChangeText={local => {this.setState({local})}}
                     />
 
                     <TextInput
@@ -94,7 +94,7 @@ export default class CadastroEventosScreen extends Component {
                         placeholder="Comidas"
                         underlineColorAndroid='transparent'
                         placeholderTextColor='black'
-                        onChangeText={comidas => {this.setState(comidas)}}
+                        onChangeText={comidas => {this.setState({comidas})}}
                     />
                 
                     <TextInput
@@ -103,14 +103,14 @@ export default class CadastroEventosScreen extends Component {
                         underlineColorAndroid='transparent'
                         keyboardType='numeric'
                         placeholderTextColor='black'
-                        onChangeText={data => {this.setState(data)}}
+                        onChangeText={data => {this.setState({data})}}
                     />
                 </View>
 
                 <View style={styles.submitButton}>
                     <TouchableOpacity 
                         style={styles.button}
-                        onPress={() => {this.cadastrarRole()}}>
+                        onPress={ () => { this.cadastrarRole() } }>
                         <Text style={styles.buttonText}>
                             Cadastrar Rolê
                         </Text>
