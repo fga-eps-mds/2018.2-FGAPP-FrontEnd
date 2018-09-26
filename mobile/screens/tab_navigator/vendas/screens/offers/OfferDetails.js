@@ -5,7 +5,6 @@ import {
     StyleSheet,
     Button,
     Alert,
-    TextInput,
 } from 'react-native';
 import OfferDialog from '../../components/OfferDialog';
 import jwt_decode from 'jwt-decode'
@@ -30,11 +29,9 @@ class OfferDetails extends Component {
     const {state} = this.props.navigation;
     var product = state.params ? state.params.product : undefined;
     var token = state.params ? state.params.token : undefined;
-    var jwtDecode = require('jwt-decode');
     var user = jwt_decode(token);
-    var numero = state.params ? state.params.numero : 0;
 
-    var create_order_path = `http://${process.env.REACT_NATIVE_PACKAGER_HOSTNAME}:5000/api/create_order`;
+    const create_order_path = `http://${process.env.REACT_NATIVE_PACKAGER_HOSTNAME}:5000/api/create_order`;
 
     fetch(create_order_path,{
       method: 'POST',

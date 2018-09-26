@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import {
     View,
     Text,
-    StyleSheet,
     Button,
-    Alert,
     TextInput,
 } from 'react-native';
 import Dialog from "react-native-dialog";
