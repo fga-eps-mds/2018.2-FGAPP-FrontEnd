@@ -75,9 +75,29 @@ export default class CadastroEventos1 extends Component {
                             //underlineColorAndroid='transparent'
                             placeholderTextColor='black'
                             value={this.state.titulo}
+                            returnKeyType='next'
+                            onSubmitEditing={() => this.refDescricao.focus()}
                             onChangeText={titulo => this.setState({titulo})}
                         />
                     </View>
+
+                    <View style={styles.inputContainer}>
+                        <MaterialIcons
+                            style={styles.icon}
+                            name="description"
+                            size={26}
+                        />
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Descrição"
+                            //underlineColorAndroid='transparent'
+                            placeholderTextColor='black'
+                            multiline={true}
+                            ref={refDescricao => this.refDescricao = refDescricao}
+                            onChangeText={() => {}}
+                        />
+                    </View>
+
 
                     <View style={styles.inputContainer}>
                         <MaterialIcons
@@ -90,6 +110,9 @@ export default class CadastroEventos1 extends Component {
                             placeholder="Link de referência"
                             //underlineColorAndroid='transparent'
                             placeholderTextColor='black'
+                            returnKeyType='next'
+                            onSubmitEditing={() => this.refName.focus()}
+                            ref={refLinkRef => this.refLinkRef = refLinkRef}
                             onChangeText={() => {}}
                         />
                     </View>
@@ -105,6 +128,9 @@ export default class CadastroEventos1 extends Component {
                             placeholder="Nome para contato"
                             //underlineColorAndroid='transparent'
                             placeholderTextColor='black'
+                            returnKeyType='next'
+                            onSubmitEditing={() => this.refTelefone.focus()}
+                            ref={refName => this.refName = refName}
                             onChangeText={() => {}}
                         />
                     </View>
@@ -118,7 +144,11 @@ export default class CadastroEventos1 extends Component {
                         <TextInput
                             style={styles.input}
                             placeholder="Telefone"
+                            keyboardType='phone-pad'
+                            ref={refTelefone => this.refTelefone = refTelefone}
                             //underlineColorAndroid='transparent'
+                            onSubmitEditing={() => this.refValor.focus()}
+                            returnKeyType='next'
                             placeholderTextColor='black'
                             onChangeText={() => {}}
                             alignSelf="stretch"
@@ -134,21 +164,9 @@ export default class CadastroEventos1 extends Component {
                         <TextInput
                             style={styles.input}
                             placeholder="Valor do ingresso"
-                            //underlineColorAndroid='transparent'
-                            placeholderTextColor='black'
-                            onChangeText={() => {}}
-                        />
-                    </View>
-
-                    <View style={styles.inputContainer}>
-                        <MaterialIcons
-                            style={styles.icon}
-                            name="phone"
-                            size={26}
-                        />
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Telefone"
+                            returnKeyType='next'
+                            ref={refValor => this.refValor = refValor}
+                            onSubmitEditing={() => this.refLocal.focus()}
                             //underlineColorAndroid='transparent'
                             placeholderTextColor='black'
                             onChangeText={() => {}}
@@ -164,6 +182,9 @@ export default class CadastroEventos1 extends Component {
                         <TextInput
                             style={styles.input}
                             placeholder="Local"
+                            returnKeyType='next'
+                            ref={refLocal => this.refLocal = refLocal}
+                            onSubmitEditing={() => this.refMaps.focus()}
                             //underlineColorAndroid='transparent'
                             placeholderTextColor='black'
                             onChangeText={() => {}}
@@ -179,6 +200,9 @@ export default class CadastroEventos1 extends Component {
                         <TextInput
                             style={styles.input}
                             placeholder="Link localização Google Maps"
+                            returnKeyType='next'
+                            ref={refMaps => this.refMaps = refMaps}
+                            onSubmitEditing={() => this.refData.focus()}
                             //underlineColorAndroid='transparent'
                             placeholderTextColor='black'
                             onChangeText={() => {}}
@@ -194,6 +218,9 @@ export default class CadastroEventos1 extends Component {
                         <TextInput
                             style={styles.input}
                             placeholder="Data"
+                            returnKeyType='next'
+                            ref={refData => this.refData = refData}
+                            onSubmitEditing={() => this.refHora.focus()}
                             //underlineColorAndroid='transparent'
                             placeholderTextColor='black'
                             onChangeText={() => {}}
@@ -207,6 +234,8 @@ export default class CadastroEventos1 extends Component {
                         <TextInput
                             style={styles.input}
                             placeholder="Horário de início"
+                            returnKeyType='next'
+                            ref={refHora => this.refHora = refHora}
                             //underlineColorAndroid='transparent'
                             placeholderTextColor='black'
                             onChangeText={() => {}}
