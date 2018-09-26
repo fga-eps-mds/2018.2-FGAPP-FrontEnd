@@ -35,6 +35,7 @@ class CreateProduct extends Component {
           'description': this.state.description,
         }),
       })
+      this.props.navigation.navigate('MyProducts');
     }
 
 
