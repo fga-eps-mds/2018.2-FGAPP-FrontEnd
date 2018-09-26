@@ -447,51 +447,51 @@
 
 "@expo/ngrok-bin-darwin-ia32@2.2.8":
   version "2.2.8"
-  resolved "https://registry.yarnpkg.com/@expo/ngrok-bin-darwin-ia32/-/ngrok-bin-darwin-ia32-2.2.8.tgz#46ed6d485a87396acf4af317beeaab7a1f607315"
+  resolved "http://registry.npmjs.org/@expo/ngrok-bin-darwin-ia32/-/ngrok-bin-darwin-ia32-2.2.8.tgz#46ed6d485a87396acf4af317beeaab7a1f607315"
 
 "@expo/ngrok-bin-darwin-x64@2.2.8":
   version "2.2.8"
-  resolved "https://registry.yarnpkg.com/@expo/ngrok-bin-darwin-x64/-/ngrok-bin-darwin-x64-2.2.8.tgz#bf32ece32c3a1c6dcbe518ee88e6c2af3ad8764a"
+  resolved "http://registry.npmjs.org/@expo/ngrok-bin-darwin-x64/-/ngrok-bin-darwin-x64-2.2.8.tgz#bf32ece32c3a1c6dcbe518ee88e6c2af3ad8764a"
 
 "@expo/ngrok-bin-freebsd-ia32@2.2.8":
   version "2.2.8"
-  resolved "https://registry.yarnpkg.com/@expo/ngrok-bin-freebsd-ia32/-/ngrok-bin-freebsd-ia32-2.2.8.tgz#7b198757f6bb6602a4c2bc5384b4ddb4d272eca5"
+  resolved "http://registry.npmjs.org/@expo/ngrok-bin-freebsd-ia32/-/ngrok-bin-freebsd-ia32-2.2.8.tgz#7b198757f6bb6602a4c2bc5384b4ddb4d272eca5"
 
 "@expo/ngrok-bin-freebsd-x64@2.2.8":
   version "2.2.8"
-  resolved "https://registry.yarnpkg.com/@expo/ngrok-bin-freebsd-x64/-/ngrok-bin-freebsd-x64-2.2.8.tgz#3d510c3196087e17747d5e34b765cca1e3279f36"
+  resolved "http://registry.npmjs.org/@expo/ngrok-bin-freebsd-x64/-/ngrok-bin-freebsd-x64-2.2.8.tgz#3d510c3196087e17747d5e34b765cca1e3279f36"
 
 "@expo/ngrok-bin-linux-arm64@2.2.8":
   version "2.2.8"
-  resolved "https://registry.yarnpkg.com/@expo/ngrok-bin-linux-arm64/-/ngrok-bin-linux-arm64-2.2.8.tgz#3829665093c7921c8b73e26c7c262493a93d53b4"
+  resolved "http://registry.npmjs.org/@expo/ngrok-bin-linux-arm64/-/ngrok-bin-linux-arm64-2.2.8.tgz#3829665093c7921c8b73e26c7c262493a93d53b4"
 
 "@expo/ngrok-bin-linux-arm@2.2.8":
   version "2.2.8"
-  resolved "https://registry.yarnpkg.com/@expo/ngrok-bin-linux-arm/-/ngrok-bin-linux-arm-2.2.8.tgz#1e64ca1a0856daea5fd752b56d394f083079f195"
+  resolved "http://registry.npmjs.org/@expo/ngrok-bin-linux-arm/-/ngrok-bin-linux-arm-2.2.8.tgz#1e64ca1a0856daea5fd752b56d394f083079f195"
 
 "@expo/ngrok-bin-linux-ia32@2.2.8":
   version "2.2.8"
-  resolved "https://registry.yarnpkg.com/@expo/ngrok-bin-linux-ia32/-/ngrok-bin-linux-ia32-2.2.8.tgz#dcd8be0a894ba8969548e113a3cd16e7e6fe912b"
+  resolved "http://registry.npmjs.org/@expo/ngrok-bin-linux-ia32/-/ngrok-bin-linux-ia32-2.2.8.tgz#dcd8be0a894ba8969548e113a3cd16e7e6fe912b"
 
 "@expo/ngrok-bin-linux-x64@2.2.8":
   version "2.2.8"
-  resolved "https://registry.yarnpkg.com/@expo/ngrok-bin-linux-x64/-/ngrok-bin-linux-x64-2.2.8.tgz#517119cb9aa0b74e678d953878910500b6f7f6ec"
+  resolved "http://registry.npmjs.org/@expo/ngrok-bin-linux-x64/-/ngrok-bin-linux-x64-2.2.8.tgz#517119cb9aa0b74e678d953878910500b6f7f6ec"
 
 "@expo/ngrok-bin-sunos-x64@2.2.8":
   version "2.2.8"
-  resolved "https://registry.yarnpkg.com/@expo/ngrok-bin-sunos-x64/-/ngrok-bin-sunos-x64-2.2.8.tgz#66ebd87786b94836ba5636b22e386b81d4e7da32"
+  resolved "http://registry.npmjs.org/@expo/ngrok-bin-sunos-x64/-/ngrok-bin-sunos-x64-2.2.8.tgz#66ebd87786b94836ba5636b22e386b81d4e7da32"
 
 "@expo/ngrok-bin-win32-ia32@2.2.8-beta.1":
   version "2.2.8-beta.1"
-  resolved "https://registry.yarnpkg.com/@expo/ngrok-bin-win32-ia32/-/ngrok-bin-win32-ia32-2.2.8-beta.1.tgz#c68e530b3c1c96a548d0926fb93e45e2980acd59"
+  resolved "http://registry.npmjs.org/@expo/ngrok-bin-win32-ia32/-/ngrok-bin-win32-ia32-2.2.8-beta.1.tgz#c68e530b3c1c96a548d0926fb93e45e2980acd59"
 
 "@expo/ngrok-bin-win32-x64@2.2.8-beta.1":
   version "2.2.8-beta.1"
-  resolved "https://registry.yarnpkg.com/@expo/ngrok-bin-win32-x64/-/ngrok-bin-win32-x64-2.2.8-beta.1.tgz#598d74968ef6d0c15f00df1a41d0df2a40562f23"
+  resolved "http://registry.npmjs.org/@expo/ngrok-bin-win32-x64/-/ngrok-bin-win32-x64-2.2.8-beta.1.tgz#598d74968ef6d0c15f00df1a41d0df2a40562f23"
 
 "@expo/ngrok-bin@2.2.8-beta.3":
   version "2.2.8-beta.3"
-  resolved "https://registry.yarnpkg.com/@expo/ngrok-bin/-/ngrok-bin-2.2.8-beta.3.tgz#22b5fadf0a0de91adbcc62a9a3c86402fe74e672"
+  resolved "http://registry.npmjs.org/@expo/ngrok-bin/-/ngrok-bin-2.2.8-beta.3.tgz#22b5fadf0a0de91adbcc62a9a3c86402fe74e672"
   optionalDependencies:
     "@expo/ngrok-bin-darwin-ia32" "2.2.8"
     "@expo/ngrok-bin-darwin-x64" "2.2.8"
@@ -507,7 +507,7 @@
 
 "@expo/ngrok@2.4.2":
   version "2.4.2"
-  resolved "https://registry.yarnpkg.com/@expo/ngrok/-/ngrok-2.4.2.tgz#cb304ca49913b8bc23550407fb4f8b25f3e76a9a"
+  resolved "http://registry.npmjs.org/@expo/ngrok/-/ngrok-2.4.2.tgz#cb304ca49913b8bc23550407fb4f8b25f3e76a9a"
   dependencies:
     "@expo/ngrok-bin" "2.2.8-beta.3"
     async "^0.9.0"
@@ -573,8 +573,8 @@
   resolved "https://registry.yarnpkg.com/@types/events/-/events-1.2.0.tgz#81a6731ce4df43619e5c8c945383b3e62a89ea86"
 
 "@types/glob@*":
-  version "5.0.35"
-  resolved "https://registry.yarnpkg.com/@types/glob/-/glob-5.0.35.tgz#1ae151c802cece940443b5ac246925c85189f32a"
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/@types/glob/-/glob-7.1.0.tgz#55ff6b216e9100b22eccec2cfe2e251ccb09a6ab"
   dependencies:
     "@types/events" "*"
     "@types/minimatch" "*"
@@ -589,8 +589,8 @@
   resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-3.0.3.tgz#3dca0e3f33b200fc7d1139c0cd96c1268cadfd9d"
 
 "@types/node@*":
-  version "10.10.1"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.10.1.tgz#d5c96ca246a418404914d180b7fdd625ad18eca6"
+  version "10.11.0"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.11.0.tgz#ddd0d67a3b6c3810dd1a59e36675fa82de5e19ae"
 
 "@types/prop-types@*":
   version "15.5.5"
@@ -652,8 +652,8 @@ acorn@^5.5.3:
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-5.7.3.tgz#67aa231bf8812974b85235a96771eb6bd07ea279"
 
 acorn@^6.0.1:
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/acorn/-/acorn-6.0.1.tgz#66e6147e1027704479dc6d9b20d884c572db3cc1"
+  version "6.0.2"
+  resolved "https://registry.yarnpkg.com/acorn/-/acorn-6.0.2.tgz#6a459041c320ab17592c6317abbfdf4bbaa98ca4"
 
 agent-base@4, agent-base@^4.1.0, agent-base@^4.2.0:
   version "4.2.1"
@@ -686,7 +686,7 @@ analytics-node@^2.1.0:
 
 ansi-colors@^1.0.1:
   version "1.1.0"
-  resolved "https://registry.yarnpkg.com/ansi-colors/-/ansi-colors-1.1.0.tgz#6374b4dd5d4718ff3ce27a671a3b1cad077132a9"
+  resolved "http://registry.npmjs.org/ansi-colors/-/ansi-colors-1.1.0.tgz#6374b4dd5d4718ff3ce27a671a3b1cad077132a9"
   dependencies:
     ansi-wrap "^0.1.0"
 
@@ -1703,10 +1703,10 @@ base@^0.11.1:
     pascalcase "^0.1.1"
 
 basic-auth@~2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/basic-auth/-/basic-auth-2.0.0.tgz#015db3f353e02e56377755f962742e8981e7bbba"
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/basic-auth/-/basic-auth-2.0.1.tgz#b998279bf47ce38344b4f3cf916d4679bbf51e3a"
   dependencies:
-    safe-buffer "5.1.1"
+    safe-buffer "5.1.2"
 
 bcrypt-pbkdf@^1.0.0:
   version "1.0.2"
@@ -1719,8 +1719,8 @@ big-integer@^1.6.7:
   resolved "https://registry.yarnpkg.com/big-integer/-/big-integer-1.6.36.tgz#78631076265d4ae3555c04f85e7d9d2f3a071a36"
 
 binary-extensions@^1.0.0:
-  version "1.11.0"
-  resolved "https://registry.yarnpkg.com/binary-extensions/-/binary-extensions-1.11.0.tgz#46aa1751fb6a2f93ee5e689bb1087d4b14c6c205"
+  version "1.12.0"
+  resolved "https://registry.yarnpkg.com/binary-extensions/-/binary-extensions-1.12.0.tgz#c2d780f53d45bba8317a8902d4ceeaf3a6385b14"
 
 bluebird@^2.10.2:
   version "2.11.0"
@@ -1803,8 +1803,8 @@ braces@^2.3.1:
     to-regex "^3.0.1"
 
 browser-process-hrtime@^0.1.2:
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/browser-process-hrtime/-/browser-process-hrtime-0.1.2.tgz#425d68a58d3447f02a04aa894187fce8af8b7b8e"
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/browser-process-hrtime/-/browser-process-hrtime-0.1.3.tgz#616f00faef1df7ec1b5bf9cfe2bdc3170f26c7b4"
 
 browser-resolve@^1.11.2:
   version "1.11.3"
@@ -1977,8 +1977,8 @@ chownr@^1.0.1:
   resolved "https://registry.yarnpkg.com/chownr/-/chownr-1.1.1.tgz#54726b8b8fff4df053c42187e801fb4412df1494"
 
 ci-info@^1.5.0:
-  version "1.5.1"
-  resolved "https://registry.yarnpkg.com/ci-info/-/ci-info-1.5.1.tgz#17e8eb5de6f8b2b6038f0cbb714d410bfa9f3030"
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/ci-info/-/ci-info-1.6.0.tgz#2ca20dbb9ceb32d4524a683303313f0304b1e497"
 
 clamp@^1.0.1:
   version "1.0.1"
@@ -2051,9 +2051,13 @@ color-convert@^1.8.2, color-convert@^1.9.0, color-convert@^1.9.1:
   dependencies:
     color-name "1.1.3"
 
-color-name@1.1.3, color-name@^1.0.0:
+color-name@1.1.3:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/color-name/-/color-name-1.1.3.tgz#a7d0558bd89c42f795dd42328f740831ca53bc25"
+
+color-name@^1.0.0:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/color-name/-/color-name-1.1.4.tgz#c2a09a87acbde69543de6f63fa3995c826c536a2"
 
 color-string@^1.4.0, color-string@^1.5.2:
   version "1.5.3"
@@ -2080,9 +2084,15 @@ color@~1.0.3:
     color-convert "^1.8.2"
     color-string "^1.4.0"
 
-combined-stream@1.0.6, combined-stream@~1.0.6:
+combined-stream@1.0.6:
   version "1.0.6"
-  resolved "https://registry.yarnpkg.com/combined-stream/-/combined-stream-1.0.6.tgz#723e7df6e801ac5613113a7e445a9b69cb632818"
+  resolved "http://registry.npmjs.org/combined-stream/-/combined-stream-1.0.6.tgz#723e7df6e801ac5613113a7e445a9b69cb632818"
+  dependencies:
+    delayed-stream "~1.0.0"
+
+combined-stream@~1.0.6:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/combined-stream/-/combined-stream-1.0.7.tgz#2d1d24317afb8abe95d6d2c0b07b57813539d828"
   dependencies:
     delayed-stream "~1.0.0"
 
@@ -2448,7 +2458,7 @@ dot-case@^1.1.0:
 
 dotenv@^4.0.0:
   version "4.0.0"
-  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-4.0.0.tgz#864ef1379aced55ce6f95debecdce179f7a0cd1d"
+  resolved "http://registry.npmjs.org/dotenv/-/dotenv-4.0.0.tgz#864ef1379aced55ce6f95debecdce179f7a0cd1d"
 
 duplexer3@^0.1.4:
   version "0.1.4"
@@ -3565,7 +3575,7 @@ is-buffer@^1.1.5, is-buffer@~1.1.1:
 
 is-builtin-module@^1.0.0:
   version "1.0.0"
-  resolved "https://registry.yarnpkg.com/is-builtin-module/-/is-builtin-module-1.0.0.tgz#540572d34f7ac3119f8f76c30cbc1b1e037affbe"
+  resolved "http://registry.npmjs.org/is-builtin-module/-/is-builtin-module-1.0.0.tgz#540572d34f7ac3119f8f76c30cbc1b1e037affbe"
   dependencies:
     builtin-modules "^1.0.0"
 
@@ -3720,8 +3730,10 @@ is-stream@^1.0.0, is-stream@^1.0.1, is-stream@^1.1.0:
   resolved "https://registry.yarnpkg.com/is-stream/-/is-stream-1.1.0.tgz#12d4a3dd4e68e0b79ceb8dbc84173ae80d91ca44"
 
 is-symbol@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/is-symbol/-/is-symbol-1.0.1.tgz#3cc59f00025194b6ab2e38dbae6689256b660572"
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/is-symbol/-/is-symbol-1.0.2.tgz#a055f6ae57192caee329e7a860118b497a950f38"
+  dependencies:
+    has-symbols "^1.0.0"
 
 is-typedarray@~1.0.0:
   version "1.0.0"
@@ -4376,7 +4388,7 @@ levn@~0.3.0:
 
 load-json-file@^1.0.0:
   version "1.1.0"
-  resolved "https://registry.yarnpkg.com/load-json-file/-/load-json-file-1.1.0.tgz#956905708d58b4bab4c2261b04f59f31c99374c0"
+  resolved "http://registry.npmjs.org/load-json-file/-/load-json-file-1.1.0.tgz#956905708d58b4bab4c2261b04f59f31c99374c0"
   dependencies:
     graceful-fs "^4.1.2"
     parse-json "^2.2.0"
@@ -4386,7 +4398,7 @@ load-json-file@^1.0.0:
 
 load-json-file@^2.0.0:
   version "2.0.0"
-  resolved "https://registry.yarnpkg.com/load-json-file/-/load-json-file-2.0.0.tgz#7947e42149af80d696cbf797bcaabcfe1fe29ca8"
+  resolved "http://registry.npmjs.org/load-json-file/-/load-json-file-2.0.0.tgz#7947e42149af80d696cbf797bcaabcfe1fe29ca8"
   dependencies:
     graceful-fs "^4.1.2"
     parse-json "^2.2.0"
@@ -4956,11 +4968,11 @@ natural-compare@^1.4.0:
 
 ncp@^2.0.0, ncp@~2.0.0:
   version "2.0.0"
-  resolved "https://registry.yarnpkg.com/ncp/-/ncp-2.0.0.tgz#195a21d6c46e361d2fb1281ba38b91e9df7bdbb3"
+  resolved "http://registry.npmjs.org/ncp/-/ncp-2.0.0.tgz#195a21d6c46e361d2fb1281ba38b91e9df7bdbb3"
 
 needle@^2.2.1:
-  version "2.2.3"
-  resolved "https://registry.yarnpkg.com/needle/-/needle-2.2.3.tgz#c1b04da378cd634d8befe2de965dc2cfb0fd65ca"
+  version "2.2.4"
+  resolved "https://registry.yarnpkg.com/needle/-/needle-2.2.4.tgz#51931bff82533b1928b7d1d69e01f1b00ffd2a4e"
   dependencies:
     debug "^2.1.2"
     iconv-lite "^0.4.4"
@@ -5164,13 +5176,13 @@ onetime@^2.0.0:
 
 opn@^3.0.2:
   version "3.0.3"
-  resolved "https://registry.yarnpkg.com/opn/-/opn-3.0.3.tgz#b6d99e7399f78d65c3baaffef1fb288e9b85243a"
+  resolved "http://registry.npmjs.org/opn/-/opn-3.0.3.tgz#b6d99e7399f78d65c3baaffef1fb288e9b85243a"
   dependencies:
     object-assign "^4.0.1"
 
 opn@^4.0.2:
   version "4.0.2"
-  resolved "https://registry.yarnpkg.com/opn/-/opn-4.0.2.tgz#7abc22e644dff63b0a96d5ab7f2790c0f01abc95"
+  resolved "http://registry.npmjs.org/opn/-/opn-4.0.2.tgz#7abc22e644dff63b0a96d5ab7f2790c0f01abc95"
   dependencies:
     object-assign "^4.0.1"
     pinkie-promise "^2.0.0"
@@ -5522,7 +5534,7 @@ prop-types@15.5.8:
   dependencies:
     fbjs "^0.8.9"
 
-prop-types@^15.5.10, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.2:
+prop-types@^15.5.10, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2:
   version "15.6.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.2.tgz#05d5ca77b4453e985d60fc7ff8c859094a497102"
   dependencies:
@@ -5684,9 +5696,15 @@ react-google-maps@^7.3.0:
     scriptjs "2.5.8"
     warning "3.0.0"
 
-react-is@^16.3.1, react-is@^16.5.1:
-  version "16.5.1"
-  resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.5.1.tgz#c6e8734fd548a22e1cef4fd0833afbeb433b85ee"
+react-is@^16.3.1, react-is@^16.5.2:
+  version "16.5.2"
+  resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.5.2.tgz#e2a7b7c3f5d48062eb769fcb123505eb928722e3"
+
+react-native-animatable@^1.2.4:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/react-native-animatable/-/react-native-animatable-1.3.0.tgz#b5c3940fc758cfd9b2fe54613a457c4b6962b46e"
+  dependencies:
+    prop-types "^15.5.10"
 
 react-native-branch@2.0.0-beta.3:
   version "2.0.0-beta.3"
@@ -5697,6 +5715,17 @@ react-native-cookie@^0.2.0:
   resolved "https://registry.yarnpkg.com/react-native-cookie/-/react-native-cookie-0.2.0.tgz#e8bb0701faf107aaebc327c60551055e0149839d"
   dependencies:
     cookie "^0.3.1"
+
+react-native-dialog-input@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/react-native-dialog-input/-/react-native-dialog-input-1.0.4.tgz#56717b9c408c3e47a604e8be61d589bfc63dea04"
+
+react-native-dialog@^5.3.0:
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/react-native-dialog/-/react-native-dialog-5.3.0.tgz#cf843bed0ed2e1c585afd4a17a7073328c0704c6"
+  dependencies:
+    prop-types "^15.6.0"
+    react-native-modal "^6.4.0"
 
 react-native-dismiss-keyboard@1.0.0:
   version "1.0.0"
@@ -5752,6 +5781,13 @@ react-native-maps@0.21.0:
   dependencies:
     babel-plugin-module-resolver "^2.3.0"
     babel-preset-react-native "1.9.0"
+
+react-native-modal@^6.4.0:
+  version "6.5.0"
+  resolved "https://registry.yarnpkg.com/react-native-modal/-/react-native-modal-6.5.0.tgz#46220b2289a41597d344c1db17454611b426a758"
+  dependencies:
+    prop-types "^15.6.1"
+    react-native-animatable "^1.2.4"
 
 react-native-safe-module@^1.1.0:
   version "1.2.0"
@@ -5920,7 +5956,7 @@ react-proxy@^1.1.7:
 
 react-redux@5.0.7, react-redux@^5.0.2:
   version "5.0.7"
-  resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-5.0.7.tgz#0dc1076d9afb4670f993ffaef44b8f8c1155a4c8"
+  resolved "http://registry.npmjs.org/react-redux/-/react-redux-5.0.7.tgz#0dc1076d9afb4670f993ffaef44b8f8c1155a4c8"
   dependencies:
     hoist-non-react-statics "^2.5.0"
     invariant "^2.0.0"
@@ -5939,13 +5975,13 @@ react-test-renderer@16.3.1:
     react-is "^16.3.1"
 
 react-test-renderer@^16.3.1:
-  version "16.5.1"
-  resolved "https://registry.yarnpkg.com/react-test-renderer/-/react-test-renderer-16.5.1.tgz#17f020fb0cf884cadebb5240d9d9c23452f18299"
+  version "16.5.2"
+  resolved "https://registry.yarnpkg.com/react-test-renderer/-/react-test-renderer-16.5.2.tgz#92e9d2c6f763b9821b2e0b22f994ee675068b5ae"
   dependencies:
     object-assign "^4.1.1"
     prop-types "^15.6.2"
-    react-is "^16.5.1"
-    schedule "^0.4.0"
+    react-is "^16.5.2"
+    schedule "^0.5.0"
 
 react-timer-mixin@^0.13.2:
   version "0.13.4"
@@ -5975,13 +6011,13 @@ react@16.3.1:
     prop-types "^15.6.0"
 
 react@^16.0.0:
-  version "16.5.1"
-  resolved "https://registry.yarnpkg.com/react/-/react-16.5.1.tgz#8cb8e9f8cdcb4bde41c9a138bfbf907e66132372"
+  version "16.5.2"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.5.2.tgz#19f6b444ed139baa45609eee6dc3d318b3895d42"
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
     prop-types "^15.6.2"
-    schedule "^0.4.0"
+    schedule "^0.5.0"
 
 read-chunk@^2.0.0:
   version "2.1.0"
@@ -6357,9 +6393,9 @@ sax@~1.1.1:
   version "1.1.6"
   resolved "http://registry.npmjs.org/sax/-/sax-1.1.6.tgz#5d616be8a5e607d54e114afae55b7eaf2fcc3240"
 
-schedule@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/schedule/-/schedule-0.4.0.tgz#fa20cfd0bfbf91c47d02272fd7096780d3170bbb"
+schedule@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/schedule/-/schedule-0.5.0.tgz#c128fffa0b402488b08b55ae74bb9df55cc29cc8"
   dependencies:
     object-assign "^4.1.1"
 
@@ -7261,7 +7297,7 @@ win-release@^1.0.0:
 
 winchan@^0.2.0:
   version "0.2.0"
-  resolved "https://registry.yarnpkg.com/winchan/-/winchan-0.2.0.tgz#3863028e7f974b0da1412f28417ba424972abd94"
+  resolved "http://registry.npmjs.org/winchan/-/winchan-0.2.0.tgz#3863028e7f974b0da1412f28417ba424972abd94"
 
 wordwrap@^1.0.0, wordwrap@~1.0.0:
   version "1.0.0"

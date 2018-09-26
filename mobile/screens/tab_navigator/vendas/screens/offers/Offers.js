@@ -8,7 +8,7 @@ import {
     StyleSheet,
     ScrollView
 } from 'react-native';
-import ProductCard from '../components/ProductCard';
+import ProductCard from '../../components/ProductCard';
 
 class MyProducts extends Component {
     // productImage initialize with an image cause of asynchronous request
@@ -25,9 +25,6 @@ class MyProducts extends Component {
     // fetching and sorting data from a mock API
     componentDidMount() {
         var products_path = `${process.env.VENDAS_PRODUCTS}/products`;
-        
-        console.log('** HELLO')
-        console.log(products_path)
 
         fetch(products_path, {
             method: 'GET',
@@ -48,6 +45,8 @@ class MyProducts extends Component {
     }
 
     render() {
+      const {state} = this.props.navigation;
+      var token = state.params ? state.params.token : undefined;
         return (
         <View style={styles.container}>
             <ScrollView>
@@ -58,6 +57,7 @@ class MyProducts extends Component {
                             productImage={product.productImage}
                             productName={product.productName}
                             productPrice={product.productPrice}
+                            onPress={() => this.props.navigation.navigate('OfferDetails', {product: product, token:token})}
                         />
                     );
                 })}

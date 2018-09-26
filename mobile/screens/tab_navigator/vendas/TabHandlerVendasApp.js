@@ -5,26 +5,30 @@
 import React, { Component } from 'react';
 import { TabNavigator } from 'react-navigation';
 import MyProducts from './screens/MyProducts';
-import Offers from './screens/Offers';
+import OfferScreen from './screens/OfferScreen';
 import OrderedProducts from './screens/OrderedProducts';
 
 const TabHandlerVendasApp = new TabNavigator({
-    Offers: {
-        screen: Offers,
+    OfferScreen: {
+        screen: OfferScreen,
         navigationOptions: {
             tabBarLabel: 'Ofertas',
+            params: {numero:40}
+            //params: { token: this.props.navigation.params ? this.props.navigation.params.product : undefined }
         }
     },
     MyProducts: {
         screen: MyProducts,
         navigationOptions: {
             tabBarLabel: 'Meus produtos',
+            headerLeft: null,
         }
     },
     OrderedProducts: {
         screen: OrderedProducts,
         navigationOptions: {
             tabBarLabel: 'Pedidos',
+            headerLeft: null,
         }
     }
 },

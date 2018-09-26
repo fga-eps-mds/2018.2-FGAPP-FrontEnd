@@ -34,9 +34,6 @@ const AppStackNavigator = new StackNavigator({
   },
   TabHandler:{
     screen:TabHandler,
-    navigationOptions: ({ navigation }) => ({
-      headerLeft: null,
-    }),
   }
 })
 
