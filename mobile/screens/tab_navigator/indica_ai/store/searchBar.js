@@ -1,4 +1,8 @@
-import { creatState } from 'redux';
-import search from '../redurces/searchBar';
+import { createStore } from 'redux';
+//import search from '../redurces/searchBar';
 
-export const store = creatState(search);
+
+const search = () =>{
+
+}
+export default store = createStore(search);

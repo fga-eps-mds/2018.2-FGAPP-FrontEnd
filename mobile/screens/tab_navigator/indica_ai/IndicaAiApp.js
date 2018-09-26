@@ -9,24 +9,27 @@ import {
 } from "react-native";
 import SearchBar from "./containers/searchBar";
 import { Provider } from "react-redux";
-import store from './store';
+import store from "./store/searchBar";
 
+state = {
+  localName: "SHOW_ALL",
+};
 
 class FirstScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-          <Image
-            source={require("./images/logo.png")}
-            style={{
-              width: 317,
-              height: 115,
-              alignSelf: 'center'
-            }}
-          />
-          <Provider store={store}>
-            <SearchBar />
-          </Provider>
+        <Image
+          source={require("./images/logo.png")}
+          style={{
+            width: 317,
+            height: 115,
+            alignSelf: "center"
+          }}
+        />
+        <Provider store={store}>
+          <SearchBar />
+        </Provider>
       </View>
     );
   }
