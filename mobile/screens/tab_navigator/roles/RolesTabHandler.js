@@ -7,7 +7,7 @@ import {
 
 import {TabNavigator} from 'react-navigation'
 import Feed from './screens/TabNavigator/Feed'
-import CadastroEventosScreen from './screens/TabNavigator/CadastroEventosScreen'
+import CadastroEventos1 from './screens/TabNavigator/cadastroEventos/CadastroEventos1'
 import RolesConfimados from './screens/TabNavigator/RolesConfimados'
 
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
@@ -28,8 +28,8 @@ const RolesTabStackNavigator = new TabNavigator({
             tabBarIcon: ({ tintColor }) => <MaterialIcons name='event-available' size={26} style={{ color: tintColor }} />
         }
     },
-    CadastroEventosScreen:{
-        screen:CadastroEventosScreen,
+    CadastroEventos1:{
+        screen:CadastroEventos1,
         navigationOptions:{
             tabBarLabel:'CadastroEventosScreen',
             tabBarIcon: ({ tintColor }) => <MaterialIcons name='playlist-add' size={26} style={{ color: tintColor }} />

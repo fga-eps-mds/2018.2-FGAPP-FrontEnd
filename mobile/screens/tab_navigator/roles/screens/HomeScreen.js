@@ -7,7 +7,7 @@ import {
     TouchableOpacity,
     Alert
 } from "react-native";
-import cadastroEventosScreen from './TabNavigator/CadastroEventosScreen';
+import cadastroEventosScreen from './TabNavigator/cadastroEventos/CadastroEventos1';
 
 
 export default class HomeScreen extends Component {

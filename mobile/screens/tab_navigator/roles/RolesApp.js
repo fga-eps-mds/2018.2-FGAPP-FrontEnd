@@ -6,7 +6,8 @@ import {
 } from "react-native";
 
 import HomeScreen from './screens/HomeScreen'
-import CadastroEventosScreen from './screens/TabNavigator/CadastroEventosScreen'
+import CadastroEventos1 from './screens/TabNavigator/cadastroEventos/CadastroEventos1'
+import CadastroEventos2 from './screens/TabNavigator/cadastroEventos/CadastroEventos2'
 import Feed from './screens/TabNavigator/Feed'
 import {StackNavigator} from 'react-navigation'
 import RolesTabHandler from './RolesTabHandler'
@@ -17,7 +18,7 @@ export default class RolesApp extends Component {
 
     componentWillMount() {
         var config = {
-            apiKey: "AIzaSyANZUGzes8WS0ffMGQsTCMItcJH2K7THjc",
+            apiKey: "AIzaSyAHz3Y9yDmb4Pk5rvp6vdgTZscweubgTC8",
             authDomain: "react-native-roles.firebaseapp.com",
             databaseURL: "https://react-native-roles.firebaseio.com",
             projectId: "react-native-roles",
@@ -47,14 +48,23 @@ const RolesStackNavigator = new StackNavigator({
             header: null
         }
     },
-    CadastroEventosScreen:{
-        screen:CadastroEventosScreen,
+    CadastroEventos1:{
+        screen:CadastroEventos1,
+        navigationOptions:{
+            header:null
+        },
+    },
+    CadastroEventos2:{
+        screen:CadastroEventos2,
         navigationOptions:{
             header:null
         },
     },
     Feed: {
         screen: Feed,
+        navigationOptions:{
+            header:null
+        },
     },
     
 })
