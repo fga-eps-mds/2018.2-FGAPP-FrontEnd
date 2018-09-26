@@ -24,6 +24,7 @@ class OfferDetails extends Component {
   }
   closeDialog = async () => {
     this.setState({ isDialogVisible: false })
+    this.setState({ buyer_message: '' })
   }
   submitDialog = async () => {
     const {state} = this.props.navigation;
@@ -56,7 +57,7 @@ class OfferDetails extends Component {
     if(responseJson.error != undefined)
       Alert.alert(responseJson.error);
     else
-      Alert.alert('Compra realizada com sucerro');
+      Alert.alert('Compra realizada com sucesso');
    })
 
    .catch( err => {
@@ -74,7 +75,7 @@ class OfferDetails extends Component {
     render() {
       const {state} = this.props.navigation;
       var product = state.params ? state.params.product : undefined;
-      var characters = this.state.buyer_message.length.toString()+'/'+this.state.max_characters;
+      var characters = `${this.state.buyer_message.length.toString()}/${this.state.max_characters}`;
 
 
       return (
