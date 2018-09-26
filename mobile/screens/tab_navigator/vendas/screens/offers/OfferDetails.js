@@ -5,9 +5,9 @@ import {
     StyleSheet,
     Button,
     Alert,
+    TextInput,
 } from 'react-native';
-import DialogInput from 'react-native-dialog-input';
-import TabHandler from '../../../../TabHandler';
+import OfferDialog from '../../components/OfferDialog';
 import jwt_decode from 'jwt-decode'
 
 class OfferDetails extends Component {
@@ -15,22 +15,23 @@ class OfferDetails extends Component {
       super(props);
       this.state = {
         isDialogVisible:false, buyer_message: '',
+        max_characters:'120',
       };
   }
   openDialog = async () => {
+    this.setState({ buyer_message: '' })
     this.setState({ isDialogVisible: true })
   }
   closeDialog = async () => {
     this.setState({ isDialogVisible: false })
   }
-  submitDialog = async ({buyer_message}) => {
+  submitDialog = async () => {
     const {state} = this.props.navigation;
     var product = state.params ? state.params.product : undefined;
     var token = state.params ? state.params.token : undefined;
     var jwtDecode = require('jwt-decode');
     var user = jwt_decode(token);
     var numero = state.params ? state.params.numero : 0;
-    console.log('Passou por aqui')
 
     var create_order_path = `http://${process.env.REACT_NATIVE_PACKAGER_HOSTNAME}:5000/api/create_order`;
 
@@ -43,7 +44,7 @@ class OfferDetails extends Component {
       body: JSON.stringify({
       'fk_product': product.id,
       'fk_buyer': user.user_id,
-      'buyer_message': buyer_message,
+      'buyer_message': this.state.buyer_message,
       'total_price': product.productPrice*2, //Quantidade provisória
       'quantity': '2', //Quantidade Provisórua
 
@@ -73,7 +74,7 @@ class OfferDetails extends Component {
     render() {
       const {state} = this.props.navigation;
       var product = state.params ? state.params.product : undefined;
-
+      var characters = this.state.buyer_message.length.toString()+'/'+this.state.max_characters;
 
 
       return (
@@ -83,14 +84,13 @@ class OfferDetails extends Component {
                     onPress={this.openDialog}
                     title="Comprar"
               />
-              <DialogInput isDialogVisible={this.state.isDialogVisible}
-
-                title={"Envie uma mensagem ao vendedor"}
-                hintInput ={"Escreva aqui"}
-                submitInput={(buyer_message) => this.submitDialog({buyer_message})}
-                closeDialog={this.closeDialog}>
-              </DialogInput>
-
+              <OfferDialog
+                isDialogVisible={this.state.isDialogVisible}
+                backButton = {this.closeDialog}
+                sendButton = {this.submitDialog}
+                onChangeText = {(buyer_message) => this.setState({buyer_message})}
+                characters = {characters}
+              />
           </View>
       );
     }
