@@ -11,7 +11,7 @@ import {
 import Field from './components/Field';
 
 class LoginScreen extends Component {
-  
+
   constructor(props) {
       super(props);
       this.state = {
@@ -22,7 +22,7 @@ class LoginScreen extends Component {
   }
 
   _onPressButton = async () => {
-      var login_path = `${process.env.INTEGRA_LOGIN_AUTH}/login/`;
+      var login_path = `${process.env.INTEGRA_LOGIN_AUTH}/login`;
       fetch(login_path, {
         method: 'POST',
         headers: {
