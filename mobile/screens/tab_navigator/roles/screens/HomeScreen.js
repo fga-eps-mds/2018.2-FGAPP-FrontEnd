@@ -7,9 +7,7 @@ import {
     TouchableOpacity,
     Alert
 } from "react-native";
-import cadastroEventosScreen from './CadastroEventosScreen';
-import Login from './user/Login'
-import * as firebase from 'firebase'
+import cadastroEventosScreen from './TabNavigator/CadastroEventosScreen';
 
 
 export default class HomeScreen extends Component {
@@ -19,16 +17,6 @@ export default class HomeScreen extends Component {
             this.props.navigation.navigate('CadastroEventosScreen')
         } catch (error) {
             alert(error);
-        }
-    }
-
-    logOff() {
-        try {
-            const user = firebase.auth();
-            user.signOut();
-            this.props.navigation.navigate('Login');
-        } catch (error) {
-            alert(error);    
         }
     }
 
@@ -43,13 +31,6 @@ export default class HomeScreen extends Component {
                     onPress={() => this.cadastrarEvento()}>
                     <Text style={styles.buttonText}>
                         Cadastrar evento
-                    </Text>
-                </TouchableOpacity>
-                <TouchableOpacity 
-                    style={styles.button}
-                    onPress={() => this.logOff()}>
-                    <Text style={styles.buttonText}>
-                        Deslogar
                     </Text>
                 </TouchableOpacity>
             </View>

@@ -6,11 +6,10 @@ import {
 } from "react-native";
 
 import HomeScreen from './screens/HomeScreen'
-import CadastroEventosScreen from './screens/CadastroEventosScreen'
-import Login from './screens/user/Login'
-import Register from './screens/user/Register'
-import Feed from './screens/Feed'
+import CadastroEventosScreen from './screens/TabNavigator/CadastroEventosScreen'
+import Feed from './screens/TabNavigator/Feed'
 import {StackNavigator} from 'react-navigation'
+import RolesTabHandler from './RolesTabHandler'
 import * as firebase from 'firebase'
 
 
@@ -36,11 +35,11 @@ export default class RolesApp extends Component {
 }
 
 const RolesStackNavigator = new StackNavigator({
-    Login: {
-        screen: Login,
-    },
-    Register: {
-        screen: Register,
+    RolesTabHandler:{
+        screen:RolesTabHandler,
+        navigationOptions: ({ navigation }) => ({
+          header: null,
+        }),
     },
     HomeScreen:{
         screen:HomeScreen,
@@ -57,6 +56,7 @@ const RolesStackNavigator = new StackNavigator({
     Feed: {
         screen: Feed,
     },
+    
 })
 
 //Cor limegreen principal do app
