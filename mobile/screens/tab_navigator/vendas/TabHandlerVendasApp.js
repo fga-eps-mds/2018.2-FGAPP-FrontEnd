@@ -8,7 +8,7 @@ import MyProducts from './screens/MyProducts';
 import Offers from './screens/Offers';
 import OrderedProducts from './screens/OrderedProducts';
 
-const TabStackNavigator = new TabNavigator({
+const TabHandlerVendasApp = new TabNavigator({
     Offers: {
         screen: Offers,
         navigationOptions: {
@@ -43,13 +43,5 @@ const TabStackNavigator = new TabNavigator({
         },
     },
 });
-
-class TabHandlerVendasApp extends Component {
-    render() {
-        return (
-            <TabStackNavigator />
-        );
-    }
-}
 
 export default TabHandlerVendasApp;

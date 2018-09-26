@@ -26,6 +26,9 @@ class MyProducts extends Component {
     componentDidMount() {
         var products_path = `${process.env.VENDAS_PRODUCTS}/products`;
         
+        console.log('** HELLO')
+        console.log(products_path)
+
         fetch(products_path, {
             method: 'GET',
             headers: {
