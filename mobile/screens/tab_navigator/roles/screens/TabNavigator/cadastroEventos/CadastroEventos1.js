@@ -56,11 +56,23 @@ export default class CadastroEventos1 extends Component {
     render() {
         return(
             <View style={styles.container}>
-                <ScrollView>
+                <ScrollView style={{alignContent: 'center'}}>
                     <View style={styles.titleContainer}>
-                        <Text>
+                        <Text style={styles.titleText}>
                             Cadastrar Evento
                         </Text>
+                    </View>
+
+                    <View style={styles.photoUpload}>
+                        <View style={styles.photoUpload2}>
+                            <MaterialIcons
+                                name="insert-photo"
+                                size={100}
+                            />
+                            <Text style={styles.photoText}>
+                                Adicionar uma imagem
+                            </Text>
+                        </View>
                     </View>
 
                     <View style={styles.inputContainer}>
@@ -262,16 +274,19 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 10,
+        backgroundColor: '#fff',
     },
     titleContainer: {
-        backgroundColor: 'gray',
+        backgroundColor: '#fff',
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginBottom: 10,
     },
     titleText: {
         fontSize: 30,
         marginBottom: 5,
+        fontWeight: 'bold',
     },
     inputContainer: {
         flex: 1,
@@ -319,6 +334,36 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: 'limegreen',
         width: 150,
+        marginBottom: 10,
+    },
+    photoUpload: {
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+        
+        
+        
+        marginBottom: 20,
+        
+    },
+    photoUpload2: {
+        backgroundColor: '#fff',
+        borderRadius: 50,
+        borderWidth: 1,
+        borderColor: 'limegreen',
+        height: 200,
+        width: 200,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    photoIcon: {
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    photoText: {
+        alignItems: 'center',
+        alignSelf: 'center',
         marginBottom: 10,
     }
 });

@@ -18,27 +18,27 @@ const RolesTabStackNavigator = new TabNavigator({
         screen:Feed,
         navigationOptions:{
             tabBarLabel:'Feed',
-            tabBarIcon: ({ tintColor }) => <MaterialCommunityIcons name='newspaper' size={26} style={{ color: tintColor }} />
+            tabBarIcon: ({ tintColor }) => <MaterialCommunityIcons name='newspaper' size={27} style={{ color: tintColor }} />
         }
     },
     RolesConfirmados:{
         screen:RolesConfimados,
         navigationOptions:{
             tabBarLabel:'RolesConfirmados',
-            tabBarIcon: ({ tintColor }) => <MaterialIcons name='event-available' size={26} style={{ color: tintColor }} />
+            tabBarIcon: ({ tintColor }) => <MaterialIcons name='event-available' size={27} style={{ color: tintColor }} />
         }
     },
     CadastroEventos1:{
         screen:CadastroEventos1,
         navigationOptions:{
             tabBarLabel:'CadastroEventosScreen',
-            tabBarIcon: ({ tintColor }) => <MaterialIcons name='playlist-add' size={26} style={{ color: tintColor }} />
+            tabBarIcon: ({ tintColor }) => <MaterialIcons name='playlist-add' size={27} style={{ color: tintColor }} />
 
         }
     },
 }, {
     headerMode: 'none',        // I don't want a NavBar at top
-    tabBarPosition: 'bottom',  // So your Android tabs go bottom
+    //tabBarPosition: 'bottom',  // So your Android tabs go bottom
     tabBarOptions: {
       activeTintColor: 'limegreen',  // Color of tab when pressed
       inactiveTintColor: '#b5b5b5', // Color of tab when not pressed
