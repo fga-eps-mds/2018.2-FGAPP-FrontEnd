@@ -27,7 +27,7 @@ export default class App extends Component {
 
   _onPressButton = async () => {
 
-      var registration_path = `http://${process.env.REACT_NATIVE_PACKAGER_HOSTNAME}:8000/api/rest-auth/registration/`;
+      var registration_path = `${process.env.INTEGRA_LOGIN_AUTH}/registration/`;
       fetch(registration_path,{
         method: 'POST',
         credentials: 'include',
