@@ -13,6 +13,8 @@ const TabHandlerVendasApp = new TabNavigator({
         screen: OfferScreen,
         navigationOptions: {
             tabBarLabel: 'Ofertas',
+            params: {numero:40}
+            //params: { token: this.props.navigation.params ? this.props.navigation.params.product : undefined }
         }
     },
     MyProducts: {

@@ -7,6 +7,8 @@ import {
     Alert,
 } from 'react-native';
 import DialogInput from 'react-native-dialog-input';
+import TabHandler from '../../../../TabHandler';
+import jwt_decode from 'jwt-decode'
 
 class OfferDetails extends Component {
   constructor(props) {
@@ -24,6 +26,11 @@ class OfferDetails extends Component {
   submitDialog = async ({buyer_message}) => {
     const {state} = this.props.navigation;
     var product = state.params ? state.params.product : undefined;
+    var token = state.params ? state.params.token : undefined;
+    var jwtDecode = require('jwt-decode');
+    var user = jwt_decode(token);
+    var numero = state.params ? state.params.numero : 0;
+    console.log('Passou por aqui')
 
     var create_order_path = `http://${process.env.REACT_NATIVE_PACKAGER_HOSTNAME}:5000/api/create_order`;
 
@@ -35,17 +42,20 @@ class OfferDetails extends Component {
       },
       body: JSON.stringify({
       'fk_product': product.id,
-      'fk_buyer': '1',
+      'fk_buyer': user.user_id,
       'buyer_message': buyer_message,
       'total_price': product.productPrice*2, //Quantidade provisória
-      'quantity': '2',
+      'quantity': '2', //Quantidade Provisórua
 
       }),
   })
   .then((response) => response.json())
   .then((responseJson) => {
     console.log(responseJson);
-    Alert.alert("Voce comprou o produto");
+    if(responseJson.error != undefined)
+      Alert.alert(responseJson.error);
+    else
+      Alert.alert('Compra realizada com sucerro');
    })
 
    .catch( err => {
@@ -63,6 +73,9 @@ class OfferDetails extends Component {
     render() {
       const {state} = this.props.navigation;
       var product = state.params ? state.params.product : undefined;
+
+
+
       return (
           <View style={styles.container}>
               <Text>{product.productName}</Text>

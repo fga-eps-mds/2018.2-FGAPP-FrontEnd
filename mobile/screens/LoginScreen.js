@@ -67,7 +67,7 @@ class LoginScreen extends Component {
     //Sucesso
    if (responseJson.token != undefined||
          responseJson.key != undefined){
-     this.props.navigation.navigate('TabHandler', {token:responseJson.token})
+      this.props.navigation.navigate('TabHandler', {token:responseJson.token})
       }
    })
    .catch( err => {
