@@ -14,13 +14,13 @@ class Settings extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      url:'http://'+process.env.REACT_NATIVE_PACKAGER_HOSTNAME+':8000',
+      url: process.env.INTEGRA_LOGIN_AUTH,
     }
 }
 
 _onPressButton = async () => {
-    // Coloque seu ip aqui
-    fetch(this.state.url+'/api/rest-auth/logout/', {
+    
+    fetch(this.state.url+'/logout/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
