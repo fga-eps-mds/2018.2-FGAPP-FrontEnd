@@ -7,6 +7,7 @@ export default {
     backgroundColor: 'transparent',
     paddingTop: 0,
     paddingBottom: 0,
+    paddingRight: '30%',
   },
   description: {
     backgroundColor: 'transparent',

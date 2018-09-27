@@ -161,6 +161,7 @@ class FormPicker extends Component {
                   <Text style={styles.textDescription}> {product.description} </Text>
                 </Body>
               </CardItem>
+
             </Content>
 
             <TouchableOpacity style={styles.customBtnBG}
