@@ -23,7 +23,7 @@ class LoginScreen extends Component {
 
   _onPressButton = async () => {
       // Coloque seu ip aqui
-      var login_path = `http://${process.env.REACT_NATIVE_PACKAGER_HOSTNAME}:8000/api/rest-auth/login/`;
+      var login_path = `${process.env.INTEGRA_LOGIN_AUTH}/login/`;
       fetch(login_path, {
         method: 'POST',
         headers: {
