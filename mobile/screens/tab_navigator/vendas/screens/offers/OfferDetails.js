@@ -67,7 +67,7 @@ class FormPicker extends Component {
     constructor(props){
       super(props);
       this.state = {
-        quantity: '',
+        quantity: '1',
         isDialogVisible: false,
         buyer_message: '',
         max_characters: '120',
@@ -135,6 +135,8 @@ class FormPicker extends Component {
 
       const characters = `${this.state.buyer_message.length.toString()}/${this.state.max_characters}`;
 
+      var price = `${this.state.quantity}` * `${product.price}`;
+
       return (
           <View style={styless.container}>
             <Content>
@@ -150,7 +152,7 @@ class FormPicker extends Component {
                </CardItem>
 
                <CardItem style={styles.info}>
-                <Text style={styles.textInfo}> R$ {product.price} </Text>
+                <Text style={styles.textInfo}> R$ {price} </Text>
               </CardItem>
 
               <CardItem style={styles.description}>
