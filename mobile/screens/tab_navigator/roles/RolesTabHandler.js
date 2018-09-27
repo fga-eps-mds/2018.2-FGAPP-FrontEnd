@@ -6,23 +6,23 @@ import {
 } from "react-native";
 
 import {TabNavigator} from 'react-navigation'
-import Feed from './screens/TabNavigator/Feed'
-import RolesConfimados from './screens/TabNavigator/RolesConfimados'
+import RolesConfirmadosNavigator from './screens/TabNavigator/rolesConfirmados/RolesConfirmadosNavigator'
 import CadastroNavigator from './screens/TabNavigator/cadastroEventos/CadastroNavigator'
+import FeedNavigator from './screens/TabNavigator/feed/FeedNavigator'
 
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Platform } from 'react-native';
 
 const RolesTabStackNavigator = new TabNavigator({
-    Feed:{
-        screen:Feed,
+    FeedNavigator:{
+        screen:FeedNavigator,
         navigationOptions:{
             tabBarLabel:'Feed',
             tabBarIcon: ({ tintColor }) => <MaterialCommunityIcons name='newspaper' size={27} style={{ color: tintColor }} />
         }
     },
-    RolesConfirmados:{
-        screen:RolesConfimados,
+    RolesConfirmadosNavigator:{
+        screen:RolesConfirmadosNavigator,
         navigationOptions:{
             tabBarLabel:'RolesConfirmados',
             tabBarIcon: ({ tintColor }) => <MaterialIcons name='event-available' size={27} style={{ color: tintColor }} />

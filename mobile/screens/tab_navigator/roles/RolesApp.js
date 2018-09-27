@@ -8,7 +8,7 @@ import {
 import HomeScreen from './screens/HomeScreen'
 import CadastroEventos1 from './screens/TabNavigator/cadastroEventos/CadastroEventos1'
 import CadastroEventos2 from './screens/TabNavigator/cadastroEventos/CadastroEventos2'
-import Feed from './screens/TabNavigator/Feed'
+import Feed from './screens/TabNavigator/feed/Feed'
 import {StackNavigator} from 'react-navigation'
 import RolesTabHandler from './RolesTabHandler'
 
@@ -35,25 +35,6 @@ const RolesStackNavigator = new StackNavigator({
             header: null
         }
     },
-    CadastroEventos1:{
-        screen:CadastroEventos1,
-        navigationOptions:{
-            header:null
-        },
-    },
-    CadastroEventos2:{
-        screen:CadastroEventos2,
-        navigationOptions:{
-            header:null
-        },
-    },
-    Feed: {
-        screen: Feed,
-        navigationOptions:{
-            header:null
-        },
-    },
-    
 })
 
 //Cor limegreen principal do app
