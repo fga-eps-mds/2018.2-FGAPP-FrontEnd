@@ -8,7 +8,7 @@ import {
     StyleSheet,
     ScrollView
 } from 'react-native';
-import ProductCard from '../components/ProductCard';
+import ProductCard from '../../components/ProductCard';
 
 class MyProducts extends Component {
     // productImage initialize with an image cause of asynchronous request
@@ -16,14 +16,12 @@ class MyProducts extends Component {
         super(props);
         this.state = {
             products: [{
-                id: '',
                 name: '',
                 price: '',
                 photo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3DELRuKTg7K4gi9v13ELUq3ltLxlNGOsw6BDfsF0jlVKFr4h3',
             }]
         };
     }
-    // fetching and sorting data from a mock API
     componentDidMount() {
         var products_path = `${process.env.VENDAS_PRODUCTS}/products`;
 
@@ -56,6 +54,7 @@ class MyProducts extends Component {
                             productImage={product.photo}
                             productName={product.name}
                             productPrice={product.price}
+                            onPress={() => this.props.navigation.navigate('OfferDetails', {product: product})}
                         />
                     );
                 })}

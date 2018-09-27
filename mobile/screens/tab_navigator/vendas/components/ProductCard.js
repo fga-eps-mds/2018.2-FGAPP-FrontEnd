@@ -3,7 +3,7 @@
 */
 
 import React, { Component } from 'react';
-import { Image, ImageBackground, View } from 'react-native';
+import { Image, ImageBackground, View, TouchableHighlight } from 'react-native';
 import { Card, CardItem, Text, Left, Right } from 'native-base';
 import styles from './styles';
 import { LinearGradient } from 'expo';
@@ -12,6 +12,7 @@ class ProductCard extends Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
+      <TouchableHighlight onPress={this.props.onPress}>
         <ImageBackground
           style={ styles.image }
           source={{ uri: this.props.productImage }}
@@ -32,6 +33,7 @@ class ProductCard extends Component {
             </Right>
           </CardItem>
         </ImageBackground>
+      </TouchableHighlight>
       </View>
     );
   }

@@ -5,12 +5,12 @@
 import React, { Component } from 'react';
 import { TabNavigator } from 'react-navigation';
 import MyProducts from './screens/MyProducts';
-import Offers from './screens/Offers';
+import OfferScreen from './screens/OfferScreen';
 import OrderedProducts from './screens/OrderedProducts';
 
 const TabHandlerVendasApp = new TabNavigator({
-    Offers: {
-        screen: Offers,
+    OfferScreen: {
+        screen: OfferScreen,
         navigationOptions: {
             tabBarLabel: 'Ofertas',
         }
@@ -19,12 +19,14 @@ const TabHandlerVendasApp = new TabNavigator({
         screen: MyProducts,
         navigationOptions: {
             tabBarLabel: 'Meus produtos',
+            headerLeft: null,
         }
     },
     OrderedProducts: {
         screen: OrderedProducts,
         navigationOptions: {
             tabBarLabel: 'Pedidos',
+            headerLeft: null,
         }
     }
 },
