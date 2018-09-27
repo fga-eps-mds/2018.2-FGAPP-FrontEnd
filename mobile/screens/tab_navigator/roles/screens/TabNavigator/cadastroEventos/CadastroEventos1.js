@@ -26,6 +26,7 @@ export default class CadastroEventos1 extends Component {
         data: '',
     }
 
+    // Função antiga que cadastrava no firebase
     cadastrarRole() {
         var roles = firebase.database().ref("Roles");
         //roles.push().child("titulo").set(this.state.titulo);

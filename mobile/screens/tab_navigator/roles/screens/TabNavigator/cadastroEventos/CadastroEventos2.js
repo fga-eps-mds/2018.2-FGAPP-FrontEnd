@@ -7,17 +7,12 @@ import {
     TouchableOpacity,
     ScrollView,
 } from "react-native";
-import Feed from '../Feed'
 import CadastroEventos1 from './CadastroEventos1'
-import * as firebase from 'firebase'
-
-import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
-import { Platform } from 'react-native';
 
 export default class CadastroEventos2 extends Component {
 
     voltar() {
-        this.props.navigation.goback();
+        this.props.navigation.navigate('CadastroEventos1');
     }
 
     render() {

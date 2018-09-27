@@ -7,8 +7,8 @@ import {
 
 import {TabNavigator} from 'react-navigation'
 import Feed from './screens/TabNavigator/Feed'
-import CadastroEventos1 from './screens/TabNavigator/cadastroEventos/CadastroEventos1'
 import RolesConfimados from './screens/TabNavigator/RolesConfimados'
+import CadastroNavigator from './screens/TabNavigator/cadastroEventos/CadastroNavigator'
 
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Platform } from 'react-native';
@@ -28,17 +28,16 @@ const RolesTabStackNavigator = new TabNavigator({
             tabBarIcon: ({ tintColor }) => <MaterialIcons name='event-available' size={27} style={{ color: tintColor }} />
         }
     },
-    CadastroEventos1:{
-        screen:CadastroEventos1,
+    CadastroNavigator:{
+        screen: CadastroNavigator,
         navigationOptions:{
-            tabBarLabel:'CadastroEventosScreen',
+            tabBarLabel:'CadastroEventos',
             tabBarIcon: ({ tintColor }) => <MaterialIcons name='playlist-add' size={27} style={{ color: tintColor }} />
-
         }
     },
 }, {
     headerMode: 'none',        // I don't want a NavBar at top
-    //tabBarPosition: 'bottom',  // So your Android tabs go bottom
+    tabBarPosition: 'bottom',  // So your Android tabs go bottom
     tabBarOptions: {
       activeTintColor: 'limegreen',  // Color of tab when pressed
       inactiveTintColor: '#b5b5b5', // Color of tab when not pressed
