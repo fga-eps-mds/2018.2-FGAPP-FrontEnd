@@ -34,7 +34,7 @@ class MyProducts extends Component {
         .then((response) => response.json())
         .then((responseJson) => {
             responseJson.sort((product1, product2) => {
-                return (product1.productPrice - product2.productPrice);
+                return (product1.price - product2.price);
             });
             this.setState({ products: responseJson });
         })
