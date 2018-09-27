@@ -44,6 +44,8 @@ class MyProducts extends Component {
     }
 
     render() {
+        const {state} = this.props.navigation;
+        var token = state.params ? state.params.token : undefined;
         return (
         <View style={styles.container}>
             <ScrollView>
@@ -54,7 +56,7 @@ class MyProducts extends Component {
                             productImage={product.photo}
                             productName={product.name}
                             productPrice={product.price}
-                            onPress={() => this.props.navigation.navigate('OfferDetails', {product: product})}
+                            onPress={() => this.props.navigation.navigate('OfferDetails', {product: product, token: token})}
                         />
                     );
                 })}

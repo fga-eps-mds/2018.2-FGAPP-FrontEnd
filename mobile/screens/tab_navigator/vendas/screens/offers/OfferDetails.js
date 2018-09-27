@@ -4,11 +4,13 @@ import {
     StyleSheet,
     TouchableOpacity,
     Picker,
-    AppRegistry
+    Alert,
 } from 'react-native';
 import ProductImage from '../../components/ProductImage';
 import styles from '../../components/styles';
 import { Card, CardItem, Text, Left, Right, Content, Body} from 'native-base';
+import OfferDialog from '../../components/OfferDialog';
+import jwt_decode from 'jwt-decode';
 
 const Quantity = [
   {
@@ -64,15 +66,74 @@ class FormPicker extends Component {
  class OfferDetails extends Component {
     constructor(props){
       super(props);
-      this.states = {
+      this.state = {
         quantity: '',
+        isDialogVisible: false,
+        buyer_message: '',
+        max_characters: '120',
       };
+    }
+
+    openDialog = async () => {
+      this.setState({ buyer_message: '' })
+      this.setState({ isDialogVisible: true })
+    }
+
+    closeDialog = async () => {
+      this.setState({ isDialogVisible: false })
+      this.setState({ buyer_message: '' })
+    }
+
+    submitDialog = async () => {
+      const {state} = this.props.navigation;
+      var product = state.params ? state.params.product : undefined;
+      var token = state.params ? state.params.token : undefined;
+      var user = jwt_decode(token);
+
+
+      fetch('http://192.168.1.4:8001/api/create_order', {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          'fk_product': product.id,
+          'fk_buyer': user.user_id,
+          'buyer_message': this.state.buyer_message,
+          'total_price': product.productPrice * 2,
+          'quantity': '2',
+        }),
+      })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log(responseJson);
+        if(responseJson.error != undefined){
+          Alert.alert(responseJson.error);
+        }
+        else{
+          Alert.alert('Compra realizada com sucesso');
+        }
+      })
+
+      .catch(err => {
+        if(typeof err.text  === 'function'){
+          err.text().then(errorMessage => {
+            this.props.dispatch(displayTheError(errorMessage))
+          });
+        } else {
+          Alert.alert("Erro na conexão com o servidor.");
+          console.log(err)
+        }
+      });
+      this.setState({ isDialogVisible: false });
     }
 
     render() {
       const {state} = this.props.navigation;
       var product = state.params ? state.params.product : undefined;
-      const handlePress = () => false
+
+      const characters = `${this.state.buyer_message.length.toString()}/${this.state.max_characters}`;
 
       return (
           <View style={styless.container}>
@@ -100,15 +161,23 @@ class FormPicker extends Component {
             </Content>
 
             <TouchableOpacity style={styles.customBtnBG}
-            onPress={handlePress}>
+            onPress={this.openDialog}>
               <Text style={styles.customBtnText}> Pedir </Text>
             </TouchableOpacity>
+
+            <OfferDialog
+              isDialogVisible = {this.state.isDialogVisible}
+              backButton = {this.closeDialog}
+              sendButton = {this.submitDialog}
+              onChangeText = {(buyer_message) => this.setState({buyer_message})}
+              characters = {characters}
+            />
 
             <Text style = {styles.PickerText}> Quantidade </Text>
 
             <FormPicker
               items={Quantity}
-              value={this.states.quantity}
+              value={this.state.quantity}
               onValueChange={(itemValue, itemIndex) => this.setState({ quantity: itemValue })}
             />
 
@@ -125,5 +194,3 @@ const styless = StyleSheet.create({
         //width: '100%',
     }
 });
-
-AppRegistry.registerComponent('FormPicker', () => OfferDetail);
