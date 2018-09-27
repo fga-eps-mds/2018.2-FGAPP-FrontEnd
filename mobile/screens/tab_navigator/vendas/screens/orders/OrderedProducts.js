@@ -9,7 +9,7 @@ import {
     StyleSheet,
     ScrollView,
 } from 'react-native';
-import OrderCard from '../components/OrderCard'
+import OrderCard from '../../components/OrderCard'
 import jwt_decode from 'jwt-decode'
 
 class OrderedProducts extends Component {
@@ -51,6 +51,7 @@ class OrderedProducts extends Component {
                         orderName = {'Cupcake'}
                         orderQuantity = {'Quantidade: 2'}
                         orderPrice = {`${order.id},00`}
+                        onPress={() => this.props.navigation.navigate('OrderDetails', {order: order, token:token})}
                       />
                     );
                   }

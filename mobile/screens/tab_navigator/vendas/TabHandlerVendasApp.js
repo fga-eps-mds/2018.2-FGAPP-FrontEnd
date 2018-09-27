@@ -6,7 +6,7 @@ import React, { Component } from 'react';
 import { TabNavigator } from 'react-navigation';
 import MyProducts from './screens/MyProducts';
 import OfferScreen from './screens/OfferScreen';
-import OrderedProducts from './screens/OrderedProducts';
+import OrderScreen from './screens/OrderScreen';
 
 const TabHandlerVendasApp = new TabNavigator({
     OfferScreen: {
@@ -24,11 +24,10 @@ const TabHandlerVendasApp = new TabNavigator({
             headerLeft: null,
         }
     },
-    OrderedProducts: {
-        screen: OrderedProducts,
+    OrderScreen: {
+        screen: OrderScreen,
         navigationOptions: {
             tabBarLabel: 'Pedidos',
-            headerLeft: null,
         }
     }
 },
