@@ -55,7 +55,8 @@ class CreateProduct extends Component {
       })
       .then((responseJson) => {
         if (responseJson.length){
-          this.setState ({ messageError: responseJson })
+          const error = JSON.parse(responseJson[0]);
+          this.setState ({ messageError: error["error"]})
           this.setState({ isDialogVisible: true })
         }
         else{

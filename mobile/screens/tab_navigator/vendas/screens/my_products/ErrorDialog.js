@@ -17,12 +17,17 @@ export default class ErrorDialog extends Component{
   render(){
     return(
       <Dialog.Container visible={this.props.isDialogVisible}>
-        <View style={{width: '90%',flexDirection: 'column'}}>
-            <Text> {this.props.messageError} </Text>
-            <Button
-              title="Cancelar"
+        <View style={{flexDirection: 'column'}}>
+          <Dialog.Title style={{paddingTop: 0, paddingBottom: 5}}>
+              Erro
+            </Dialog.Title>
+            <Dialog.Description>
+              {this.props.messageError}
+            </Dialog.Description>
+            <Dialog.Button
+              label="Cancelar"
               onPress={this.props.backButton}
-              color="purple"
+              color="purple"  
             />
         </View>
       </Dialog.Container>
