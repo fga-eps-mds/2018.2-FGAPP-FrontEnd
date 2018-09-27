@@ -7,6 +7,26 @@ export default {
     width: '100%',
     borderColor: '#171717',
   },
+  details_main: {
+    flex: 1,
+    flexDirection: 'column',
+    margin: 0,
+    padding: 0,
+    width: '100%',
+    backgroundColor: '#171717',
+  },
+  image: {
+    height: 210,
+    width: '100%',
+  },
+  gradient: {
+    backgroundColor: 'transparent',
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+  },
   order_main: {
     flex: 1,
     flexDirection: 'row',
@@ -44,7 +64,11 @@ export default {
   },
   order_subtitle: {
     color: 'white',
-    fontSize: 18,
+    fontSize: 20,
+  },
+  order_body: {
+    color: 'white',
+    fontSize: 16,
   },
   order_price: {
     color: 'white',

@@ -50,7 +50,7 @@ class OrderedProducts extends Component {
                         key={index}
                         orderName = {'Cupcake'}
                         orderQuantity = {'Quantidade: 2'}
-                        orderPrice = {`${order.id},00`}
+                        orderPrice = {`${order.total_price.toFixed(2)}`}
                         onPress={() => this.props.navigation.navigate('OrderDetails', {order: order, token:token})}
                       />
                     );
