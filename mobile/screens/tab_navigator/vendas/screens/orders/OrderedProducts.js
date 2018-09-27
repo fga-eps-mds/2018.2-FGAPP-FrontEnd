@@ -23,7 +23,8 @@ class OrderedProducts extends Component {
     }
 
     componentDidMount(){
-      fetch('http://192.168.1.4:8001/api/orders/',{
+      const orders_path = `http://${process.env.REACT_NATIVE_PACKAGER_HOSTNAME}:8001/api/orders/`;
+      fetch(orders_path ,{
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -36,11 +37,11 @@ class OrderedProducts extends Component {
       .catch((error) => {
         console.error(error);
       });
-
     }
     render() {
       const {state} = this.props.navigation;
       var token = state.params ? state.params.token : undefined;
+      var product = state.params ? state.params.product : undefined;
       var user = jwt_decode(token);
         return (
           <View style = {styles.container}>

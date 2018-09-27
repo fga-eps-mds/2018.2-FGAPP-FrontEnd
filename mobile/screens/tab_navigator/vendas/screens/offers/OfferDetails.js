@@ -90,8 +90,9 @@ class FormPicker extends Component {
       var token = state.params ? state.params.token : undefined;
       var user = jwt_decode(token);
 
+    const create_order_path = `http://${process.env.REACT_NATIVE_PACKAGER_HOSTNAME}:5000/api/create_order`;
 
-      fetch('http://192.168.1.4:8001/api/create_order', {
+      fetch(create_order_path, {
         method: 'POST',
         credentials: 'include',
         headers: {

@@ -25,8 +25,8 @@ import { LinearGradient } from 'expo';
       var user = jwt_decode(token);
 
         return (
-          <ScrollView style={{backgroundColor:'#171717'}}>
-              <View style={styles.details_main} >
+          <ScrollView>
+              <View style={styless.container} >
               <ImageBackground
                 style={styles.image }
                 source={{ uri: 'https://p2.trrsf.com/image/fget/cf/940/0/images.terra.com/2018/06/22/alfajor-caseiro-como-fazer.jpg' }}
@@ -39,7 +39,7 @@ import { LinearGradient } from 'expo';
               </ImageBackground>
                 <View style={{ flexDirection: 'row', paddingBottom: 20, paddingLeft: 10}}>
                   <View style={{flexDirection: 'column', width: '70%',}}>
-                    <Text style={styles.order_title}>Alfajor</Text>
+                    <Text style={styles.order_title}>'Cupcake'</Text>
                     <Text style={styles.order_subtitle}>R$ {order.total_price.toFixed(2)}</Text>
                   </View>
                   <View style={{flexDirection: 'column', width: '30%'}}>
@@ -67,3 +67,11 @@ import { LinearGradient } from 'expo';
     }
 }
 export default OrderDetails;
+
+const styless = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#171717',
+        //width: '100%',
+    }
+});
