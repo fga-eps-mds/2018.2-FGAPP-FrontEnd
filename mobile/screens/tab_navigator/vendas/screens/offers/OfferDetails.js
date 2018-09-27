@@ -101,8 +101,8 @@ class FormPicker extends Component {
           'fk_product': product.id,
           'fk_buyer': user.user_id,
           'buyer_message': this.state.buyer_message,
-          'total_price': product.productPrice * 2,
-          'quantity': '2',
+          'total_price': product.productPrice * this.state.quantity,
+          'quantity': this.state.quantity,
         }),
       })
       .then((response) => response.json())

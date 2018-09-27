@@ -111,10 +111,22 @@ export default {
     },
     order_subtitle: {
       color: 'white',
-      fontSize: 18,
+      fontSize: 20,
+    },
+    order_body: {
+      color: 'white',
+      fontSize: 16,
     },
     order_price: {
       color: 'white',
       fontSize: 25,
-    }
+    },
+    details_main: {
+      flex: 1,
+      flexDirection: 'column',
+      margin: 0,
+      padding: 0,
+      width: '100%',
+      backgroundColor: '#171717',
+    },
 };

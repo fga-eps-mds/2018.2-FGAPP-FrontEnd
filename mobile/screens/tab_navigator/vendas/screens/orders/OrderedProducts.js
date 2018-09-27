@@ -18,6 +18,7 @@ class OrderedProducts extends Component {
       super(props);
       this.state = {
         orders: [''],
+        product: [''],
       };
     }
 
@@ -35,6 +36,7 @@ class OrderedProducts extends Component {
       .catch((error) => {
         console.error(error);
       });
+
     }
     render() {
       const {state} = this.props.navigation;
@@ -49,13 +51,14 @@ class OrderedProducts extends Component {
                     <OrderCard
                     key = {index}
                     orderName = {'Cupcake'}
-                    orderQuantity = {'Quantidade: 2'}
-                    orderPrice = {`${order.id},00`}
+                    orderQuantity = {order.quantity}
+                    orderPrice = {`${order.total_price.toFixed(2)}`}
                     onPress={() => this.props.navigation.navigate('OrderDetails', {order: order, token: token})}
                    />
-                 );
-                }
-              })}
+
+              );
+            }
+          })}
             </ScrollView>
           </View>
         );
