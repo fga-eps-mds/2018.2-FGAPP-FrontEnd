@@ -64,7 +64,8 @@ class CreateProduct extends Component {
         }
       })
       .catch((err) => {
-        console.log(err);
+        this.setState ({ messageError: "Erro interno, não foi possível se comunicar com o servidor."})
+        this.setState({ isDialogVisible: true })
       })
     }
 
@@ -85,14 +86,14 @@ class CreateProduct extends Component {
               </ProductImage>
               <Form style={styles.description}>
                 <Item floatingLabel>
-                  <Label>Titulo</Label>
+                  <Label>Título</Label>
                   <Input style={{ color: "white" }} onChangeText={(title) => {this.setState({title})}} />
                 </Item>
                 <Item floatingLabel>
-                  <Label>Preco</Label>
+                  <Label>Preço</Label>
                   <Input style={{ color: "white" }} onChangeText={(price) => {this.setState({price})}} />
                 </Item>
-                <Textarea style={{ color: "white" }} onChangeText={(description) => {this.setState({description})}} rowSpan={2} underline placeholder="Description" />
+                <Textarea style={{ color: "white" }} onChangeText={(description) => {this.setState({description})}} rowSpan={2} underline placeholder="Descrição" />
               </Form>
               <View style={styles.buttonContainer}>
                 <Button onPress={() => {this.props.navigation.navigate('MyProducts', {token:token});}} style={{justifyContent: 'center', height: 40, width: 100}} danger><Text style={{color: 'white'}}> CANCELAR </Text></Button>
