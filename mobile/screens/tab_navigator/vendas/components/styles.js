@@ -32,7 +32,7 @@ export default {
     textShadowOffset: {
       width: 2,
       height: 2,
-    },
+   },
     textShadowColor: '#5A5A5A',
     textShadowRadius: 5,
     alignSelf: 'center',
@@ -42,7 +42,7 @@ export default {
   textVendor: {
     fontWeight: 'normal',
     color: 'white',
-    fontSize: 20,
+    fontSize: 10,
   },
   textInfo: {
     fontWeight: 'normal',
@@ -52,39 +52,40 @@ export default {
   textDescription: {
     fontWeight: 'normal',
     color: '#c2c2d6',
-    fontSize: 20,
+    fontSize: 15,
   },
-    customBtnBG: {
-     position: 'absolute',
-     backgroundColor: "#0EAC6F",
-     top: '85%',
-     left: '70%',
-     paddingVertical: 10,
-     paddingHorizontal: 15,
-   },
-    customBtnText: {
-      fontSize: 20,
-      fontWeight: '400',
-      color: 'white',
-      alignItems: 'flex-start',
-    },
-    PickerStyle: {
-     position: 'absolute',
-     top: '40%',
-     left: '70%',
-     paddingVertical: 50,
-     paddingHorizontal: 50,
-     color: 'white',
-     alignSelf: 'center',
+  customBtnBG: {
+    position: 'absolute',
+    backgroundColor: "#0EAC6F",
+    top: '85%',
+    left: '70%',
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+  },
+  customBtnText: {
+    fontSize: 20,
+    fontWeight: '400',
+    color: 'white',
+    alignItems: 'flex-start',
+  },
+  PickerStyle: {
+    position: 'absolute',
+    top: '40%',
+    left: '70%',
+    paddingVertical: 50,
+    paddingHorizontal: 50,
+    color: 'white',
+    alignSelf: 'center',
    },
    PickerText: {
-     position: 'absolute',
-     top: '40%',
-     left: '70%',
-     color: 'white',
-     alignSelf: 'center',
+    position: 'absolute',
+    top: '40%',
+    left: '70%',
+    color: 'white',
+    alignSelf: 'center',
+    fontSize: 15,
    },
-     order_main: {
+   order_main: {
     flex: 1,
     flexDirection: 'row',
     width: '100%',
@@ -96,7 +97,7 @@ export default {
     paddingLeft: 20,
     paddingRight: 20,
    },
-     order_item: {
+   order_item: {
     backgroundColor: '#08623F',
     flexGrow: 1,
     paddingVertical: 0,
@@ -104,29 +105,29 @@ export default {
     paddingLeft: 20,
     paddingRight: 20,
     borderRadius: 0,
-    },
-    order_title: {
-      color: 'white',
-      fontSize: 25,
-    },
-    order_subtitle: {
-      color: 'white',
-      fontSize: 20,
-    },
-    order_body: {
-      color: 'white',
-      fontSize: 16,
-    },
-    order_price: {
-      color: 'white',
-      fontSize: 25,
-    },
-    details_main: {
-      flex: 1,
-      flexDirection: 'column',
-      margin: 0,
-      padding: 0,
-      width: '100%',
-      backgroundColor: '#171717',
+   },
+   order_title: {
+    color: 'white',
+    fontSize: 25,
+   },
+   order_subtitle: {
+    color: 'white',
+    fontSize: 20,
+   },
+   order_body: {
+    color: 'white',
+    fontSize: 16,
+   },
+   order_price: {
+    color: 'white',
+    fontSize: 25,
+   },
+   details_main: {
+    flex: 1,
+    flexDirection: 'column',
+    margin: 0,
+    padding: 0,
+    width: '100%',
+    backgroundColor: '#171717',
     },
 };

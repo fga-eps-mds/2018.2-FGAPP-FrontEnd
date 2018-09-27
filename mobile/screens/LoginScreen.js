@@ -24,6 +24,7 @@ class LoginScreen extends Component {
   _onPressButton = async () => {
       // Coloque seu ip aqui
       var login_path = `${process.env.INTEGRA_LOGIN_AUTH}/login/`;
+      
       fetch(login_path, {
         method: 'POST',
         headers: {
