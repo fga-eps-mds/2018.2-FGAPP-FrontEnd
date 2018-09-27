@@ -19,7 +19,7 @@ class Settings extends Component {
 }
 
 _onPressButton = async () => {
-    
+
     fetch(this.state.url+'/logout/', {
       method: 'POST',
       headers: {
@@ -52,7 +52,7 @@ _onPressButton = async () => {
 
   render() {
     const {state} = this.props.navigation;
-    var token = state.params ? state.params.token : "<undefined>";
+    var token = state.params ? state.params.token : undefined;
     var jwtDecode = require('jwt-decode');
     var user = jwt_decode(token);
       return (

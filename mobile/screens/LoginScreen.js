@@ -11,7 +11,7 @@ import {
 import Field from './components/Field';
 
 class LoginScreen extends Component {
-  
+
   constructor(props) {
       super(props);
       this.state = {
@@ -66,7 +66,7 @@ class LoginScreen extends Component {
     //Sucesso
    if (responseJson.token != undefined||
          responseJson.key != undefined){
-     this.props.navigation.navigate('Settings', {token:responseJson.token})
+     this.props.navigation.navigate('TabHandler', {token:responseJson.token})
       }
    })
    .catch( err => {

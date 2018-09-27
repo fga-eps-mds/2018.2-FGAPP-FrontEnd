@@ -16,6 +16,7 @@ const TabHandler = new TabNavigator({
         screen: RolesApp,
         navigationOptions: {
             tabBarLabel: 'Eventos',
+            headerLeft: null,
             tabBarIcon: ({ focused }) => (
                 <Icon
                     name="md-star"
@@ -40,8 +41,9 @@ const TabHandler = new TabNavigator({
         screen: IndicaAiApp,
         navigationOptions: {
             tabBarLabel: 'IndicaAi',
+            headerLeft: null,
             tabBarIcon: ({ focused }) => (
-                <Icon
+                <Icon 
                     name="md-locate"
                     style={{ color: focused ? '#0AACCC' : '#5A5A5A' }}
                 />
@@ -52,6 +54,7 @@ const TabHandler = new TabNavigator({
         screen: CarDefenseApp,
         navigationOptions: {
             tabBarLabel: 'CarDefense',
+            headerLeft: null,
             tabBarIcon: ({ focused }) => (
                 <Icon
                     name="md-car"
@@ -64,6 +67,7 @@ const TabHandler = new TabNavigator({
         screen: Settings,
         navigationOptions: {
             tabBarLabel: 'Configurações',
+            headerLeft: null,
             tabBarIcon: ({ focused }) => (
                 <Icon
                     name="md-settings"
