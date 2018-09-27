@@ -56,12 +56,15 @@ export default {
     fontSize: 15,
   },
   customBtnBG: {
-    position: 'absolute',
     backgroundColor: "#0EAC6F",
-    top: '85%',
-    left: '70%',
     paddingVertical: 10,
     paddingHorizontal: 15,
+  },
+  buttonCard:{
+    backgroundColor: 'transparent',
+    paddingTop: 5,
+    paddingBottom: 10,
+    paddingLeft: '70%',
   },
   customBtnText: {
     fontSize: 20,

@@ -161,29 +161,28 @@ class FormPicker extends Component {
                   <Text style={styles.textDescription}> {product.description} </Text>
                 </Body>
               </CardItem>
+              <CardItem style = {styles.buttonCard}>
+              <TouchableOpacity style={styles.customBtnBG}
+              onPress={this.openDialog}>
+                <Text style={styles.customBtnText}> Pedir </Text>
+              </TouchableOpacity>
 
+              <OfferDialog
+                isDialogVisible = {this.state.isDialogVisible}
+                backButton = {this.closeDialog}
+                sendButton = {this.submitDialog}
+                onChangeText = {(buyer_message) => this.setState({buyer_message})}
+                characters = {characters}
+              />
+              </CardItem>
+              <Text style = {styles.PickerText}> Quantidade </Text>
+
+              <FormPicker
+                items={Quantity}
+                value={this.state.quantity}
+                onValueChange={(itemValue, itemIndex) => this.setState({ quantity: itemValue })}
+              />
             </Content>
-
-            <TouchableOpacity style={styles.customBtnBG}
-            onPress={this.openDialog}>
-              <Text style={styles.customBtnText}> Pedir </Text>
-            </TouchableOpacity>
-
-            <OfferDialog
-              isDialogVisible = {this.state.isDialogVisible}
-              backButton = {this.closeDialog}
-              sendButton = {this.submitDialog}
-              onChangeText = {(buyer_message) => this.setState({buyer_message})}
-              characters = {characters}
-            />
-
-            <Text style = {styles.PickerText}> Quantidade </Text>
-
-            <FormPicker
-              items={Quantity}
-              value={this.state.quantity}
-              onValueChange={(itemValue, itemIndex) => this.setState({ quantity: itemValue })}
-            />
 
           </View>
       );
