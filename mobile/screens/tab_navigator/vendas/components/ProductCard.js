@@ -15,7 +15,7 @@ class ProductCard extends Component {
       <TouchableHighlight onPress={this.props.onPress}>
         <ImageBackground
           style={ styles.image }
-          source={{ uri: this.props.productImage }}
+          source={{ uri: this.props.photo }}
         >
           <LinearGradient
             colors={['transparent', 'black']}
@@ -24,11 +24,11 @@ class ProductCard extends Component {
           />
           <CardItem style={styles.item}>
             <Left>
-              <Text style={styles.text}>{this.props.productName}</Text>
+              <Text style={styles.text}>{this.props.name}</Text>
             </Left>
             <Right>
               <Text>
-                <Text style={styles.text}>R$ {this.props.productPrice}</Text>
+                <Text style={styles.text}>R$ {this.props.price}</Text>
               </Text>
             </Right>
           </CardItem>

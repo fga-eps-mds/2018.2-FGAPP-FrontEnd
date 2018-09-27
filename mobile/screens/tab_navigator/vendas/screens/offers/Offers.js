@@ -6,7 +6,8 @@ import React, { Component } from 'react';
 import {
     View,
     StyleSheet,
-    ScrollView
+    ScrollView,
+    Text
 } from 'react-native';
 import ProductCard from '../../components/ProductCard';
 
@@ -31,11 +32,13 @@ class MyProducts extends Component {
                 'Content-Type': 'application/json',
             }
         })
-        .then((response) => response.json())
+        .then((response) => { return response.json() })
         .then((responseJson) => {
-            responseJson.sort((product1, product2) => {
-                return (product1.price - product2.price);
-            });
+            if(responseJson.length > 1){
+              responseJson.sort((product1, product2) => {
+                  return (product1.price - product2.price);
+              });
+            }
             this.setState({ products: responseJson });
         })
         .catch((error) => {
@@ -53,9 +56,9 @@ class MyProducts extends Component {
                     return (
                         <ProductCard
                             key={index}
-                            productImage={product.photo}
-                            productName={product.name}
-                            productPrice={product.price}
+                            photo={product.photo}
+                            name={product.name}
+                            price={product.price}
                             onPress={() => this.props.navigation.navigate('OfferDetails', {product: product, token: token})}
                         />
                     );
@@ -65,6 +68,7 @@ class MyProducts extends Component {
         );
     }
 }
+
 export default MyProducts;
 
 const styles = StyleSheet.create({

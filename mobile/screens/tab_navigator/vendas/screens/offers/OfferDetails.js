@@ -142,7 +142,7 @@ class FormPicker extends Component {
           <View style={styless.container}>
             <Content>
               <ProductImage
-                productImage={product.photo}
+                photo={product.photo}
                 />
               <CardItem style={styles.info}>
                 <Text style={styles.textVendor}> Fulano da Silva </Text>

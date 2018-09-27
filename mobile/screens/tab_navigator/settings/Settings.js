@@ -14,13 +14,13 @@ class Settings extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      url:'http://'+process.env.REACT_NATIVE_PACKAGER_HOSTNAME+':8000',
+      url: process.env.INTEGRA_LOGIN_AUTH,
     }
 }
 
 _onPressButton = async () => {
-    // Coloque seu ip aqui
-    fetch(this.state.url+'/api/rest-auth/logout/', {
+
+    fetch(this.state.url+'/logout/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -52,7 +52,7 @@ _onPressButton = async () => {
 
   render() {
     const {state} = this.props.navigation;
-    var token = state.params ? state.params.token : "<undefined>";
+    var token = state.params ? state.params.token : undefined;
     var jwtDecode = require('jwt-decode');
     var user = jwt_decode(token);
       return (

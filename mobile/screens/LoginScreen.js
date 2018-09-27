@@ -11,7 +11,7 @@ import {
 import Field from './components/Field';
 
 class LoginScreen extends Component {
-  url='http://'+process.env.REACT_NATIVE_PACKAGER_HOSTNAME+':8000';
+
   constructor(props) {
       super(props);
       this.state = {
@@ -22,9 +22,7 @@ class LoginScreen extends Component {
   }
 
   _onPressButton = async () => {
-      // Coloque seu ip aqui
       var login_path = `${process.env.INTEGRA_LOGIN_AUTH}/login/`;
-      
       fetch(login_path, {
         method: 'POST',
         headers: {
