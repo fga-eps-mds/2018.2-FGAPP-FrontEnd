@@ -5704,6 +5704,10 @@ react-native-cookie@^0.2.0:
   dependencies:
     cookie "^0.3.1"
 
+react-native-dialog-input@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/react-native-dialog-input/-/react-native-dialog-input-1.0.4.tgz#56717b9c408c3e47a604e8be61d589bfc63dea04"
+
 react-native-dialog@^5.3.0:
   version "5.3.0"
   resolved "https://registry.yarnpkg.com/react-native-dialog/-/react-native-dialog-5.3.0.tgz#cf843bed0ed2e1c585afd4a17a7073328c0704c6"

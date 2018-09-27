@@ -3,17 +3,19 @@
 */
 
 import React, { Component } from 'react';
-import { TabNavigator, StackNavigator } from 'react-navigation';
+import { TabNavigator } from 'react-navigation';
+import OfferScreen from './screens/OfferScreen';
+import OrderScreen from './screens/OrderScreen';
 import MyProductStackNavigator from './screens/MyProductsScreen';
-import Offers from './screens/Offers';
-import OrderedProducts from './screens/OrderedProducts';
 
 const TabHandlerVendasApp = new TabNavigator({
-    Offers: {
-        screen: Offers,
+    OfferScreen: {
+        screen: OfferScreen,
         navigationOptions: {
             tabBarLabel: 'Ofertas',
-            headerLeft: null,
+
+            params: {numero:40}
+            //params: {token: this.props.navigation.params ? this.props.navigation.params.product : undefined}
         }
     },
     MyProductStackNavigator: {
@@ -21,9 +23,10 @@ const TabHandlerVendasApp = new TabNavigator({
       navigationOptions: {
           tabBarLabel: 'Meus Produtos',
       }
+
     },
-    OrderedProducts: {
-        screen: OrderedProducts,
+    OrderScreen: {
+        screen: OrderScreen,
         navigationOptions: {
             tabBarLabel: 'Pedidos',
             headerLeft: null,
