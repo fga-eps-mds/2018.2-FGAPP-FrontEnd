@@ -4,7 +4,8 @@ import {
   Text,
   StyleSheet,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
+  TextBase
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { connect } from "react-redux";
@@ -13,35 +14,46 @@ import { searchLocals } from "../actions/searchBar";
 
 class SearchBar extends Component {
   state = {
-    inputValue: ''
+    inputValue: ""
   };
 
   inputChange = value => {
     this.setState({
       inputValue: value
     });
-  }
+  };
 
   searchLocals = text => {
-    alert(text)
-    this.props.dispatch(searchLocals(text))
-    this.setState({inputValue: ''})
-  }
+    alert(text);
+    this.props.dispatch(searchLocals(text));
+    this.setState({ inputValue: "" });
+  };
+
+  search = name => {
+    const url = `https://indicaai.herokuapp.com/locals/name/${name}`;
+    fetch(url, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "aplication/json"
+      }
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        console.log(responseJson);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
 
   render() {
-
-
-    const{
-      newText
-    } = this.props;
-
-    console.log(this.state)
     const { inputValue } = this.state;
 
     return (
       <View style={{ flexDirection: "row", marginHorizontal: 1, marginTop: 1 }}>
         <TextInput
-          onChangeText={(value) => this.inputChange(value: text)}
+          onChangeText={value => this.inputChange((value: text))}
           value={inputValue}
           placeholder="Buscar Indicação"
           style={{
@@ -53,7 +65,7 @@ class SearchBar extends Component {
             padding: 5
           }}
         />
-        <TouchableOpacity onPress={() => this.searchLocals(this.state.inputValue)}>
+        <TouchableOpacity onPress={() => this.search(this.state.inputValue)}>
           <View style={{ height: 50, backgroundColor: "#eaeaea" }}>
             <Ionicons
               name="md-search"
@@ -65,18 +77,13 @@ class SearchBar extends Component {
             />
           </View>
         </TouchableOpacity>
-        <Text>{newText}</Text>
       </View>
     );
   }
 }
 
-const mapStateToProps = state => (
-  console.log('ttt'),{
+const mapStateToProps = state => ({
   inputValue: state.text
 });
-
-// const mapDispatchToProps = dispatch =>
-//   bindActionCreators({ searchLocals }, dispatch);
 
 export default connect(mapStateToProps)(SearchBar);
