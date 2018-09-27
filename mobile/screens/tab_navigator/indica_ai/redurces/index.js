@@ -1,8 +1,6 @@
 import { combineReducers } from 'redux'
-import searchBar from './searchBar'
-import visibilityFilter from './visibilityFilter'
+import searchReducer from './searchBar'
 
-export default combineReducers({
-    searchBar,
-    visibilityFilter
+export const Reducers = combineReducers({
+    searchBar: searchReducer
 })

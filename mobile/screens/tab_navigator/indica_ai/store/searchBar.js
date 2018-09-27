@@ -1,5 +1,5 @@
 import { createStore } from 'redux';
-import  roootReducer from '../redurces';
+import { Reducers } from '../redurces';
 
 
-export default store = createStore(search);
+export const Store = createStore(Reducers);

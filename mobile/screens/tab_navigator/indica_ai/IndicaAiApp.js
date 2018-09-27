@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import SearchBar from "./containers/searchBar";
 import { Provider } from "react-redux";
-import store from "./store/searchBar";
+import { Store } from "./store/searchBar";
 
 state = {
   localName: "SHOW_ALL",
@@ -27,7 +27,7 @@ class FirstScreen extends Component {
             alignSelf: "center"
           }}
         />
-        <Provider store={store}>
+        <Provider store={Store} >
           <SearchBar />
         </Provider>
       </View>
