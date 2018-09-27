@@ -67,5 +67,22 @@ export default {
       fontWeight: '400',
       color: 'white',
       alignItems: 'flex-start',
-    }
+    },
+    PickerStyle: {
+     position: 'absolute',
+     top: '40%',
+     left: '70%',
+     paddingVertical: 50,
+     paddingHorizontal: 50,
+     color: 'white',
+     alignSelf: 'center',
+   },
+   PickerText: {
+     position: 'absolute',
+     top: '40%',
+     left: '70%',
+     color: 'white',
+     alignSelf: 'center',
+   }
+
 };
