@@ -12,9 +12,11 @@ import { Container, Header, Content, Icon, Fab } from 'native-base';
 
 class Offers extends Component {
     render() {
+      const {state} = this.props.navigation;
+      var token = state.params ? state.params.token : undefined;
         return (
             <View style={styles.container}>
-              <Fab onPress={() => {this.props.navigation.navigate('CreateProduct');} } style={{ backgroundColor: '#0EAC6F' }}>
+              <Fab onPress={() => {this.props.navigation.navigate('CreateProduct', {token:token});} } style={{ backgroundColor: '#0EAC6F' }}>
                 <Icon name='md-add' />
               </Fab>
             </View>

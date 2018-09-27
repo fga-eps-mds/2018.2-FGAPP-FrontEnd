@@ -14,7 +14,7 @@ class ProductImage extends Component {
       <View style={{ flex: 1 }}>
         <ImageBackground
           style={ styles.image }
-          source={{ uri: this.props.productImage }}
+          source={{ uri: this.props.photo }}
         >
           <LinearGradient
             colors={['transparent', 'black']}

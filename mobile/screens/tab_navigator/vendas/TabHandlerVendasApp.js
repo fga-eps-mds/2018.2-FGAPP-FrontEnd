@@ -4,43 +4,29 @@
 
 import React, { Component } from 'react';
 import { TabNavigator, StackNavigator } from 'react-navigation';
-import MyProducts from './screens/MyProducts';
+import MyProductStackNavigator from './screens/MyProductsScreen';
 import Offers from './screens/Offers';
 import OrderedProducts from './screens/OrderedProducts';
-import CreateProduct from './screens/CreateProduct';
 
-const MyProductStackNavigator = new StackNavigator({
-    MyProducts:{
-      screen: MyProducts,
-      navigationOptions: {
-        header: null,
-      }
-    },
-    CreateProduct:{
-      screen: CreateProduct,
-      navigationOptions: {
-        header: null,
-      }
-    }
-});
-
-const TabStackNavigator = new TabNavigator({
+const TabHandlerVendasApp = new TabNavigator({
     Offers: {
         screen: Offers,
         navigationOptions: {
             tabBarLabel: 'Ofertas',
+            headerLeft: null,
         }
     },
     MyProductStackNavigator: {
       screen: MyProductStackNavigator,
       navigationOptions: {
-          tabBarLabel: 'My Products',
+          tabBarLabel: 'Meus Produtos',
       }
     },
     OrderedProducts: {
         screen: OrderedProducts,
         navigationOptions: {
             tabBarLabel: 'Pedidos',
+            headerLeft: null,
         }
     }
 },
@@ -59,13 +45,5 @@ const TabStackNavigator = new TabNavigator({
         },
     },
 });
-
-class TabHandlerVendasApp extends Component {
-    render() {
-        return (
-            <TabStackNavigator />
-        );
-    }
-}
 
 export default TabHandlerVendasApp;
