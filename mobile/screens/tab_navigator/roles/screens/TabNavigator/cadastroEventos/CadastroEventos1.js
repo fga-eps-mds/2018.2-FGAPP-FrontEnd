@@ -6,11 +6,14 @@ import {
     TextInput,
     TouchableOpacity,
     ScrollView,
+    Image,
+    Switch,
 } from "react-native";
 import CadastroEventos2 from './CadastroEventos2'
-import * as firebase from 'firebase'
 
-import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
+//Abrir issue depois para trocar icones para import {Icon} from 'react-native-elements'
+//https://react-native-training.github.io/react-native-elements/docs/icon.html
+import { MaterialIcons, MaterialCommunityIcons, Foundation} from '@expo/vector-icons';
 import { Platform } from 'react-native';
 
 export default class CadastroEventos1 extends Component {
@@ -26,29 +29,6 @@ export default class CadastroEventos1 extends Component {
         data: '',
     }
 
-    // Função antiga que cadastrava no firebase
-    cadastrarRole() {
-        var roles = firebase.database().ref("Roles");
-        //roles.push().child("titulo").set(this.state.titulo);
-        roles.push().set(
-            {
-                titulo: this.state.titulo,
-                descricao: this.state.descricao,
-                organizador: this.state.organizador,
-                preco: this.state.preco,
-                quantidadeVagas: this.state.quantidadeVagas,
-                local: this.state.local,
-                comidas: this.state.comidas,
-                data: this.state.data,
-            }
-        );
-
-        
-        this.props.navigation.navigate('Feed');
-        //roles.ref('/roles/').set(this.state.titulo);
-
-        //database.ref('/roles/').remove();
-    }
 
     continuar() {
         this.props.navigation.navigate('CadastroEventos2');
@@ -57,23 +37,14 @@ export default class CadastroEventos1 extends Component {
     render() {
         return(
             <View style={styles.container}>
-                <ScrollView style={{alignContent: 'center'}}>
+                <ScrollView 
+                    //style={{alignContent: 'center'}}
+                    style={styles.scroll}
+                >
                     <View style={styles.titleContainer}>
                         <Text style={styles.titleText}>
-                            Cadastrar Evento
+                            Cadastrar novo rolê
                         </Text>
-                    </View>
-
-                    <View style={styles.photoUpload}>
-                        <View style={styles.photoUpload2}>
-                            <MaterialIcons
-                                name="insert-photo"
-                                size={100}
-                            />
-                            <Text style={styles.photoText}>
-                                Adicionar uma imagem
-                            </Text>
-                        </View>
                     </View>
 
                     <View style={styles.inputContainer}>
@@ -84,7 +55,7 @@ export default class CadastroEventos1 extends Component {
                         />
                         <TextInput
                             style={styles.input}
-                            placeholder="Título"
+                            placeholder="Nome do Rolê"
                             //underlineColorAndroid='transparent'
                             placeholderTextColor='black'
                             value={this.state.titulo}
@@ -97,30 +68,12 @@ export default class CadastroEventos1 extends Component {
                     <View style={styles.inputContainer}>
                         <MaterialIcons
                             style={styles.icon}
-                            name="description"
-                            size={26}
-                        />
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Descrição"
-                            //underlineColorAndroid='transparent'
-                            placeholderTextColor='black'
-                            multiline={true}
-                            ref={refDescricao => this.refDescricao = refDescricao}
-                            onChangeText={() => {}}
-                        />
-                    </View>
-
-
-                    <View style={styles.inputContainer}>
-                        <MaterialIcons
-                            style={styles.icon}
                             name="insert-link"
                             size={26}
                         />
                         <TextInput
                             style={styles.input}
-                            placeholder="Link de referência"
+                            placeholder="Link de Referência"
                             //underlineColorAndroid='transparent'
                             placeholderTextColor='black'
                             returnKeyType='next'
@@ -255,13 +208,24 @@ export default class CadastroEventos1 extends Component {
                         />
                     </View>
 
+                    <View style={styles.inputContainer}>
+                        <Foundation
+                            style={styles.icon}
+                            name="prohibited"
+                            size={30}
+                        />
+                        <Switch
+                                style={styles.switch}
+                            />
+                    </View>
+
                     <View style={styles.submitButton}>
                         <TouchableOpacity 
                             style={styles.button}
                             onPress={ () => this.continuar() }
                         >
                             <Text style={styles.buttonText}>
-                                Continuar
+                                Próximo
                             </Text>
                         </TouchableOpacity>
                     </View>
@@ -337,34 +301,27 @@ const styles = StyleSheet.create({
         width: 150,
         marginBottom: 10,
     },
-    photoUpload: {
+    image: {
         flex: 1,
+        padding: 5,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'limegreen'
+    },
+    scroll: {
+        alignContent: 'center',
+    },
+    switch: {
+        flex: 1,
+        paddingTop: 10,
+        paddingRight: 10,
+        paddingBottom: 10,
+        paddingLeft: 0,
         backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-        
-        
-        
-        marginBottom: 20,
-        
     },
-    photoUpload2: {
-        backgroundColor: '#fff',
-        borderRadius: 50,
-        borderWidth: 1,
-        borderColor: 'limegreen',
-        height: 200,
-        width: 200,
-        alignItems: 'center',
-        justifyContent: 'center',
+    icon: {
+        padding: 5,
+        alignContent: 'center',
+        alignItems:'center'
     },
-    photoIcon: {
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    photoText: {
-        alignItems: 'center',
-        alignSelf: 'center',
-        marginBottom: 10,
-    }
 });

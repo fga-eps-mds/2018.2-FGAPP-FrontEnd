@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import {StackNavigator} from 'react-navigation'
 
-
 import CadastroEventos1 from './CadastroEventos1'
 import CadastroEventos2 from './CadastroEventos2'
 
@@ -19,6 +18,9 @@ const CadastroStackNavigator = new StackNavigator({
 
     CadastroEventos1: {
         screen: CadastroEventos1,
+        navigationOptions: ({ navigation }) => ({
+            header: null,
+        }),
     },
     CadastroEventos2: {
         screen: CadastroEventos2,

@@ -11,22 +11,9 @@ import CadastroEventos2 from './screens/TabNavigator/cadastroEventos/CadastroEve
 import Feed from './screens/TabNavigator/Feed'
 import {StackNavigator} from 'react-navigation'
 import RolesTabHandler from './RolesTabHandler'
-import * as firebase from 'firebase'
 
 
 export default class RolesApp extends Component {
-
-    componentWillMount() {
-        var config = {
-            apiKey: "AIzaSyAHz3Y9yDmb4Pk5rvp6vdgTZscweubgTC8",
-            authDomain: "react-native-roles.firebaseapp.com",
-            databaseURL: "https://react-native-roles.firebaseio.com",
-            projectId: "react-native-roles",
-            storageBucket: "react-native-roles.appspot.com",
-            messagingSenderId: "348737140329"
-        };
-        firebase.initializeApp(config);        
-    }
 
     render() {
         return (
