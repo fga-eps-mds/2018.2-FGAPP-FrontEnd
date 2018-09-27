@@ -7,15 +7,27 @@ import {
     TouchableOpacity
 } from 'react-native';
 import { Ionicons } from "@expo/vector-icons";
+import { connect } from 'react-redux'
 
 class SearchBar extends Component{
+
+  state = {
+     text: ''
+  }
+
+  searchLocals = (text) => {
+    //reedux store
+    this.props.dispatch({type:'SEARCH', text})
+    this.setState({text: ''})
+  }   
     render(){
         return(
             <View
             style={{ flexDirection: "row", marginHorizontal: 1, marginTop: 1 }}
           >
             <TextInput
-              
+              onChangeText={(text) => this.setState({ text })}
+              value={this.state.text} 
               placeholder="Buscar Indicação"
               style={{
                 borderWidth: 1,
@@ -26,7 +38,7 @@ class SearchBar extends Component{
                 padding: 5
               }}
             />
-            <TouchableOpacity >
+            <TouchableOpacity onPress={()=> this.searchLocals(this.state.text)}>
               <View style={{ height: 50, backgroundColor: "#eaeaea" }}>
                 <Ionicons
                   name="md-search"
@@ -42,4 +54,4 @@ class SearchBar extends Component{
         );
     }
 }
-export default SearchBar;
+export default connect()(SearchBar);

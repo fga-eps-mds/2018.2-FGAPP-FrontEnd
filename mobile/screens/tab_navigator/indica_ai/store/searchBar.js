@@ -1,8 +1,5 @@
 import { createStore } from 'redux';
-//import search from '../redurces/searchBar';
+import  roootReducer from '../redurces';
 
 
-const search = () =>{
-
-}
 export default store = createStore(search);

@@ -1,4 +1,9 @@
-const search = (state = "SHOW_ALL", action) => {
-    return state;
+export default search = (state =[], action) => {
+    switch(action.type){
+        case 'SEARCH':
+
+        default:
+            return state;
+    }
 };
 
