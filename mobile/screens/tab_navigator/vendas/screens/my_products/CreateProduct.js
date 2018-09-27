@@ -11,6 +11,7 @@ import {
 import ProductImage from '../../components/ProductImage';
 import { Container, Header, Textarea, Content, Alert, Form, Item, Input, Label, Button } from 'native-base';
 import jwt_decode from 'jwt-decode';
+import ErrorDialog from './ErrorDialog';
 
 class CreateProduct extends Component {
     constructor(props) {
@@ -19,7 +20,16 @@ class CreateProduct extends Component {
         title: '',
         price: '',
         description: '',
+        isDialogVisible:false,
+        messageError: '',
       };
+    }
+
+    openDialog = async () => {
+      this.setState({ isDialogVisible: true })
+    }
+    closeDialog = async () => {
+      this.setState({ isDialogVisible: false })
     }
 
     registerProduct = async () => {
@@ -44,12 +54,17 @@ class CreateProduct extends Component {
         return response.json();
       })
       .then((responseJson) => {
-        console.log(responseJson);
+        if (responseJson.length){
+          this.setState ({ messageError: responseJson })
+          this.setState({ isDialogVisible: true })
+        }
+        else{
+          this.props.navigation.navigate('MyProducts', {token:token});
+        }
       })
       .catch((err) => {
         console.log(err);
       })
-      this.props.navigation.navigate('MyProducts', {token:token});
     }
 
 
@@ -60,7 +75,11 @@ class CreateProduct extends Component {
         var user = jwt_decode(token);
         return (
             <View style={styles.container}>
-
+              <ErrorDialog
+                  messageError={this.state.messageError}
+                  isDialogVisible={this.state.isDialogVisible}
+                  backButton = {this.closeDialog}
+              />
               <ProductImage style= { styles.image } photo='http://www.piniswiss.com/wp-content/uploads/2013/05/image-not-found-4a963b95bf081c3ea02923dceaeb3f8085e1a654fc54840aac61a57a60903fef-300x199.png'>
               </ProductImage>
               <Form style={styles.description}>
