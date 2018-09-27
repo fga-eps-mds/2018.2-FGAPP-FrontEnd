@@ -70,7 +70,7 @@ export default {
   },
   PickerStyle: {
     position: 'absolute',
-    top: '40%',
+    top: 215,
     left: '70%',
     paddingVertical: 50,
     paddingHorizontal: 50,
@@ -79,7 +79,7 @@ export default {
    },
    PickerText: {
     position: 'absolute',
-    top: '40%',
+    paddingTop: 230,
     left: '70%',
     color: 'white',
     alignSelf: 'center',
