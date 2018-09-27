@@ -16,21 +16,21 @@ export default class ErrorDialog extends Component{
   }
   render(){
     return(
-      <Dialog.Container visible={this.props.isDialogVisible}>
-        <View style={{flexDirection: 'column'}}>
-          <Dialog.Title style={{paddingTop: 0, paddingBottom: 5}}>
-              Erro
-            </Dialog.Title>
-            <Dialog.Description>
-              {this.props.messageError}
-            </Dialog.Description>
-            <Dialog.Button
-              label="Cancelar"
-              onPress={this.props.backButton}
-              color="purple"  
-            />
-        </View>
-      </Dialog.Container>
+      <View style={{flexDirection: 'column'}}>
+        <Dialog.Container visible={this.props.isDialogVisible}>
+            <Dialog.Title style={{paddingTop: 0, paddingBottom: 5}}>
+                Erro
+              </Dialog.Title>
+              <Dialog.Description>
+                {this.props.messageError}
+              </Dialog.Description>
+              <Dialog.Button
+                label="Cancelar"
+                onPress={this.props.backButton}
+                color="purple"  
+              />
+        </Dialog.Container>
+      </View>
     )
   }
 }
