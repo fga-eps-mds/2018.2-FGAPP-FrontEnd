@@ -53,6 +53,7 @@ class FormPicker extends Component {
       selectedValue = {this.props.value}
       onValueChange = {this.props.onValueChange}
       style = {styles.PickerStyle}
+      mode = 'dropdown'
       >
       {this.props.items.map((i, index) => (
         <Picker.Item key = {index} label = {i.label} value = {i.value} />
