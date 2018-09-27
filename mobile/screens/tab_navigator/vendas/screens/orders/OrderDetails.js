@@ -14,6 +14,7 @@ import styles from '../../components/styles'
 import jwt_decode from 'jwt-decode'
 import { LinearGradient } from 'expo';
 
+//TELA PROVISÓRIA PARA TESTES
 class OrderDetails extends Component {
     _onPressButton = async () => {
       Alert.alert("O botao foi apertado ");
@@ -21,9 +22,7 @@ class OrderDetails extends Component {
 
     render() {
       const {state} = this.props.navigation;
-      var token = state.params ? state.params.token : undefined;
       var order = state.params ? state.params.order : undefined;
-      var user = jwt_decode(token);
 
         return (
             <ScrollView style={{backgroundColor:'#171717'}}>
@@ -40,18 +39,18 @@ class OrderDetails extends Component {
                 </ImageBackground>
                   <View style={{ flexDirection: 'row', paddingBottom: 20, paddingLeft: 10}}>
                     <View style={{flexDirection: 'column', width: '70%',}}>
-                      <Text style={styles.order_title}>Alfajor</Text>
-                      <Text style={styles.order_subtitle}>R$ {order.total_price.toFixed(2)}</Text>
+                      <Text style={styles.order_title}>Produto </Text>
+                      <Text style={styles.order_subtitle}>R$ preço</Text>
                     </View>
                     <View style={{flexDirection: 'column', width: '30%'}}>
                       <Text style={styles.order_body}>Quantidade</Text>
-                      <Text style={styles.order_body}>{order.quantity}</Text>
+                      <Text style={styles.order_body}>99</Text>
                     </View>
                   </View>
                   <View style={{ flexDirection: 'column', paddingLeft: 10 }}>
-                    <Text style={styles.order_subtitle}>Cliente: {user.user_id}</Text>
+                    <Text style={styles.order_subtitle}>Nome do clienteText>
                     <View style={{height: 10}}/>
-                    <Text style={styles.order_body}>{order.buyer_message}</Text>
+                    <Text style={styles.order_body}>mensagem ao comprador</Text>
                     <View style={{height: 50}}/>
                   </View>
                   <View style={{flexDirection: 'row'}}>
