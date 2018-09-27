@@ -25,7 +25,7 @@ class OrderedProducts extends Component {
       var user = jwt_decode(token);
 
       //Referencia para API gateway
-      const orders_screen_path = `http://${process.env.REACT_NATIVE_PACKAGER_HOSTNAME}:5000/api/orders_screen`;
+      const orders_screen_path = `${process.env.VENDAS_API}/api/orders_screen`;
 
       fetch(orders_screen_path, {
           method: 'POST',

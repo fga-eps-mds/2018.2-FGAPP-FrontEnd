@@ -5706,6 +5706,12 @@ react-native-animatable@^1.2.4:
   dependencies:
     prop-types "^15.5.10"
 
+react-native-animatable@^1.2.4:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/react-native-animatable/-/react-native-animatable-1.3.0.tgz#b5c3940fc758cfd9b2fe54613a457c4b6962b46e"
+  dependencies:
+    prop-types "^15.5.10"
+
 react-native-branch@2.0.0-beta.3:
   version "2.0.0-beta.3"
   resolved "https://registry.yarnpkg.com/react-native-branch/-/react-native-branch-2.0.0-beta.3.tgz#2167af86bbc9f964bd45bd5f37684e5b54965e32"
@@ -5715,10 +5721,6 @@ react-native-cookie@^0.2.0:
   resolved "https://registry.yarnpkg.com/react-native-cookie/-/react-native-cookie-0.2.0.tgz#e8bb0701faf107aaebc327c60551055e0149839d"
   dependencies:
     cookie "^0.3.1"
-
-react-native-dialog-input@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/react-native-dialog-input/-/react-native-dialog-input-1.0.4.tgz#56717b9c408c3e47a604e8be61d589bfc63dea04"
 
 react-native-dialog@^5.3.0:
   version "5.3.0"

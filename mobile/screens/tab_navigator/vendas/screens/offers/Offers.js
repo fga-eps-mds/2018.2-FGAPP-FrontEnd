@@ -6,7 +6,8 @@ import React, { Component } from 'react';
 import {
     View,
     StyleSheet,
-    ScrollView
+    ScrollView,
+    Text
 } from 'react-native';
 import ProductCard from '../../components/ProductCard';
 
@@ -16,27 +17,28 @@ class MyProducts extends Component {
         super(props);
         this.state = {
             products: [{
-                productName: '',
-                productPrice: '',
-                productImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3DELRuKTg7K4gi9v13ELUq3ltLxlNGOsw6BDfsF0jlVKFr4h3',
+                name: '',
+                price: '',
+                photo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3DELRuKTg7K4gi9v13ELUq3ltLxlNGOsw6BDfsF0jlVKFr4h3',
             }]
         };
     }
     // fetching and sorting data from a mock API
     componentDidMount() {
         var products_path = `${process.env.VENDAS_PRODUCTS}/products`;
-
         fetch(products_path, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
             }
         })
-        .then((response) => response.json())
+        .then((response) => { return response.json() })
         .then((responseJson) => {
-            responseJson.sort((product1, product2) => {
-                return (product1.productPrice - product2.productPrice);
-            });
+            if(responseJson.length > 1){
+              responseJson.sort((product1, product2) => {
+                  return (product1.price - product2.price);
+              });
+            }
             this.setState({ products: responseJson });
         })
         .catch((error) => {
@@ -54,9 +56,9 @@ class MyProducts extends Component {
                     return (
                         <ProductCard
                             key={index}
-                            productImage={product.productImage}
-                            productName={product.productName}
-                            productPrice={product.productPrice}
+                            photo={product.photo}
+                            name={product.name}
+                            price={product.price}
                             onPress={() => this.props.navigation.navigate('OfferDetails', {product: product, token:token})}
                         />
                     );
@@ -66,6 +68,7 @@ class MyProducts extends Component {
         );
     }
 }
+
 export default MyProducts;
 
 const styles = StyleSheet.create({

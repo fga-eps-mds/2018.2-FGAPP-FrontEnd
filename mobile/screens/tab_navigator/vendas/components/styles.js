@@ -1,11 +1,7 @@
 export default {
-  main: {
-    flex: 1,
-    flexDirection: 'column',
-    margin: 0,
-    padding: 0,
-    width: '100%',
-    borderColor: '#171717',
+  item: {
+    backgroundColor: 'transparent',
+    paddingTop: 160,
   },
   details_main: {
     flex: 1,
@@ -81,6 +77,7 @@ export default {
     height: 150,
   },
   text: {
+    fontWeight: 'normal',
     color: 'white',
     fontSize: 25,
     textShadowOffset: {
@@ -90,6 +87,7 @@ export default {
     textShadowColor: '#5A5A5A',
     textShadowRadius: 5,
     alignSelf: 'center',
-    marginLeft: 0
+    marginLeft: 0,
+    backgroundColor: 'transparent',
   },
 };

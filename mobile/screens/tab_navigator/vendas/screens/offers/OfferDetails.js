@@ -31,7 +31,7 @@ class OfferDetails extends Component {
     var token = state.params ? state.params.token : undefined;
     var user = jwt_decode(token);
 
-    const create_order_path = `http://${process.env.REACT_NATIVE_PACKAGER_HOSTNAME}:5000/api/create_order`;
+    const create_order_path = `${process.env.VENDAS_API}/api/create_order`;
 
     fetch(create_order_path,{
       method: 'POST',
@@ -77,7 +77,7 @@ class OfferDetails extends Component {
 
       return (
           <View style={styles.container}>
-              <Text>{product.productName}</Text>
+              <Text>{product.name}</Text>
               <Button
                     onPress={this.openDialog}
                     title="Comprar"

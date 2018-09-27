@@ -22,7 +22,8 @@ class LoginScreen extends Component {
   }
 
   _onPressButton = async () => {
-      var login_path = `${process.env.INTEGRA_LOGIN_AUTH}/login`;
+      const login_path = `${process.env.INTEGRA_LOGIN_AUTH}/login/`;
+
       fetch(login_path, {
         method: 'POST',
         headers: {
@@ -66,7 +67,7 @@ class LoginScreen extends Component {
     //Sucesso
    if (responseJson.token != undefined||
          responseJson.key != undefined){
-      this.props.navigation.navigate('TabHandler', {token:responseJson.token})
+     this.props.navigation.navigate('TabHandler', {token:responseJson.token})
       }
    })
    .catch( err => {
