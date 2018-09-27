@@ -33,7 +33,7 @@ class MyProducts extends Component {
                 'Content-Type': 'application/json',
             }
         })
-        .then((response) => response.json())
+        .then((response) => { return response.json() })
         .then((responseJson) => {
             if(responseJson.length > 1){
               responseJson.sort((product1, product2) => {

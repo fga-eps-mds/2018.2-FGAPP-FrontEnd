@@ -9,8 +9,8 @@ import {
     Text
 } from 'react-native';
 import ProductImage from '../../components/ProductImage';
-import { Container, Header, Textarea, Content, Alert, Form, Item, Input, Label, Button } from 'native-base'
-import jwt_decode from 'jwt-decode'
+import { Container, Header, Textarea, Content, Alert, Form, Item, Input, Label, Button } from 'native-base';
+import jwt_decode from 'jwt-decode';
 
 class CreateProduct extends Component {
     constructor(props) {
@@ -39,6 +39,15 @@ class CreateProduct extends Component {
           'photo': 'https://cdn.cnn.com/cnnnext/dam/assets/171027052520-processed-foods-exlarge-tease.jpg',
           'description': this.state.description,
         }),
+      })
+      .then((response) => {
+        return response.json();
+      })
+      .then((responseJson) => {
+        console.log(responseJson);
+      })
+      .catch((err) => {
+        console.log(err);
       })
       this.props.navigation.navigate('MyProducts', {token:token});
     }
