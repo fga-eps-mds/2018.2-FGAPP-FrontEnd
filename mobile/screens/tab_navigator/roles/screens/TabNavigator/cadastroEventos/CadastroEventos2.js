@@ -16,6 +16,12 @@ import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
 export default class CadastroEventos2 extends Component {
 
+    state = {
+        descricao: '',
+        drinks: '',
+        foods: ''
+    }
+
     voltar() {
         this.props.navigation.navigate('CadastroEventos1');
     }

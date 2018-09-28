@@ -19,14 +19,15 @@ import { Platform } from 'react-native';
 export default class CadastroEventos1 extends Component {
 
     state = {
-        titulo: '',
-        descricao: '',
-        organizador: '',
-        preco: 0,
-        quantidadeVagas: 0,
+        nomeRole: '',
+        linkRef: '',
+        nomeContato: '',
+        telefone: '',
+        valorIngresso:'',
         local: '',
-        comidas: '',
+        mapsLink: '',
         data: '',
+        hora: ''
     }
 
 
@@ -56,12 +57,11 @@ export default class CadastroEventos1 extends Component {
                         <TextInput
                             style={styles.input}
                             placeholder="Nome do Rolê"
-                            //underlineColorAndroid='transparent'
-                            placeholderTextColor='black'
-                            value={this.state.titulo}
                             returnKeyType='next'
                             onSubmitEditing={() => this.refDescricao.focus()}
-                            onChangeText={titulo => this.setState({titulo})}
+                            placeholderTextColor='black'
+                            value={this.state.nomeRole}
+                            onChangeText={nomeRole => this.setState({nomeRole})}
                         />
                     </View>
 
@@ -79,7 +79,8 @@ export default class CadastroEventos1 extends Component {
                             returnKeyType='next'
                             onSubmitEditing={() => this.refName.focus()}
                             ref={refLinkRef => this.refLinkRef = refLinkRef}
-                            onChangeText={() => {}}
+                            value={this.state.refLink}
+                            onChangeText={refLink => this.setState({refLink})}
                         />
                     </View>
 
