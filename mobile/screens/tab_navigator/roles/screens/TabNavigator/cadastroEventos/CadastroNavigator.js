@@ -3,7 +3,7 @@ import {StackNavigator} from 'react-navigation'
 
 import CadastroEventos1 from './CadastroEventos1'
 import CadastroEventos2 from './CadastroEventos2'
-
+import FetchApi from './FetchApi'
 
 export default class CadastroNavigator extends Component {
 
@@ -25,4 +25,7 @@ const CadastroStackNavigator = new StackNavigator({
     CadastroEventos2: {
         screen: CadastroEventos2,
     },
+    FetchApi: {
+        screen: FetchApi,
+    }
 })
