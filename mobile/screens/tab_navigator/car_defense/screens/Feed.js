@@ -9,7 +9,8 @@ export default class FetchExample extends React.Component {
   }
 
   componentDidMount(){
-    return fetch('http://www.mocky.io/v2/5bae33502e00004c00bb41a3')
+    var url
+    return fetch(url)
       .then((response) => response.json())
       .then((responseJson) => {
 
@@ -25,7 +26,26 @@ export default class FetchExample extends React.Component {
         console.error(error);
       });
   }
-
+  getMyNotifications(){
+    var url
+    return fetch(url, {
+  method: 'POST',
+  headers: {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    token: 'token',
+  }),
+}).then((response) => response.json())
+    .then((responseJson) => {
+      return responseJson.token;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+      
+  }
 
 
   render(){
@@ -78,6 +98,6 @@ const styles = StyleSheet.create({
   },
   text1: {
     color: "#5c68c3",
-    textWeight: 400
+    fontWeight: '400',
   }
 });
