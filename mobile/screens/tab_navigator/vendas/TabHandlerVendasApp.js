@@ -26,7 +26,6 @@ const TabHandlerVendasApp = new TabNavigator({
         screen: OrderScreen,
         navigationOptions: {
             tabBarLabel: 'Pedidos',
-            headerLeft: null,
         }
     }
 },
