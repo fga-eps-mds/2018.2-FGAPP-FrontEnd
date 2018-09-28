@@ -23,7 +23,6 @@ class MyProducts extends Component {
             }]
         };
     }
-    // fetching and sorting data from a mock API
     componentDidMount() {
         var products_path = `${process.env.VENDAS_PRODUCTS}/products`;
         fetch(products_path, {
@@ -58,13 +57,13 @@ class MyProducts extends Component {
                             key={index}
                             photo={product.photo}
                             name={product.name}
-                            price={product.price}
+                            price={parseFloat(product.price).toFixed(2)}
                             onPress={() => this.props.navigation.navigate('OfferDetails', {product: product, token:token})}
                         />
                     );
                 })}
             </ScrollView>
-        </View>
+          </View>
         );
     }
 }

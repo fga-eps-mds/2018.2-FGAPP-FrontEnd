@@ -19,7 +19,6 @@ export default class OfferDialog extends Component{
       <Dialog.Container visible={this.props.isDialogVisible}>
         <View style={{width: '90%',flexDirection: 'column'}}>
            <TextInput
-
               editable = {true}
               maxLength = {120}
               multiline = {true}

@@ -33,7 +33,7 @@ const AppStackNavigator = new StackNavigator({
     screen:SignUpScreen
   },
   TabHandler:{
-    screen:TabHandler,
+    screen:TabHandler
   }
 })
 

@@ -20,6 +20,7 @@ const TabHandlerVendasApp = new TabNavigator({
       navigationOptions: {
           tabBarLabel: 'Meus Produtos',
       }
+
     },
     OrderScreen: {
         screen: OrderScreen,
