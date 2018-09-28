@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {
+  ScrollView,
   View,
   Text,
   TouchableOpacity,
@@ -15,7 +16,7 @@ export default class PrivateNotifications extends Component {
       }
   render() {
     return (
-    <View>
+    <ScrollView>
       <View style={styles.container}>
         <Text style={styles.header}>Informações</Text>
         <Text style={styles.header2}> Usuário</Text>
@@ -41,7 +42,7 @@ export default class PrivateNotifications extends Component {
             onPress={this._onPressButton}
          />
       </View>
-    </View>
+    </ScrollView>
     );
   }
 }
