@@ -1,25 +1,54 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import { 
     View,
     Text,
     StyleSheet
-} from 'react-native';
+} from "react-native";
 
-class CarDefenseApp extends Component {
+
+import PublicNotifications from './screens/TabNavigator/PublicNotifications/PublicNotifications'
+import PrivateNotifications from './screens/TabNavigator/PrivateNotifications/PrivateNotificationsNavigator'
+import Feed from './screens/Feed'
+import {StackNavigator} from 'react-navigation'
+import CarDefenseTabHandler from './CarDefenseTabHandler'
+
+
+export default class CarDefense extends Component {
+
     render() {
         return (
-            <View style={styles.container}>
-                <Text>CarDefense</Text>
-            </View>
+            <CarDefenseStackNavigator />
         );
     }
 }
-export default CarDefenseApp;
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
-    }
+const CarDefenseStackNavigator = new StackNavigator({
+    RolesTabHandler:{
+        screen:CarDefenseTabHandler,
+        navigationOptions: ({ navigation }) => ({
+          header: null,
+        }),
+    },
+    Feed:{
+        screen:Feed,
+        navigationOptions: {
+            header: 'none'
+        }
+    },
+    PrivateNotifications:{
+        screen:PrivateNotifications,
+        navigationOptions: {
+            header: 'none'
+        }
+    },
+    PublicNotifications:{
+        screen:PublicNotifications,
+        navigationOptions: {
+            header: 'none'
+        }
+    },
+    
 });
+
+//Primary color #5c68c3
+
