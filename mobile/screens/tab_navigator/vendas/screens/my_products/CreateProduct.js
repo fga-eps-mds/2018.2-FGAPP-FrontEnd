@@ -1,5 +1,5 @@
 /*
-    Screen provided to present the products already ordered by a certain user.
+    Screen provided for a seller create a product.
 */
 
 import React, { Component } from 'react';
