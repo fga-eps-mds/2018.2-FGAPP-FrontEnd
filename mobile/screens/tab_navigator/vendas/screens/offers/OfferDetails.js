@@ -90,45 +90,53 @@ class FormPicker extends Component {
       var product = state.params ? state.params.product : undefined;
       var token = state.params ? state.params.token : undefined;
       var user = jwt_decode(token);
+      console.log('fk_product')
+      console.log(product.id)
+      console.log('fk_buyer')
+      console.log(user.user_id)
+      console.log('buyer_message')
+      console.log(this.state.buyer_message)
+      console.log('total_price')
+      console.log(product.price*this.state.quantity)
+      console.log('quantity')
+      console.log(this.state.quantity)
+      const create_order_path = `${process.env.VENDAS_API}/api/create_order`;
 
-    const create_order_path = `http://${process.env.REACT_NATIVE_PACKAGER_HOSTNAME}:5000/api/create_order`;
-
-      fetch(create_order_path, {
+      fetch(create_order_path,{
         method: 'POST',
         credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          'fk_product': product.id,
-          'fk_buyer': user.user_id,
-          'buyer_message': this.state.buyer_message,
-          'total_price': product.productPrice * this.state.quantity,
-          'quantity': this.state.quantity,
-        }),
-      })
-      .then((response) => response.json())
-      .then((responseJson) => {
-        console.log(responseJson);
-        if(responseJson.error != undefined){
-          Alert.alert(responseJson.error);
-        }
-        else{
-          Alert.alert('Compra realizada com sucesso');
-        }
-      })
+        'fk_product': product.id,
+        'fk_buyer': user.user_id,
+        'buyer_message': this.state.buyer_message,
+        'total_price': product.price*this.state.quantity,
+        'quantity': this.state.quantity,
 
-      .catch(err => {
-        if(typeof err.text  === 'function'){
-          err.text().then(errorMessage => {
-            this.props.dispatch(displayTheError(errorMessage))
-          });
-        } else {
-          Alert.alert("Erro na conexão com o servidor.");
-          console.log(err)
-        }
-      });
-      this.setState({ isDialogVisible: false });
+        }),
+    })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      console.log(responseJson);
+      if(responseJson.error != undefined)
+        Alert.alert(responseJson.error);
+      else
+        Alert.alert('Compra realizada com sucesso');
+     })
+
+     .catch( err => {
+       if (typeof err.text === 'function') {
+         err.text().then(errorMessage => {
+           this.props.dispatch(displayTheError(errorMessage))
+         });
+       } else {
+         Alert.alert("Erro na conexão com o servidor.");
+         console.log(err)
+       }
+     });
+     this.setState({ isDialogVisible: false });
     }
 
     render() {

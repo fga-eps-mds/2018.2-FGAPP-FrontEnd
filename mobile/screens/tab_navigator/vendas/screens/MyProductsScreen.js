@@ -2,7 +2,7 @@ import {StackNavigator} from 'react-navigation'
 import CreateProduct from './my_products/CreateProduct'
 import MyProducts from './my_products/MyProducts'
 
-const MyProductStackNavigator = new StackNavigator({
+const MyProductsScreen = new StackNavigator({
     MyProducts:{
       screen:MyProducts,
       navigationOptions: {
@@ -20,4 +20,4 @@ const MyProductStackNavigator = new StackNavigator({
   { headerMode: 'none' }
 );
 
-export default MyProductStackNavigator;
+export default MyProductsScreen;

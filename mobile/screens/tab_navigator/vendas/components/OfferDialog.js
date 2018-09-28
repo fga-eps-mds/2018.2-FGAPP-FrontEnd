@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import Dialog from "react-native-dialog";
 
- export default class OfferDialog extends Component{
+export default class OfferDialog extends Component{
   constructor(props) {
     super(props);
     this.state = {

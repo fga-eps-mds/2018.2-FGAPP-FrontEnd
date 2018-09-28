@@ -11,16 +11,10 @@ import {StackNavigator, createStackNavigator} from 'react-navigation'
 import jwt_decode from 'jwt-decode'
 
 class Settings extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      url: process.env.INTEGRA_LOGIN_AUTH,
-    }
-}
 
 _onPressButton = async () => {
-
-    fetch(this.state.url+'/logout/', {
+    const logout_path = `${process.env.INTEGRA_LOGIN_AUTH}/logout/`;
+    fetch(logout_path, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

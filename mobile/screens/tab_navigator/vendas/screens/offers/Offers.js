@@ -25,7 +25,6 @@ class MyProducts extends Component {
     }
     componentDidMount() {
         var products_path = `${process.env.VENDAS_PRODUCTS}/products`;
-
         fetch(products_path, {
             method: 'GET',
             headers: {
@@ -47,8 +46,8 @@ class MyProducts extends Component {
     }
 
     render() {
-        const {state} = this.props.navigation;
-        var token = state.params ? state.params.token : undefined;
+      const {state} = this.props.navigation;
+      var token = state.params ? state.params.token : undefined;
         return (
         <View style={styles.container}>
             <ScrollView>
@@ -58,13 +57,13 @@ class MyProducts extends Component {
                             key={index}
                             photo={product.photo}
                             name={product.name}
-                            price={product.price}
-                            onPress={() => this.props.navigation.navigate('OfferDetails', {product: product, token: token})}
+                            price={parseFloat(product.price).toFixed(2)}
+                            onPress={() => this.props.navigation.navigate('OfferDetails', {product: product, token:token})}
                         />
                     );
                 })}
             </ScrollView>
-        </View>
+          </View>
         );
     }
 }

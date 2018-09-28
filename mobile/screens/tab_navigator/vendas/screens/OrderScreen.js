@@ -1,7 +1,8 @@
 import {StackNavigator} from 'react-navigation'
 import OrderedProducts from './orders/OrderedProducts'
 import OrderDetails from './orders/OrderDetails'
- const OrderScreen = new StackNavigator({
+
+const OrderScreen = new StackNavigator({
   OrderedProducts:{
       screen:OrderedProducts,
       navigationOptions: {
@@ -13,9 +14,10 @@ import OrderDetails from './orders/OrderDetails'
       screen:OrderDetails,
       navigationOptions: {
         tabBarLabel: 'OrderDetails',
-       },
+      },
     },
   },
   { headerMode: 'none' }
 );
- export default OrderScreen;
+
+export default OrderScreen;

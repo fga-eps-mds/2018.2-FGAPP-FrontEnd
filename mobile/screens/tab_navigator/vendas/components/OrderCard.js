@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Image, TouchableHighlight } from 'react-native';
 import { Card, CardItem, Text, Left, Right, View } from 'native-base';
 import styles from './styles';
- class OrderCard extends Component {
+
+class OrderCard extends Component {
   render() {
     return (
       <TouchableHighlight onPress={this.props.onPress}>
