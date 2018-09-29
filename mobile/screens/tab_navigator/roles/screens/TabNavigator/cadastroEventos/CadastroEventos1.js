@@ -6,48 +6,165 @@ import {
     TextInput,
     TouchableOpacity,
     ScrollView,
+    Image,
+    Switch,
 } from "react-native";
 import CadastroEventos2 from './CadastroEventos2'
-import * as firebase from 'firebase'
 
-import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
+//Abrir issue depois para trocar icones para import {Icon} from 'react-native-elements'
+//https://react-native-training.github.io/react-native-elements/docs/icon.html
+import { MaterialIcons, MaterialCommunityIcons, Foundation} from '@expo/vector-icons';
 import { Platform } from 'react-native';
-
+import Feed from '../feed/Feed'
 export default class CadastroEventos1 extends Component {
 
-    state = {
-        titulo: '',
-        descricao: '',
-        organizador: '',
-        preco: 0,
-        quantidadeVagas: 0,
-        local: '',
-        comidas: '',
-        data: '',
+    constructor(props) {
+        super(props);
+        this.state = {
+            eventName: '',
+            linkReference: '',
+            organizer: '',
+            organizerTel: '',
+            value: '',
+            address:'',
+            linkAddres: '',
+            eventDate: '',
+            eventHour: '',
+            adultOnly: ''
+        }
     }
 
-    cadastrarRole() {
-        var roles = firebase.database().ref("Roles");
-        //roles.push().child("titulo").set(this.state.titulo);
-        roles.push().set(
-            {
-                titulo: this.state.titulo,
-                descricao: this.state.descricao,
-                organizador: this.state.organizador,
-                preco: this.state.preco,
-                quantidadeVagas: this.state.quantidadeVagas,
-                local: this.state.local,
-                comidas: this.state.comidas,
-                data: this.state.data,
+    _onPressButton = async () => {
+        var register_role = '${process.env.ROLES_API}/registration/';
+        fetch(registration_path,{
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                eventName: this.state.eventName,
+                linkReference: this.state.linkReference,
+                organizer: this.state.organizer,
+                organizerTel: this.state.organizerTel,
+                value: this.state.value,
+                address: this.state.address,
+                linkAddres: this.state.linkAddres,
+                eventDate: this.state.eventDate,
+                eventHour: this.state.eventHour,
+                adultOnly: this.state.adultOnly,
+            }),
+        })
+        .then((response) => response.json())
+        .then((responseJson) => {
+        console.log(responseJson);
+        //Campo de event
+        if (responseJson.eventName != undefined){
+        this.setState({ event_field_alerts: responseJson.event})
+        this.setState({ event_field_is_bad: true })
+        }
+        else{
+        this.setState({ event_field_alerts: ['']})
+        this.setState({ event_field_is_bad: false })
+        }
+        //Campo de linkReference
+        if (responseJson.linkReference != undefined){
+        this.setState({ linkReference_field_alerts: responseJson.linkReference})
+        this.setState({ linkReference_field_is_bad: true })
+        }
+        else{
+        this.setState({ linkReference_field_alerts: ['']})
+        this.setState({ linkReference_field_is_bad: false })
+        }
+        //Campo de organizer
+        if (responseJson.organizer != undefined){
+            this.setState({ organizer_field_alerts: responseJson.organizer})
+            this.setState({ organizer_field_is_bad: true })
+        }
+        else{
+            this.setState({ organizer_field_alerts: ['']})
+            this.setState({ organizer_field_is_bad: false })
+        }
+        //Campo de value
+        if (responseJson.value != undefined){
+            this.setState({ value_field_alerts: responseJson.value})
+            this.setState({ value_field_is_bad: true })
+        }
+        else{
+            this.setState({ value_field_alerts: ['']})
+            this.setState({ value_field_is_bad: false })
+        }
+        //Campo de address
+        if (responseJson.address != undefined){
+            this.setState({ address_field_alerts: responseJson.address})
+            this.setState({ address_field_is_bad: true })
+        }
+        else{
+            this.setState({ address_field_alerts: ['']})
+            this.setState({ address_field_is_bad: false })
+        }
+        //Campo de linkAddress
+        if (responseJson.linkAddress != undefined){
+            this.setState({ linkAddress_field_alerts: responseJson.linkAddress})
+            this.setState({ linkAddress_field_is_bad: true })
+        }
+        else{
+            this.setState({ linkAddress_field_alerts: ['']})
+            this.setState({ linkAddress_field_is_bad: false })
+        }
+        //Campo de eventDate
+        if (responseJson.eventDate != undefined){
+            this.setState({ eventDate_field_alerts: responseJson.eventDate})
+            this.setState({ eventDate_field_is_bad: true })
+        }
+        else{
+            this.setState({ eventDate_field_alerts: ['']})
+            this.setState({ eventDate_field_is_bad: false })
+        }
+        //Campo de eventHour
+        if (responseJson.eventHour != undefined){
+            this.setState({ eventHour_field_alerts: responseJson.eventHour})
+            this.setState({ eventHour_field_is_bad: true })
+        }
+        else{
+            this.setState({ eventHour_field_alerts: ['']})
+            this.setState({ eventHour_field_is_bad: false })
+        }
+        //Campo de adultOnly
+        if (responseJson.adultOnly != undefined){
+            this.setState({ adultOnly_field_alerts: responseJson.adultOnly})
+            this.setState({ adultOnly_field_is_bad: true })
+        }
+        else{
+            this.setState({ adultOnly_field_alerts: ['']})
+            this.setState({ adultOnly_field_is_bad: false })
+        }
+        //Sem campo
+        if (responseJson.non_field_errors != undefined){
+        this.setState({ non_field_alert: responseJson.non_field_errors})
+        }
+        else{
+        this.setState({ non_field_alert: ['']})
+        }
+        //Sucesso
+    if (responseJson.token != undefined ||
+        responseJson.key != undefined){
+            Alert.alert("Rolê criado com sucesso!");
+            this.props.navigation.navigate('Feed')
+        }
+    })
+        .catch( err => {
+            if (typeof err.text === 'function') {
+                err.text().then(errorMessage => {
+                    this.props.dispatch(displayTheError(errorMessage))
+                });
+            } else {
+                Alert.alert("Erro na conexão.");
+                console.log(err)
             }
-        );
-
-        
-        this.props.navigation.navigate('Feed');
-        //roles.ref('/roles/').set(this.state.titulo);
-
-        //database.ref('/roles/').remove();
+        });
     }
+
 
     continuar() {
         this.props.navigation.navigate('CadastroEventos2');
@@ -56,25 +173,16 @@ export default class CadastroEventos1 extends Component {
     render() {
         return(
             <View style={styles.container}>
-                <ScrollView style={{alignContent: 'center'}}>
+                <ScrollView 
+                    //style={{alignContent: 'center'}}
+                    style={styles.scroll}
+                >
                     <View style={styles.titleContainer}>
                         <Text style={styles.titleText}>
-                            Cadastrar Evento
+                            Cadastrar novo rolê
                         </Text>
                     </View>
-
-                    <View style={styles.photoUpload}>
-                        <View style={styles.photoUpload2}>
-                            <MaterialIcons
-                                name="insert-photo"
-                                size={100}
-                            />
-                            <Text style={styles.photoText}>
-                                Adicionar uma imagem
-                            </Text>
-                        </View>
-                    </View>
-
+       
                     <View style={styles.inputContainer}>
                         <MaterialIcons
                             style={styles.icon}
@@ -83,33 +191,16 @@ export default class CadastroEventos1 extends Component {
                         />
                         <TextInput
                             style={styles.input}
-                            placeholder="Título"
-                            //underlineColorAndroid='transparent'
-                            placeholderTextColor='black'
-                            value={this.state.titulo}
+                            placeholder="Nome do Rolê"
                             returnKeyType='next'
-                            onSubmitEditing={() => this.refDescricao.focus()}
-                            onChangeText={titulo => this.setState({titulo})}
+                            placeholderTextColor='gray'
+
+                            onChangeText={eventName => this.setState({eventName})}
+                            badInput={this.state.eventName_field_is_bad}
+                            fieldAlert={this.state.eventName_field_alerts}
+                            keyExtractor={'eventName'}
                         />
                     </View>
-
-                    <View style={styles.inputContainer}>
-                        <MaterialIcons
-                            style={styles.icon}
-                            name="description"
-                            size={26}
-                        />
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Descrição"
-                            //underlineColorAndroid='transparent'
-                            placeholderTextColor='black'
-                            multiline={true}
-                            ref={refDescricao => this.refDescricao = refDescricao}
-                            onChangeText={() => {}}
-                        />
-                    </View>
-
 
                     <View style={styles.inputContainer}>
                         <MaterialIcons
@@ -119,13 +210,13 @@ export default class CadastroEventos1 extends Component {
                         />
                         <TextInput
                             style={styles.input}
-                            placeholder="Link de referência"
-                            //underlineColorAndroid='transparent'
-                            placeholderTextColor='black'
-                            returnKeyType='next'
-                            onSubmitEditing={() => this.refName.focus()}
-                            ref={refLinkRef => this.refLinkRef = refLinkRef}
-                            onChangeText={() => {}}
+                            placeholder="Link de Referência"
+                            placeholderTextColor='gray'
+
+                            onChangeText={linkReference => this.setState({linkReference})}
+                            badInput={this.state.linkReference_field_is_bad}
+                            fieldAlert={this.state.linkReference_field_alerts}
+                            keyExtractor={'linkReference'}
                         />
                     </View>
 
@@ -138,12 +229,11 @@ export default class CadastroEventos1 extends Component {
                         <TextInput
                             style={styles.input}
                             placeholder="Nome para contato"
-                            //underlineColorAndroid='transparent'
-                            placeholderTextColor='black'
-                            returnKeyType='next'
-                            onSubmitEditing={() => this.refTelefone.focus()}
-                            ref={refName => this.refName = refName}
-                            onChangeText={() => {}}
+                            placeholderTextColor='gray'
+                            onChangeText={organizer => this.setState({organizer})}
+                            badInput={this.state.organizer_field_is_bad}
+                            fieldAlert={this.state.organizer_field_alerts}
+                            keyExtractor={'organizer'}
                         />
                     </View>
 
@@ -157,13 +247,12 @@ export default class CadastroEventos1 extends Component {
                             style={styles.input}
                             placeholder="Telefone"
                             keyboardType='phone-pad'
-                            ref={refTelefone => this.refTelefone = refTelefone}
-                            //underlineColorAndroid='transparent'
-                            onSubmitEditing={() => this.refValor.focus()}
-                            returnKeyType='next'
-                            placeholderTextColor='black'
-                            onChangeText={() => {}}
-                            alignSelf="stretch"
+                            placeholderTextColor='gray'
+
+                            onChangeText={organizerTel => this.setState({organizerTel})}
+                            badInput={this.state.organizerTel_field_is_bad}
+                            fieldAlert={this.state.organizerTel_field_alerts}
+                            keyExtractor={'organizerTel'}                            
                         />
                     </View>
 
@@ -176,12 +265,12 @@ export default class CadastroEventos1 extends Component {
                         <TextInput
                             style={styles.input}
                             placeholder="Valor do ingresso"
-                            returnKeyType='next'
-                            ref={refValor => this.refValor = refValor}
-                            onSubmitEditing={() => this.refLocal.focus()}
-                            //underlineColorAndroid='transparent'
-                            placeholderTextColor='black'
-                            onChangeText={() => {}}
+                            placeholderTextColor='gray'
+                            
+                            onChangeText={value => this.setState({value})}
+                            badInput={this.state.value_field_is_bad}
+                            fieldAlert={this.state.value_field_alerts}
+                            keyExtractor={'value'}    
                         />
                     </View>
 
@@ -195,11 +284,12 @@ export default class CadastroEventos1 extends Component {
                             style={styles.input}
                             placeholder="Local"
                             returnKeyType='next'
-                            ref={refLocal => this.refLocal = refLocal}
-                            onSubmitEditing={() => this.refMaps.focus()}
-                            //underlineColorAndroid='transparent'
-                            placeholderTextColor='black'
-                            onChangeText={() => {}}
+                            placeholderTextColor='gray'
+                            
+                            onChangeText={location => this.setState({location})}
+                            badInput={this.state.location_field_is_bad}
+                            fieldAlert={this.state.location_field_alerts}
+                            keyExtractor={'location'}    
                         />
                     </View>
 
@@ -212,13 +302,13 @@ export default class CadastroEventos1 extends Component {
                         <TextInput
                             style={styles.input}
                             placeholder="Link localização Google Maps"
-                            returnKeyType='next'
-                            ref={refMaps => this.refMaps = refMaps}
-                            onSubmitEditing={() => this.refData.focus()}
-                            //underlineColorAndroid='transparent'
-                            placeholderTextColor='black'
-                            onChangeText={() => {}}
-                        />
+                            placeholderTextColor='gray'
+
+                            onChangeText={linkAddress => this.setState({linkAddress})}
+                            badInput={this.state.linkAddress_field_is_bad}
+                            fieldAlert={this.state.linkAddress_field_alerts}
+                            keyExtractor={'linkAddress'}    
+                            />
                     </View>
 
                     <View style={styles.inputContainer}>
@@ -230,12 +320,13 @@ export default class CadastroEventos1 extends Component {
                         <TextInput
                             style={styles.input}
                             placeholder="Data"
-                            returnKeyType='next'
-                            ref={refData => this.refData = refData}
-                            onSubmitEditing={() => this.refHora.focus()}
-                            //underlineColorAndroid='transparent'
-                            placeholderTextColor='black'
-                            onChangeText={() => {}}
+                            placeholderTextColor='gray'
+                            
+
+                            onChangeText={eventDate => this.setState({eventDate})}
+                            badInput={this.state.eventDate_field_is_bad}
+                            fieldAlert={this.state.eventDate_field_alerts}
+                            keyExtractor={'eventDate'}    
                         />
 
                         <MaterialIcons
@@ -246,21 +337,37 @@ export default class CadastroEventos1 extends Component {
                         <TextInput
                             style={styles.input}
                             placeholder="Horário de início"
-                            returnKeyType='next'
-                            ref={refHora => this.refHora = refHora}
-                            //underlineColorAndroid='transparent'
-                            placeholderTextColor='black'
-                            onChangeText={() => {}}
+                            placeholderTextColor='gray'
+                        
+                            onChangeText={eventHour => this.setState({eventHour})}
+                            badInput={this.state.eventHour_field_is_bad}
+                            fieldAlert={this.state.eventHour_field_alerts}
+                            keyExtractor={'eventHour'}    
                         />
+                    </View>
+
+                    <View style={styles.inputContainerSwitch}>
+                        <Foundation
+                            style={styles.icon}
+                            name="prohibited"
+                            size={30}
+                        />
+                        <Switch
+                                style={styles.switch}
+
+                                onChangeText={adultOnly => this.setState({adultOnly})}
+                                fieldAlert={this.state.adultOnly_field_alerts}
+                                keyExtractor={'adultOnly'}    
+                            />
                     </View>
 
                     <View style={styles.submitButton}>
                         <TouchableOpacity 
                             style={styles.button}
-                            onPress={ () => this.continuar() }
+                            onPress={ () => this._onPressButton }
                         >
                             <Text style={styles.buttonText}>
-                                Continuar
+                                Próximo
                             </Text>
                         </TouchableOpacity>
                     </View>
@@ -273,7 +380,7 @@ export default class CadastroEventos1 extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 10,
+        padding: 20,
         backgroundColor: '#fff',
     },
     titleContainer: {
@@ -303,6 +410,7 @@ const styles = StyleSheet.create({
        paddingLeft: 0,
        backgroundColor: '#fff',
        color: '#424242',
+       textAlign: 'center',
     },
     button: {
         height:45,
@@ -336,34 +444,36 @@ const styles = StyleSheet.create({
         width: 150,
         marginBottom: 10,
     },
-    photoUpload: {
+    image: {
         flex: 1,
+        padding: 5,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'limegreen'
+    },
+    scroll: {
+        alignContent: 'center',
+    },
+    switch: {
+        flex: 1,
+        paddingTop: 10,
+        paddingRight: 10,
+        paddingBottom: 10,
+        paddingLeft: 0,
         backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-        
-        
-        
-        marginBottom: 20,
-        
     },
-    photoUpload2: {
+    icon: {
+        padding: 5,
+        alignContent: 'center',
+        alignItems:'center'
+    },
+    inputContainerSwitch: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
         backgroundColor: '#fff',
-        borderRadius: 50,
-        borderWidth: 1,
-        borderColor: 'limegreen',
-        height: 200,
-        width: 200,
-        alignItems: 'center',
-        justifyContent: 'center',
+        paddingRight: 150,
+        paddingLeft: 140,
     },
-    photoIcon: {
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    photoText: {
-        alignItems: 'center',
-        alignSelf: 'center',
-        marginBottom: 10,
-    }
 });

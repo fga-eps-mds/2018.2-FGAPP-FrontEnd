@@ -6,20 +6,30 @@ import {
     TextInput,
     TouchableOpacity,
     ScrollView,
+    Platform
 } from "react-native";
-import Feed from '../Feed'
-import CadastroEventos1 from './CadastroEventos1'
-import * as firebase from 'firebase'
 
-import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
-import { Platform } from 'react-native';
+import {MaterialIcons, Entypo} from '@expo/vector-icons'
+import fetchApi from './FetchApi'
+import CadastroEventos1 from './CadastroEventos1'
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
 export default class CadastroEventos2 extends Component {
 
-    voltar() {
-        this.props.navigation.goback();
+    state = {
+        eventDescription: '',
+        photo: '',
+        foods: '',
+        drinks: ''
     }
 
+    voltar() {
+        this.props.navigation.navigate('CadastroEventos1');
+    }
+
+    apifetch() {
+        this.props.navigation.navigate('FetchApi');
+    }
     render() {
         return(
             <View style={styles.container}>
@@ -30,7 +40,65 @@ export default class CadastroEventos2 extends Component {
                         </Text>
                     </View>
 
-                    
+                    <View style={styles.inputContainer}>
+                        <MaterialIcons
+                            style={styles.icon}
+                            name="description"
+                            size={26}
+                        />
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Descrição"
+                            placeholderTextColor='black'
+                            multiline={true}
+                            onChangeText={() => {}}
+                        />
+                    </View>
+
+                    <View style={styles.photoUpload}>
+                        <TouchableOpacity
+                            onPress={() => {}}
+                        >
+                            <View style={styles.photoUpload2}>
+                                <MaterialIcons
+                                    name="camera-alt"
+                                    size={100}
+                                />
+                                <Text style={styles.photoText}>
+                                    Adicionar uma imagem
+                                </Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+
+                    <View style={styles.inputContainer}>
+                        <Entypo
+                            style={styles.icon}
+                            name="drink"
+                            size={26}
+                        />
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Drinks"
+                            placeholderTextColor='black'
+                            multiline={true}
+                            onChangeText={() => {}}
+                        />
+                    </View>
+                    <View style={styles.inputContainer}>
+                        <MaterialCommunityIcons
+                            style={styles.icon}
+                            name="food-fork-drink"
+                            size={26}
+                        />
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Comidas"
+                            placeholderTextColor='black'
+                            multiline={true}
+                            onChangeText={() => {}}
+                        />
+                    </View>
 
                     <View style={styles.submitButton}>
                         <TouchableOpacity 
@@ -38,6 +106,14 @@ export default class CadastroEventos2 extends Component {
                             onPress={ () => this.voltar() }>
                             <Text style={styles.buttonText}>
                                 voltar
+                            </Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity 
+                            style={styles.button}
+                            onPress={ () => this.apifetch() }>
+                            <Text style={styles.buttonText}>
+                                FetchApi
                             </Text>
                         </TouchableOpacity>
                     </View>
@@ -51,32 +127,26 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 10,
+        backgroundColor: '#fff',
     },
     titleContainer: {
-        backgroundColor: 'gray',
+        backgroundColor: '#fff',
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginBottom: 10,
     },
     titleText: {
         fontSize: 30,
         marginBottom: 5,
+        fontWeight: 'bold',
     },
-    inputContainer: {
+    photoUpload: {
         flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
         backgroundColor: '#fff',
-    },
-    input: {
-       flex: 1,
-       paddingTop: 10,
-       paddingRight: 10,
-       paddingBottom: 10,
-       paddingLeft: 0,
-       backgroundColor: '#fff',
-       color: '#424242',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 20,
     },
     button: {
         height:45,
@@ -99,15 +169,42 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 20,
     },
+    photoUpload2: {
+        backgroundColor: '#fff',
+        borderRadius: 50,
+        borderWidth: 1,
+        borderColor: 'limegreen',
+        height: 200,
+        width: 200,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    photoIcon: {
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    photoText: {
+        alignItems: 'center',
+        alignSelf: 'center',
+        marginBottom: 10,
+    },
+    inputContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#fff',
+    },
+    input: {
+       flex: 1,
+       paddingTop: 10,
+       paddingRight: 10,
+       paddingBottom: 10,
+       paddingLeft: 0,
+       backgroundColor: '#fff',
+       color: '#424242',
+    },
     icon: {
         padding: 5,
     },
-    inputTime: {
-        height: 45,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'limegreen',
-        width: 150,
-        marginBottom: 10,
-    }
 });

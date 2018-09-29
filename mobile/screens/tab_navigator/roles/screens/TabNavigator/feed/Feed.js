@@ -5,7 +5,7 @@ export default class Feed extends Component {
     render() {
         return (
             <View>
-                <Text>Feed</Text>
+                <Text>Feed Teste</Text>
             </View>
         );
     }
