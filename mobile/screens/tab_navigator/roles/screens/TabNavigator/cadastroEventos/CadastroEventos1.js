@@ -8,6 +8,7 @@ import {
     ScrollView,
     Image,
     Switch,
+    ActivityIndicator
 } from "react-native";
 import CadastroEventos2 from './CadastroEventos2'
 
@@ -16,11 +17,15 @@ import CadastroEventos2 from './CadastroEventos2'
 import { MaterialIcons, MaterialCommunityIcons, Foundation} from '@expo/vector-icons';
 import { Platform } from 'react-native';
 import Feed from '../feed/Feed'
+
+
 export default class CadastroEventos1 extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
+            //isLoading: true,
+            //dataSource: null,
             eventName: '',
             linkReference: '',
             organizer: '',
@@ -35,8 +40,9 @@ export default class CadastroEventos1 extends Component {
     }
 
     _onPressButton = async () => {
-        var register_role = '${process.env.ROLES_API}/registration/';
-        fetch(registration_path,{
+        var register_role = `${process.env.ROLES_API}/events/`;
+
+        fetch(`http://5bae6667a65be00014676441.mockapi.io/`,{
             method: 'POST',
             credentials: 'include',
             headers: {
@@ -58,6 +64,7 @@ export default class CadastroEventos1 extends Component {
         .then((response) => response.json())
         .then((responseJson) => {
         console.log(responseJson);
+        alert("entrou no fetch");
         //Campo de event
         if (responseJson.eventName != undefined){
         this.setState({ event_field_alerts: responseJson.event})
@@ -165,6 +172,9 @@ export default class CadastroEventos1 extends Component {
         });
     }
 
+    imprimeRole() {
+        alert(this.state.eventName);
+    }
 
     continuar() {
         this.props.navigation.navigate('CadastroEventos2');
@@ -364,10 +374,20 @@ export default class CadastroEventos1 extends Component {
                     <View style={styles.submitButton}>
                         <TouchableOpacity 
                             style={styles.button}
-                            onPress={ () => this._onPressButton }
+                            onPress={ () => this._onPressButton() }
                         >
                             <Text style={styles.buttonText}>
                                 Próximo
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.submitButton}>
+                        <TouchableOpacity 
+                            style={styles.button}
+                            onPress={ () => this.imprimeRole() }
+                        >
+                            <Text style={styles.buttonText}>
+                                Imprimir Rolê
                             </Text>
                         </TouchableOpacity>
                     </View>
