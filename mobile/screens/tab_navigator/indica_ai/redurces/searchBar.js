@@ -6,10 +6,9 @@ export default searchReducer = (state =[], action) => {
         console.log(action)
             return {
                 ...state,
-                inputValue: 'action.newText'
+                locals: action.locals
             };
         default:
             return state;
     }
 };
-

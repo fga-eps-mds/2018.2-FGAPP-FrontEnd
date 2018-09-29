@@ -5,32 +5,32 @@ import {
   StyleSheet,
   Image,
   Dimensions,
-  PixelRatio
+  PixelRatio,
+  ScrollView
 } from "react-native";
 import SearchBar from "./containers/searchBar";
 import { Provider } from "react-redux";
-import { Store } from "./store/searchBar";
+import { store } from "./redurces/store";
+import Local from './containers/Local';
 
 state = {
   localName: "SHOW_ALL",
 };
+// console.log(store);
 
 class FirstScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Image
-          source={require("./images/logo.png")}
-          style={{
-            width: 317,
-            height: 115,
-            alignSelf: "center"
-          }}
-        />
-        <Provider store={Store} >
+        <Provider store={store} >
           <SearchBar />
         </Provider>
       </View>
+      // <View>
+      //   <Provider>
+      //     <Local/>
+      //   </Provider>
+      // </View>
     );
   }
 }
@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-    justifyContent: "flex-start"
-  }
+    justifyContent: "flex-start",
+    backgroundColor: '#FFF',
+  },
 });
