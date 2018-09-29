@@ -6,8 +6,22 @@ import {
   
   import React, { Component } from "react";
   import { StyleSheet, Image } from "react-native";
-
+const logo=  require("./images/logo.png");
+const cardImage = require("./images/banner.png");
 class Feed extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { loading: true };
+      }
+    
+      async componentWillMount() {
+        await Font.loadAsync({
+          Roboto: require("native-base/Fonts/Roboto.ttf"),
+          Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf")
+        });
+        this.setState({ loading: false });
+      }
+    
     render() {
         return (
             <Container style ={StyleSheet.container}>
@@ -20,7 +34,7 @@ class Feed extends Component {
             <Card style={styles.mb}>
                 <CardItem>
                 <Left>
-                    <Thumbnail source={logo.require("./images/logo.png")} />
+                    <Thumbnail source={logo} />
                     <Body>
                     <Text>User 1</Text>
                     <Text>Going to Rolê!</Text>
@@ -36,7 +50,7 @@ class Feed extends Component {
                     height: 150,
                     flex: 1
                     }}
-                    source={cardImage.require("./images/banner.png")}
+                    source={cardImage}
                 />
                 </CardItem>
 
