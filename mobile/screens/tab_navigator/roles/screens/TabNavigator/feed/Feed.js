@@ -14,7 +14,7 @@ const cardImage = require("./images/banner.png");
 class Feed extends Component {
   constructor(props) {
     super(props);
-    this.state = { loading: true };
+    this.state = { loading: true, roles: [] };
   }
   async componentWillMount() {
     await Expo.Font.loadAsync({
@@ -24,6 +24,13 @@ class Feed extends Component {
     });
     this.setState({ loading: false });
   }
+
+  componentDidMount() {
+    fetch('https://5bae6667a65be00014676441.mockapi.io/event')
+      .then(res => res.json())
+      .then(roles => this.setState({ loading: false, roles }))
+  }
+
   render() {
 
     if (this.state.loading) {
@@ -31,16 +38,10 @@ class Feed extends Component {
     }
 
     return (
-
       <ScrollView style={styles.scroll}>
-          <Header>
-              <Body>
-                <Text>Rolê 1 (nome do rolê)</Text>
-              </Body>
-          </Header>
-         <FeedItem> </FeedItem>
-         <FeedItem> </FeedItem>
-         <FeedItem> </FeedItem>
+        {
+          this.state.roles.map(role => <FeedItem nomeRole={role.eventName} />)
+        }
       </ScrollView>
 
     );
