@@ -34,7 +34,7 @@ export default class CadastroEventos1 extends Component {
       linkAddres: "",
       eventDate: "",
       eventHour: "",
-      adultOnly: "",
+      adultOnly: false,
       drinks: "",
       foods: ""
     };
@@ -70,6 +70,7 @@ export default class CadastroEventos1 extends Component {
     })
       .then(response => response.json())
       .then(responseJson => {
+          console.log(responseJson)
         //Campo de event
         if (responseJson.eventName == "") {
           this.setState({ eventName_field_alerts: responseJson.eventName });
@@ -178,6 +179,7 @@ export default class CadastroEventos1 extends Component {
         }
         //Sucesso
         if ((responseJson = !undefined)) {
+            console.log(responseJson);
           Alert.alert(
             "Rolê criado com sucesso!",
             "Seu rolê foi cadastrado com sucesso!\n" + "Boa sorte!",
@@ -209,12 +211,10 @@ export default class CadastroEventos1 extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-      
         <ScrollView
-          //style={{alignContent: 'center'}}
           style={styles.scroll}
         >
+      <View style={styles.container}>
           <View style={styles.titleContainer}>
             <Text style={styles.titleText}>Cadastrar novo rolê</Text>
           </View>
@@ -397,7 +397,8 @@ export default class CadastroEventos1 extends Component {
               style={styles.switch}
               fieldAlert={this.state.adultOnly_field_alerts}
               keyExtractor={"adultOnly"}
-              value={this.adultOnly}
+              value={this.state.adultOnly}
+              onValueChange={(adultOnly) => {this.setState({ adultOnly })}}
             />
           </View>
 
@@ -406,12 +407,13 @@ export default class CadastroEventos1 extends Component {
               style={styles.button}
               onPress={() => this.cadastrarRole()}
             >
-              <Text style={styles.buttonText}>Próximo</Text>
+              <Text style={styles.buttonText}>Cadastrar</Text>
             </TouchableOpacity>
           </View>
-        </ScrollView>
+        
         
       </View>
+      </ScrollView>
     );
   }
 }
@@ -443,9 +445,9 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    paddingTop: 10,
+    paddingTop: 15,
     paddingRight: 10,
-    paddingBottom: 10,
+    paddingBottom: 15,
     paddingLeft: 0,
     backgroundColor: "#fff",
     color: "#424242",
