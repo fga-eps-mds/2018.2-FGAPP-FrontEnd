@@ -10,27 +10,25 @@ import {
 } from "react-native";
 import SearchBar from "./containers/searchBar";
 import { Provider } from "react-redux";
-import { store } from "./redurces/store";
-import Local from './containers/Local';
+import store from "./redurces/store";
+import ListLocals from './containers/ListLocals'
 
 state = {
-  localName: "SHOW_ALL",
+  localName: "SHOW_ALL"
 };
-// console.log(store);
+
 
 class FirstScreen extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Provider store={store} >
-          <SearchBar />
-        </Provider>
-      </View>
-      // <View>
-      //   <Provider>
-      //     <Local/>
-      //   </Provider>
-      // </View>
+        <View style={styles.container}>
+          <Provider store={store}>
+            <SearchBar />
+          </Provider>
+          <Provider store={store}>
+            <ListLocals />
+          </Provider>
+        </View>
     );
   }
 }
@@ -41,6 +39,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     justifyContent: "flex-start",
-    backgroundColor: '#FFF',
-  },
+    backgroundColor: "#FFF"
+  }
 });

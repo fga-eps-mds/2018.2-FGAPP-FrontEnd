@@ -1,20 +1,22 @@
-import React from 'react';
+import React, { Component}   from 'react';
 import {
   View,
   Text,
   StyleSheet
 } from 'react-native';
 
-export default class Local extends React.Component {
+
+export default class Local extends Component {
+  constructor(props) {
+    super(props);
+    
+  }
   render() {
+
+    const name = this.props.name;
+
     return(
-      <View style={styles.local}>
-        <View style={styles.localInfo}>
-          <Text style={styles.localName}>
-            {this.props.data.name}
-          </Text>
-        </View>
-      </View>
+            <Text>{name}</Text>
     );
   }
 }
