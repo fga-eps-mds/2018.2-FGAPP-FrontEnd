@@ -30,7 +30,7 @@ class MyProducts extends Component {
         var token = state.params ? state.params.token : undefined;
         var user = jwt_decode(token);
 
-        fetch(`${process.env.VENDAS_API}/api/list_user_products`, {
+        fetch(`${process.env.VENDAS_API}/api/my_products_screen`, {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
