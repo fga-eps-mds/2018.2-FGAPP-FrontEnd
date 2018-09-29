@@ -1,12 +1,27 @@
-import React, { Component } from "react";
-import { View, Text, TouchableOpacity } from "native-base";
+import {
+    Container, Header, Body,
+    Content, Button, Icon,
+    Card, CardItem, Text,
+    Thumbnail, Left, Right  } from "native-base";
+  
+  import React, { Component } from "react";
+  import { StyleSheet, Image } from "react-native";
 
 export default class Feed extends Component {
     render() {
         return (
-            <View>
-                <Text>Feed Teste</Text>
-            </View>
+            <Container style ={StyleSheet.container}>
+                <Header>
+                    <Body>
+                        <Text>Rolê 1 (nome do rolê)</Text>
+                    </Body>
+                </Header>
+
+
+
+
+            </Container>
+                
         );
     }
 }
