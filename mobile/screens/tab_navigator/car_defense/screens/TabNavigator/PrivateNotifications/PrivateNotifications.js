@@ -18,7 +18,7 @@ export default class PrivateNotifications extends Component {
     super(props);
     this.state = {
       plate: '',
-      title: 'Algo de errado no seu carro!',
+      title: 'Car Defense',
       message: ''
     }
   }
