@@ -15,7 +15,7 @@ import CadastroEventos2 from './CadastroEventos2'
 
 //Abrir issue depois para trocar icones para import {Icon} from 'react-native-elements'
 //https://react-native-training.github.io/react-native-elements/docs/icon.html
-import { MaterialIcons, MaterialCommunityIcons, Foundation} from '@expo/vector-icons';
+import { MaterialIcons, MaterialCommunityIcons, Foundation, Entypo} from '@expo/vector-icons';
 import { Platform } from 'react-native';
 import Feed from '../feed/Feed'
 
@@ -28,6 +28,7 @@ export default class CadastroEventos1 extends Component {
             //isLoading: true,
             //dataSource: null,
             eventName: '',
+            eventDescription: '',
             linkReference: '',
             organizer: '',
             organizerTel: '',
@@ -36,21 +37,17 @@ export default class CadastroEventos1 extends Component {
             linkAddres: '',
             eventDate: '',
             eventHour: '',
-            adultOnly: ''
+            adultOnly: '',
+            drinks: '',
+            foods: ''
         }
     }
-
-    /*
-    componentDidMount() {
-        return fetch()
-    }
-    */
 
     
     _onPressButton = async () => {
         var register_role = `http://5bae6667a65be00014676441.mockapi.io/`;
 
-        fetch('http://5bae6667a65be00014676441.mockapi.io/',{
+        fetch('http://5bae6667a65be00014676441.mockapi.io/event',{
             method: 'POST',
             credentials: 'include',
             headers: {
@@ -58,6 +55,7 @@ export default class CadastroEventos1 extends Component {
             },
             body: JSON.stringify({
                 eventName: this.state.eventName,
+                eventDescription: this.state.eventDescription,
                 linkReference: this.state.linkReference,
                 organizer: this.state.organizer,
                 organizerTel: this.state.organizerTel,
@@ -67,12 +65,14 @@ export default class CadastroEventos1 extends Component {
                 eventDate: this.state.eventDate,
                 eventHour: this.state.eventHour,
                 adultOnly: this.state.adultOnly,
+                foods: this.state.foods,
+                drinks: this.state.drinks,
             }),
         })
         .then((response) => response.json()
         ) //Pega o response da API e converte para JSON
         .then((responseJson) => {
-        alert(responseJson);
+            alert(responseJson);
             console.log(responseJson);
             alert("entrou no fetch");
             //Campo de event
@@ -83,6 +83,15 @@ export default class CadastroEventos1 extends Component {
             else{
                 this.setState({ event_field_alerts: ['']})
                 this.setState({ event_field_is_bad: false })
+            }
+            //Campo de eventDescription
+            if (responseJson.eventDescription != undefined){
+                this.setState({ eventDescription_field_alerts: responseJson.eventDescription})
+                this.setState({ eventDescription_field_is_bad: true })
+            }
+            else{
+                this.setState({ eventDescription_field_alerts: ['']})
+                this.setState({ eventDescription_field_is_bad: false })
             }
             //Campo de linkReference
             if (responseJson.linkReference != undefined){
@@ -156,6 +165,24 @@ export default class CadastroEventos1 extends Component {
                 this.setState({ adultOnly_field_alerts: ['']})
                 this.setState({ adultOnly_field_is_bad: false })
             }
+            //Campo de foods
+            if (responseJson.foods != undefined){
+                this.setState({ foods_field_alerts: responseJson.foods})
+                this.setState({ foods_field_is_bad: true })
+            }
+            else{
+                this.setState({ foods_field_alerts: ['']})
+                this.setState({ foods_field_is_bad: false })
+            }
+            //Campo de drinks
+            if (responseJson.drinks != undefined){
+                this.setState({ drinks_field_alerts: responseJson.drinks})
+                this.setState({ drinks_field_is_bad: true })
+            }
+            else{
+                this.setState({ drinks_field_alerts: ['']})
+                this.setState({ drinks_field_is_bad: false })
+            }
             //Sem campo
             if (responseJson.non_field_errors != undefined){
                 this.setState({ non_field_alert: responseJson.non_field_errors})
@@ -225,6 +252,25 @@ export default class CadastroEventos1 extends Component {
                     <View style={styles.inputContainer}>
                         <MaterialIcons
                             style={styles.icon}
+                            name="description"
+                            size={26}
+                        />
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Descrição"
+                            placeholderTextColor='black'
+                            multiline={true}
+
+                            onChangeText={eventDescription => this.setState({eventDescription})}
+                            badInput={this.state.eventDescription_field_is_bad}
+                            fieldAlert={this.state.eventDescription_field_alerts}
+                            keyExtractor={'eventDescription'}
+                        />
+                    </View>
+
+                    <View style={styles.inputContainer}>
+                        <MaterialIcons
+                            style={styles.icon}
                             name="insert-link"
                             size={26}
                         />
@@ -287,7 +333,8 @@ export default class CadastroEventos1 extends Component {
                             style={styles.input}
                             placeholder="Valor do ingresso"
                             placeholderTextColor='gray'
-                            
+                            keyboardType='numeric'
+
                             onChangeText={value => this.setState({value})}
                             badInput={this.state.value_field_is_bad}
                             fieldAlert={this.state.value_field_alerts}
@@ -367,6 +414,43 @@ export default class CadastroEventos1 extends Component {
                         />
                     </View>
 
+                    <View style={styles.inputContainer}>
+                        <Entypo
+                            style={styles.icon}
+                            name="drink"
+                            size={26}
+                        />
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Drinks"
+                            placeholderTextColor='gray'
+                            multiline={true}
+                            
+                            onChangeText={drinks => this.setState({drinks})}
+                            badInput={this.state.drinks_field_is_bad}
+                            fieldAlert={this.state.drinks_field_alerts}
+                            keyExtractor={'drinks'} 
+                        />
+                    </View>
+                    <View style={styles.inputContainer}>
+                        <MaterialCommunityIcons
+                            style={styles.icon}
+                            name="food-fork-drink"
+                            size={26}
+                        />
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Comidas"
+                            placeholderTextColor='gray'
+                            multiline={true}
+
+                            onChangeText={foods => this.setState({foods})}
+                            badInput={this.state.foods_field_is_bad}
+                            fieldAlert={this.state.foods_field_alerts}
+                            keyExtractor={'foods'} 
+                        />
+                    </View>
+
                     <View style={styles.inputContainerSwitch}>
                         <Foundation
                             style={styles.icon}
@@ -375,10 +459,9 @@ export default class CadastroEventos1 extends Component {
                         />
                         <Switch
                                 style={styles.switch}
-
-                                onChangeText={adultOnly => this.setState({adultOnly})}
                                 fieldAlert={this.state.adultOnly_field_alerts}
-                                keyExtractor={'adultOnly'}    
+                                keyExtractor={'adultOnly'}
+                                value={this.adultOnly}  
                             />
                     </View>
 
