@@ -7,7 +7,7 @@ import {
 
 import React, { Component } from "react";
 import { StyleSheet, Image, ScrollView } from "react-native";
-
+import FeedItem from "./FeedItem";
 const logo = require("./images/logo.png");
 const cardImage = require("./images/banner.png");
 
@@ -33,58 +33,14 @@ class Feed extends Component {
     return (
 
       <ScrollView style={styles.scroll}>
-        <Container style={StyleSheet.container}>
           <Header>
-            <Body>
-              <Text>Rolê 1 (nome do rolê)</Text>
-            </Body>
+              <Body>
+                <Text>Rolê 1 (nome do rolê)</Text>
+              </Body>
           </Header>
-
-          <Content padder>
-            <Card style={styles.mb}>
-              <CardItem>
-                <Left>
-                  <Thumbnail source={logo} />
-                  <Body>
-                    <Text>User 1</Text>
-                    <Text note>Going to Rolê!</Text>
-                  </Body>
-                </Left>
-              </CardItem>
-
-              <CardItem cardBody>
-                <Image
-                  style={{
-                    resizeMode: "cover",
-                    width: null,
-                    height: 150,
-                    flex: 1
-                  }}
-                  source={cardImage} />
-              </CardItem>
-
-              <CardItem style={{ paddingVertical: 0 }}>
-                <Left>
-                  <Button transparent>
-                    <Icon active name="thumbs-up" />
-                    <Text>11 Likes</Text>
-                  </Button>
-                </Left>
-                <Body>
-                  <Button transparent>
-                    <Icon active name="chatbubbles" />
-                    <Text>89 Comments</Text>
-                  </Button>
-                </Body>
-                <Right>
-                  <Button transparent>
-                    <Text> Read More</Text>
-                  </Button>
-                </Right>
-              </CardItem>
-            </Card>
-          </Content>
-        </Container>
+         <FeedItem> </FeedItem>
+         <FeedItem> </FeedItem>
+         <FeedItem> </FeedItem>
       </ScrollView>
 
     );
