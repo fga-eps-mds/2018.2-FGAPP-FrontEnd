@@ -13,7 +13,7 @@ import TabHandler from './screens/TabHandler'
 export default class App extends React.Component<{}> {
   render() {
     return (
-      < AppStackNavigator />
+      < AppStackNavigator style={{marginTop: 12}}/>
     );
   }
 }
