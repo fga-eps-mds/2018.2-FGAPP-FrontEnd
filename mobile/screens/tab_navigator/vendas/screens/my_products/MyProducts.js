@@ -36,7 +36,7 @@ class MyProducts extends Component {
             'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-            'fk_vendor': user.user_id,
+            'user_id': user.user_id,
             }),
         })
         .then((response) => { return response.json() })
