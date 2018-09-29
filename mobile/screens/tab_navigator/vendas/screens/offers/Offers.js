@@ -24,7 +24,7 @@ class MyProducts extends Component {
         };
     }
     componentDidMount() {
-        var products_path = `${process.env.VENDAS_PRODUCTS}/products`;
+        var products_path = `${process.env.VENDAS_PRODUCTS}/products/`;
         fetch('http://192.168.1.11:8002/products', {
             method: 'GET',
             headers: {
