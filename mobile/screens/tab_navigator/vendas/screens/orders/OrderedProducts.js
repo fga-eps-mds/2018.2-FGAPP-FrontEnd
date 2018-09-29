@@ -34,6 +34,7 @@ class OrderedProducts extends Component {
           },
           body: JSON.stringify({
           'user_id': user.user_id, //UsernameField foi definido como email
+          'token': token,
         }),
       })
       .then((response) => response.json())

@@ -48,15 +48,15 @@ class CreateProduct extends Component {
           'price': this.state.price,
           'photo': 'https://cdn.cnn.com/cnnnext/dam/assets/171027052520-processed-foods-exlarge-tease.jpg',
           'description': this.state.description,
+          'token':token,
         }),
       })
       .then((response) => {
         return response.json();
       })
       .then((responseJson) => {
-        if (responseJson.length){
-          const error = JSON.parse(responseJson[0]);
-          this.setState ({ messageError: error["error"]})
+        if (responseJson.error != undefined){
+          this.setState ({ messageError: responseJson.error})
           this.setState({ isDialogVisible: true })
         }
         else{
