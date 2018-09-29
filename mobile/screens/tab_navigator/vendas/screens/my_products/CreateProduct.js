@@ -37,7 +37,8 @@ class CreateProduct extends Component {
       var token = state.params ? state.params.token : undefined;
       var jwtDecode = require('jwt-decode');
       var user = jwt_decode(token);
-      fetch(`${process.env.VENDAS_API}/api/create_product/`, {
+      const create_product_path = `${process.env.VENDAS_API}/api/create_product/`;
+      fetch(create_product_path, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
