@@ -23,62 +23,70 @@ class Feed extends React.Component {
         });
         this.setState({ loading: false });
       }
+
     render() {
+
         if(this.state.loading){
             return <Expo.AppLoading />;
         }
+
         return (
             <Container style ={StyleSheet.container}>
-                <Header>
-                    <Body>
-                        <Text>Rolê 1 (nome do rolê)</Text>
-                    </Body>
-                </Header>
-                <Content padder>
-            <Card style={styles.mb}>
+              <Header>
+                 <Body>
+                    <Text>Rolê 1 (nome do rolê)</Text>
+                 </Body>
+              </Header>
+
+            <Content padder>
+              <Card style={styles.mb}>
                 <CardItem>
-                <Left>
-                    <Thumbnail source={logo} />
+                  <Left>
+                  <Thumbnail source={logo} />
                     <Body>
-                    <Text>User 1</Text>
-                    <Text>Going to Rolê!</Text>
+                      <Text>User 1</Text>
+                      <Text note>Going to Rolê!</Text>
                     </Body>
-                </Left>
+                  </Left>
                 </CardItem>
 
                 <CardItem cardBody>
-                <Image
+                  <Image
                     style={{
                     resizeMode: "cover",
                     width: null,
                     height: 150,
                     flex: 1
                     }}
-                    source={cardImage}
-                />
+                    source={cardImage}/>
                 </CardItem>
 
                 <CardItem style={{ paddingVertical: 0 }}>
                     <Left>
                         <Button transparent>
-                        <Icon active name="thumbs-up" />
-                        <Text>11 Likes</Text>
+                          <Icon active name="thumbs-up" />
+                          <Text>11 Likes</Text>
                         </Button>
                     </Left>
                     <Body>
                         <Button transparent>
-                        <Icon active name="chatbubbles" />
-                        <Text>89 Comments</Text>
+                          <Icon active name="chatbubbles" />
+                          <Text>89 Comments</Text>
                         </Button>
                     </Body>
-                    </CardItem>
-                </Card>
-            </Content>
-            </Container>
+                    <Right>
+                        <Button transparent>
+                            <Text> Read More</Text>
+                        </Button>
+                    </Right>
+                </CardItem>
+            </Card>
+           </Content>
+          </Container>
                 
         );
-    }
-}
+    }//end render ()
+}//end class
 
 const styles = StyleSheet.create({
     container: {
