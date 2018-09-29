@@ -7,15 +7,15 @@ import {
 
 import {TabNavigator} from 'react-navigation'
 import RolesConfirmadosNavigator from './screens/TabNavigator/rolesConfirmados/RolesConfirmadosNavigator'
-import CadastroNavigator from './screens/TabNavigator/cadastroEventos/CadastroNavigator'
-import FeedNavigator from './screens/TabNavigator/feed/FeedNavigator'
+import CadastroEventos1 from './screens/TabNavigator/cadastroEventos/CadastroEventos1'
+import Feed from './screens/TabNavigator/feed/Feed'
 
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Platform } from 'react-native';
 
 const RolesTabStackNavigator = new TabNavigator({
-    FeedNavigator:{
-        screen:FeedNavigator,
+    Feed:{
+        screen:Feed,
         navigationOptions:{
             tabBarLabel:'Feed',
             tabBarIcon: ({ tintColor }) => <MaterialCommunityIcons name='newspaper' size={27} style={{ color: tintColor }} />
@@ -28,8 +28,8 @@ const RolesTabStackNavigator = new TabNavigator({
             tabBarIcon: ({ tintColor }) => <MaterialIcons name='event-available' size={27} style={{ color: tintColor }} />
         }
     },
-    CadastroNavigator:{
-        screen: CadastroNavigator,
+    CadastroEventos1:{
+        screen: CadastroEventos1,
         navigationOptions:{
             tabBarLabel:'CadastroEventos',
             tabBarIcon: ({ tintColor }) => <MaterialIcons name='playlist-add' size={27} style={{ color: tintColor }} />

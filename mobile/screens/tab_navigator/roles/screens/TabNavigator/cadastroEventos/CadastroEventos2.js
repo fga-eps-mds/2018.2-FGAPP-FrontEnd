@@ -10,7 +10,6 @@ import {
 } from "react-native";
 
 import {MaterialIcons, Entypo} from '@expo/vector-icons'
-import fetchApi from './FetchApi'
 import CadastroEventos1 from './CadastroEventos1'
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
@@ -26,10 +25,7 @@ export default class CadastroEventos2 extends Component {
     voltar() {
         this.props.navigation.navigate('CadastroEventos1');
     }
-
-    apifetch() {
-        this.props.navigation.navigate('FetchApi');
-    }
+    
     render() {
         return(
             <View style={styles.container}>
