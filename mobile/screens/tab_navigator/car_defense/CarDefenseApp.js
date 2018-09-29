@@ -9,6 +9,7 @@ import {
 import PublicNotifications from './screens/TabNavigator/PublicNotifications/PublicNotifications'
 import PrivateNotifications from './screens/TabNavigator/PrivateNotifications/PrivateNotificationsNavigator'
 import Feed from './screens/Feed'
+import RegisterCar from './screens/TabNavigator/RegisterCar/RegisterCar'
 import {StackNavigator} from 'react-navigation'
 import CarDefenseTabHandler from './CarDefenseTabHandler'
 
@@ -43,6 +44,12 @@ const CarDefenseStackNavigator = new StackNavigator({
     },
     PublicNotifications:{
         screen:PublicNotifications,
+        navigationOptions: {
+            header: 'none'
+        }
+    },
+    RegisterCar:{
+        screen:RegisterCar,
         navigationOptions: {
             header: 'none'
         }
