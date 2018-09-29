@@ -17,26 +17,26 @@ export default class PrivateNotifications extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      token: '',
+      plate: '',
       title: 'Algo de errado no seu carro!',
       message: ''
     }
   }
 
   handlePlate = (text) => {
-    this.setState({id: text})
+    this.setState({plate: text})
   }
 
   handleMessage = (text) => {
-      this.setState({title: text})   
+      this.setState({message: text})   
   }
 
 
-  onPressButton = event => {
-    const url = ``
+  onPressButton = () => {
+    const url = `http://192.168.0.4:8000/send_push_message/` //function send_push_message url
 
     let notification = JSON.stringify({
-      id: this.state.id,
+      plate: this.state.plate,
       title: this.state.title,
       message: this.state.message
     })
@@ -62,7 +62,7 @@ export default class PrivateNotifications extends Component {
       <ScrollView>
         <View style={styles.container}>
           <Text style={styles.header}>Informações</Text>
-          <Text style={styles.header2}> Usuário</Text>
+          <Text style={styles.header2}> Placa</Text>
           <TextInput
             style={styles.input2}
             placeholderTextColor="#c8cdea"
@@ -70,7 +70,7 @@ export default class PrivateNotifications extends Component {
             underlineColorAndroid="transparent"
             onChangeText={this.handlePlate}
           />
-          <Text style={styles.header3}>Descrição</Text>
+          <Text style={styles.header3}> Descrição</Text>
           <TextInput
             style={styles.input1}
             placeholderTextColor="#c8cdea"
@@ -140,4 +140,3 @@ const styles = StyleSheet.create({
   },
 
 });
-
