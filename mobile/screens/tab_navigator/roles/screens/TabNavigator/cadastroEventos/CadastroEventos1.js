@@ -8,7 +8,8 @@ import {
     ScrollView,
     Image,
     Switch,
-    ActivityIndicator
+    ActivityIndicator,
+    Alert
 } from "react-native";
 import CadastroEventos2 from './CadastroEventos2'
 
@@ -39,10 +40,17 @@ export default class CadastroEventos1 extends Component {
         }
     }
 
-    _onPressButton = async () => {
-        var register_role = `${process.env.ROLES_API}/events/`;
+    /*
+    componentDidMount() {
+        return fetch()
+    }
+    */
 
-        fetch(`http://5bae6667a65be00014676441.mockapi.io/`,{
+    
+    _onPressButton = async () => {
+        var register_role = `http://5bae6667a65be00014676441.mockapi.io/`;
+
+        fetch('http://5bae6667a65be00014676441.mockapi.io/',{
             method: 'POST',
             credentials: 'include',
             headers: {
@@ -61,105 +69,107 @@ export default class CadastroEventos1 extends Component {
                 adultOnly: this.state.adultOnly,
             }),
         })
-        .then((response) => response.json())
+        .then((response) => response.json()
+        ) //Pega o response da API e converte para JSON
         .then((responseJson) => {
-        console.log(responseJson);
-        alert("entrou no fetch");
-        //Campo de event
-        if (responseJson.eventName != undefined){
-        this.setState({ event_field_alerts: responseJson.event})
-        this.setState({ event_field_is_bad: true })
-        }
-        else{
-        this.setState({ event_field_alerts: ['']})
-        this.setState({ event_field_is_bad: false })
-        }
-        //Campo de linkReference
-        if (responseJson.linkReference != undefined){
-        this.setState({ linkReference_field_alerts: responseJson.linkReference})
-        this.setState({ linkReference_field_is_bad: true })
-        }
-        else{
-        this.setState({ linkReference_field_alerts: ['']})
-        this.setState({ linkReference_field_is_bad: false })
-        }
-        //Campo de organizer
-        if (responseJson.organizer != undefined){
-            this.setState({ organizer_field_alerts: responseJson.organizer})
-            this.setState({ organizer_field_is_bad: true })
-        }
-        else{
-            this.setState({ organizer_field_alerts: ['']})
-            this.setState({ organizer_field_is_bad: false })
-        }
-        //Campo de value
-        if (responseJson.value != undefined){
-            this.setState({ value_field_alerts: responseJson.value})
-            this.setState({ value_field_is_bad: true })
-        }
-        else{
-            this.setState({ value_field_alerts: ['']})
-            this.setState({ value_field_is_bad: false })
-        }
-        //Campo de address
-        if (responseJson.address != undefined){
-            this.setState({ address_field_alerts: responseJson.address})
-            this.setState({ address_field_is_bad: true })
-        }
-        else{
-            this.setState({ address_field_alerts: ['']})
-            this.setState({ address_field_is_bad: false })
-        }
-        //Campo de linkAddress
-        if (responseJson.linkAddress != undefined){
-            this.setState({ linkAddress_field_alerts: responseJson.linkAddress})
-            this.setState({ linkAddress_field_is_bad: true })
-        }
-        else{
-            this.setState({ linkAddress_field_alerts: ['']})
-            this.setState({ linkAddress_field_is_bad: false })
-        }
-        //Campo de eventDate
-        if (responseJson.eventDate != undefined){
-            this.setState({ eventDate_field_alerts: responseJson.eventDate})
-            this.setState({ eventDate_field_is_bad: true })
-        }
-        else{
-            this.setState({ eventDate_field_alerts: ['']})
-            this.setState({ eventDate_field_is_bad: false })
-        }
-        //Campo de eventHour
-        if (responseJson.eventHour != undefined){
-            this.setState({ eventHour_field_alerts: responseJson.eventHour})
-            this.setState({ eventHour_field_is_bad: true })
-        }
-        else{
-            this.setState({ eventHour_field_alerts: ['']})
-            this.setState({ eventHour_field_is_bad: false })
-        }
-        //Campo de adultOnly
-        if (responseJson.adultOnly != undefined){
-            this.setState({ adultOnly_field_alerts: responseJson.adultOnly})
-            this.setState({ adultOnly_field_is_bad: true })
-        }
-        else{
-            this.setState({ adultOnly_field_alerts: ['']})
-            this.setState({ adultOnly_field_is_bad: false })
-        }
-        //Sem campo
-        if (responseJson.non_field_errors != undefined){
-        this.setState({ non_field_alert: responseJson.non_field_errors})
-        }
-        else{
-        this.setState({ non_field_alert: ['']})
-        }
-        //Sucesso
-    if (responseJson.token != undefined ||
-        responseJson.key != undefined){
-            Alert.alert("Rolê criado com sucesso!");
-            this.props.navigation.navigate('Feed')
-        }
-    })
+        alert(responseJson);
+            console.log(responseJson);
+            alert("entrou no fetch");
+            //Campo de event
+            if (responseJson.eventName != undefined){
+                this.setState({ event_field_alerts: responseJson.event})
+                this.setState({ event_field_is_bad: true })
+            }
+            else{
+                this.setState({ event_field_alerts: ['']})
+                this.setState({ event_field_is_bad: false })
+            }
+            //Campo de linkReference
+            if (responseJson.linkReference != undefined){
+                this.setState({ linkReference_field_alerts: responseJson.linkReference})
+                this.setState({ linkReference_field_is_bad: true })
+            }
+            else{
+                this.setState({ linkReference_field_alerts: ['']})
+                this.setState({ linkReference_field_is_bad: false })
+            }
+            //Campo de organizer
+            if (responseJson.organizer != undefined){
+                this.setState({ organizer_field_alerts: responseJson.organizer})
+                this.setState({ organizer_field_is_bad: true })
+            }
+            else{
+                this.setState({ organizer_field_alerts: ['']})
+                this.setState({ organizer_field_is_bad: false })
+            }
+            //Campo de value
+            if (responseJson.value != undefined){
+                this.setState({ value_field_alerts: responseJson.value})
+                this.setState({ value_field_is_bad: true })
+            }
+            else{
+                this.setState({ value_field_alerts: ['']})
+                this.setState({ value_field_is_bad: false })
+            }
+            //Campo de address
+            if (responseJson.address != undefined){
+                this.setState({ address_field_alerts: responseJson.address})
+                this.setState({ address_field_is_bad: true })
+            }
+            else{
+                this.setState({ address_field_alerts: ['']})
+                this.setState({ address_field_is_bad: false })
+            }
+            //Campo de linkAddress
+            if (responseJson.linkAddress != undefined){
+                this.setState({ linkAddress_field_alerts: responseJson.linkAddress})
+                this.setState({ linkAddress_field_is_bad: true })
+            }
+            else{
+                this.setState({ linkAddress_field_alerts: ['']})
+                this.setState({ linkAddress_field_is_bad: false })
+            }
+            //Campo de eventDate
+            if (responseJson.eventDate != undefined){
+                this.setState({ eventDate_field_alerts: responseJson.eventDate})
+                this.setState({ eventDate_field_is_bad: true })
+            }
+            else{
+                this.setState({ eventDate_field_alerts: ['']})
+                this.setState({ eventDate_field_is_bad: false })
+            }
+            //Campo de eventHour
+            if (responseJson.eventHour != undefined){
+                this.setState({ eventHour_field_alerts: responseJson.eventHour})
+                this.setState({ eventHour_field_is_bad: true })
+            }
+            else{
+                this.setState({ eventHour_field_alerts: ['']})
+                this.setState({ eventHour_field_is_bad: false })
+            }
+            //Campo de adultOnly
+            if (responseJson.adultOnly != undefined){
+                this.setState({ adultOnly_field_alerts: responseJson.adultOnly})
+                this.setState({ adultOnly_field_is_bad: true })
+            }
+            else{
+                this.setState({ adultOnly_field_alerts: ['']})
+                this.setState({ adultOnly_field_is_bad: false })
+            }
+            //Sem campo
+            if (responseJson.non_field_errors != undefined){
+                this.setState({ non_field_alert: responseJson.non_field_errors})
+            }
+            else{
+                this.setState({ non_field_alert: ['']})
+            }
+            //Sucesso
+            if (responseJson.token != undefined ||
+                responseJson.key != undefined){
+                Alert.alert("Rolê criado com sucesso!");
+                this.props.navigation.navigate('Feed')
+            }
+        })
         .catch( err => {
             if (typeof err.text === 'function') {
                 err.text().then(errorMessage => {
@@ -172,7 +182,7 @@ export default class CadastroEventos1 extends Component {
         });
     }
 
-    imprimeRole() {
+    imprimeRole = () => {
         alert(this.state.eventName);
     }
 
@@ -240,6 +250,7 @@ export default class CadastroEventos1 extends Component {
                             style={styles.input}
                             placeholder="Nome para contato"
                             placeholderTextColor='gray'
+
                             onChangeText={organizer => this.setState({organizer})}
                             badInput={this.state.organizer_field_is_bad}
                             fieldAlert={this.state.organizer_field_alerts}
@@ -296,10 +307,10 @@ export default class CadastroEventos1 extends Component {
                             returnKeyType='next'
                             placeholderTextColor='gray'
                             
-                            onChangeText={location => this.setState({location})}
-                            badInput={this.state.location_field_is_bad}
-                            fieldAlert={this.state.location_field_alerts}
-                            keyExtractor={'location'}    
+                            onChangeText={address => this.setState({address})}
+                            badInput={this.state.address_field_is_bad}
+                            fieldAlert={this.state.address_field_alerts}
+                            keyExtractor={'address'}    
                         />
                     </View>
 
