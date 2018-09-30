@@ -26,7 +26,7 @@ class Feed extends Component {
   }
 
   componentDidMount() {
-    fetch('https://5bae6667a65be00014676441.mockapi.io/event')
+    fetch('https://raulvictor.pythonanywhere.com/events/?format=json')
       .then(res => res.json())
       .then(roles => this.setState({ loading: false, roles }))
   }

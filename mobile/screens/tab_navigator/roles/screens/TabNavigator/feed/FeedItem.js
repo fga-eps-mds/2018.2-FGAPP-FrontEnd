@@ -7,6 +7,7 @@ import {
 
 import React, { Component } from "react";
 import { StyleSheet, Image, ScrollView } from "react-native";
+
 const logo = require("./images/logo.png");
 const cardImage = require("./images/banner.png");
 
@@ -19,7 +20,7 @@ class FeedItem extends Component {
                     <Left>
                         <Thumbnail source={logo} />
                         <Body>
-                            <Text>User 1</Text>
+                            <Text>{this.props.owner}</Text>
                             <Text note>{this.props.nomeRole}</Text>
                         </Body>
                     </Left>
@@ -64,7 +65,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#FFF"
     },
     mb: {
-        marginBottom: 5
+        marginBottom: 15
     }
 });
 export default FeedItem;
