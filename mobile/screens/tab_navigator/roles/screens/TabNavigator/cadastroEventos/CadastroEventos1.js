@@ -13,8 +13,8 @@ import {
 } from "@expo/vector-icons";
 
 // import Feed from '../feed/Feed'
-import Input from './Input'
-import Title from './Title'
+import Input from './components/Input'
+import Title from './/components/Title'
 
 export default class CadastroEventos1 extends Component {
   constructor(props) {
