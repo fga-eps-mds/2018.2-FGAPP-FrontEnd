@@ -94,7 +94,7 @@ export default class Feed extends React.Component {
               </View>
             );
           }}
-          keyExtractor={({ id }, index) => id}
+          keyExtractor={({ id }, index) => id.toString()}
           
         />
         refreshControl={
