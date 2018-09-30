@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import { View, Text, TouchableOpacity, ScrollView, StyleSheet, TextInput, Button, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, StyleSheet, TextInput, Button, Alert, FlatList, RefreshControl } from 'react-native';
 import Expo from 'expo'
+import { Permissions, Notifications } from 'expo'
+
 
 var tk
-
 async function register() {
   const { status } = await Expo.Permissions.askAsync(
     Expo.Permissions.NOTIFICATIONS
@@ -14,14 +15,42 @@ async function register() {
   }
 
   const token = await Expo.Notifications.getExpoPushTokenAsync();
-   tk = token;
+  tk = token;
   console.log(status, token);
+}
+
+async function list() {
+  const { status: existingStatus } = await Permissions.getAsync(
+    Permissions.NOTIFICATIONS
+  );
+  let finalStatus = existingStatus;
+
+  // only ask if permissions have not already been determined, because
+  // iOS won't necessarily prompt the user a second time.
+  if (existingStatus !== 'granted') {
+    // Android remote notification permissions are granted during the app
+    // install, so this will only ask on iOS
+    const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+    finalStatus = status;
+  }
+
+  // Stop here if the user did not grant permissions
+  if (finalStatus !== 'granted') {
+    return;
+  }
+  var token
+  var tk = await Promise
+    .resolve(token = await Notifications.getExpoPushTokenAsync())
+    .then(x => token);
+  return tk;
+
 }
 
 
 export default class RegisterCar extends Component {
   componentWillMount() {
     register();
+    list();
     this.listener = Expo.Notifications.addListener(this.listen);
   }
   componentWillUnmount() {
@@ -36,18 +65,48 @@ export default class RegisterCar extends Component {
     super(props);
     this.state = {
       plate: '',
-    }
-    
+    },
+      this.state = {
+        refreshing: false,
+      };
+
   }
 
   handlePlate = (text) => {
     this.setState({ plate: text })
   }
 
+  async componentDidMount() {
+    let token = await list();
+    let url = 'http://192.168.0.14:8001/carprofiles/?token=' + token
+
+    return fetch(url)
+      .then((response) => response.json())
+      .then((responseJson) => {
+
+        this.setState({
+          isLoading: false,
+          dataSource: responseJson,
+        }, function () {
+
+        });
+
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
+  _onRefresh = () => {
+    this.setState({ refreshing: true });
+    this.componentDidMount().then(() => {
+      this.setState({ refreshing: false });
+    });
+  }
 
 
   onPressButton = () => {
-    const url = `http://192.168.0.4:8002/carprofiles/`//car profiles db models url
+    const url = `http://192.168.0.14:8001/carprofiles/`//car profiles db models url
 
     let notification = JSON.stringify({
       notification_token: tk,
@@ -92,6 +151,26 @@ export default class RegisterCar extends Component {
             onPress={this.onPressButton}
           />
         </View>
+        <View style={styles.container1}>
+          <FlatList
+            data={this.state.dataSource}
+            renderItem={({ item }) => {
+              return (
+                <View style={styles.item2}>
+                  <Text style={styles.text1}>{item.plate}</Text>
+                </View>
+
+              );
+            }}
+            keyExtractor={({ id }, index) => id}
+          />
+        </View>
+        refreshControl={
+          <RefreshControl
+            refreshing={this.state.refreshing}
+            onRefresh={this._onRefresh}
+          />
+        }
       </ScrollView>
     );
   }
@@ -126,5 +205,23 @@ const styles = StyleSheet.create({
     borderBottomColor: '#5c68c3',
     marginTop: 70,
   },
-
+  item2: {
+    alignItems: "center",
+    backgroundColor: "#ffffff",
+    flexGrow: 1,
+    margin: 4,
+    padding: 20,
+    shadowColor: "#000000",
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 1,
+      width: 1
+    },
+    elevation: 4
+  },
+  text1: {
+    color: "#5c68c3",
+    fontWeight: 'bold',
+  }
 });
