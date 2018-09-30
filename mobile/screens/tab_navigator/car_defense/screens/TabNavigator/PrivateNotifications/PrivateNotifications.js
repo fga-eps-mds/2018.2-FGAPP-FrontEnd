@@ -10,8 +10,35 @@ import {
   Alert  
 } from 'react-native';
 
+var tk
+
+async function register() {
+  const { status } = await Expo.Permissions.askAsync(
+    Expo.Permissions.NOTIFICATIONS
+  );
+  if (status != 'granted') {
+    alert('You need to enable permissions in settings');
+    return;
+  }
+
+  const token = await Expo.Notifications.getExpoPushTokenAsync();
+   tk = token;
+  console.log(status, token);
+}
+
 
 export default class PrivateNotifications extends Component {
+    componentWillMount() {
+        register();
+        this.listener = Expo.Notifications.addListener(this.listen);
+      }
+      componentWillUnmount() {
+        this.listener && Expo.Notifications.addListener(this.listen);
+      }
+    
+      listen = ({ origin, data }) => {
+        console.log('cool data', origin, data);
+      }
   
 
   constructor (props) {
