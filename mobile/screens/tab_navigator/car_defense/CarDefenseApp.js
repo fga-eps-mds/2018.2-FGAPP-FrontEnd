@@ -54,6 +54,12 @@ const CarDefenseStackNavigator = new StackNavigator({
             header: 'none'
         }
     },
+    PrivateFeed:{
+        screen:PrivateFeed,
+        navigationOptions:{
+            header: 'none'
+        }
+    },
     
 });
 

@@ -10,6 +10,7 @@ import Feed from './screens/Feed'
 import PublicNotifications from './screens/TabNavigator/PublicNotifications/PublicNotifications'
 import PrivateNotifications from './screens/TabNavigator/PrivateNotifications/PrivateNotifications'
 import RegisterCar from './screens/TabNavigator/RegisterCar/RegisterCar'
+import PrivateFeed from './screens/TabNavigator/PrivateFeed/PrivateFeed'
 
 import { Platform } from 'react-native';
 
@@ -40,6 +41,13 @@ const CarDefenseTabStackNavigator = new TabNavigator({
         screen:RegisterCar,
         navigationOptions:{
             tabBarLabel:'Carros',
+            headerLeft: null,
+        }
+    },
+    PrivateFeed:{
+        screen:PrivateFeed,
+        navigationOptions:{
+            tabBarLabel:'Feed',
             headerLeft: null,
         }
     },
