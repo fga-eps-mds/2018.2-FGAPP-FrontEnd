@@ -7,7 +7,7 @@ import {
 
 
 import PublicNotifications from './screens/TabNavigator/PublicNotifications/PublicNotifications'
-import PrivateNotifications from './screens/TabNavigator/PrivateNotifications/PrivateNotificationsNavigator'
+import PrivateNotifications from './screens/TabNavigator/PrivateNotifications/PrivateNotifications'
 import Feed from './screens/Feed'
 import {StackNavigator} from 'react-navigation'
 import CarDefenseTabHandler from './CarDefenseTabHandler'
