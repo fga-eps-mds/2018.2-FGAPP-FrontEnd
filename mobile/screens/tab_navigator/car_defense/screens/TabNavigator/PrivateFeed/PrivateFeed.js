@@ -1,20 +1,63 @@
 import React from 'react';
-import { FlatList, ActivityIndicator, Text, View, StyleSheet } from 'react-native';
+import { FlatList, ActivityIndicator, Text, View, StyleSheet, ScrollView, RefreshControl } from 'react-native';
+import { Permissions, Notifications } from 'expo'
 
 
+async function registerForPushNotificationsAsync() {
+  const { status: existingStatus } = await Permissions.getAsync(
+    Permissions.NOTIFICATIONS
+  );
+  let finalStatus = existingStatus;
+
+  // only ask if permissions have not already been determined, because
+  // iOS won't necessarily prompt the user a second time.
+  if (existingStatus !== 'granted') {
+    // Android remote notification permissions are granted during the app
+    // install, so this will only ask on iOS
+    const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+    finalStatus = status;
+  }
+
+  // Stop here if the user did not grant permissions
+  if (finalStatus !== 'granted') {
+    return;
+  }
+  var token
+  var tk = await Promise
+    .resolve (token = await Notifications.getExpoPushTokenAsync())
+    .then(x => token);
+  return tk;
+  
+
+}
 
 export default class Feed extends React.Component {
 
+  componentWillMount() {
+    
+    this.listener = Expo.Notifications.addListener(this.listen);
+  }
+  componentWillUnmount() {
+    this.listener && Expo.Notifications.addListener(this.listen);
+  }
+
+  listen = ({ origin, data }) => {
+    console.log('cool data', origin, data);
+  }
 
   constructor(props) {
     super(props);
-    this.state = { isLoading: true }
+    this.state = {
+      refreshing: false,
+    };
   }
 
 
-  componentDidMount() {
+  async componentDidMount() {
+    let token = await registerForPushNotificationsAsync();
+    let url = 'http://192.168.0.4:8000/notifications/?token=' + token
 
-    return fetch('http://192.168.0.4:8000/notifications/?token=ExponentPushToken[YLLODzMXp21M_ZXp5KYDwn]')
+    return fetch(url)
       .then((response) => response.json())
       .then((responseJson) => {
 
@@ -31,18 +74,16 @@ export default class Feed extends React.Component {
       });
   }
 
+  _onRefresh = () => {
+    this.setState({refreshing: true});
+    this.componentDidMount().then(() => {
+      this.setState({refreshing: false});
+    });
+  }
+
   render() {
-
-    if (this.state.isLoading) {
-      return (
-        <View style={{ flex: 1, padding: 20 }}>
-          <ActivityIndicator />
-        </View>
-      )
-    }
-
     return (
-      <View style={styles.item}>
+      <ScrollView style={styles.item}>
         <FlatList
           data={this.state.dataSource}
           renderItem={({ item }) => {
@@ -54,15 +95,21 @@ export default class Feed extends React.Component {
             );
           }}
           keyExtractor={({ id }, index) => id}
+          
         />
-      </View>
+        refreshControl={
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={this._onRefresh}
+            />
+          }
+      </ScrollView>
     );
   }
 }
 
 const styles = StyleSheet.create({
   item: {
-    alignItems: "center",
     backgroundColor: "#ffffff",
     flexGrow: 1,
     margin: 4,
@@ -78,10 +125,10 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "#5c68c3",
-    fontWeight: 100
+    fontWeight: '100'
   },
   text1: {
     color: "#5c68c3",
-    fontWeight: 200,
+    fontWeight: '200',
   }
 });
