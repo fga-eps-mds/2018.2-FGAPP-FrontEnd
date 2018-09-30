@@ -1,64 +1,47 @@
 import React from 'react';
-import { FlatList, ActivityIndicator, Text, View , StyleSheet } from 'react-native';
+import { FlatList, ActivityIndicator, Text, View, StyleSheet } from 'react-native';
 
-export default class FetchExample extends React.Component {
 
-  constructor(props){
+
+export default class Feed extends React.Component {
+
+
+  constructor(props) {
     super(props);
-    this.state ={ isLoading: true}
+    this.state = { isLoading: true }
   }
 
-  componentDidMount(){
-    var url
-    return fetch(url)
+
+  componentDidMount() {
+
+    return fetch('http://192.168.0.14:8002/emergencynotifications/')
       .then((response) => response.json())
       .then((responseJson) => {
 
         this.setState({
           isLoading: false,
           dataSource: responseJson,
-        }, function(){
+        }, function () {
 
         });
 
       })
-      .catch((error) =>{
+      .catch((error) => {
         console.error(error);
       });
   }
-  getMyNotifications(){
-    var url
-    return fetch(url, {
-  method: 'POST',
-  headers: {
-    Accept: 'application/json',
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify({
-    token: 'token',
-  }),
-}).then((response) => response.json())
-    .then((responseJson) => {
-      return responseJson.token;
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-      
-  }
 
+  render() {
 
-  render(){
-
-    if(this.state.isLoading){
-      return(
-        <View style={{flex: 1, padding: 20}}>
-          <ActivityIndicator/>
+    if (this.state.isLoading) {
+      return (
+        <View style={{ flex: 1, padding: 20 }}>
+          <ActivityIndicator />
         </View>
       )
     }
 
-    return(
+    return (
       <View style={styles.item}>
         <FlatList
           data={this.state.dataSource}
@@ -70,7 +53,7 @@ export default class FetchExample extends React.Component {
               </View>
             );
           }}
-          keyExtractor={({id}, index) => id}
+          keyExtractor={({ id }, index) => id}
         />
       </View>
     );
@@ -98,6 +81,6 @@ const styles = StyleSheet.create({
   },
   text1: {
     color: "#5c68c3",
-    fontWeight: '400',
+    fontWeight: 'bold',
   }
 });
