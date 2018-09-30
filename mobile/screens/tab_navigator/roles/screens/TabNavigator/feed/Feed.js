@@ -6,16 +6,9 @@ import {
 } from "native-base";
 
 import React, { Component } from "react";
-import { StyleSheet, Image, ScrollView } from "react-native";
+import { StyleSheet, ScrollView } from "react-native";
 import FeedItem from "./FeedItem";
-const logo = require("./images/logo.png");
-const cardImage = require("./images/banner.png");
-
 class Feed extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { loading: true, roles: [] };
-  }
   async componentWillMount() {
     await Expo.Font.loadAsync({
       Roboto: require("native-base/Fonts/Roboto.ttf"),
@@ -25,10 +18,21 @@ class Feed extends Component {
     this.setState({ loading: false });
   }
 
+  constructor(props) {
+    super(props);
+    this.state = { loading: true, roles: [] };
+  }
+
   componentDidMount() {
     fetch('https://raulvictor.pythonanywhere.com/events/?format=json')
       .then(res => res.json())
       .then(roles => this.setState({ loading: false, roles }))
+      .catch((error) => {
+        this.setState({
+          loading: false
+        });
+        console.error(error);
+      });
   }
 
   render() {
@@ -36,11 +40,11 @@ class Feed extends Component {
     if (this.state.loading) {
       return <Expo.AppLoading />;
     }
-
     return (
+      //adicionar dados API_REST para consumir... somente event_name consumido
       <ScrollView style={styles.scroll}>
         {
-          this.state.roles.map(role => <FeedItem nomeRole={role.eventName} />)
+          this.state.roles.map(role => <FeedItem nomeRole={role.event_name} />)
         }
       </ScrollView>
 

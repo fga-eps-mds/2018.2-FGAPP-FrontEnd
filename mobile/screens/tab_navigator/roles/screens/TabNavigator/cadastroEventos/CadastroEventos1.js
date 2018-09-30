@@ -8,8 +8,6 @@ import {
   ScrollView,
   Switch,
   Alert,
-  KeyboardAvoidingView,
-  Keyboard
 } from "react-native";
 import {
   MaterialIcons,
@@ -24,7 +22,7 @@ export default class CadastroEventos1 extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      eventName: "",
+      event_name: "",
       eventDescription: "",
       linkReference: "",
       organizer: "",
@@ -45,15 +43,15 @@ export default class CadastroEventos1 extends Component {
   }
 
   cadastrarRole = async () => {
-    var register_role = `http://5bae6667a65be00014676441.mockapi.io/`;
-    fetch("http://5bae6667a65be00014676441.mockapi.io/event", {
+    var register_role = `https://raulvictor.pythonanywhere.com/`;
+    fetch("https://raulvictor.pythonanywhere.com/events/?format=json", {
       method: "POST",
       credentials: "include",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        eventName: this.state.eventName,
+        event_name: this.state.event_name,
         eventDescription: this.state.eventDescription,
         linkReference: this.state.linkReference,
         organizer: this.state.organizer,
@@ -70,14 +68,14 @@ export default class CadastroEventos1 extends Component {
     })
       .then(response => response.json())
       .then(responseJson => {
-          console.log(responseJson)
+        console.log(responseJson)
         //Campo de event
-        if (responseJson.eventName == "") {
-          this.setState({ eventName_field_alerts: responseJson.eventName });
-          this.setState({ eventName_field_is_bad: true });
+        if (responseJson.event_name == "") {
+          this.setState({ event_name_field_alerts: responseJson.event_name });
+          this.setState({ event_name_field_is_bad: true });
         } else {
-          this.setState({ eventName_field_alerts: [""] });
-          this.setState({ eventName_field_is_bad: false });
+          this.setState({ event_name_field_alerts: [""] });
+          this.setState({ event_name_field_is_bad: false });
         }
         //Campo de eventDescription
         if (responseJson.eventDescription == "") {
@@ -179,7 +177,7 @@ export default class CadastroEventos1 extends Component {
         }
         //Sucesso
         if ((responseJson = !undefined)) {
-            console.log(responseJson);
+          console.log(responseJson);
           Alert.alert(
             "Rolê criado com sucesso!",
             "Seu rolê foi cadastrado com sucesso!\n" + "Boa sorte!",
@@ -204,17 +202,17 @@ export default class CadastroEventos1 extends Component {
         } else {
           Alert.alert("Erro na conexão.");
           console.log(err);
-          
+
         }
       });
   };
 
   render() {
     return (
-        <ScrollView
-          style={styles.scroll}
-        >
-      <View style={styles.container}>
+      <ScrollView
+        style={styles.scroll}
+      >
+        <View style={styles.container}>
           <View style={styles.titleContainer}>
             <Text style={styles.titleText}>Cadastrar novo rolê</Text>
           </View>
@@ -226,10 +224,10 @@ export default class CadastroEventos1 extends Component {
               placeholder="Nome do Rolê"
               returnKeyType="next"
               placeholderTextColor="gray"
-              onChangeText={eventName => this.setState({ eventName })}
-              badInput={this.state.eventName_field_is_bad}
-              fieldAlert={this.state.eventName_field_alerts}
-              keyExtractor={"eventName"}
+              onChangeText={event_name => this.setState({ event_name })}
+              badInput={this.state.event_name_field_is_bad}
+              fieldAlert={this.state.event_name_field_alerts}
+              keyExtractor={"event_name"}
             />
           </View>
 
@@ -398,7 +396,7 @@ export default class CadastroEventos1 extends Component {
               fieldAlert={this.state.adultOnly_field_alerts}
               keyExtractor={"adultOnly"}
               value={this.state.adultOnly}
-              onValueChange={(adultOnly) => {this.setState({ adultOnly })}}
+              onValueChange={(adultOnly) => { this.setState({ adultOnly }) }}
             />
           </View>
 
@@ -410,9 +408,9 @@ export default class CadastroEventos1 extends Component {
               <Text style={styles.buttonText}>Cadastrar</Text>
             </TouchableOpacity>
           </View>
-        
-        
-      </View>
+
+
+        </View>
       </ScrollView>
     );
   }

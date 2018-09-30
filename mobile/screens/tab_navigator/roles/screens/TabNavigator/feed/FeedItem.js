@@ -1,16 +1,13 @@
 import {
-    Container, Header, Body,
-    Content, Button, Icon,
+    Body, Button, Icon,
     Card, CardItem, Text,
     Thumbnail, Left, Right,
 } from "native-base";
 
 import React, { Component } from "react";
 import { StyleSheet, Image, ScrollView } from "react-native";
-
 const logo = require("./images/logo.png");
 const cardImage = require("./images/banner.png");
-
 class FeedItem extends Component {
     render() {
 
@@ -20,18 +17,18 @@ class FeedItem extends Component {
                     <Left>
                         <Thumbnail source={logo} />
                         <Body>
-                            <Text>{this.props.owner}</Text>
-                            <Text note>{this.props.nomeRole}</Text>
+                            <Text>{this.props.nomeRole}</Text>
+                            <Text note>{this.props.org}</Text>
                         </Body>
                     </Left>
                 </CardItem>
-
+                
                 <CardItem cardBody>
                     <Image
                         style={{
                             resizeMode: "cover",
                             width: null,
-                            height: 150,
+                            height: 200,
                             flex: 1
                         }}
                         source={cardImage} />
@@ -47,7 +44,7 @@ class FeedItem extends Component {
                     <Body>
                         <Button transparent>
                             <Icon active name="chatbubbles" />
-                            <Text>89 Comments</Text>
+                            <Text>8 Comments</Text>
                         </Button>
                     </Body>
                     <Right>
