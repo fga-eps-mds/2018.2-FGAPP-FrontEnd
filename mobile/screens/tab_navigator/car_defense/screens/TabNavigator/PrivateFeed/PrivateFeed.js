@@ -88,7 +88,7 @@ export default class Feed extends React.Component {
           data={this.state.dataSource}
           renderItem={({ item }) => {
             return (
-              <View style={styles.item}>
+              <View style={styles.item2}>
                 <Text style={styles.text1}>{item.title}</Text>
                 <Text style={styles.text}>{item.message}</Text>
               </View>
@@ -110,6 +110,21 @@ export default class Feed extends React.Component {
 
 const styles = StyleSheet.create({
   item: {
+    backgroundColor: "#ffffff",
+    flexGrow: 1,
+    margin: 4,
+    padding: 20,
+    shadowColor: "#000000",
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 1,
+      width: 1
+    },
+    elevation: 4
+  },
+  item2: {
+    alignItems: 'center',
     backgroundColor: "#ffffff",
     flexGrow: 1,
     margin: 4,
