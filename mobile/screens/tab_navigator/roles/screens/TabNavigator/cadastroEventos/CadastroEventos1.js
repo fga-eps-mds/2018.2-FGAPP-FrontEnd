@@ -3,22 +3,18 @@ import {
   View,
   Text,
   StyleSheet,
-  TextInput,
   TouchableOpacity,
   ScrollView,
   Switch,
   Alert,
-  KeyboardAvoidingView,
-  Keyboard
 } from "react-native";
 import {
-  MaterialIcons,
-  MaterialCommunityIcons,
   Foundation,
-  Entypo
 } from "@expo/vector-icons";
 
-import Feed from '../feed/Feed'
+// import Feed from '../feed/Feed'
+import Input from './Input'
+import Title from './Title'
 
 export default class CadastroEventos1 extends Component {
   constructor(props) {
@@ -211,208 +207,146 @@ export default class CadastroEventos1 extends Component {
 
   render() {
     return (
-        <ScrollView
-          style={styles.scroll}
-        >
-      <View style={styles.container}>
-          <View style={styles.titleContainer}>
-            <Text style={styles.titleText}>Cadastrar novo rolê</Text>
-          </View>
+      <ScrollView style={{alignContent: "center"}}>
+        <View style={styles.container}>
+            <Title titleText="Cadastro de Novo Role"/>
 
-          <View style={styles.inputContainer}>
-            <MaterialIcons style={styles.icon} name="title" size={26} />
-            <TextInput
-              style={styles.input}
-              placeholder="Nome do Rolê"
-              returnKeyType="next"
-              placeholderTextColor="gray"
+            <Input 
+              iconName="title" 
+              placeholder="Nome do Rolê" 
               onChangeText={eventName => this.setState({ eventName })}
-              badInput={this.state.eventName_field_is_bad}
-              fieldAlert={this.state.eventName_field_alerts}
+              badInput={this.state.eventName_field_alerts}
+              fieldAlert={this.state.eventName_field_is_bad}
               keyExtractor={"eventName"}
             />
-          </View>
 
-          <View style={styles.inputContainer}>
-            <MaterialIcons style={styles.icon} name="description" size={26} />
-            <TextInput
-              style={styles.input}
-              placeholder="Descrição"
-              placeholderTextColor="gray"
-              multiline={true}
-              onChangeText={eventDescription =>
-                this.setState({ eventDescription })
-              }
-              badInput={this.state.eventDescription_field_is_bad}
-              fieldAlert={this.state.eventDescription_field_alerts}
+            <Input 
+              iconName="description" 
+              placeholder="Descrição" 
+              onChangeText={eventDescription => this.setState({ eventDescription })}
               keyExtractor={"eventDescription"}
+              badInput={this.state.eventName_field_alerts}
+              fieldAlert={this.state.eventName_field_is_bad}
             />
-          </View>
 
-          <View style={styles.inputContainer}>
-            <MaterialIcons style={styles.icon} name="insert-link" size={26} />
-            <TextInput
-              style={styles.input}
-              placeholder="Link de Referência"
-              placeholderTextColor="gray"
+            <Input 
+              iconName="insert-link" 
+              placeholder="Link de Referência" 
               onChangeText={linkReference => this.setState({ linkReference })}
-              badInput={this.state.linkReference_field_is_bad}
-              fieldAlert={this.state.linkReference_field_alerts}
               keyExtractor={"linkReference"}
+              badInput={this.state.eventName_field_alerts}
+              fieldAlert={this.state.eventName_field_is_bad}
             />
-          </View>
 
-          <View style={styles.inputContainer}>
-            <MaterialIcons style={styles.icon} name="person" size={26} />
-            <TextInput
-              style={styles.input}
-              placeholder="Nome para contato"
-              placeholderTextColor="gray"
+          <Input 
+              iconName="person" 
+              placeholder="Nome para Contato" 
               onChangeText={organizer => this.setState({ organizer })}
-              badInput={this.state.organizer_field_is_bad}
-              fieldAlert={this.state.organizer_field_alerts}
               keyExtractor={"organizer"}
-            />
-          </View>
+              badInput={this.state.eventName_field_alerts}
+              fieldAlert={this.state.eventName_field_is_bad}
+            />          
 
-          <View style={styles.inputContainer}>
-            <MaterialIcons style={styles.icon} name="phone" size={26} />
-            <TextInput
-              style={styles.input}
-              placeholder="Telefone"
-              keyboardType="phone-pad"
-              placeholderTextColor="gray"
+            <Input 
+              iconName="phone" 
+              placeholder="Telefone para Contato" 
               onChangeText={organizerTel => this.setState({ organizerTel })}
-              badInput={this.state.organizerTel_field_is_bad}
-              fieldAlert={this.state.organizerTel_field_alerts}
               keyExtractor={"organizerTel"}
-            />
-          </View>
+              keyboardType = "numeric"
+              badInput={this.state.eventName_field_alerts}
+              fieldAlert={this.state.eventName_field_is_bad}
+            />          
 
-          <View style={styles.inputContainer}>
-            <MaterialIcons style={styles.icon} name="attach-money" size={26} />
-            <TextInput
-              style={styles.input}
-              placeholder="Valor do ingresso"
-              placeholderTextColor="gray"
-              keyboardType="numeric"
+            <Input 
+              iconName="attach-money" 
+              placeholder="Valor do Ingresso"
               onChangeText={value => this.setState({ value })}
-              badInput={this.state.value_field_is_bad}
-              fieldAlert={this.state.value_field_alerts}
               keyExtractor={"value"}
-            />
-          </View>
+              keyboardType="numeric"
+              badInput={this.state.eventName_field_alerts}
+              fieldAlert={this.state.eventName_field_is_bad}
+            />  
 
-          <View style={styles.inputContainer}>
-            <MaterialIcons style={styles.icon} name="place" size={26} />
-            <TextInput
-              style={styles.input}
-              placeholder="Local"
-              returnKeyType="next"
-              placeholderTextColor="gray"
+            <Input 
+              iconName="place" 
+              placeholder="Local" 
               onChangeText={address => this.setState({ address })}
-              badInput={this.state.address_field_is_bad}
-              fieldAlert={this.state.address_field_alerts}
               keyExtractor={"address"}
-            />
-          </View>
+              badInput={this.state.eventName_field_alerts}
+              fieldAlert={this.state.eventName_field_is_bad}
+            />  
 
-          <View style={styles.inputContainer}>
-            <MaterialCommunityIcons
-              style={styles.icon}
-              name="google-maps"
-              size={26}
-            />
-            <TextInput
-              style={styles.input}
-              placeholder="Link localização Google Maps"
-              placeholderTextColor="gray"
+            <Input 
+              iconType = "MaterialCommunityIcons"
+              iconName="google-maps" 
+              placeholder="Link Localização Google Maps" 
               onChangeText={linkAddress => this.setState({ linkAddress })}
-              badInput={this.state.linkAddress_field_is_bad}
-              fieldAlert={this.state.linkAddress_field_alerts}
-              keyExtractor={"linkAddress"}
-            />
-          </View>
+              keyExtractor={"linkAdress"}
+              badInput={this.state.eventName_field_alerts}
+              fieldAlert={this.state.eventName_field_is_bad}
+            />  
 
-          <View style={styles.inputContainer}>
-            <MaterialIcons style={styles.icon} name="today" size={26} />
-            <TextInput
-              style={styles.input}
-              placeholder="Data"
-              placeholderTextColor="gray"
-              onChangeText={eventDate => this.setState({ eventDate })}
-              badInput={this.state.eventDate_field_is_bad}
-              fieldAlert={this.state.eventDate_field_alerts}
-              keyExtractor={"eventDate"}
-            />
+            <View style={{flexDirection:"row"}}>
+              <Input 
+                iconName="today" 
+                placeholder="Data" 
+                onChangeText={eventDate => this.setState({ eventDate })}
+                keyExtractor={"eventDate"}
+                badInput={this.state.eventName_field_alerts}
+                fieldAlert={this.state.eventName_field_is_bad}
+              />  
+              <Input 
+                iconName="access-time" 
+                placeholder="Horário de Início" 
+                onChangeText={eventHour => this.setState({ eventHour })}
+                keyExtractor={"eventHour"}
+                badInput={this.state.eventName_field_alerts}
+                fieldAlert={this.state.eventName_field_is_bad}
+              />  
+            </View>
 
-            <MaterialIcons style={styles.icon} name="access-time" size={26} />
-            <TextInput
-              style={styles.input}
-              placeholder="Horário de início"
-              placeholderTextColor="gray"
-              onChangeText={eventHour => this.setState({ eventHour })}
-              badInput={this.state.eventHour_field_is_bad}
-              fieldAlert={this.state.eventHour_field_alerts}
-              keyExtractor={"eventHour"}
-            />
-          </View>
-
-          <View style={styles.inputContainer}>
-            <Entypo style={styles.icon} name="drink" size={26} />
-            <TextInput
-              style={styles.input}
-              placeholder="Drinks"
-              placeholderTextColor="gray"
-              multiline={true}
+            <Input 
+              iconType = "Entypo"
+              iconName="drink" 
+              placeholder="Bebidas" 
               onChangeText={drinks => this.setState({ drinks })}
-              badInput={this.state.drinks_field_is_bad}
-              fieldAlert={this.state.drinks_field_alerts}
               keyExtractor={"drinks"}
-            />
-          </View>
-
-          <View style={styles.inputContainer}>
-            <MaterialCommunityIcons
-              style={styles.icon}
-              name="food-fork-drink"
-              size={26}
+              badInput={this.state.eventName_field_alerts}
+              fieldAlert={this.state.eventName_field_is_bad}
             />
 
-            <TextInput
-              style={styles.input}
-              placeholder="Comidas"
-              placeholderTextColor="gray"
-              multiline={true}
+            <Input 
+              iconType = "MaterialCommunityIcons"
+              iconName="food-fork-drink" 
+              placeholder="Comidas" 
               onChangeText={foods => this.setState({ foods })}
-              badInput={this.state.foods_field_is_bad}
-              fieldAlert={this.state.foods_field_alerts}
-              keyExtractor={"foods"}
-            />
-          </View>
+              keyExtractor={"food"}
+              badInput={this.state.eventName_field_alerts}
+              fieldAlert={this.state.eventName_field_is_bad}
+            />  
 
-          <View style={styles.inputContainerSwitch}>
-            <Foundation style={styles.icon} name="prohibited" size={30} />
-            <Switch
-              style={styles.switch}
-              fieldAlert={this.state.adultOnly_field_alerts}
-              keyExtractor={"adultOnly"}
-              value={this.state.adultOnly}
-              onValueChange={(adultOnly) => {this.setState({ adultOnly })}}
-            />
-          </View>
+            <View style={styles.inputContainerSwitch}>
+              <Foundation style={styles.icon} name="prohibited" size={30} />
+              <Switch
+                style={styles.switch}
+                fieldAlert={this.state.adultOnly_field_alerts}
+                keyExtractor={"adultOnly"}
+                value={this.state.adultOnly}
+                onValueChange={(adultOnly) => {this.setState({ adultOnly })}}
+              />
+            </View>
 
-          <View style={styles.submitButton}>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => this.cadastrarRole()}
-            >
-              <Text style={styles.buttonText}>Cadastrar</Text>
-            </TouchableOpacity>
-          </View>
-        
-        
-      </View>
+            <View style={styles.submitButton}>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => this.cadastrarRole()}
+              >
+                <Text style={styles.buttonText}>Cadastrar</Text>
+              </TouchableOpacity>
+            </View>
+          
+          
+        </View>
       </ScrollView>
     );
   }
@@ -423,35 +357,6 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     backgroundColor: "#fff"
-  },
-  titleContainer: {
-    backgroundColor: "#fff",
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 10
-  },
-  titleText: {
-    fontSize: 30,
-    marginBottom: 5,
-    fontWeight: "bold"
-  },
-  inputContainer: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#fff"
-  },
-  input: {
-    flex: 1,
-    paddingTop: 15,
-    paddingRight: 10,
-    paddingBottom: 15,
-    paddingLeft: 0,
-    backgroundColor: "#fff",
-    color: "#424242",
-    textAlign: "center"
   },
   button: {
     height: 45,
@@ -474,9 +379,6 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 20
   },
-  icon: {
-    padding: 5
-  },
   inputTime: {
     height: 45,
     justifyContent: "center",
@@ -492,9 +394,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "limegreen"
   },
-  scroll: {
-    alignContent: "center"
-  },
   switch: {
     flex: 1,
     paddingTop: 10,
@@ -502,11 +401,6 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     paddingLeft: 0,
     backgroundColor: "#fff"
-  },
-  icon: {
-    padding: 5,
-    alignContent: "center",
-    alignItems: "center"
   },
   inputContainerSwitch: {
     flex: 1,
