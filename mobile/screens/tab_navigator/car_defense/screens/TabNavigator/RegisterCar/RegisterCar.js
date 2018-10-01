@@ -106,7 +106,7 @@ export default class RegisterCar extends Component {
 
 
   onPressButton = () => {
-    const url = `http://192.168.0.14:8001/carprofiles/`//car profiles db models url
+    const url = `http://68.183.28.199:8005/carprofiles/`//car profiles db models url
 
     let notification = JSON.stringify({
       notification_token: tk,

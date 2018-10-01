@@ -30,7 +30,7 @@ export default class PublicNotifications extends Component {
 
 
     onPressButton = () => {
-        const url = `http://192.168.0.14:8002/send_emergency_push_message/` //function send_emergency_push_message url
+        const url = `http://68.183.28.199:8002/send_emergency_push_message/` //function send_emergency_push_message url
 
         let notification = JSON.stringify({
             title: this.state.title,
