@@ -1,18 +1,63 @@
 import React from 'react';
 import { FlatList, ActivityIndicator, Text, View, StyleSheet, ScrollView, RefreshControl } from 'react-native';
 
+import { Permissions, Notifications } from 'expo'
 
+var tk
+
+async function register() {
+  const { status } = await Expo.Permissions.askAsync(
+    Expo.Permissions.NOTIFICATIONS
+  );
+  if (status != 'granted') {
+    alert('You need to enable permissions in settings');
+    return;
+  }
+
+  const token = await Expo.Notifications.getExpoPushTokenAsync();
+   tk = token;
+  console.log(status, token);
+}
 
 export default class Feed extends React.Component {
+  componentWillMount() {
+    register();
+    this.listener = Expo.Notifications.addListener(this.listen);
+  }
+  componentWillUnmount() {
+    this.listener && Expo.Notifications.addListener(this.listen);
+  }
 
+  listen = ({ origin, data }) => {
+    console.log('cool data', origin, data);
+  }
 
   constructor(props) {
     super(props);
-    this.state = { refreshing: false }
+    this.state = { refreshing: false, }
   }
 
 
-  componentDidMount() {
+  async componentDidMount() {
+
+    let notification = JSON.stringify({
+      token: tk
+    })
+
+    fetch(process.env.CARDEFENSE_PROFILE + '/set_notification_token', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: notification
+    }).then(response => { return response.json() }
+    ).then(jsonResponse => {
+      console.log(jsonResponse);
+    }
+    ).catch(error => {
+      console.log(error)
+    })
 
     return fetch(process.env.CARDEFENSE_NOTIFICATIONS + '/emergencynotifications/')
       .then((response) => response.json())
