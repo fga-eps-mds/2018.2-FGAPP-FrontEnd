@@ -66,7 +66,10 @@ export default class CadastroEventos1 extends Component {
     })
       .then(response => response.json())
       .then(responseJson => {
-        console.log(responseJson)
+
+        //Verifica se o cadastro foi bem sucedido
+        console.log(responseJson);
+        
         //Campo de event
         if (responseJson.event_name == "") {
           this.setState({ event_name_field_alerts: responseJson.event_name });
