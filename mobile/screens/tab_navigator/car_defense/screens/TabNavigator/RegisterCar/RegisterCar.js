@@ -78,7 +78,7 @@ export default class RegisterCar extends Component {
 
   async componentDidMount() {
     let token = await list();
-    let url = 'http://192.168.0.14:8001/carprofiles/?token=' + token
+    let url = 'http://68.183.28.199:8005/carprofiles/?token=' + token
 
     return fetch(url)
       .then((response) => response.json())
