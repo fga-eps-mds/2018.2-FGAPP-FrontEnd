@@ -11,6 +11,8 @@ class ListLocals extends Component {
         this.state = {
             locals: []
         };
+        console.log('string');
+        console.log(props);
     }
 
     componentDidMount(){
@@ -39,8 +41,8 @@ class ListLocals extends Component {
           <View style={styles.listLocals}> 
               <ScrollView>
                 {locals
-                  .map(local => <Local name={local.name}/>)} 
-            </ScrollView>
+                .map(local => <Local name={local.name}/>)} 
+              </ScrollView>
           </View>
         );
     }

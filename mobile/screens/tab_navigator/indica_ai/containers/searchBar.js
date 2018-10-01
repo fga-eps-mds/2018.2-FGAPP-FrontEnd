@@ -14,7 +14,13 @@ import { bindActionCreators } from "redux";
 import { actionSearchLocals } from "../actions/searchBar";
 
 export class SearchBar extends Component {
-  state = {
+   
+    constructor(props) {
+        super(props);
+        console.log(this.props.locals);
+    }
+
+    state = {
     inputValue: "",
     locals: [],
   };
@@ -39,25 +45,30 @@ export class SearchBar extends Component {
         description: locals[0][i].description,
       }
       result = result.concat(local)
+      console.log(result);
     }
     return result
   }
 
   search = name => {
-    const url = fetch(`https://indicaai.herokuapp.com/locals/name/${name}`, {
+    console.log(name);  
+    const url = `https://indicaai.herokuapp.com/locals/name/${name}`  
+    fetch( url, { 
       method: "GET",
       headers: {
         Accept: "application/json",
         "Content-Type": "aplication/json"
       }
-    })
+    }) 
       .then(response => response.json())
       .then(responseJson => {
+        console.log(responseJson);
         this.setState({
           locals: responseJson,
         })
         let result_local = this.filterLocals(this.state.locals);
         this.props.setLocals(result_local)
+        console.log(responseJson);
       })
       .catch(error => {
         console.log(error);

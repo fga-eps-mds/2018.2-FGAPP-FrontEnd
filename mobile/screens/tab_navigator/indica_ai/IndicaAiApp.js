@@ -23,15 +23,23 @@ class FirstScreen extends Component {
     return (
         <View style={styles.container}>
           <Provider store={store}>
-            <SearchBar />
+            <SearchBar />  
           </Provider>
           <Provider store={store}>
-            <ListLocals />
+            <ListLocals locals={store.getState().searchBar}/>
           </Provider>
         </View>
     );
   }
 }
+
+const mapStateToProps = () => {
+  console.log(store.getState()); 
+  return {
+    searchBar: {} 
+  };
+};
+
 export default FirstScreen;
 
 const styles = StyleSheet.create({
