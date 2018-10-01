@@ -5,9 +5,9 @@ import {
 } from "native-base";
 
 import React, { Component } from "react";
-import { StyleSheet, Image, View, ScrollView } from "react-native";
+import { StyleSheet, Image, View } from "react-native";
 const logo = require("./images/logo.png");
-const cardImage = require("./images/banner.png");
+
 class FeedItem extends Component {
     render() {
 

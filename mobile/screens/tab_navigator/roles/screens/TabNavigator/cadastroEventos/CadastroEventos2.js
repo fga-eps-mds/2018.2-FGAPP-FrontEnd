@@ -5,8 +5,7 @@ import {
     StyleSheet,
     TextInput,
     TouchableOpacity,
-    ScrollView,
-    Platform
+    ScrollView
 } from "react-native";
 
 import {MaterialIcons, Entypo} from '@expo/vector-icons'

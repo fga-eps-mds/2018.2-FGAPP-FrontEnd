@@ -21,13 +21,14 @@ const RolesTabStackNavigator = new TabNavigator({
             tabBarIcon: ({ tintColor }) => <MaterialCommunityIcons name='newspaper' size={27} style={{ color: tintColor }} />
         }
     },
-    RolesConfirmadosNavigator:{
+   /* RolesConfirmadosNavigator:{
         screen:RolesConfirmadosNavigator,
         navigationOptions:{
             tabBarLabel:'RolesConfirmados',
             tabBarIcon: ({ tintColor }) => <MaterialIcons name='event-available' size={27} style={{ color: tintColor }} />
         }
     },
+    */
     CadastroEventos1:{
         screen: CadastroEventos1,
         navigationOptions:{
