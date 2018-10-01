@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { View, Text, StyleSheet, ScrollView, FlatList } from "react-native";
 import Local from "../components/Local";
 // import store from "./redurces/store";
 // import { Provider } from "react-redux";
@@ -14,19 +14,20 @@ class ListLocals extends Component {
     }
 
     componentDidMount(){
-    const url = fetch(`https://indicaai.herokuapp.com/locals/`, {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "aplication/json"
-      }
-    })
+      const url = fetch(`https://indicaai.herokuapp.com/locals/`, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "aplication/json"
+        }
+      })
       .then(response => response.json())
       .then(responseJson => {
         this.setState({
           locals: responseJson,
         })
-      })
+         console.log(this.state.locals); 
+      }) 
       .catch(error => {
         console.log(error);
       });
@@ -34,16 +35,11 @@ class ListLocals extends Component {
   
     render() {
         const locals = this.state.locals;
-        console.log("Console");
-        console.log(locals)
-        console.log("Console");
         return (
-          <View style={styles.listLocals}>
-            <ScrollView>
-              <Text>
+          <View style={styles.listLocals}> 
+              <ScrollView>
                 {locals
-                  .map(local => <Local name={local.name} description={local.description} />)} 
-              </Text>
+                  .map(local => <Local name={local.name}/>)} 
             </ScrollView>
           </View>
         );
@@ -54,7 +50,6 @@ export default ListLocals;
 
 const styles = StyleSheet.create({
   listLocals: {
-    height: 120,
     borderRadius: 5,
     marginHorizontal: 10,
   }
