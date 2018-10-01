@@ -44,7 +44,7 @@ class Feed extends Component {
       //adicionar dados API_REST para consumir... somente event_name consumido
       <ScrollView style={styles.scroll}>
         {
-          this.state.roles.map(role => <FeedItem nomeRole={role.event_name} />)
+          this.state.roles.map((role,index) => <FeedItem key={index} imgRole={role.photo} nomeRole={role.event_name} org={role.owner} />)
         }
       </ScrollView>
 

@@ -5,7 +5,7 @@ import {
 } from "native-base";
 
 import React, { Component } from "react";
-import { StyleSheet, Image, ScrollView } from "react-native";
+import { StyleSheet, Image, View, ScrollView } from "react-native";
 const logo = require("./images/logo.png");
 const cardImage = require("./images/banner.png");
 class FeedItem extends Component {
@@ -31,7 +31,7 @@ class FeedItem extends Component {
                             height: 200,
                             flex: 1
                         }}
-                        source={cardImage} />
+                        source={{uri:this.props.imgRole}} />
                 </CardItem>
 
                 <CardItem style={{ paddingVertical: 0 }}>
@@ -44,12 +44,14 @@ class FeedItem extends Component {
                     <Body>
                         <Button transparent>
                             <Icon active name="chatbubbles" />
-                            <Text>8 Comments</Text>
+                            <View>
+                                <Text style={{textAlign: 'center'}}>8 Comentários</Text>
+                            </View>
                         </Button>
                     </Body>
                     <Right>
                         <Button transparent>
-                            <Text> Read More</Text>
+                            <Text> Saiba Mais</Text>
                         </Button>
                     </Right>
                 </CardItem>
