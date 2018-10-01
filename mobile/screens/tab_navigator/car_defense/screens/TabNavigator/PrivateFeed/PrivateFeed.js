@@ -55,7 +55,7 @@ export default class Feed extends React.Component {
 
   async componentDidMount() {
     let token = await registerForPushNotificationsAsync();
-    let url = 'http://192.168.0.4:8000/notifications/?token=' + token
+    let url = 'http://68.183.28.199:8002/notifications/?token=' + token
 
     return fetch(url)
       .then((response) => response.json())
