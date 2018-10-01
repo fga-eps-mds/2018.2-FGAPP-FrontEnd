@@ -60,7 +60,7 @@ export default class PrivateNotifications extends Component {
 
 
   onPressButton = () => {
-    const url = `http://68.183.28.199:8002/send_push_message/` //function send_push_message url
+    const url = process.env.CARDEFENSE_NOTIFICATIONS + `/send_push_message/` //function send_push_message url
 
     let notification = JSON.stringify({
       plate: this.state.plate,

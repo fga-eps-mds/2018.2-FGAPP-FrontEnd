@@ -14,7 +14,7 @@ export default class Feed extends React.Component {
 
   componentDidMount() {
 
-    return fetch('http://68.183.28.199:8002/emergencynotifications/')
+    return fetch(process.env.CARDEFENSE_NOTIFICATIONS + '/emergencynotifications/')
       .then((response) => response.json())
       .then((responseJson) => {
 
