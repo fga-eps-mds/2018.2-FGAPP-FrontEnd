@@ -55,7 +55,7 @@ class OrderedProducts extends Component {
                     return (
                       <OrderCard
                         key={index}
-                        orderName = {`Produto: ${order.fk_product}`}
+                        orderName = {`${order.product_name}`}
                         orderQuantity = {`Quantidade: ${order.quantity}`}
                         orderPrice = {parseFloat(order.total_price).toFixed(2)}
                         onPress={() => this.props.navigation.navigate('OrderDetails', {order: order, token:token})}
