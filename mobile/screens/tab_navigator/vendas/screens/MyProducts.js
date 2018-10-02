@@ -1,3 +1,7 @@
+/*
+    Screen responsable to show the products of a certain owner.
+*/
+
 import React, { Component } from 'react';
 import { 
     View,
@@ -5,16 +9,16 @@ import {
     StyleSheet
 } from 'react-native';
 
-class RolesApp extends Component {
+class Offers extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text>Rolês</Text>
+                <Text>Offer</Text>
             </View>
         );
     }
 }
-export default RolesApp;
+export default Offers;
 
 const styles = StyleSheet.create({
     container: {

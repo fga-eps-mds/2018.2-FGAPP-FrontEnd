@@ -13,6 +13,7 @@ import { Provider } from "react-redux";
 import store from "./redurces/store";
 import ListLocals from './containers/ListLocals'
 
+
 class FirstScreen extends Component {
 
   constructor(props) {
@@ -52,10 +53,12 @@ const mapStateToProps = () => {
 export default FirstScreen;
 
 const styles = StyleSheet.create({
+
   container: {
     flex: 1,
     flexDirection: "column",
     justifyContent: "flex-start",
     backgroundColor: "#FFF"
   }
+
 });
