@@ -109,11 +109,12 @@ class FormPicker extends Component {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-        'fk_product': product.id,
-        'fk_buyer': user.user_id,
-        'buyer_message': this.state.buyer_message,
-        'total_price': product.price*this.state.quantity,
-        'quantity': this.state.quantity,
+          'fk_product': product.id,
+          'fk_buyer': user.user_id,
+          'buyer_message': this.state.buyer_message,
+          'total_price': product.price*this.state.quantity,
+          'quantity': this.state.quantity,
+          'product_name': product.name,
 
         }),
     })
