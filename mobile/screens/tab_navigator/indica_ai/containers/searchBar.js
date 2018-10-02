@@ -30,6 +30,7 @@ export class SearchBar extends Component {
 
 
   search = name => {
+      console.log(name);
     if(name.length !== 0) { 
       const url = `https://indicaai.herokuapp.com/locals/name/${name}` 
       fetch( url, {   
@@ -44,6 +45,7 @@ export class SearchBar extends Component {
           this.setState({
             locals: responseJson,
           })
+          console.log(responseJson);
           this.props.onChangeLocals({locals: this.state.locals});
         })
         .catch(error => {

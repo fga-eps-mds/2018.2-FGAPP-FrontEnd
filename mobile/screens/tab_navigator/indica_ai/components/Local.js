@@ -4,19 +4,35 @@ import {
   Text,
   StyleSheet
 } from 'react-native';
+import { Card, CardItem } from 'native-base' 
 
 
 export default class Local extends Component {
   constructor(props) {
     super(props);
-    
   }
   render() {
 
     const name = this.props.name;
+    const description = this.props.description;
+
+    console.log(this.props.description)  
 
     return(
-            <Text>{name}</Text>
+        <Card>
+         <CardItem header bordered>
+            <Text style={styles.localName}>
+             {name}
+           </Text>
+         </CardItem>
+
+         <CardItem>
+            <Text style={styles.localDescription}>
+              {description}
+           </Text>
+         </CardItem>
+
+        </Card>
     );
   }
 }
@@ -24,20 +40,14 @@ export default class Local extends Component {
 
 const styles = StyleSheet.create({
 
-  local: {
-    padding: 15,
-    borderWidth: 1,
-    borderColor: '#333',
-    height: 120,
-    borderRadius: 5,
-    marginTop: 20,
-  },
-  localInfo:{
+  localDescription:{
     marginLeft: 0,
+    fontSize: 15
   },
   localName: {
     fontWeight: 'bold',
-    color: '#333'
+    color: '#333',
+    fontSize: 20
   },
 
 });

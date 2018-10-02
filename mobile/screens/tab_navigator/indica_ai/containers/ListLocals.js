@@ -3,7 +3,8 @@ import {
   View,
   Text, 
   StyleSheet, 
-  ScrollView
+  ScrollView,
+  FlatList
 } from "react-native";
 import Local from "../components/Local";
 
@@ -37,6 +38,8 @@ class ListLocals extends Component {
       if(this.props.locals.length !== 0) {
         if(this.props.locals.locals[0] !== this.state.locals)
           this.setState({locals: this.props.locals.locals[0]})
+        else if(this.props.locals.locals[0] === " ")
+          this.setState(locals: responseJson) 
       }
     }
     render() {
@@ -44,7 +47,7 @@ class ListLocals extends Component {
           <View style={styles.listLocals}> 
               <ScrollView>
                 {this.state.locals
-                .map(local => <Local name={local.name} style={styles.LocalsText} key={local.id}/>)} 
+                .map(local => <Local name={local.name} description={local.description}  key={local.id}/>)} 
               </ScrollView>
           </View>
         );
