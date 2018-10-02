@@ -13,20 +13,30 @@ import { Provider } from "react-redux";
 import store from "./redurces/store";
 import ListLocals from './containers/ListLocals'
 
-state = {
-  localName: "SHOW_ALL"
-};
-
-
 class FirstScreen extends Component {
+
+  constructor(props) {
+      super(props);
+      this.state = {
+          locals: []
+      };
+  }
+
+  changeLocals = vetor => {
+    this.setState({
+      locals: vetor
+    });
+    console.log(this.state.locals);
+  };
+
   render() {
     return (
         <View style={styles.container}>
           <Provider store={store}>
-            <SearchBar />  
+            <SearchBar onChangeLocals={this.changeLocals} />  
           </Provider>
           <Provider store={store}>
-            <ListLocals locals={store.getState().searchBar}/>
+            <ListLocals locals={this.state.locals}/>
           </Provider>
         </View>
     );

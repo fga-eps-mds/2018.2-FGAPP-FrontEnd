@@ -1,19 +1,18 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, ScrollView, FlatList } from "react-native";
+import {
+  View,
+  Text, 
+  StyleSheet, 
+  ScrollView
+} from "react-native";
 import Local from "../components/Local";
-// import store from "./redurces/store";
-// import { Provider } from "react-redux";
 
 class ListLocals extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            locals: []
-        };
-        console.log('string');
-        console.log(props);
-    }
+    state = {
+      locals: []
+    };
+    
 
     componentDidMount(){
       const url = fetch(`https://indicaai.herokuapp.com/locals/`, {
@@ -41,7 +40,7 @@ class ListLocals extends Component {
           <View style={styles.listLocals}> 
               <ScrollView>
                 {locals
-                .map(local => <Local name={local.name}/>)} 
+                .map(local => <Local name={local.name} style={styles.LocalsText} />)} 
               </ScrollView>
           </View>
         );
@@ -54,5 +53,11 @@ const styles = StyleSheet.create({
   listLocals: {
     borderRadius: 5,
     marginHorizontal: 10,
-  }
+  },
+
+  LocalsText: {
+    fontSize: 45,
+    fontFamily: 'sans-serif',
+    marginLeft: 5
+ } 
 });

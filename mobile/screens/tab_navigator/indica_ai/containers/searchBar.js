@@ -12,18 +12,15 @@ import { Ionicons } from "@expo/vector-icons";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionSearchLocals } from "../actions/searchBar";
+import Local from "../components/Local";
 
 export class SearchBar extends Component {
-   
-    constructor(props) {
-        super(props);
-        console.log(this.props.locals);
-    }
 
-    state = {
-    inputValue: "",
-    locals: [],
-  };
+    state ={
+      inputValue: "",
+      locals: []
+        };
+
 
   inputChange = value => {
     this.setState({
@@ -31,29 +28,11 @@ export class SearchBar extends Component {
     });
   };
 
-  // searchLocals = text => {
-  //   alert(text);
-  //   this.props.dispatch(searchLocals(text));
-  //   this.setState({ inputValue: "" });
-  // };
-
-  filterLocals = locals => {
-    let result=[]
-    for (i in locals[0]){
-      let local = {
-        name: locals[0][i].name,
-        description: locals[0][i].description,
-      }
-      result = result.concat(local)
-      console.log(result);
-    }
-    return result
-  }
 
   search = name => {
     console.log(name);  
-    const url = `https://indicaai.herokuapp.com/locals/name/${name}`  
-    fetch( url, { 
+    const url = `https://indicaai.herokuapp.com/locals/name/${name}` 
+    fetch( url, {   
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -62,26 +41,22 @@ export class SearchBar extends Component {
     }) 
       .then(response => response.json())
       .then(responseJson => {
-        console.log(responseJson);
         this.setState({
           locals: responseJson,
         })
-        let result_local = this.filterLocals(this.state.locals);
-        this.props.setLocals(result_local)
         console.log(responseJson);
+        this.props.onChangeLocals({locals: this.state.locals});
       })
       .catch(error => {
         console.log(error);
       });
   };
-  // listLocal = () => {
-  //   if(this.state.locals.lenght > 0){
-  //     {this.state.locals[0].map(local => <Local key={local.id} data={local}/>)}
-  //   }
-  // }
 
-  render() {
+    
+
+  render() { 
     const { inputValue } = this.state;
+    const { locals } = this.state;
 
     return (
       <View style={styles.container}>
@@ -89,7 +64,7 @@ export class SearchBar extends Component {
           <TextInput
             onChangeText={value => this.inputChange((value: text))}
             value={inputValue}
-            placeholder="Buscar Indicação"
+            placeholder='Buscar Indicação'
             style={{
               width: 295,
               borderWidth: 1,
@@ -112,9 +87,11 @@ export class SearchBar extends Component {
               />
             </View>
           </TouchableOpacity>
+            <ScrollView>
+              {locals
+              .map(local => <Local name={local.name} />)}
+            </ScrollView>
         </View>
-        <ScrollView contenContainerStyle={styles.localList} >
-        </ScrollView>
       </View>
     );
   };
@@ -146,7 +123,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
   containerSearch: {
-    marginTop: 20,
+    marginTop: 5,
     flexDirection: 'row'
   },
   localList: {
