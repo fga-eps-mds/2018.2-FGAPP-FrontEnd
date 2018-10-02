@@ -30,26 +30,26 @@ export class SearchBar extends Component {
 
 
   search = name => {
-    console.log(name);  
-    const url = `https://indicaai.herokuapp.com/locals/name/${name}` 
-    fetch( url, {   
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "aplication/json"
-      }
-    }) 
-      .then(response => response.json())
-      .then(responseJson => {
-        this.setState({
-          locals: responseJson,
+    if(name.length !== 0) { 
+      const url = `https://indicaai.herokuapp.com/locals/name/${name}` 
+      fetch( url, {   
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "aplication/json"
+        }
+      }) 
+        .then(response => response.json())
+        .then(responseJson => {
+          this.setState({
+            locals: responseJson,
+          })
+          this.props.onChangeLocals({locals: this.state.locals});
         })
-        console.log(responseJson);
-        this.props.onChangeLocals({locals: this.state.locals});
-      })
-      .catch(error => {
-        console.log(error);
-      });
+        .catch(error => {
+          console.log(error);
+        });
+    }
   };
 
     
@@ -87,10 +87,6 @@ export class SearchBar extends Component {
               />
             </View>
           </TouchableOpacity>
-            <ScrollView>
-              {locals
-              .map(local => <Local name={local.name} />)}
-            </ScrollView>
         </View>
       </View>
     );

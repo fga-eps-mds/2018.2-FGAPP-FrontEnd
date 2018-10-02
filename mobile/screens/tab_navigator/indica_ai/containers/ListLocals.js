@@ -13,8 +13,7 @@ class ListLocals extends Component {
       locals: []
     };
     
-
-    componentDidMount(){
+    componentWillMount(){
       const url = fetch(`https://indicaai.herokuapp.com/locals/`, {
         method: "GET",
         headers: {
@@ -24,6 +23,7 @@ class ListLocals extends Component {
       })
       .then(response => response.json())
       .then(responseJson => {
+        const localsFather = this.props.locals;
         this.setState({
           locals: responseJson,
         })
@@ -33,14 +33,18 @@ class ListLocals extends Component {
         console.log(error);
       });
     }
-  
+    componentDidUpdate() {
+      if(this.props.locals.length !== 0) {
+        if(this.props.locals.locals[0] !== this.state.locals)
+          this.setState({locals: this.props.locals.locals[0]})
+      }
+    }
     render() {
-        const locals = this.state.locals;
         return (
           <View style={styles.listLocals}> 
               <ScrollView>
-                {locals
-                .map(local => <Local name={local.name} style={styles.LocalsText} />)} 
+                {this.state.locals
+                .map(local => <Local name={local.name} style={styles.LocalsText} key={local.id}/>)} 
               </ScrollView>
           </View>
         );

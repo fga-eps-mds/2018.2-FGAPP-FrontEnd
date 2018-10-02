@@ -26,7 +26,6 @@ class FirstScreen extends Component {
     this.setState({
       locals: vetor
     });
-    console.log(this.state.locals);
   };
 
   render() {
