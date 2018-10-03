@@ -7,7 +7,7 @@ import {
     View,
     StyleSheet,
     ScrollView,
-    Text
+    RefreshControl
 } from 'react-native';
 import ProductCard from '../../components/ProductCard';
 
@@ -20,10 +20,12 @@ class MyProducts extends Component {
                 name: '',
                 price: '',
                 photo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3DELRuKTg7K4gi9v13ELUq3ltLxlNGOsw6BDfsF0jlVKFr4h3',
-            }]
+            }],
+            refreshing: false,
         };
     }
-    componentDidMount() {
+
+    loadOffers = async () => {
         var products_path = `${process.env.VENDAS_PRODUCTS}/products`;
         fetch(products_path, {
             method: 'GET',
@@ -45,12 +47,30 @@ class MyProducts extends Component {
         });
     }
 
+    refreshOffers = async () => {
+        this.setState({refreshing: true});
+        this.loadOffers().then(() => {
+            this.setState({refreshing: false});
+        });
+    }
+
+    componentDidMount() {
+        this.loadOffers();
+    }
+
     render() {
       const {state} = this.props.navigation;
       var token = state.params ? state.params.token : undefined;
         return (
         <View style={styles.container}>
-            <ScrollView>
+            <ScrollView
+                refreshControl = {
+                    <RefreshControl
+                        refreshing = {this.state.refreshing}
+                        onRefresh = {this.refreshOffers}
+                    />
+                }
+            >
                 {this.state.products.map((product, index) => {
                     return (
                         <ProductCard
