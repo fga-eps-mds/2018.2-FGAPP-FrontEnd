@@ -7,6 +7,8 @@ import {
     Button,
     FlatList,
     Alert,
+    ImageBackground,
+    Image,
 } from "react-native";
 import Field from './components/Field';
 
@@ -24,7 +26,7 @@ class LoginScreen extends Component {
   _onPressButton = async () => {
       const login_path = `${process.env.INTEGRA_LOGIN_AUTH}/api/login/`;
 
-      fetch(login_path, {
+      fetch('http://192.168.1.16:8000/api/login/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -84,35 +86,52 @@ class LoginScreen extends Component {
 
     render() {
         return (
-            <View style={{paddingTop: 50, paddingLeft: 30, paddingRight: 30}}>
-              <Text>Login</Text>
-              <Field
-               placeholder={"Email"}
-               badInput={this.state.email_field_is_bad}
-               fieldAlert={this.state.email_field_alerts}
-               keyExtractor={'username'}
-               onChangeText={(email) => this.setState({email})}
-              />
+            <ImageBackground
+              style={{ width: '100%', height: '100%' }}
+              imageStyle={{resizeMode: 'stretch'}}
+              source={{
+                uri: 'https://i.imgur.com/dvhebUS.png'
+              }}
+              >
+              <View style={{flex: 1, flexDirection: 'column'}}>
+                <View style={{ alignItems: 'center', justifyContent: 'center', paddingTop: 150 }}>
+                  <Image source={{uri: 'https://logodownload.org/wp-content/uploads/2017/04/instagram-logo-1.png'}} style={{width:350, height: 99}} />
+                </View>
+                <View style={{paddingTop: 50, paddingLeft: 20, paddingRight: 20}}>
+                  <Field
+                   placeholder={"Email"}
+                   badInput={this.state.email_field_is_bad}
+                   fieldAlert={this.state.email_field_alerts}
+                   keyExtractor={'username'}
+                   onChangeText={(email) => this.setState({email})}
+                  />
 
-              <Field
-               placeholder={"Senha"}
-               badInput={this.state.password_field_is_bad}
-               fieldAlert={this.state.password_field_alerts}
-               keyExtractor={'password'}
-               onChangeText={(password) => this.setState({password})}
+                  <Field
+                   style={{ paddingBottom: 10, paddingTop: 5}}
+                   placeholder={"Senha"}
+                   badInput={this.state.password_field_is_bad}
+                   fieldAlert={this.state.password_field_alerts}
+                   keyExtractor={'password'}
+                   onChangeText={(password) => this.setState({password})}
 
-               secureTextEntry
-              />
+                   secureTextEntry
+                  />
+                  <FlatList
+                      data={this.state.non_field_alert}
+                      renderItem={({item}) => <Text style ={{color: 'red'}}>{item}</Text>}
+                      keyExtractor={item => 'non_field_errors'}
 
-              <Button title='Login' onPress={this._onPressButton}/>
-              <View style={{height: 20}} />
-              <FlatList
-                  data={this.state.non_field_alert}
-                  renderItem={({item}) => <Text style ={{color: 'red'}}>{item}</Text>}
-                  keyExtractor={item => 'non_field_errors'}
+                  />
+                </View>
+                <View style={{alignItems: 'center', justifyContent: 'center'}}>
+                  <Button title='ENTRAR' onPress={this._onPressButton} title="ENTRAR" color='white'/>
+                </View>
+                <View style= {{alignItems: 'center', justifyContent: 'center', paddingTop: 5}}>
+                  <Button title='CADASTRAR' onPress={() => this.props.navigation.navigate('SignUpScreen')} color='transparent'/>
+                </View>
 
-                />
-            </View>
+              </View>
+            </ImageBackground>
         );
     }
 }

@@ -31,19 +31,18 @@ export default class Field extends Component{
         height: 50,
         backgroundColor: '#F78181',
         borderColor: 'red',
-        borderWidth: 2,
+        //borderWidth: 2,
       }
     }
     else{ // default button style
       field_style = {
         paddingLeft: 20,
         height: 50,
-        borderWidth: 2,
+        //borderWidth: 2,
       }
     }
   return(
-    <View>
-    <View style={{height: 10}} />
+    <View style={this.props.style}>
     <TextInput
       style={field_style}
       placeholder={this.props.placeholder}
@@ -57,7 +56,6 @@ export default class Field extends Component{
       keyExtractor={item => this.props.keyExtractor}
 
       />
-      <View style={{height: 10}} />
      </View>
   )
   }

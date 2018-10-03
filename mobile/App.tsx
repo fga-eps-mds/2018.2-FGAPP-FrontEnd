@@ -3,7 +3,6 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import {StackNavigator} from 'react-navigation'
 
-import WelcomeScreen from './screens/WelcomeScreen'
 import LoginScreen from './screens/LoginScreen'
 import SignUpScreen from './screens/SignUpScreen'
 import TabHandler from './screens/TabHandler'
@@ -20,14 +19,11 @@ export default class App extends React.Component<{}> {
 
 const AppStackNavigator = new StackNavigator({
 
-  WelcomeScreen:{
-    screen:WelcomeScreen,
+  LoginScreen:{
+    screen:LoginScreen,
     navigationOptions: ({ navigation }) => ({
       header: null,
     }),
-  },
-  LoginScreen:{
-    screen:LoginScreen
   },
   SignUpScreen:{
     screen:SignUpScreen
