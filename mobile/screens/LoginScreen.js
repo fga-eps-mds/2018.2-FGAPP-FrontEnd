@@ -4,12 +4,12 @@ import {
     Text,
     TextInput,
     StyleSheet,
-    Button,
     FlatList,
     Alert,
     ImageBackground,
     Image,
 } from "react-native";
+import {Button} from 'native-base';
 import Field from './components/Field';
 
 class LoginScreen extends Component {
@@ -94,10 +94,10 @@ class LoginScreen extends Component {
               }}
               >
               <View style={{flex: 1, flexDirection: 'column'}}>
-                <View style={{ alignItems: 'center', justifyContent: 'center', paddingTop: 150 }}>
+                <View style={{ alignItems: 'center', justifyContent: 'center', paddingTop: '60%' }}>
                   <Image source={{uri: 'https://logodownload.org/wp-content/uploads/2017/04/instagram-logo-1.png'}} style={{width:350, height: 99}} />
                 </View>
-                <View style={{paddingTop: 50, paddingLeft: 20, paddingRight: 20}}>
+                <View style={{paddingTop: '0%', paddingLeft: '5%', paddingRight: '5%'}}>
                   <Field
                    placeholder={"Email"}
                    badInput={this.state.email_field_is_bad}
@@ -125,11 +125,19 @@ class LoginScreen extends Component {
                   />
 
                 </View>
-                <View style={{alignItems: 'center', justifyContent: 'center'}}>
-                  <Button title='ENTRAR' onPress={this._onPressButton} title="ENTRAR"/>
+
+                <View style={{alignItems: 'center', justifyContent: 'center', paddingLeft: '35%', paddingRight: '35%', paddingTop: '10%'}}>
+                  <Button light block onPress={this._onPressButton}>
+                    <Text style={{color: 'black', fontWeight: 'bold'}}>ENTRAR</Text>
+                  </Button>
+                  <View style={{padding: 5}}/>
+                  <Button bordered light block onPress={() => this.props.navigation.navigate('SignUpScreen')} color='transparent'>
+                    <Text style={{color:  'white', fontWeight: 'bold'}}> CADASTRAR </Text>
+                  </Button>
                 </View>
-                <View style= {{alignItems: 'center', justifyContent: 'center', paddingTop: 5}}>
-                  <Button title='CADASTRAR' onPress={() => this.props.navigation.navigate('SignUpScreen')} color='transparent'/>
+
+                <View style={{padding: 5, alignItems: 'center', justifyContent: 'center'}}>
+                  <Text style={{color:  'white', textDecorationLine: 'underline'}}>Esqueci minha senha</Text>
                 </View>
 
               </View>
