@@ -8,6 +8,7 @@ import {
     Text,
     StyleSheet,
     ScrollView,
+    RefreshControl
 } from 'react-native';
 import OrderCard from '../../components/OrderCard'
 import jwt_decode from 'jwt-decode'
@@ -17,9 +18,13 @@ class OrderedProducts extends Component {
       super(props);
       this.state = {
           orders: [''],
+          refreshing: false,
       };
     }
-    componentDidMount() {
+    componentDidMount(){
+        this.loadOrders();
+    }
+    loadOrders = async () => {
       const {state} = this.props.navigation;
       var token = state.params ? state.params.token : undefined;
       var user = jwt_decode(token);
@@ -45,12 +50,28 @@ class OrderedProducts extends Component {
           console.error(error);
       });
     }
+
+    refreshOrders = async () => {
+        this.setState({refreshing: true});
+        this.loadOrders().then(() => {
+            this.setState({refreshing: false});
+        });
+    }
+
+
     render() {
       const {state} = this.props.navigation;
       var token = state.params ? state.params.token : undefined;
         return (
           <View style={styles.container}>
-              <ScrollView>
+                <ScrollView
+                    refreshControl = {
+                        <RefreshControl
+                            refreshing = {this.state.refreshing}
+                            onRefresh = {this.refreshOrders}
+                        />
+                    }
+                >
                 {this.state.orders.map((order, index) => {
                     return (
                       <OrderCard
