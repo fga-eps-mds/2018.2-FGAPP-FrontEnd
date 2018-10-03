@@ -5,6 +5,7 @@
 import ProductCard from '../../components/ProductCard'
 
 import React, { Component } from 'react';
+import { RefreshControl } from 'react-native';
 import {
     View,
     StyleSheet,
@@ -21,7 +22,8 @@ class MyProducts extends Component {
                 name: '',
                 price: '',
                 photo: 'https://foodrevolution.org/wp-content/uploads/2018/04/blog-featured-diabetes-20180406-1330.jpg',
-            }]
+            }],
+            refreshing: false,
         };
     }
 
@@ -53,6 +55,13 @@ class MyProducts extends Component {
         })
     }
 
+    refreshUserProducts = async () => {
+        this.setState({refreshing: true});
+        this.loadUserProducts().then(() => {
+            this.setState({refreshing: false});
+        })
+    }
+
     componentDidMount() {
         this.loadUserProducts();
     }
@@ -63,20 +72,25 @@ class MyProducts extends Component {
 
         return (
             <View style={styles.container}>
-                <View>
-                    <ScrollView>
+                <ScrollView
+                    refreshControl = {
+                        <RefreshControl
+                            refreshing = {this.state.refreshing}
+                            onRefresh = {this.refreshUserProducts}
+                        />
+                    }
+                >
                         {this.state.products.map((product, index) => {
                             return (
                                 <ProductCard
                                     key={index}
                                     photo={product.photo}
                                     name={product.name}
-                                    price={product.price}
+                                    price={parseFloat(product.price).toFixed(2)}
                                 />
                             );
                         })}
                     </ScrollView>
-                </View>
                 <Fab
                     onPress={() => {this.props.navigation.navigate('CreateProduct', {token:token});} }
                     style={styles.fab}>

@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import ProductCard from '../../components/ProductCard';
 
-class MyProducts extends Component {
+class Offers extends Component {
     // productImage initialize with an image cause of asynchronous request
     constructor(props) {
         super(props);
@@ -88,7 +88,7 @@ class MyProducts extends Component {
     }
 }
 
-export default MyProducts;
+export default Offers;
 
 const styles = StyleSheet.create({
     container: {
