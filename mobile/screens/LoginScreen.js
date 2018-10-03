@@ -26,7 +26,7 @@ class LoginScreen extends Component {
   _onPressButton = async () => {
       const login_path = `${process.env.INTEGRA_LOGIN_AUTH}/api/login/`;
 
-      fetch('http://192.168.1.16:8000/api/login/', {
+      fetch(login_path, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

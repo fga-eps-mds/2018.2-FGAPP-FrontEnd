@@ -28,7 +28,7 @@ export default class App extends Component {
   _onPressButton = async () => {
 
       var registration_path = `${process.env.INTEGRA_LOGIN_AUTH}/api/registration/`;
-      fetch('http://192.168.1.16:8000/api/registration/',{
+      fetch(registration_path,{
         method: 'POST',
         credentials: 'include',
         headers: {
