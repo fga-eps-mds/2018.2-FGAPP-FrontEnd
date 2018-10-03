@@ -116,15 +116,17 @@ class LoginScreen extends Component {
 
                    secureTextEntry
                   />
+
                   <FlatList
                       data={this.state.non_field_alert}
                       renderItem={({item}) => <Text style ={{color: 'red'}}>{item}</Text>}
                       keyExtractor={item => 'non_field_errors'}
 
                   />
+
                 </View>
                 <View style={{alignItems: 'center', justifyContent: 'center'}}>
-                  <Button title='ENTRAR' onPress={this._onPressButton} title="ENTRAR" color='white'/>
+                  <Button title='ENTRAR' onPress={this._onPressButton} title="ENTRAR"/>
                 </View>
                 <View style= {{alignItems: 'center', justifyContent: 'center', paddingTop: 5}}>
                   <Button title='CADASTRAR' onPress={() => this.props.navigation.navigate('SignUpScreen')} color='transparent'/>

@@ -31,6 +31,7 @@ export default class Field extends Component{
         height: 50,
         backgroundColor: '#F78181',
         borderColor: 'red',
+        color: 'white',
         //borderWidth: 2,
       }
     }
@@ -38,6 +39,7 @@ export default class Field extends Component{
       field_style = {
         paddingLeft: 20,
         height: 50,
+        color: 'white',
         //borderWidth: 2,
       }
     }
@@ -48,6 +50,7 @@ export default class Field extends Component{
       placeholder={this.props.placeholder}
       secureTextEntry={this.props.secureTextEntry}
       onChangeText={this.props.onChangeText}
+      underlineColorAndroid={'white'}
 
      />
      <FlatList
