@@ -93,7 +93,7 @@ export default MyProducts;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#171717',
+        backgroundColor: 'white',
         width: '100%',
     },
     fab: {

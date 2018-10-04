@@ -1,7 +1,7 @@
 export default {
   item: {
-    backgroundColor: 'transparent',
-    paddingTop: 160,
+    backgroundColor: 'white',
+    paddingTop: 20,
   },
   details_main: {
     flex: 1,
@@ -12,13 +12,13 @@ export default {
     backgroundColor: '#171717',
   },
   info: {
-    backgroundColor: 'transparent',
+    backgroundColor: 'white',
     paddingTop: 0,
     paddingBottom: 0,
     paddingRight: '30%',
   },
   description: {
-    backgroundColor: 'transparent',
+    backgroundColor: 'white',
     paddingTop: 0,
     paddingBottom: 10,
   },
@@ -89,11 +89,11 @@ export default {
   },
   text: {
     fontWeight: 'normal',
-    color: 'white',
-    fontSize: 25,
+    color: 'black',
+    fontSize: 20,
     textShadowOffset: {
-      width: 2,
-      height: 2,
+      width: 0,
+      height: 0,
    },
     textShadowColor: '#5A5A5A',
     textShadowRadius: 5,
@@ -103,12 +103,13 @@ export default {
   },
   textVendor: {
     fontWeight: 'normal',
-    color: 'white',
+    color: 'black',
     fontSize: 10,
+    alignSelf: 'flex-start',
   },
   textInfo: {
     fontWeight: 'normal',
-    color: 'white',
+    color: 'black',
     fontSize: 30,
   },
   textDescription: {
@@ -139,14 +140,14 @@ export default {
     left: '70%',
     paddingVertical: 50,
     paddingHorizontal: 50,
-    color: 'white',
+    color: 'black',
     alignSelf: 'center',
    },
    PickerText: {
     position: 'absolute',
     paddingTop: 230,
     left: '70%',
-    color: 'white',
+    color: 'black',
     alignSelf: 'center',
     fontSize: 15,
    },

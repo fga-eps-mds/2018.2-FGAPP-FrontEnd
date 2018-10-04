@@ -19,9 +19,10 @@ class ProductCard extends Component {
           >
             <LinearGradient
               colors={['transparent', 'black']}
-              locations={[0.2, 0.85]}
+              locations={[0.989, 0.99]}
               style={styles.gradient}
             />
+          </ImageBackground>
             <CardItem style={styles.item}>
               <Left>
                 <Text style={styles.text}>{this.props.name}</Text>
@@ -32,7 +33,6 @@ class ProductCard extends Component {
                 </Text>
               </Right>
             </CardItem>
-          </ImageBackground>
         </View>
       </TouchableHighlight>
     );

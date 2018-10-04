@@ -79,7 +79,6 @@ export default MyProducts;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#171717',
         width: '100%',
     }
 });

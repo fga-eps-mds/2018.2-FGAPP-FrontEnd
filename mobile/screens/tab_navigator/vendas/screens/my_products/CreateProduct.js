@@ -90,20 +90,20 @@ class CreateProduct extends Component {
                 <Item floatingLabel>
                   <Label>Título</Label>
                   <Input
-                    style={{ color: "white" }}
+                    style={{ color: 'black' }}
                     onChangeText={(title) => {this.setState({title})}}
                   />
                 </Item>
                 <Item floatingLabel>
                   <Label>Preço</Label>
                   <Input
-                    style={{ color: "white" }}
+                    style={{ color: 'black' }}
                     keyboardType='numeric'
                     onChangeText={(price) => {this.setState({price})}}
                   />
                 </Item>
                 <Textarea
-                  style={{ color: "white" }}
+                  style={{ color: 'black' }}
                   onChangeText={(description) => {this.setState({description})}}
                   rowSpan={2}
                   underline
@@ -134,7 +134,7 @@ export default CreateProduct;
 
 const styles = StyleSheet.create({
     container: {
-      backgroundColor: '#171717',
+      backgroundColor: 'white',
         flex: 1
     },
     image: {
