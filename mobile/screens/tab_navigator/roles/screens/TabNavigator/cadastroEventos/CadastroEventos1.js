@@ -23,7 +23,7 @@ export default class CadastroEventos1 extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      event_name: "",
+      eventName: "",
       eventDescription: "",
       owner: "",
       linkReference: "",
@@ -88,7 +88,7 @@ export default class CadastroEventos1 extends Component {
   }
 
   validacao = async (blocked) => {
-    if(this.state.event_name == '') {
+    if(this.state.eventName == '') {
       alert("Campo de nome do evento inválido!");
     } else if(this.state.eventDescription == '') {
       alert("Campo de descrição do evento inválido!");
@@ -127,6 +127,7 @@ export default class CadastroEventos1 extends Component {
       );
       this.props.navigation.navigate("Feed");
       blocked = true;
+      alert("ftruuuuuuuuuuuuuuuuuuuuuuuue")
     }
   }
 
@@ -149,7 +150,7 @@ export default class CadastroEventos1 extends Component {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        event_name: this.state.event_name,
+        eventName: this.state.eventName,
         eventDescription: this.state.eventDescription,
         linkReference: "https://www." + this.state.linkReference + ".com",
         organizer: this.state.organizer,
@@ -199,7 +200,7 @@ export default class CadastroEventos1 extends Component {
             <Input 
               iconName="title"
               placeholder="Nome do Rolê" 
-              onChangeText={event_name => this.setState({ event_name })}
+              onChangeText={eventName => this.setState({ eventName })}
             />
 
             <Input 
