@@ -85,8 +85,45 @@ export default class CadastroEventos1 extends Component {
   }
 
   cadastrarRole = async () => {
-    var register_role = `https://raulvictor.pythonanywhere.com/`;
-    fetch("https://raulvictor.pythonanywhere.com/events/?format=json", {
+
+    let blocked = false;
+
+    if(this.state.event_name == '') {
+      alert("Campo de nome do evento inválido!");
+    } else if(this.state.eventDescription == '') {
+      alert("Campo de descrição do evento inválido!");
+    } else if(this.state.linkReference == '') {
+      alert("Campo de link de referência do evento inválido!");
+    } else if(this.state.organizer == '') {
+      alert("Campo de organizer do evento inválido!");
+    } else if(this.state.organizerTel == '') {
+      alert("Campo de organizerTel do evento inválido!");
+    } else if(this.state.value == '') {
+      alert("Campo de value do evento inválido!");
+    } else if(this.state.address == '') {
+      alert("Campo de address do evento inválido!");
+    } else if(this.state.linkAddres == '') {
+      alert("Campo de linkAddres do evento inválido!");
+    } else if(this.state.eventDate == '') {
+      alert("Campo de eventDate do evento inválido!");
+    } else if(this.state.eventHour == '') {
+      alert("Campo de eventHour do evento inválido!");
+    } else if(this.state.adultOnly == '') {
+      alert("Campo de adultOnly do evento inválido!");
+    } else if(this.state.drinks == '') {
+      alert("Campo de drinks do evento inválido!");
+    } else if(this.state.foods == '') {
+      alert("Campo de foods do evento inválido!");
+    }
+
+    console.log(blocked)
+
+    if(blocked) {
+      alert("Cadastro inválido, informações incompletas")
+      return;
+    }
+
+    fetch("http://henriqueteste.pythonanywhere.com/events/?format=json", {
       method: "POST",
       credentials: "include",
       headers: {
@@ -100,7 +137,7 @@ export default class CadastroEventos1 extends Component {
         organizerTel: this.state.organizerTel,
         value: this.state.value,
         address: this.state.address,
-        linkAddres: this.state.linkAddres,
+        linkAddress: this.state.linkAddres,
         eventDate: this.state.eventDate,
         eventHour: this.state.eventHour,
         adultOnly: this.state.adultOnly,
@@ -114,112 +151,6 @@ export default class CadastroEventos1 extends Component {
         //Verifica se o cadastro foi bem sucedido
         console.log(responseJson);
         
-        //Campo de event
-        if (responseJson.event_name == "") {
-          this.setState({ event_name_field_alerts: responseJson.event_name });
-          this.setState({ event_name_field_is_bad: true });
-        } else {
-          this.setState({ event_name_field_alerts: [""] });
-          this.setState({ event_name_field_is_bad: false });
-        }
-        //Campo de eventDescription
-        if (responseJson.eventDescription == "") {
-          this.setState({
-            eventDescription_field_alerts: responseJson.eventDescription
-          });
-          this.setState({ eventDescription_field_is_bad: true });
-        } else {
-          this.setState({ eventDescription_field_alerts: [""] });
-          this.setState({ eventDescription_field_is_bad: false });
-        }
-        //Campo de linkReference
-        if (responseJson.linkReference != undefined) {
-          this.setState({
-            linkReference_field_alerts: responseJson.linkReference
-          });
-          this.setState({ linkReference_field_is_bad: true });
-        } else {
-          this.setState({ linkReference_field_alerts: [""] });
-          this.setState({ linkReference_field_is_bad: false });
-        }
-        //Campo de organizer
-        if (responseJson.organizer != undefined) {
-          this.setState({ organizer_field_alerts: responseJson.organizer });
-          this.setState({ organizer_field_is_bad: true });
-        } else {
-          this.setState({ organizer_field_alerts: [""] });
-          this.setState({ organizer_field_is_bad: false });
-        }
-        //Campo de value
-        if (responseJson.value != undefined) {
-          this.setState({ value_field_alerts: responseJson.value });
-          this.setState({ value_field_is_bad: true });
-        } else {
-          this.setState({ value_field_alerts: [""] });
-          this.setState({ value_field_is_bad: false });
-        }
-        //Campo de address
-        if (responseJson.address != undefined) {
-          this.setState({ address_field_alerts: responseJson.address });
-          this.setState({ address_field_is_bad: true });
-        } else {
-          this.setState({ address_field_alerts: [""] });
-          this.setState({ address_field_is_bad: false });
-        }
-        //Campo de linkAddress
-        if (responseJson.linkAddress != undefined) {
-          this.setState({ linkAddress_field_alerts: responseJson.linkAddress });
-          this.setState({ linkAddress_field_is_bad: true });
-        } else {
-          this.setState({ linkAddress_field_alerts: [""] });
-          this.setState({ linkAddress_field_is_bad: false });
-        }
-        //Campo de eventDate
-        if (responseJson.eventDate != undefined) {
-          this.setState({ eventDate_field_alerts: responseJson.eventDate });
-          this.setState({ eventDate_field_is_bad: true });
-        } else {
-          this.setState({ eventDate_field_alerts: [""] });
-          this.setState({ eventDate_field_is_bad: false });
-        }
-        //Campo de eventHour
-        if (responseJson.eventHour != undefined) {
-          this.setState({ eventHour_field_alerts: responseJson.eventHour });
-          this.setState({ eventHour_field_is_bad: true });
-        } else {
-          this.setState({ eventHour_field_alerts: [""] });
-          this.setState({ eventHour_field_is_bad: false });
-        }
-        //Campo de adultOnly
-        if (responseJson.adultOnly != undefined) {
-          this.setState({ adultOnly_field_alerts: responseJson.adultOnly });
-          this.setState({ adultOnly_field_is_bad: true });
-        } else {
-          this.setState({ adultOnly_field_alerts: [""] });
-          this.setState({ adultOnly_field_is_bad: false });
-        }
-        //Campo de foods
-        if (responseJson.foods != undefined) {
-          this.setState({ foods_field_alerts: responseJson.foods });
-          this.setState({ foods_field_is_bad: true });
-        } else {
-          this.setState({ foods_field_alerts: [""] });
-          this.setState({ foods_field_is_bad: false });
-        }
-        //Campo de drinks
-        if (responseJson.drinks != undefined) {
-          this.setState({ drinks_field_alerts: responseJson.drinks });
-          this.setState({ drinks_field_is_bad: true });
-        } else {
-          this.setState({ drinks_field_alerts: [""] });
-          this.setState({ drinks_field_is_bad: false });
-        }
-        //Sem campo
-        if (responseJson.non_field_errors != undefined) {
-          this.setState({ non_field_alert: responseJson.non_field_errors });
-        } else {
-          this.setState({ non_field_alert: [""] });
-        }
         //Sucesso
         if ((responseJson = !undefined)) {
           console.log(responseJson);
@@ -259,79 +190,57 @@ export default class CadastroEventos1 extends Component {
         <View style={styles.container}>
             <Title titleText="Cadastro de Novo Role"/>
             <Input 
-              iconName="title" 
+              iconName="title"
               placeholder="Nome do Rolê" 
-              onChangeText={eventName => this.setState({ eventName })}
-              badInput={this.state.eventName_field_alerts}
-              fieldAlert={this.state.eventName_field_is_bad}
-              keyExtractor={"eventName"}
+              onChangeText={event_name => this.setState({ event_name })}
             />
 
             <Input 
               iconName="description" 
               placeholder="Descrição" 
               onChangeText={eventDescription => this.setState({ eventDescription })}
-              keyExtractor={"eventDescription"}
-              badInput={this.state.eventName_field_alerts}
-              fieldAlert={this.state.eventName_field_is_bad}
             />
 
             <Input 
               iconName="insert-link" 
               placeholder="Link de Referência" 
               onChangeText={linkReference => this.setState({ linkReference })}
-              keyExtractor={"linkReference"}
-              badInput={this.state.eventName_field_alerts}
-              fieldAlert={this.state.eventName_field_is_bad}
-            />
+
+              />
 
           <Input 
               iconName="person" 
               placeholder="Nome para Contato" 
               onChangeText={organizer => this.setState({ organizer })}
-              keyExtractor={"organizer"}
-              badInput={this.state.eventName_field_alerts}
-              fieldAlert={this.state.eventName_field_is_bad}
+              
             />          
 
             <Input 
               iconName="phone" 
               placeholder="Telefone para Contato" 
               onChangeText={organizerTel => this.setState({ organizerTel })}
-              keyExtractor={"organizerTel"}
               keyboardType = "numeric"
-              badInput={this.state.eventName_field_alerts}
-              fieldAlert={this.state.eventName_field_is_bad}
-            />          
+              />          
 
             <Input 
               iconName="attach-money" 
               placeholder="Valor do Ingresso"
               onChangeText={value => this.setState({ value })}
-              keyExtractor={"value"}
               keyboardType="numeric"
-              badInput={this.state.eventName_field_alerts}
-              fieldAlert={this.state.eventName_field_is_bad}
-            />  
+              />  
 
             <Input 
               iconName="place" 
               placeholder="Local" 
               onChangeText={address => this.setState({ address })}
-              keyExtractor={"address"}
-              badInput={this.state.eventName_field_alerts}
-              fieldAlert={this.state.eventName_field_is_bad}
-            />  
+              />  
 
             <Input 
               iconType = "MaterialCommunityIcons"
               iconName="google-maps" 
               placeholder="Link Localização Google Maps" 
               onChangeText={linkAddress => this.setState({ linkAddress })}
-              keyExtractor={"linkAdress"}
-              badInput={this.state.eventName_field_alerts}
-              fieldAlert={this.state.eventName_field_is_bad}
-            />  
+              />  
 
             <View style={{flexDirection:"row", justifyContent: 'center'}}>
 
@@ -375,27 +284,19 @@ export default class CadastroEventos1 extends Component {
               iconName="drink" 
               placeholder="Bebidas" 
               onChangeText={drinks => this.setState({ drinks })}
-              keyExtractor={"drinks"}
-              badInput={this.state.eventName_field_alerts}
-              fieldAlert={this.state.eventName_field_is_bad}
-            />
+              />
 
             <Input 
               iconType = "MaterialCommunityIcons"
               iconName="food-fork-drink" 
               placeholder="Comidas" 
               onChangeText={foods => this.setState({ foods })}
-              keyExtractor={"food"}
-              badInput={this.state.eventName_field_alerts}
-              fieldAlert={this.state.eventName_field_is_bad}
-            />  
+              />  
 
             <View style={styles.inputContainerSwitch}>
               <Foundation style={styles.icon} name="prohibited" size={30} />
               <Switch
                 style={styles.switch}
-                fieldAlert={this.state.adultOnly_field_alerts}
-                keyExtractor={"adultOnly"}
                 value={this.state.adultOnly}
                 onValueChange={(adultOnly) => {this.setState({ adultOnly })}}
               />
