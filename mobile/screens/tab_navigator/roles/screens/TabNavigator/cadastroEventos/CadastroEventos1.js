@@ -72,7 +72,7 @@ export default class CadastroEventos1 extends Component {
       const {action, hour, minute} = await TimePickerAndroid.open({
         hour: 14,
         minute: 0,
-        is24Hour: true, // Will display '2 PM'
+        is24Hour: true,
       });
       if (action !== TimePickerAndroid.dismissedAction) {
         // Selected hour (0-23), minute (0-59)
@@ -127,7 +127,6 @@ export default class CadastroEventos1 extends Component {
       );
       this.props.navigation.navigate("Feed");
       blocked = true;
-      alert("ftruuuuuuuuuuuuuuuuuuuuuuuue")
     }
   }
 
