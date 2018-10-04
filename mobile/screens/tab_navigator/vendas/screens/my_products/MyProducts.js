@@ -73,7 +73,7 @@ class MyProducts extends Component {
                                     key={index}
                                     photo={product.photo}
                                     name={product.name}
-                                    price={product.price}
+                                    price={parseFloat(product.price).toFixed(2)}
                                 />
                             );
                         })}

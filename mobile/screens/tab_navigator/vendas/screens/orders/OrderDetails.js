@@ -42,7 +42,7 @@ class OrderDetails extends Component {
               <View style={{ flexDirection: 'row', paddingBottom: 20, paddingLeft: 10}}>
                 <View style={{flexDirection: 'column', width: '70%',}}>
                   <Text style={{fontSize: 25}}>'Cupcake'</Text>
-                  <Text style={{fontSize: 20}}>R$ {order.total_price.toFixed(2)}</Text>
+                  <Text style={{fontSize: 20}}>R$ {parseFloat(order.total_price).toFixed(2)}</Text>
                 </View>
                 <View style={{flexDirection: 'column', width: '30%'}}>
                   <Text style={{fontSize: 16}}>Quantidade</Text>

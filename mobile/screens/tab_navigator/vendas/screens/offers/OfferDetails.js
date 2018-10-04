@@ -152,7 +152,7 @@ class FormPicker extends Component {
 
       const characters = `${this.state.buyer_message.length.toString()}/${this.state.max_characters}`;
 
-      var price = `${this.state.quantity}` * `${product.price}`;
+      var price = `${this.state.quantity*product.price}`;
 
       return (
           <View style={styless.container}>
@@ -169,7 +169,7 @@ class FormPicker extends Component {
                </CardItem>
 
                <CardItem style={styles.info}>
-                <Text style={styles.textInfo}> R$ {price} </Text>
+                <Text style={styles.textInfo}> R$ {parseFloat(price).toFixed(2)} </Text>
               </CardItem>
 
               <CardItem style={styles.description}>
