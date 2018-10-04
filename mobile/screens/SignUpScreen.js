@@ -8,10 +8,12 @@ import {
   StyleSheet,
   AppRegistry,
   TextInput,
-  Button,
   FlatList,
+  ImageBackground,
+  Image,
 } from 'react-native';
 import Cookie from 'react-native-cookie';
+import {Button} from 'native-base';
 import Field from './components/Field';
 
 export default class App extends Component {
@@ -91,39 +93,48 @@ export default class App extends Component {
 
   render(){
     return(
-     <View style={{paddingTop: 50, paddingLeft: 30 , paddingRight: 30}}>
-     <Text> Cadastro </Text>
-     <View style={{height: 20}} />
+      <ImageBackground
+        style={{ width: '100%', height: '100%' }}
+        imageStyle={{resizeMode: 'stretch'}}
+        source={{
+          uri: 'https://i.imgur.com/dvhebUS.png'
+        }}
+      >
+      <View style={{flex: 1, flexDirection: 'column',  justifyContent: 'space-evenly'}}>
+        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+          <Image source={{uri: 'https://i.imgur.com/F7PTwBg.png'}} style={{width:1000/4, height: 561/4}} />
+        </View>
+        <View style={{paddingLeft: '5%', paddingRight: '5%'}}>
 
-       <Field
-        placeholder={"Email"}
-        badInput={this.state.email_field_is_bad}
-        fieldAlert={this.state.email_field_alerts}
-        keyExtractor={'email'}
-        onChangeText={(email) => this.setState({email})}
-       />
+           <Field
+            placeholder={"Email"}
+            badInput={this.state.email_field_is_bad}
+            fieldAlert={this.state.email_field_alerts}
+            keyExtractor={'email'}
+            onChangeText={(email) => this.setState({email})}
+           />
 
-       <Field
-        placeholder={"Senha"}
-        badInput={this.state.password_field_is_bad}
-        fieldAlert={this.state.password_field_alerts}
-        keyExtractor={'password1'}
-        onChangeText={(password) => this.setState({password})}
-        secureTextEntry
-       />
-
-       <Button
-             onPress={this._onPressButton}
-             title="Cadastro"
-       />
-       <View style={{height: 20}} />
-       <FlatList
-           data={this.state.non_field_alert}
-           renderItem={({item}) => <Text style ={{color: 'red'}}>{item}</Text>}
-           keyExtractor={item => 'non_field_errors'}
-         />
-
-  </View>
+           <Field
+            placeholder={"Senha"}
+            badInput={this.state.password_field_is_bad}
+            fieldAlert={this.state.password_field_alerts}
+            keyExtractor={'password1'}
+            onChangeText={(password) => this.setState({password})}
+            secureTextEntry
+           />
+           <FlatList
+               data={this.state.non_field_alert}
+               renderItem={({item}) => <Text style ={{color: 'red'}}>{item}</Text>}
+               keyExtractor={item => 'non_field_errors'}
+             />
+        </View>
+        <View style={{alignItems: 'center', justifyContent: 'center', paddingLeft: '35%', paddingRight: '35%'}}>
+          <Button light block onPress={this._onPressButton}>
+            <Text style={{color: 'black', fontWeight: 'bold'}}>CADASTRAR</Text>
+          </Button>
+        </View>
+      </View>
+      </ImageBackground>
     );
   }
 }
