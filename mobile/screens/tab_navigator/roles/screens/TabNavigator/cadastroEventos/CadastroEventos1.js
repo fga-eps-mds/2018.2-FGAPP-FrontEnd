@@ -94,8 +94,6 @@ export default class CadastroEventos1 extends Component {
       alert("Campo de descrição do evento inválido!");
     } else if(this.state.linkReference == '') {
       alert("Campo de link de referência do evento inválido!");
-    } else if(this.state.owner == '') {
-      alert("Campo de owner do evento inválido!");
     } else if(this.state.organizer == '') {
       alert("Campo de organizer do evento inválido!");
     } else if(this.state.organizerTel == '') {
