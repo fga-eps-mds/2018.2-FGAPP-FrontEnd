@@ -24,7 +24,7 @@ class Feed extends Component {
   };
 
   _refreshFunc(){
-    fetch('http://henriqueteste.pythonanywhere.com/events/')
+    fetch('http://209.97.153.172:8002/events/')
     .then(res => res.json())
     .then(roles =>{
       this.setState({ loading: false, roles })

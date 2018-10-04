@@ -142,7 +142,7 @@ export default class CadastroEventos1 extends Component {
     }
 
     console.log(this.state.linkAddres);
-    fetch("http://henriqueteste.pythonanywhere.com/events/", {
+    fetch("http://209.97.153.172:8002/events/", {
       method: "POST",
       credentials: "include",
       headers: {
