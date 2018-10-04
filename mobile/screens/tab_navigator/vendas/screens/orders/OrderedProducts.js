@@ -25,7 +25,7 @@ class OrderedProducts extends Component {
       var user = jwt_decode(token);
 
       //Referencia para API gateway
-      const orders_screen_path = `${process.env.VENDAS_API}/api/orders_screen`;
+      const orders_screen_path = `${process.env.VENDAS_API}/api/orders_screen/`;
 
       fetch(orders_screen_path, {
           method: 'POST',
@@ -34,6 +34,7 @@ class OrderedProducts extends Component {
           },
           body: JSON.stringify({
           'user_id': user.user_id, //UsernameField foi definido como email
+          'token': token,
         }),
       })
       .then((response) => response.json())

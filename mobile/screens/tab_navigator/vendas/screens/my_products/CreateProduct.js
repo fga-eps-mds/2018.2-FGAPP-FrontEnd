@@ -37,7 +37,8 @@ class CreateProduct extends Component {
       var token = state.params ? state.params.token : undefined;
       var jwtDecode = require('jwt-decode');
       var user = jwt_decode(token);
-      fetch(`${process.env.VENDAS_API}/api/create_product/`, {
+      const create_product_path = `${process.env.VENDAS_API}/api/create_product/`;
+      fetch(create_product_path, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -48,15 +49,15 @@ class CreateProduct extends Component {
           'price': this.state.price,
           'photo': 'https://foodrevolution.org/wp-content/uploads/2018/04/blog-featured-diabetes-20180406-1330.jpg',
           'description': this.state.description,
+          'token':token,
         }),
       })
       .then((response) => {
         return response.json();
       })
       .then((responseJson) => {
-        if (responseJson.length){
-          const error = JSON.parse(responseJson[0]);
-          this.setState ({ messageError: error["error"]})
+        if (responseJson.error != undefined){
+          this.setState ({ messageError: responseJson.error})
           this.setState({ isDialogVisible: true })
         }
         else{

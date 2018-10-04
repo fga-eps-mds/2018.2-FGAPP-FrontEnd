@@ -29,14 +29,16 @@ class MyProducts extends Component {
         const {state} = this.props.navigation;
         var token = state.params ? state.params.token : undefined;
         var user = jwt_decode(token);
+        const my_products_screen_path = `${process.env.VENDAS_API}/api/my_products_screen/`;
 
-        fetch(`${process.env.VENDAS_API}/api/my_products_screen`, {
+        fetch(my_products_screen_path, {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
             },
             body: JSON.stringify({
             'user_id': user.user_id,
+            'token': token,
             }),
         })
         .then((response) => { return response.json() })

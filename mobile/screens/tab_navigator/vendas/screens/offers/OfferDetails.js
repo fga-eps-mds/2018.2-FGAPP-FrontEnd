@@ -90,17 +90,7 @@ class FormPicker extends Component {
       var product = state.params ? state.params.product : undefined;
       var token = state.params ? state.params.token : undefined;
       var user = jwt_decode(token);
-      console.log('fk_product')
-      console.log(product.id)
-      console.log('fk_buyer')
-      console.log(user.user_id)
-      console.log('buyer_message')
-      console.log(this.state.buyer_message)
-      console.log('total_price')
-      console.log(product.price*this.state.quantity)
-      console.log('quantity')
-      console.log(this.state.quantity)
-      const create_order_path = `${process.env.VENDAS_API}/api/create_order`;
+      const create_order_path = `${process.env.VENDAS_API}/api/create_order/`;
 
       fetch(create_order_path,{
         method: 'POST',
@@ -114,6 +104,7 @@ class FormPicker extends Component {
         'buyer_message': this.state.buyer_message,
         'total_price': product.price*this.state.quantity,
         'quantity': this.state.quantity,
+        'token': token,
 
         }),
     })
