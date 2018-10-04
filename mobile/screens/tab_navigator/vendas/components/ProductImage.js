@@ -18,7 +18,7 @@ class ProductImage extends Component {
         >
           <LinearGradient
             colors={['transparent', 'black']}
-            locations={[0.2, 0.85]}
+            locations={[0.989, 0.90]}
             style={styles.gradient}
           />
         </ImageBackground>
