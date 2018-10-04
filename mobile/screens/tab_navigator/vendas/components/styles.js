@@ -3,14 +3,6 @@ export default {
     backgroundColor: 'white',
     paddingTop: 20,
   },
-  details_main: {
-    flex: 1,
-    flexDirection: 'column',
-    margin: 0,
-    padding: 0,
-    width: '100%',
-    backgroundColor: '#171717',
-  },
   info: {
     backgroundColor: 'white',
     paddingTop: 0,
@@ -180,6 +172,5 @@ export default {
     margin: 0,
     padding: 0,
     width: '100%',
-    backgroundColor: '#171717',
     },
 };
