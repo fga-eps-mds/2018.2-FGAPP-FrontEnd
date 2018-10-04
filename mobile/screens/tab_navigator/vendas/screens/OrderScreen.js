@@ -14,6 +14,7 @@ const OrderScreen = new StackNavigator({
       screen:OrderDetails,
       navigationOptions: {
         tabBarLabel: 'OrderDetails',
+        
       },
     },
   },
