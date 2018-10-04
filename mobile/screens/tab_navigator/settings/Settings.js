@@ -13,7 +13,7 @@ import jwt_decode from 'jwt-decode'
 class Settings extends Component {
 
 _onPressButton = async () => {
-    const logout_path = `${process.env.INTEGRA_LOGIN_AUTH}/logout/`;
+    const logout_path = `${process.env.INTEGRA_LOGIN_AUTH}/api/logout/`;
     fetch(logout_path, {
       method: 'POST',
       headers: {
