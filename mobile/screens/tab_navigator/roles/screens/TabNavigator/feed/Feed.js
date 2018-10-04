@@ -6,7 +6,7 @@ import {
 } from "native-base";
 
 import React, { Component } from "react";
-import { StyleSheet, ScrollView, } from "react-native";
+import { View, StyleSheet, ScrollView, } from "react-native";
 import FeedItem from "./FeedItem";
 class Feed extends Component {
   async componentWillMount() {
@@ -18,21 +18,27 @@ class Feed extends Component {
     this.setState({ loading: false });
   }
 
-  constructor(props) {
-    super(props);
-    this.state = { loading: true, roles: [] };
+  state = {
+    loading: true,
+    roles: [],
+  };
+
+  _refreshFunc(){
+    fetch('http://henriqueteste.pythonanywhere.com/events/')
+    .then(res => res.json())
+    .then(roles =>{
+      this.setState({ loading: false, roles })
+      })
+    .catch((error) => {
+      this.setState({
+        loading: false
+      });
+      console.error(error);
+    });
   }
 
   componentDidMount() {
-    fetch('http://henriqueteste.pythonanywhere.com/events/')
-      .then(res => res.json())
-      .then(roles => this.setState({ loading: false, roles }))
-      .catch((error) => {
-        this.setState({
-          loading: false
-        });
-        console.error(error);
-      });
+   this._refreshFunc()
   }
 
   render() {
@@ -41,12 +47,25 @@ class Feed extends Component {
       return <Expo.AppLoading />;
     }
     return (
-      //adicionar dados API_REST para consumir... somente event_name consumido
-      <ScrollView style={styles.scroll}>
-        {
-          this.state.roles.map((role,index) => <FeedItem key={index} imgRole={role.photo} nomeRole={role.event_name} org={role.owner} />)
-        }
-      </ScrollView>
+      <View>
+
+        <ScrollView style={styles.scroll}>
+          <Button
+            rounded 
+            full 
+            success 
+            iconLeft 
+            onPress={()=>this._refreshFunc()} 
+            style={{marginBottom: 15}}
+          >
+            <Icon name="refresh"/>
+            <Text>Recarregar Eventos</Text>
+          </Button>
+          {
+            this.state.roles.map((role,index) => <FeedItem key={index} imgRole={role.photo} nomeRole={role.event_name} org={role.owner} />)
+          }
+        </ScrollView>
+      </View> 
 
     );
   }//end render ()

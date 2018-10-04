@@ -173,21 +173,7 @@ export default class CadastroEventos1 extends Component {
         //Sucesso
         if ((responseJson =! undefined)) {
           console.log(responseJson);
-          /*
-          Alert.alert(
-            "Rolê criado com sucesso!",
-            "Seu rolê foi cadastrado com sucesso!\n" + "Boa sorte!",
-            [
-              {
-                text: "OK"
-              }
-            ],
-            {
-              cancelable: false
-            }
-          );
-          this.props.navigation.navigate("Feed");
-          */
+
         }
       })
       .catch(err => {
