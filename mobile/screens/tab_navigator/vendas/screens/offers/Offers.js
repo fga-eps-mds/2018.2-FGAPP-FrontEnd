@@ -24,25 +24,31 @@ class MyProducts extends Component {
         };
     }
     componentDidMount() {
-        var products_path = `${process.env.VENDAS_PRODUCTS}/products`;
-        fetch(products_path, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        })
-        .then((response) => { return response.json() })
-        .then((responseJson) => {
-            if(responseJson.length > 1){
-              responseJson.sort((product1, product2) => {
-                  return (product1.price - product2.price);
-              });
-            }
-            this.setState({ products: responseJson });
-        })
-        .catch((error) => {
-            console.error(error);
-        });
+      const {state} = this.props.navigation;
+      var token = state.params ? state.params.token : undefined;
+      var products_path = `${process.env.VENDAS_API}/api/all_products/`;
+
+      fetch(products_path, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+        'token': token,
+        }),
+      })
+      .then((response) => { return response.json() })
+      .then((responseJson) => {
+          if(responseJson.length > 1){
+            responseJson.sort((product1, product2) => {
+                return (product1.price - product2.price);
+            });
+          }
+          this.setState({ products: responseJson });
+      })
+      .catch((error) => {
+          console.error(error);
+      });
     }
 
     render() {

@@ -22,7 +22,7 @@ class LoginScreen extends Component {
   }
 
   _onPressButton = async () => {
-      const login_path = `${process.env.INTEGRA_LOGIN_AUTH}/login/`;
+      const login_path = `${process.env.INTEGRA_LOGIN_AUTH}/api/login/`;
 
       fetch(login_path, {
         method: 'POST',
