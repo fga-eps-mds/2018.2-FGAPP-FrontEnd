@@ -5,21 +5,37 @@ import {
     StyleSheet
 } from "react-native";
 
-class RolesApp extends Component {
+import HomeScreen from './screens/HomeScreen'
+import CadastroEventos1 from './screens/TabNavigator/cadastroEventos/CadastroEventos1'
+import CadastroEventos2 from './screens/TabNavigator/cadastroEventos/CadastroEventos2'
+import Feed from './screens/TabNavigator/feed/Feed'
+import {StackNavigator} from 'react-navigation'
+import RolesTabHandler from './RolesTabHandler'
+
+
+export default class RolesApp extends Component {
+
     render() {
         return (
-            <View style={styles.container}>
-                <Text>Rolês</Text>
-            </View>
+            <RolesStackNavigator />
         );
     }
 }
-export default RolesApp;
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
-    }
-});
+const RolesStackNavigator = new StackNavigator({
+    RolesTabHandler:{
+        screen:RolesTabHandler,
+        navigationOptions: ({ navigation }) => ({
+          header: null,
+        }),
+    },
+    HomeScreen:{
+        screen:HomeScreen,
+        navigationOptions: {
+            header: null
+        }
+    },
+})
+
+//Cor limegreen principal do app
+// #32CD32

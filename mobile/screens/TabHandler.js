@@ -47,6 +47,7 @@ const TabStackNavigator = new TabNavigator({
 })
 
 class TabHandler extends Component {
+
     render() {
         return (
             <TabStackNavigator/>
