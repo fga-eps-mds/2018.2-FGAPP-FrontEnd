@@ -29,7 +29,7 @@ _onPressButton = async () => {
   if(responseJson.detail=="Successfully logged out."){
     console.log(JSON.stringify('Log OUT'));
     this.props.navigation.state.params.token = null
-    this.props.navigation.navigate('WelcomeScreen')
+    this.props.navigation.navigate('LoginScreen')
 
   }
 })
