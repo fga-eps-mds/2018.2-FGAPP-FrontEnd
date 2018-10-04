@@ -13,12 +13,14 @@ const TabHandlerVendasApp = new TabNavigator({
         screen: OfferScreen,
         navigationOptions: {
             tabBarLabel: 'Ofertas',
+            title: 'Ofertas',
         }
     },
     MyProductsScreen: {
       screen: MyProductsScreen,
       navigationOptions: {
           tabBarLabel: 'Meus Produtos',
+          title: 'Meus Produtos'
       }
 
     },
@@ -26,6 +28,7 @@ const TabHandlerVendasApp = new TabNavigator({
         screen: OrderScreen,
         navigationOptions: {
             tabBarLabel: 'Pedidos',
+            title: 'Pedidos',
         }
     }
 },

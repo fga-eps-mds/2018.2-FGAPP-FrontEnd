@@ -40,7 +40,12 @@ const TabHandler = new TabNavigator({
             ),
             headerStyle: {
                backgroundColor:'#0EAC6F'
-            }
+            },
+            headerTintColor: 'white',
+            headerTitleStyle: {
+              color: 'white',
+              alignSelf: 'center'
+            },
         }
     },
     IndicaAi: {
@@ -80,6 +85,7 @@ const TabHandler = new TabNavigator({
         navigationOptions: {
             tabBarLabel: 'Configurações',
             headerLeft: null,
+            title: 'Perfil',
             tabBarIcon: ({ focused }) => (
                 <Icon
                     name="md-settings"
@@ -88,7 +94,13 @@ const TabHandler = new TabNavigator({
             ),
             headerStyle: {
                backgroundColor:'#BD1C5F'
-            }
+            },
+            headerTintColor: 'white',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+              alignSelf: 'center'
+            },
+
         }
     },
 }, {
