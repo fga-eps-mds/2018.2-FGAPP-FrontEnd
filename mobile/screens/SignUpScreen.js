@@ -75,7 +75,7 @@ export default class App extends Component {
    if (responseJson.token != undefined ||
        responseJson.key != undefined){
         Alert.alert("Conta criada com sucesso!");
-        this.props.navigation.navigate('WelcomeScreen')
+        this.props.navigation.navigate('LoginScreen') //mudei aqui de WelcomeScreen pra LoginScreen
       }
    })
 

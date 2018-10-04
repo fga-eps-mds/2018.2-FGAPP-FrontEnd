@@ -22,7 +22,10 @@ const TabHandler = new TabNavigator({
                     name="md-star"
                     style={{ color: focused ? '#1CBD24' : '#5A5A5A' }}
                 />
-            )
+            ),
+            headerStyle: {
+               backgroundColor:'#1CBD24'
+            }
         }
     },
     Vendas: {
@@ -34,7 +37,10 @@ const TabHandler = new TabNavigator({
                     name="md-cart"
                     style={{ color: focused ? '#0EAC6F' : '#5A5A5A' }}
                 />
-            )
+            ),
+            headerStyle: {
+               backgroundColor:'#0EAC6F'
+            }
         }
     },
     IndicaAi: {
@@ -43,11 +49,14 @@ const TabHandler = new TabNavigator({
             tabBarLabel: 'IndicaAi',
             headerLeft: null,
             tabBarIcon: ({ focused }) => (
-                <Icon 
+                <Icon
                     name="md-locate"
                     style={{ color: focused ? '#0AACCC' : '#5A5A5A' }}
                 />
-            )
+            ),
+            headerStyle: {
+               backgroundColor:'#0AACCC'
+            }
         }
     },
     CarDefense: {
@@ -60,7 +69,10 @@ const TabHandler = new TabNavigator({
                     name="md-car"
                     style={{ color: focused ? '#5C68C3' : '#5A5A5A' }}
                 />
-            )
+            ),
+            headerStyle: {
+               backgroundColor:'#5C68C3'
+            }
         }
     },
     Settings: {
@@ -73,7 +85,10 @@ const TabHandler = new TabNavigator({
                     name="md-settings"
                     style={{ color: focused ? '#BD1C5F' : '#5A5A5A' }}
                 />
-            )
+            ),
+            headerStyle: {
+               backgroundColor:'#BD1C5F'
+            }
         }
     },
 }, {
@@ -81,7 +96,7 @@ const TabHandler = new TabNavigator({
         showIcon: true,
         showLabel: false,
         style: {
-            backgroundColor: '#171717',
+            backgroundColor: 'white',
         },
         tabStyle: {
             height: 60,
