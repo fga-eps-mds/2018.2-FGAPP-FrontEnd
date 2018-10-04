@@ -7,6 +7,8 @@ import {
   ScrollView,
   Switch,
   Alert,
+  TimePickerAndroid,
+  DatePickerAndroid
 } from "react-native";
 import {
   Foundation,
@@ -15,6 +17,7 @@ import {
 // import Feed from '../feed/Feed'
 import Input from './components/Input'
 import Title from './components/Title'
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
 export default class CadastroEventos1 extends Component {
   constructor(props) {
@@ -32,12 +35,53 @@ export default class CadastroEventos1 extends Component {
       eventHour: "",
       adultOnly: false,
       drinks: "",
-      foods: ""
+      foods: "",
     };
   }
 
   imprimeRole() {
     this.props.navigation.navigate("Feed");
+  }
+
+  async datePicker() {
+    try {
+      const {action, year, month, day} = await DatePickerAndroid.open({
+        // Use `new Date()` for current date.
+        // May 25 2020. Month 0 is January.
+        date: new Date()
+      });
+      if (action !== DatePickerAndroid.dismissedAction) {
+        // Selected year, month (0-11), day
+        console.log(year)
+        console.log(month)
+        console.log(day)
+        this.setState({
+          eventDate: `${day}/${month + 1}/${year}`
+        })
+      }
+    } catch ({code, message}) {
+      console.warn('Cannot open date picker', message);
+    }
+  }
+
+  async timePicker() {
+    try {
+      const {action, hour, minute} = await TimePickerAndroid.open({
+        hour: 14,
+        minute: 0,
+        is24Hour: true, // Will display '2 PM'
+      });
+      if (action !== TimePickerAndroid.dismissedAction) {
+        // Selected hour (0-23), minute (0-59)
+        console.log(hour)
+        console.log(minute)
+        this.setState({
+          eventHour: `${hour}:${minute}:00`
+        })
+      }
+    } catch ({code, message}) {
+      console.warn('Cannot open time picker', message);
+    }
   }
 
   cadastrarRole = async () => {
@@ -289,23 +333,41 @@ export default class CadastroEventos1 extends Component {
               fieldAlert={this.state.eventName_field_is_bad}
             />  
 
-            <View style={{flexDirection:"row"}}>
-              <Input 
-                iconName="today" 
-                placeholder="Data" 
-                onChangeText={eventDate => this.setState({ eventDate })}
-                keyExtractor={"eventDate"}
-                badInput={this.state.eventName_field_alerts}
-                fieldAlert={this.state.eventName_field_is_bad}
-              />  
-              <Input 
-                iconName="access-time" 
-                placeholder="Horário de Início" 
-                onChangeText={eventHour => this.setState({ eventHour })}
-                keyExtractor={"eventHour"}
-                badInput={this.state.eventName_field_alerts}
-                fieldAlert={this.state.eventName_field_is_bad}
-              />  
+            <View style={{flexDirection:"row", justifyContent: 'center'}}>
+
+              <View>
+                
+                <TouchableOpacity style={styles.time}
+                onPress={() => this.datePicker()}>
+                <MaterialIcons
+                  style={styles.icon} name={'today'} size={26}
+                />
+                <Text>
+                  {this.state.eventDate || 'Data'}
+                </Text>
+
+                </TouchableOpacity>
+
+              
+              </View>
+
+
+              <View>
+                
+                <TouchableOpacity style={styles.time}
+                onPress={() => this.timePicker()}>
+                <MaterialIcons
+                  style={styles.icon} name={'access-time'} size={26}
+                />
+                <Text>
+                  {this.state.eventHour || 'Horário'}
+                </Text>
+
+                </TouchableOpacity>
+
+              
+              </View>
+                
             </View>
 
             <Input 
@@ -343,6 +405,7 @@ export default class CadastroEventos1 extends Component {
               <TouchableOpacity
                 style={styles.button}
                 onPress={() => this.cadastrarRole()}
+
               >
                 <Text style={styles.buttonText}>Cadastrar</Text>
               </TouchableOpacity>
@@ -413,5 +476,18 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     paddingRight: 150,
     paddingLeft: 140
+  },
+  icon: {
+    padding: 5,
+    alignContent: "center",
+    alignItems: "center"
+  },
+  time: {
+    borderBottomWidth: 1,
+    //marginLeft: 10,
+    //marginRight: 10,
+    minWidth: '40%',
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 });
