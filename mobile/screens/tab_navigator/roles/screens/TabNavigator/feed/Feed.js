@@ -6,7 +6,7 @@ import {
 } from "native-base";
 
 import React, { Component } from "react";
-import { StyleSheet, ScrollView } from "react-native";
+import { StyleSheet, ScrollView, } from "react-native";
 import FeedItem from "./FeedItem";
 class Feed extends Component {
   async componentWillMount() {
@@ -24,7 +24,7 @@ class Feed extends Component {
   }
 
   componentDidMount() {
-    fetch('https://raulvictor.pythonanywhere.com/events/?format=json')
+    fetch('http://henriqueteste.pythonanywhere.com/events/')
       .then(res => res.json())
       .then(roles => this.setState({ loading: false, roles }))
       .catch((error) => {

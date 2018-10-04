@@ -25,12 +25,13 @@ export default class CadastroEventos1 extends Component {
     this.state = {
       event_name: "",
       eventDescription: "",
+      owner: "",
       linkReference: "",
       organizer: "",
       organizerTel: "",
       value: "",
       address: "",
-      linkAddres: "",
+      linkAddress: "",
       eventDate: "",
       eventHour: "",
       adultOnly: false,
@@ -56,7 +57,9 @@ export default class CadastroEventos1 extends Component {
         console.log(month)
         console.log(day)
         this.setState({
-          eventDate: `${day}/${month + 1}/${year}`
+          //eventDate: `${day}/${month + 1}/${year}`
+          eventDate: year + "-" + month + "-" + day
+          
         })
       }
     } catch ({code, message}) {
@@ -84,16 +87,15 @@ export default class CadastroEventos1 extends Component {
     }
   }
 
-  cadastrarRole = async () => {
-
-    let blocked = false;
-
+  validacao = async (blocked) => {
     if(this.state.event_name == '') {
       alert("Campo de nome do evento inválido!");
     } else if(this.state.eventDescription == '') {
       alert("Campo de descrição do evento inválido!");
     } else if(this.state.linkReference == '') {
       alert("Campo de link de referência do evento inválido!");
+    } else if(this.state.owner == '') {
+      alert("Campo de owner do evento inválido!");
     } else if(this.state.organizer == '') {
       alert("Campo de organizer do evento inválido!");
     } else if(this.state.organizerTel == '') {
@@ -114,16 +116,37 @@ export default class CadastroEventos1 extends Component {
       alert("Campo de drinks do evento inválido!");
     } else if(this.state.foods == '') {
       alert("Campo de foods do evento inválido!");
+    } else {
+      Alert.alert(
+        "Rolê criado com sucesso!",
+        "Seu rolê foi cadastrado com sucesso!\n" + "Boa sorte!",
+        [
+          {
+            text: "OK"
+          }
+        ],
+        {
+          cancelable: false
+        }
+      );
+      this.props.navigation.navigate("Feed");
+      blocked = true;
     }
+  }
 
+  cadastrarRole = async () => {
+
+    let blocked = false;
+    this.validacao(blocked);
     console.log(blocked)
 
     if(blocked) {
       alert("Cadastro inválido, informações incompletas")
-      return;
+      return false;
     }
 
-    fetch("http://henriqueteste.pythonanywhere.com/events/?format=json", {
+    console.log(this.state.linkAddres);
+    fetch("http://henriqueteste.pythonanywhere.com/events/", {
       method: "POST",
       credentials: "include",
       headers: {
@@ -132,12 +155,13 @@ export default class CadastroEventos1 extends Component {
       body: JSON.stringify({
         event_name: this.state.event_name,
         eventDescription: this.state.eventDescription,
-        linkReference: this.state.linkReference,
+        linkReference: "https://www." + this.state.linkReference + ".com",
         organizer: this.state.organizer,
         organizerTel: this.state.organizerTel,
+        owner: this.state.organizer,
         value: this.state.value,
         address: this.state.address,
-        linkAddress: this.state.linkAddres,
+        linkAddress: "https://www." + this.state.linkAddres + ".com",
         eventDate: this.state.eventDate,
         eventHour: this.state.eventHour,
         adultOnly: this.state.adultOnly,
@@ -147,13 +171,13 @@ export default class CadastroEventos1 extends Component {
     })
       .then(response => response.json())
       .then(responseJson => {
-
         //Verifica se o cadastro foi bem sucedido
         console.log(responseJson);
         
         //Sucesso
-        if ((responseJson = !undefined)) {
+        if ((responseJson =! undefined)) {
           console.log(responseJson);
+          /*
           Alert.alert(
             "Rolê criado com sucesso!",
             "Seu rolê foi cadastrado com sucesso!\n" + "Boa sorte!",
@@ -167,6 +191,7 @@ export default class CadastroEventos1 extends Component {
             }
           );
           this.props.navigation.navigate("Feed");
+          */
         }
       })
       .catch(err => {
