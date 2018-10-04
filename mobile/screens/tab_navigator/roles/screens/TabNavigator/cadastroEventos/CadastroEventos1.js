@@ -108,8 +108,6 @@ export default class CadastroEventos1 extends Component {
       alert("Campo de eventDate do evento inválido!");
     } else if(this.state.eventHour == '') {
       alert("Campo de eventHour do evento inválido!");
-    } else if(this.state.adultOnly == '') {
-      alert("Campo de adultOnly do evento inválido!");
     } else if(this.state.drinks == '') {
       alert("Campo de drinks do evento inválido!");
     } else if(this.state.foods == '') {
