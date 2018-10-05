@@ -42,7 +42,7 @@ const TabHandler = new TabNavigator({
             tabBarLabel: 'IndicaAi',
             tabBarIcon: ({ focused }) => (
                 <Icon
-                    name="md-locate"
+                    name="md-pin"
                     style={{ color: focused ? '#0AACCC' : '#5A5A5A' }}
                 />
             )
