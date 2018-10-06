@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, Text, View, StatusBar, Platform } from 'react-native';
+import { StyleSheet, Text, View, StatusBar, Platform, BackHandler } from 'react-native';
 
 import {StackNavigator} from 'react-navigation'
 
@@ -10,6 +10,18 @@ import TabHandler from './screens/TabHandler'
 
 
 export default class App extends React.Component<{}> {
+  componentDidMount() {
+      BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+  }
+
+  componentWillUnmount() {
+      BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+  }
+
+  handleBackButton() {
+      return true;
+  }
+
   render() {
     return (
       < AppStackNavigator/>
