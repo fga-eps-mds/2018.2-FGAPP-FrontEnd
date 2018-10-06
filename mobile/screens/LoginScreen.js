@@ -9,6 +9,7 @@ import {
     ImageBackground,
     Image,
     StatusBar,
+    KeyboardAvoidingView,
 } from "react-native";
 import {Button} from 'native-base';
 import Field from './components/Field';
@@ -87,6 +88,7 @@ class LoginScreen extends Component {
 
     render() {
         return (
+          <KeyboardAvoidingView behavior="padding">
             <ImageBackground
               style={{ width: '100%', height: '100%' }}
               imageStyle={{resizeMode: 'stretch'}}
@@ -145,6 +147,7 @@ class LoginScreen extends Component {
                 </View>
               </View>
             </ImageBackground>
+          </KeyboardAvoidingView>
         );
     }
 }

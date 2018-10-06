@@ -67,29 +67,31 @@ class MyProducts extends Component {
 	componentDidMount() {
 		this.loadUserProducts();
 	}
-
+  render() {
+		const { state } = this.props.navigation;
+		var token = state.params ? state.params.token : undefined;
         return (
             <View style={styles.container}>
                 <View>
-									<ScrollView
-										refreshControl={
-											<RefreshControl
-												refreshing={this.state.refreshing}
-												onRefresh={this.refreshUserProducts}
-											/>
-									}
-									>
-                        {this.state.products.map((product, index) => {
-                            return (
-                                <ProductCard
-                                    key={index}
-                                    photo={product.photo}
-                                    name={product.name}
-                                    price={parseFloat(product.price).toFixed(2)}
-                                />
-                            );
-                        })}
-                    </ScrollView>
+                  <ScrollView
+                    refreshControl={
+                      <RefreshControl
+                        refreshing={this.state.refreshing}
+                        onRefresh={this.refreshUserProducts}
+                      />
+                    }
+                  >
+                    {this.state.products.map((product, index) => {
+                        return (
+                            <ProductCard
+                                key={index}
+                                photo={product.photo}
+                                name={product.name}
+                                price={parseFloat(product.price).toFixed(2)}
+                            />
+                        );
+                    })}
+                  </ScrollView>
                 </View>
                 <Fab
                     onPress={() => {this.props.navigation.navigate('CreateProduct', {token:token});} }
