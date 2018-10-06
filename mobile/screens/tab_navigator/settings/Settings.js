@@ -55,8 +55,8 @@ _onPressButton = async () => {
           <View>
             <UserCard
               imageSource = {{uri: 'https://www.logolynx.com/images/logolynx/03/039b004617d1ef43cf1769aae45d6ea2.png'}}
-              nameValue = {""}
-              emailValue = {user.email}
+              namePlaceholder = {""}
+              emailPlaceholder = {user.email}
             />
           </View>
           <View style={{paddingLeft: '35%', paddingRight: '35%'}}>

@@ -31,6 +31,7 @@ export default class UserCard extends Component{
                       <Input
                         style={{fontSize: 12}}
                         value={this.props.nameValue}
+                        placeholder={this.props.namePlaceholder}
                       />
                     </Item>
                     <Item fixedLabel last>
@@ -38,6 +39,7 @@ export default class UserCard extends Component{
                       <Input
                         style={{fontSize: 12}}
                           value={this.props.emailValue}
+                          placeholder={this.props.emailPlaceholder}
                       />
                     </Item>
                   </View>
