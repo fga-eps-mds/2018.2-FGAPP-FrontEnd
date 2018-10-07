@@ -1,72 +1,113 @@
 import React, { Component } from "react";
-import { 
+import {
     View,
     Text,
     StyleSheet
 } from "react-native";
 
-import {TabNavigator} from 'react-navigation'
+import { TabNavigator } from 'react-navigation'
 import Feed from './screens/Feed'
 import PublicNotifications from './screens/TabNavigator/PublicNotifications/PublicNotifications'
 import PrivateNotifications from './screens/TabNavigator/PrivateNotifications/PrivateNotifications'
 import RegisterCar from './screens/TabNavigator/RegisterCar/RegisterCar'
 import PrivateFeed from './screens/TabNavigator/PrivateFeed/PrivateFeed'
+import { Icon } from 'native-base';
+
 
 const CarDefenseTabHandler = new TabNavigator({
-    Feed:{
-        screen:Feed,
-        navigationOptions:{
-            tabBarLabel:'Feed',
+    Feed: {
+        screen: Feed,
+        navigationOptions: {
+            tabBarLabel: 'Feed',
+            tabBarIcon: ({ focused }) => (
+                <Icon
+                    type='FontAwesome'
+                    name="home"
+                    style={{ color: '#5c68c3', fontSize: 18 }}
+                />
+            ),
             headerLeft: null,
         }
     },
 
-    PrivateNotifications:{
-        screen:PrivateNotifications,
-        navigationOptions:{
-            tabBarLabel:'Notificações',
+    PrivateNotifications: {
+        screen: PrivateNotifications,
+        navigationOptions: {
+            tabBarLabel: 'Notificação',
+            tabBarIcon: ({ focused }) => (
+                <Icon
+                    type='FontAwesome'
+                    name="send-o"
+                    style={{ color: '#5c68c3', fontSize: 17 }}
+                />
+            ),
             headerLeft: null,
         }
     },
-    PublicNotifications:{
-        screen:PublicNotifications,
-        navigationOptions:{
-            tabBarLabel:'Alertas',
+    PublicNotifications: {
+        screen: PublicNotifications,
+        navigationOptions: {
+            tabBarLabel: 'Alerta',
+            tabBarIcon: ({ focused }) => (
+                <Icon
+                    type='FontAwesome'
+                    name="warning"
+                    style={{ color: '#5c68c3', fontSize: 17 }}
+                />
+            ),
             headerLeft: null,
         }
     },
-    RegisterCar:{
-        screen:RegisterCar,
-        navigationOptions:{
-            tabBarLabel:'Carros',
+    RegisterCar: {
+        screen: RegisterCar,
+        navigationOptions: {
+            tabBarLabel: 'Carros',
+            tabBarIcon: ({ focused }) => (
+                <Icon
+                    type='FontAwesome'
+                    name="car"
+                    style={{ color: '#5c68c3', fontSize: 17 }}
+
+                />
+            ),
             headerLeft: null,
         }
     },
-    PrivateFeed:{
-        screen:PrivateFeed,
-        navigationOptions:{
-            tabBarLabel:'Feed Privado',
+    PrivateFeed: {
+        screen: PrivateFeed,
+        navigationOptions: {
+            tabBarLabel: 'Feed Privado',
+            tabBarIcon: ({ focused }) => (
+                <Icon
+                    type='FontAwesome'
+                    name="bell-o"
+                    style={{ color: '#5c68c3', fontSize: 17 }}
+                />
+            ),
             headerLeft: null,
         }
     },
-}, 
-{ 
-    tabBarOptions: {
-        showLabel: true,
-        showIcon: false,
-        labelStyle: {
-            fontSize: 10,
-            color: '#5c68c3'
+},
+    {
+        tabBarOptions: {
+            showLabel: true,
+            showIcon: true,
+            swipeEnabled: true,
+            activeTintColor: 'black',
+            inactiveTintColor: '#5c68c3',
+            labelStyle: {
+                fontSize: 6,
+            },
+            tabStyle: {
+                height: 50,
+            },
+            style: {
+                backgroundColor: '#fff',
+            },
+            animationEnabled: true,
         },
-        tabStyle: {
-            height: 40,
-        },
-        style: {
-            backgroundColor: '#fff',
-        },
-    },
-   
-});
+
+    });
 
 
-export default  CarDefenseTabHandler;
+export default CarDefenseTabHandler;
