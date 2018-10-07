@@ -23,7 +23,7 @@ const CarDefenseTabHandler = new TabNavigator({
                 <Icon
                     type='FontAwesome'
                     name="home"
-                    style={{ color: '#5c68c3', fontSize: 18 }}
+                    style={{ color: '#5c68c3', fontSize: 16 }}
                 />
             ),
             headerLeft: null,
@@ -38,7 +38,7 @@ const CarDefenseTabHandler = new TabNavigator({
                 <Icon
                     type='FontAwesome'
                     name="send-o"
-                    style={{ color: '#5c68c3', fontSize: 17 }}
+                    style={{ color: '#5c68c3', fontSize: 15 }}
                 />
             ),
             headerLeft: null,
@@ -52,7 +52,7 @@ const CarDefenseTabHandler = new TabNavigator({
                 <Icon
                     type='FontAwesome'
                     name="warning"
-                    style={{ color: '#5c68c3', fontSize: 17 }}
+                    style={{ color: '#5c68c3', fontSize: 15 }}
                 />
             ),
             headerLeft: null,
@@ -66,7 +66,7 @@ const CarDefenseTabHandler = new TabNavigator({
                 <Icon
                     type='FontAwesome'
                     name="car"
-                    style={{ color: '#5c68c3', fontSize: 17 }}
+                    style={{ color: '#5c68c3', fontSize: 15 }}
 
                 />
             ),
@@ -81,7 +81,7 @@ const CarDefenseTabHandler = new TabNavigator({
                 <Icon
                     type='FontAwesome'
                     name="bell-o"
-                    style={{ color: '#5c68c3', fontSize: 17 }}
+                    style={{ color: '#5c68c3', fontSize: 15 }}
                 />
             ),
             headerLeft: null,
@@ -96,10 +96,10 @@ const CarDefenseTabHandler = new TabNavigator({
             activeTintColor: 'black',
             inactiveTintColor: '#5c68c3',
             labelStyle: {
-                fontSize: 6,
+                fontSize: 5,
             },
             tabStyle: {
-                height: 50,
+                height: 65,
             },
             style: {
                 backgroundColor: '#fff',
