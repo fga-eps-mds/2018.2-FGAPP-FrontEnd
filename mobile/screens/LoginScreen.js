@@ -4,10 +4,14 @@ import {
     Text,
     TextInput,
     StyleSheet,
-    Button,
     FlatList,
     Alert,
+    ImageBackground,
+    Image,
+    StatusBar,
+    KeyboardAvoidingView,
 } from "react-native";
+import {Button} from 'native-base';
 import Field from './components/Field';
 
 class LoginScreen extends Component {
@@ -84,35 +88,66 @@ class LoginScreen extends Component {
 
     render() {
         return (
-            <View style={{paddingTop: 50, paddingLeft: 30, paddingRight: 30}}>
-              <Text>Login</Text>
-              <Field
-               placeholder={"Email"}
-               badInput={this.state.email_field_is_bad}
-               fieldAlert={this.state.email_field_alerts}
-               keyExtractor={'username'}
-               onChangeText={(email) => this.setState({email})}
-              />
+          <KeyboardAvoidingView behavior="padding">
+            <ImageBackground
+              style={{ width: '100%', height: '100%' }}
+              imageStyle={{resizeMode: 'stretch'}}
+              source={{
+                uri: 'https://i.imgur.com/dvhebUS.png'
+              }}
+              >
+              <View style={{flex: 1, flexDirection: 'column', paddingTop: '0%', justifyContent: 'space-evenly' }}>
+                <View style={{ alignItems: 'center', justifyContent: 'center'}}>
+                  <Image source={{uri: 'https://i.imgur.com/F7PTwBg.png'}} style={{width:1000/4, height: 561/4}} />
+                </View>
+                <View style={{paddingLeft: '5%', paddingRight: '5%'}}>
+                  <Field
+                   placeholder={"Email"}
+                   badInput={this.state.email_field_is_bad}
+                   fieldAlert={this.state.email_field_alerts}
+                   keyExtractor={'username'}
+                   onChangeText={(email) => this.setState({email})}
+                  />
 
-              <Field
-               placeholder={"Senha"}
-               badInput={this.state.password_field_is_bad}
-               fieldAlert={this.state.password_field_alerts}
-               keyExtractor={'password'}
-               onChangeText={(password) => this.setState({password})}
+                  <Field
+                   style={{ paddingBottom: 10, paddingTop: 5}}
+                   placeholder={"Senha"}
+                   badInput={this.state.password_field_is_bad}
+                   fieldAlert={this.state.password_field_alerts}
+                   keyExtractor={'password'}
+                   onChangeText={(password) => this.setState({password})}
 
-               secureTextEntry
-              />
+                   secureTextEntry
+                  />
 
-              <Button title='Login' onPress={this._onPressButton}/>
-              <View style={{height: 20}} />
-              <FlatList
-                  data={this.state.non_field_alert}
-                  renderItem={({item}) => <Text style ={{color: 'red'}}>{item}</Text>}
-                  keyExtractor={item => 'non_field_errors'}
+                  <FlatList
+                      data={this.state.non_field_alert}
+                      renderItem={({item}) => <Text style ={{color: 'red'}}>{item}</Text>}
+                      keyExtractor={item => 'non_field_errors'}
 
-                />
-            </View>
+                  />
+
+                </View>
+                <View>
+
+                  <View style={{alignItems: 'center', justifyContent: 'center', paddingLeft: '35%', paddingRight: '35%'}}>
+                    <Button light block onPress={this._onPressButton}>
+                      <Text style={{color: 'black', fontWeight: 'bold'}}>ENTRAR</Text>
+                    </Button>
+                    <View style={{padding: 5}}/>
+                    <Button bordered light block onPress={() => this.props.navigation.navigate('SignUpScreen')} color='transparent'>
+                      <Text style={{color:  'white', fontWeight: 'bold'}}> CADASTRAR </Text>
+                    </Button>
+                  </View>
+
+                  <View style={{padding: 5, alignItems: 'center', justifyContent: 'center'}}>
+                    <Text style={{color:  'white', textDecorationLine: 'underline'}}>Esqueci minha senha</Text>
+                  </View>
+
+                </View>
+              </View>
+            </ImageBackground>
+          </KeyboardAvoidingView>
         );
     }
 }

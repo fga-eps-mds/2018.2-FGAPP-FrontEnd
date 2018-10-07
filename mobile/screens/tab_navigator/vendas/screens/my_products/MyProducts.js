@@ -67,50 +67,50 @@ class MyProducts extends Component {
 	componentDidMount() {
 		this.loadUserProducts();
 	}
-
-	render() {
+  render() {
 		const { state } = this.props.navigation;
 		var token = state.params ? state.params.token : undefined;
-
-		return (
-			<View style={styles.container}>
-				<ScrollView
-					refreshControl={
-						<RefreshControl
-							refreshing={this.state.refreshing}
-							onRefresh={this.refreshUserProducts}
-						/>
-					}
-				>
-					{this.state.products.map((product, index) => {
-						return (
-							<ProductCard
-								key={index}
-								photo={product.photo}
-								name={product.name}
-								price={parseFloat(product.price).toFixed(2)}
-							/>
-						);
-					})}
-				</ScrollView>
-				<Fab
-					onPress={() => { this.props.navigation.navigate('CreateProduct', { token: token }); }}
-					style={styles.fab}>
-					<Icon name='md-add' />
-				</Fab>
-			</View>
-		);
-	}
+        return (
+            <View style={styles.container}>
+                <View>
+                  <ScrollView
+                    refreshControl={
+                      <RefreshControl
+                        refreshing={this.state.refreshing}
+                        onRefresh={this.refreshUserProducts}
+                      />
+                    }
+                  >
+                    {this.state.products.map((product, index) => {
+                        return (
+                            <ProductCard
+                                key={index}
+                                photo={product.photo}
+                                name={product.name}
+                                price={parseFloat(product.price).toFixed(2)}
+                            />
+                        );
+                    })}
+                  </ScrollView>
+                </View>
+                <Fab
+                    onPress={() => {this.props.navigation.navigate('CreateProduct', {token:token});} }
+                    style={styles.fab}>
+                    <Icon name='md-add' />
+                </Fab>
+            </View>
+        );
+    }
 }
 export default MyProducts;
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: '#171717',
-		width: '100%',
-	},
-	fab: {
-		backgroundColor: '#0EAC6F',
-	}
+    container: {
+        flex: 1,
+        backgroundColor: 'white',
+        width: '100%',
+    },
+    fab: {
+        backgroundColor: '#0EAC6F',
+    }
 });

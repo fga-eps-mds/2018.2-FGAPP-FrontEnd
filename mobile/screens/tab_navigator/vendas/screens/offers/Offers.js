@@ -97,9 +97,8 @@ class Offers extends Component {
 export default Offers;
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: '#171717',
-		width: '100%',
-	}
+    container: {
+        flex: 1,
+        width: '100%',
+    }
 });

@@ -36,6 +36,22 @@ const Quantity = [
   {
     label: '6',
     value: '6'
+  },
+  {
+    label: '7',
+    value: '7'
+  },
+  {
+    label: '8',
+    value: '8'
+  },
+  {
+    label: '9',
+    value: '9'
+  },
+  {
+    label: '10',
+    value: '10'
   }
 ];
 
@@ -136,7 +152,7 @@ class FormPicker extends Component {
 
       const characters = `${this.state.buyer_message.length.toString()}/${this.state.max_characters}`;
 
-      var price = `${this.state.quantity}` * `${product.price}`;
+      var price = `${this.state.quantity*product.price}`;
 
       return (
           <View style={styless.container}>
@@ -153,7 +169,7 @@ class FormPicker extends Component {
                </CardItem>
 
                <CardItem style={styles.info}>
-                <Text style={styles.textInfo}> R$ {price} </Text>
+                <Text style={styles.textInfo}> R$ {parseFloat(price).toFixed(2)} </Text>
               </CardItem>
 
               <CardItem style={styles.description}>
@@ -193,7 +209,7 @@ export default OfferDetails;
 const styless = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#171717',
+        backgroundColor: 'white',
         //width: '100%',
     }
 });

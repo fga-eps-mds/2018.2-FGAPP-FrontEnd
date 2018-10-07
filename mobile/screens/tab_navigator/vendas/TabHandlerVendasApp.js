@@ -13,12 +13,14 @@ const TabHandlerVendasApp = new TabNavigator({
         screen: OfferScreen,
         navigationOptions: {
             tabBarLabel: 'Ofertas',
+            title: 'Ofertas',
         }
     },
     MyProductsScreen: {
       screen: MyProductsScreen,
       navigationOptions: {
           tabBarLabel: 'Meus Produtos',
+          title: 'Meus Produtos'
       }
 
     },
@@ -26,6 +28,7 @@ const TabHandlerVendasApp = new TabNavigator({
         screen: OrderScreen,
         navigationOptions: {
             tabBarLabel: 'Pedidos',
+            title: 'Pedidos',
         }
     }
 },
@@ -33,6 +36,8 @@ const TabHandlerVendasApp = new TabNavigator({
     tabBarOptions: {
         showLabel: true,
         showIcon: false,
+        activeTintColor: 'black',
+        inactiveTintColor: '#5A5A5A',
         labelStyle: {
             fontSize: 10,
         },
@@ -40,7 +45,7 @@ const TabHandlerVendasApp = new TabNavigator({
             height: 40,
         },
         style: {
-            backgroundColor: '#5A5A5A',
+            backgroundColor: 'white',
         },
     },
 });

@@ -76,6 +76,7 @@ class OrderedProducts extends Component {
                 {this.state.orders.map((order, index) => {
                     return (
                       <OrderCard
+                        style={{paddingBottom:20}}
                         key={index}
                         orderName = {`${order.product_name}`}
                         orderQuantity = {`Quantidade: ${order.quantity}`}
@@ -94,7 +95,6 @@ export default OrderedProducts;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#171717',
         width: '100%',
     }
 });
