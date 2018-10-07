@@ -32,21 +32,21 @@ class FirstScreen extends Component {
   render() {
     return (
         <View style={styles.container}>
-          <Provider store={store}>
-            <SearchBar onChangeLocals={this.changeLocals} />  
-          </Provider>
-          <Provider store={store}>
-            <ListLocals locals={this.state.locals}/>
-          </Provider>
+        <Provider store={store}>
+          <SearchBar onChangeLocals={this.changeLocals} />
+        </Provider>
+        <Provider store={store}>
+          <ListLocals locals={this.state.locals}/>
+        </Provider>
         </View>
     );
   }
 }
 
 const mapStateToProps = () => {
-  console.log(store.getState()); 
+  console.log(store.getState());
   return {
-    searchBar: {} 
+    searchBar: {}
   };
 };
 

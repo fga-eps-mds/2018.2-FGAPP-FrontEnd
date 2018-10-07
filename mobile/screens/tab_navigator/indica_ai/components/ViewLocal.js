@@ -14,8 +14,8 @@ export default class Map extends Component {
           region = {{
             latitude: -15.989602,
             longitude: -48.044868,
-            latitudeDelta: 0.1,
-            longitudeDelta: 0.1,
+            latitudeDelta: 0.01,
+            longitudeDelta: 0.01,
           }}
         >
         <MapView.Marker
@@ -25,6 +25,8 @@ export default class Map extends Component {
           }}
           title = {'FGA'}
           description = {'Universidade de Brasília - Faculdade do Gama'}
+        />
+        </MapView>
       </View>
     );
   }
@@ -40,5 +42,9 @@ const styles = StyleSheet.create({
   },
   map: {
     position:"absolute",
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0
   }
 });
