@@ -14,6 +14,7 @@ import ProductImage from '../../components/ProductImage';
 import { Textarea, Form, Item, Input, Label, Button } from 'native-base';
 import jwt_decode from 'jwt-decode';
 import ErrorDialog from './ErrorDialog';
+import ToogleView from './ToogleView';
 
 class CreateProduct extends Component {
     constructor(props) {
@@ -21,6 +22,7 @@ class CreateProduct extends Component {
       this.keyboardHeight = new Animated.Value(0);
       this.imageHeight = new Animated.Value(199);
       this.state = {
+        isButtonsHidden: false,
         title: '',
         price: '',
         description: '',
@@ -85,6 +87,7 @@ class CreateProduct extends Component {
     }
 
     _keyboardDidShow = (event) => {
+      this.setState({ isButtonsHidden: true });
       Animated.parallel([
         Animated.timing(this.keyboardHeight, {
           duration: event.duration,
@@ -98,6 +101,7 @@ class CreateProduct extends Component {
     }
 
     _keyboardDidHide = (event) => {
+      this.setState({ isButtonsHidden: false });
       Animated.parallel([
         Animated.timing(this.keyboardHeight, {
           toValue: 0,
@@ -144,22 +148,24 @@ class CreateProduct extends Component {
                   placeholder="Descrição"
                 />
               </Form>
-              <View style={styles.buttonContainer}>
-                <Button
-                  onPress={() => {this.props.navigation.navigate('MyProducts', {token:token});}}
-                  style={styles.button}
-                  danger
-                >
-                  <Text style={{color: 'white'}}> CANCELAR </Text>
-                </Button>
-                <Button
-                  onPress={this.registerProduct}
-                  style={styles.button}
-                  success
-                >
-                  <Text style={{color: 'white'}}> SALVAR </Text>
-                </Button>
-              </View>
+              <ToogleView hide={this.state.isButtonsHidden}>
+                <View style={styles.buttonContainer}>
+                  <Button
+                    onPress={() => {this.props.navigation.navigate('MyProducts', {token:token});}}
+                    style={styles.button}
+                    danger
+                  >
+                    <Text style={{color: 'white'}}> CANCELAR </Text>
+                  </Button>
+                  <Button
+                    onPress={this.registerProduct}
+                    style={styles.button}
+                    success
+                  >
+                    <Text style={{color: 'white'}}> SALVAR </Text>
+                  </Button>
+                </View>
+              </ToogleView>
             </Animated.View>
         );
     }
