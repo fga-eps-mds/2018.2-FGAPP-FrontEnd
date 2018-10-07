@@ -7,7 +7,7 @@ import {
   TextInput,
   StyleSheet,
   Button,
-  Alert  
+  Alert
 } from 'react-native';
 
 var tk
@@ -22,26 +22,26 @@ async function register() {
   }
 
   const token = await Expo.Notifications.getExpoPushTokenAsync();
-   tk = token;
+  tk = token;
   console.log(status, token);
 }
 
 
 export default class PrivateNotifications extends Component {
-    componentWillMount() {
-        register();
-        this.listener = Expo.Notifications.addListener(this.listen);
-      }
-      componentWillUnmount() {
-        this.listener && Expo.Notifications.addListener(this.listen);
-      }
-    
-      listen = ({ origin, data }) => {
-        console.log('cool data', origin, data);
-      }
-  
+  componentWillMount() {
+    register();
+    this.listener = Expo.Notifications.addListener(this.listen);
+  }
+  componentWillUnmount() {
+    this.listener && Expo.Notifications.addListener(this.listen);
+  }
 
-  constructor (props) {
+  listen = ({ origin, data }) => {
+    console.log('cool data', origin, data);
+  }
+
+
+  constructor(props) {
     super(props);
     this.state = {
       plate: '',
@@ -51,37 +51,53 @@ export default class PrivateNotifications extends Component {
   }
 
   handlePlate = (text) => {
-    this.setState({plate: text})
+    this.setState({ plate: text })
   }
 
   handleMessage = (text) => {
-      this.setState({message: text})   
+    this.setState({ message: text })
   }
 
 
   onPressButton = () => {
     const url = `http://68.183.28.199:8002/send_push_message/` //function send_push_message url
 
-    let notification = JSON.stringify({
-      plate: this.state.plate,
-      title: this.state.title,
-      message: this.state.message
-    })
-
-    fetch(url, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: notification
-    }).then(response => { return response.json() }
-    ).then(jsonResponse => {
-      console.log(jsonResponse);
+    if(this.state.plate.length == 0) {
+      Alert.alert("Insira a placa")
     }
-    ).catch(error => {
-      console.log(error)
-    })
+
+    else if (this.state.plate.length < 7 && this.state.plate.length != 0) {
+      Alert.alert("Placa muito curta!")
+    }
+
+    else if(this.state.message.length == 0) {
+      Alert.alert("Escreva uma mensagem!")
+    }
+
+    else if(this.state.plate.length == 7){
+      let notification = JSON.stringify({
+        plate: this.state.plate,
+        title: this.state.title,
+        message: this.state.message
+      })
+
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: notification
+      }).then(response => { return response.json() }
+      ).then(jsonResponse => {
+        console.log(jsonResponse);
+        Alert.alert("Notificação enviada!")
+      }
+      ).catch(error => {
+        console.log(error)
+        Alert.alert("Placa não existe!")
+      })
+    }
 
   }
   render() {
@@ -96,6 +112,8 @@ export default class PrivateNotifications extends Component {
             placeholder="Digite a placa"
             underlineColorAndroid="transparent"
             onChangeText={this.handlePlate}
+            maxLength={7}
+            autoCapitalize="characters"
           />
           <Text style={styles.header3}> Descrição</Text>
           <TextInput
@@ -121,7 +139,7 @@ export default class PrivateNotifications extends Component {
 const styles = StyleSheet.create({
   container: {},
   container1: {
-    marginTop: 100
+    marginTop: 80
   },
   header: {
     color: '#5c68c3',
