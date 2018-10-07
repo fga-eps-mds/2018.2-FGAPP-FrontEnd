@@ -14,8 +14,8 @@ export default class Map extends Component {
           region = {{
             latitude: -15.989602,
             longitude: -48.044868,
-            latitudeDelta: 0.01,
-            longitudeDelta: 0.01,
+            latitudeDelta: 0.007,
+            longitudeDelta: 0.007,
           }}
         >
         <MapView.Marker

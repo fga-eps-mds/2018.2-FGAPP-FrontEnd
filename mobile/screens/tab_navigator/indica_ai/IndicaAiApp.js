@@ -12,6 +12,7 @@ import SearchBar from "./containers/searchBar";
 import { Provider } from "react-redux";
 import store from "./redurces/store";
 import ListLocals from './containers/ListLocals'
+import ViewLocal from './containers/ViewLocal'
 
 
 class FirstScreen extends Component {
@@ -32,12 +33,7 @@ class FirstScreen extends Component {
   render() {
     return (
         <View style={styles.container}>
-        <Provider store={store}>
-          <SearchBar onChangeLocals={this.changeLocals} />
-        </Provider>
-        <Provider store={store}>
-          <ListLocals locals={this.state.locals}/>
-        </Provider>
+          <ViewLocal/>
         </View>
     );
   }
