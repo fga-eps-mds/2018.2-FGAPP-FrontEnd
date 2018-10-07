@@ -6,7 +6,9 @@ import React, { Component } from 'react';
 import {
     View,
     StyleSheet,
-    Text
+    Text,
+    Keyboard,
+    Animated
 } from 'react-native';
 import ProductImage from '../../components/ProductImage';
 import { Textarea, Form, Item, Input, Label, Button } from 'native-base';
@@ -16,6 +18,7 @@ import ErrorDialog from './ErrorDialog';
 class CreateProduct extends Component {
     constructor(props) {
       super(props);
+      this.keyboardHeight = new Animated.Value(0);
       this.state = {
         title: '',
         price: '',
@@ -70,13 +73,41 @@ class CreateProduct extends Component {
       })
     }
 
+    componentDidMount () {
+      this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
+      this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
+    }
+
+    componentWillUnmount () {
+      this.keyboardDidShowListener.remove();
+      this.keyboardDidHideListener.remove();
+    }
+
+    _keyboardDidShow = (event) => {
+      alert('Keyboard Show');
+      Animated.parallel([
+        Animated.timing(this.keyboardHeight, {
+          duration: event.duration,
+          toValue: event.endCoordinates.height,
+        })
+      ]).start();
+    }
+
+    _keyboardDidHide = (event) => {
+      alert('Keyboard Hidden');
+      Animated.parallel([
+        Animated.timing(this.keyboardHeight, {
+          toValue: 0,
+        })
+      ]).start();
+    }
 
     render() {
         const {state} = this.props.navigation;
         var token = state.params ? state.params.token : undefined;
 
         return (
-            <View style={styles.container}>
+            <Animated.View style={[styles.container, { paddingBottom: this.keyboardHeight }]}>
               <ErrorDialog
                   messageError={this.state.messageError}
                   isDialogVisible={this.state.isDialogVisible}
@@ -126,7 +157,7 @@ class CreateProduct extends Component {
                   <Text style={{color: 'white'}}> SALVAR </Text>
                 </Button>
               </View>
-            </View>
+            </Animated.View>
         );
     }
 }
