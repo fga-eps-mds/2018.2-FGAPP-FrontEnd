@@ -19,6 +19,7 @@ class CreateProduct extends Component {
     constructor(props) {
       super(props);
       this.keyboardHeight = new Animated.Value(0);
+      this.imageHeight = new Animated.Value(199);
       this.state = {
         title: '',
         price: '',
@@ -89,7 +90,11 @@ class CreateProduct extends Component {
         Animated.timing(this.keyboardHeight, {
           duration: event.duration,
           toValue: event.endCoordinates.height,
-        })
+        }),
+        Animated.timing(this.imageHeight, {
+          duration: event.duration,
+          toValue: 0,
+        }),
       ]).start();
     }
 
@@ -98,7 +103,10 @@ class CreateProduct extends Component {
       Animated.parallel([
         Animated.timing(this.keyboardHeight, {
           toValue: 0,
-        })
+        }),
+        Animated.timing(this.imageHeight, {
+          toValue: 199,
+        }),
       ]).start();
     }
 
@@ -113,10 +121,7 @@ class CreateProduct extends Component {
                   isDialogVisible={this.state.isDialogVisible}
                   backButton = {this.closeDialog}
               />
-              <ProductImage
-                style= { styles.image }
-                photo='http://www.piniswiss.com/wp-content/uploads/2013/05/image-not-found-4a963b95bf081c3ea02923dceaeb3f8085e1a654fc54840aac61a57a60903fef-300x199.png'>
-              </ProductImage>
+              <Animated.Image source={{ uri: 'http://www.piniswiss.com/wp-content/uploads/2013/05/image-not-found-4a963b95bf081c3ea02923dceaeb3f8085e1a654fc54840aac61a57a60903fef-300x199.png' }} style={[styles.logo, { height: this.imageHeight, width: '100%' }]} />
               <Form style={styles.description}>
                 <Item floatingLabel>
                   <Label>Título</Label>
@@ -167,10 +172,6 @@ const styles = StyleSheet.create({
     container: {
       backgroundColor: 'white',
         flex: 1
-    },
-    image: {
-      width: '100%',
-      height: '30%',
     },
     description: {
       flex: 1,
