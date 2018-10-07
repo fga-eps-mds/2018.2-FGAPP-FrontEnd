@@ -85,7 +85,6 @@ class CreateProduct extends Component {
     }
 
     _keyboardDidShow = (event) => {
-      alert('Keyboard Show');
       Animated.parallel([
         Animated.timing(this.keyboardHeight, {
           duration: event.duration,
@@ -99,7 +98,6 @@ class CreateProduct extends Component {
     }
 
     _keyboardDidHide = (event) => {
-      alert('Keyboard Hidden');
       Animated.parallel([
         Animated.timing(this.keyboardHeight, {
           toValue: 0,
