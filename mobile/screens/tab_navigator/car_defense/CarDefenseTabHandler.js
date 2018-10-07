@@ -12,9 +12,7 @@ import PrivateNotifications from './screens/TabNavigator/PrivateNotifications/Pr
 import RegisterCar from './screens/TabNavigator/RegisterCar/RegisterCar'
 import PrivateFeed from './screens/TabNavigator/PrivateFeed/PrivateFeed'
 
-import { Platform } from 'react-native';
-
-const CarDefenseTabStackNavigator = new TabNavigator({
+const CarDefenseTabHandler = new TabNavigator({
     Feed:{
         screen:Feed,
         navigationOptions:{
@@ -47,7 +45,7 @@ const CarDefenseTabStackNavigator = new TabNavigator({
     PrivateFeed:{
         screen:PrivateFeed,
         navigationOptions:{
-            tabBarLabel:'Feed',
+            tabBarLabel:'Feed Privado',
             headerLeft: null,
         }
     },
@@ -70,12 +68,5 @@ const CarDefenseTabStackNavigator = new TabNavigator({
    
 });
 
-class CarDefenseTabHandler extends Component {
 
-    render() {
-        return (
-            <CarDefenseTabStackNavigator/>
-        );
-    }
-}
 export default  CarDefenseTabHandler;
