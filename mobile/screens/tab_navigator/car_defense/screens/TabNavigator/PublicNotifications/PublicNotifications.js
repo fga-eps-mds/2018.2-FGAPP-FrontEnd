@@ -80,10 +80,14 @@ export default class PublicNotifications extends Component {
                     />
                 </View>
                 <View style={styles.container1}>
-                    <Button title="Enviar"
+                    <TouchableOpacity
+                        style={styles.button}
                         color="#5c68c3"
                         onPress={this.onPressButton}
-                    />
+                        containerViewStyle={{ width: '40%' }}
+                    >
+                        <Text style={{ color: 'white' }}>Enviar</Text>
+                    </TouchableOpacity>
                 </View>
             </ScrollView>
         );
@@ -92,7 +96,9 @@ export default class PublicNotifications extends Component {
 const styles = StyleSheet.create({
     container: {},
     container1: {
-        marginTop: 100
+        marginTop: 80,
+        justifyContent: 'center',
+        flexDirection: 'row'
     },
     header: {
         color: '#5c68c3',
@@ -135,6 +141,15 @@ const styles = StyleSheet.create({
         textAlign: 'left',
         borderBottomColor: '#5c68c3',
         marginTop: 30,
+    },
+    button: {
+        backgroundColor: "#c8cdea",
+        borderRadius: 15,
+        height: 40,
+        width: 121,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
 
 });
