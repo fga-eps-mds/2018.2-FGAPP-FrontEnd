@@ -32,26 +32,35 @@ export default class PublicNotifications extends Component {
     onPressButton = () => {
         const url = `http://68.183.28.199:8002/send_emergency_push_message/` //function send_emergency_push_message url
 
-        let notification = JSON.stringify({
-            title: this.state.title,
-            message: this.state.message
-        })
-
-        fetch(url, {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: notification
-        }).then(response => { return response.json() }
-        ).then(jsonResponse => {
-            console.log(jsonResponse);
+        if (this.state.message.length == 0) {
+            Alert.alert("Escreva uma mensagem!")
         }
-        ).catch(error => {
-            console.log(error)
-        })
+        else if (this.state.message.length < 5) {
+            Alert.alert("Dê mais detalhes!")
+        }
+        else if (this.state.message.length > 5) {
 
+            let notification = JSON.stringify({
+                title: this.state.title,
+                message: this.state.message
+            })
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: notification
+            }).then(response => { return response.json() }
+            ).then(jsonResponse => {
+                console.log(jsonResponse);
+            }
+            ).catch(error => {
+                console.log(error)
+            })
+            Alert.alert("Alerta enviado!")
+        }
     }
     render() {
         return (
@@ -65,7 +74,7 @@ export default class PublicNotifications extends Component {
                         placeholderTextColor="#c8cdea"
                         placeholder="Descreva o ocorrido"
                         multiline={true}
-                        maxLength={255}
+                        maxLength={100}
                         underlineColorAndroid="transparent"
                         onChangeText={this.handleMessage}
                     />
