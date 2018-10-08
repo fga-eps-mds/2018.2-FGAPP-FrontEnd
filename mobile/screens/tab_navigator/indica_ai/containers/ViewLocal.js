@@ -14,48 +14,57 @@ export default class App extends Component{
   render() {
     return (
         <View style={styles.container}>
-          <Image style={{height: 230, width: 360}}
+          <ScrollView>
+            <Image style={{height: 230, width: 360}}
             source={require('../assets/fga.jpg')}
-          />
-          <View style={styles.info}>
-            <Text style={styles.localName}>
-              Universidade de Brasília - Faculdade do Gama [FGA]
-            </Text>
-            <Icon style={styles.localHeart}
-              name='ios-heart-outline'
-              color='black'
-              size={30}
             />
-            <View style={styles.hr}></View>
-            <View style={styles.localMap}>
-              <LocalMap/>
+            <View style={styles.localContainer}>
+              <Text style={styles.localName}>
+                Universidade de Brasília - Faculdade do Gama [FGA]
+              </Text>
+              <Icon style={styles.localHeart}
+                name='ios-heart-outline'
+                color='black'
+                size={30}
+              />
+              <View style={styles.hr}></View>
+              <View style={styles.localMap}>
+                <LocalMap/>
+              </View>
+              <View style={styles.hr}></View>
+              <Text style={styles.localInfoTitle}>
+                Informações:
+              </Text>
+              <Icon style={styles.localInfoIcons}
+                name='md-call'
+                color='black'
+                size={25}
+              />
+                <Text style={styles.localInfo}>(61) 4002-8922</Text>
+              <Icon style={styles.localInfoIcons}
+                name='md-pin'
+                color='black'
+                size={25}
+              />
+                <Text style={styles.localInfo}>Qd 90 Lt 99 Setor de Industria</Text>
+              <Icon style={styles.localInfoIcons}
+                name='md-clock'
+                color='black'
+                size={25}
+              />
+                <Text style={styles.localInfo}>6:00 - 22:00</Text>
+              <View style={styles.hr}></View>
+              <Text style={styles.localInfoTitle}>
+                Avaliação:
+              </Text>
+              <Icon style={styles.localInfoIcons}
+                name='md-star'
+                color='black'
+                size={25}
+              />
+                <Text style={styles.localInfo}>4.0</Text>
             </View>
-            <View style={styles.hr}></View>
-            <Icon style={styles.localInfoIcons}
-              name='md-call'
-              color='black'
-              size={25}
-            />
-            <Icon style={styles.localInfoIcons}
-              name='md-pin'
-              color='black'
-              size={25}
-            />
-            <Icon style={styles.localInfoIcons}
-              name='md-clock'
-              color='black'
-              size={25}
-            />
-            <View style={styles.hr}></View>
-            <Text style={styles.localRating}>
-              Avaliação:
-            </Text>
-            <Icon style={styles.localInfoIcons}
-              name='md-star'
-              color='black'
-              size={25}
-            />
-          </View>
+          </ScrollView>
         </View>
     );
   }
@@ -70,9 +79,7 @@ const styles = StyleSheet.create({
     left:0,
     right:0
   },
-  info:{
-    position: 'absolute',
-    top: 230,
+  localContainer:{
     padding: 10,
   },
   hr:{
@@ -95,13 +102,20 @@ const styles = StyleSheet.create({
   },
   localMap:{
     height: 180,
-    width: 340
+    width: 320,
+    left: 10
   },
   localInfoIcons:{
     left: 20
   },
-  localRating:{
+  localInfoTitle:{
     left: 20,
-    fontSize: 16
+    fontSize: 18,
+    marginBottom: 7
+  },
+  localInfo:{
+    left: 50,
+    top: -22,
+    marginBottom: -10
   }
 });
