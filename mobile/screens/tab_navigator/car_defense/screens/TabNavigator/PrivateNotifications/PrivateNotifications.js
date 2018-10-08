@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   TextInput,
   StyleSheet,
-  Button,
   Alert
 } from 'react-native';
 
@@ -62,7 +61,7 @@ export default class PrivateNotifications extends Component {
   onPressButton = () => {
     const url = `http://68.183.28.199:8002/send_push_message/` //function send_push_message url
 
-    if(this.state.plate.length == 0) {
+    if (this.state.plate.length == 0) {
       Alert.alert("Insira a placa")
     }
 
@@ -70,11 +69,11 @@ export default class PrivateNotifications extends Component {
       Alert.alert("Placa muito curta!")
     }
 
-    else if(this.state.message.length == 0) {
+    else if (this.state.message.length == 0) {
       Alert.alert("Escreva uma mensagem!")
     }
 
-    else if(this.state.plate.length == 7){
+    else if (this.state.plate.length == 7) {
       let notification = JSON.stringify({
         plate: this.state.plate,
         title: this.state.title,
@@ -121,16 +120,20 @@ export default class PrivateNotifications extends Component {
             placeholderTextColor="#c8cdea"
             placeholder="Descreva o ocorrido"
             multiline={true}
-            maxLength={255}
+            maxLength={100}
             underlineColorAndroid="transparent"
             onChangeText={this.handleMessage}
           />
         </View>
         <View style={styles.container1}>
-          <Button title="Enviar"
+          <TouchableOpacity
+            style={styles.button}
             color="#5c68c3"
             onPress={this.onPressButton}
-          />
+            containerViewStyle={{width: '40%'}}
+          >
+          <Text style={{color: 'white'}}>Enviar</Text>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     );
@@ -139,7 +142,9 @@ export default class PrivateNotifications extends Component {
 const styles = StyleSheet.create({
   container: {},
   container1: {
-    marginTop: 80
+    marginTop: 80,
+    justifyContent: 'center',
+    flexDirection: 'row'
   },
   header: {
     color: '#5c68c3',
@@ -182,6 +187,15 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     borderBottomColor: '#5c68c3',
     marginTop: 30,
+  },
+  button: {
+    backgroundColor: "#c8cdea", 
+    borderRadius: 15,
+    height: 40,
+    width: 120,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'    
   },
 
 });

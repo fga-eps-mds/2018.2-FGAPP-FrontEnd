@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, TouchableOpacity, ScrollView, StyleSheet, TextInput, Button, Alert, FlatList, RefreshControl } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, StyleSheet, TextInput, Alert, FlatList, RefreshControl } from 'react-native';
 import Expo from 'expo'
 import { Permissions, Notifications } from 'expo'
 
@@ -134,7 +134,14 @@ export default class RegisterCar extends Component {
   render() {
     return (
       <ScrollView>
-        <View style={styles.container}>
+        <View style={styles.container}
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={this._onRefresh}
+            />
+          }
+        >
           <Text style={styles.header}> Cadastrar carro</Text>
           <TextInput
             style={styles.input}
@@ -145,11 +152,14 @@ export default class RegisterCar extends Component {
           />
         </View>
         <View style={styles.container1}>
-          <Button
-            title="Cadastrar"
+          <TouchableOpacity
+            style={styles.button}
             color="#5c68c3"
             onPress={this.onPressButton}
-          />
+            containerViewStyle={{ width: '40%' }}
+          >
+            <Text style={{ color: 'white' }} >Placa</Text>
+          </TouchableOpacity>
         </View>
         <View style={styles.container1}>
           <FlatList
@@ -165,12 +175,6 @@ export default class RegisterCar extends Component {
             keyExtractor={({ id }, index) => id}
           />
         </View>
-        refreshControl={
-          <RefreshControl
-            refreshing={this.state.refreshing}
-            onRefresh={this._onRefresh}
-          />
-        }
       </ScrollView>
     );
   }
@@ -179,7 +183,9 @@ export default class RegisterCar extends Component {
 const styles = StyleSheet.create({
   container: {},
   container1: {
-    marginTop: 50
+    marginTop: 80,
+    flexDirection: 'row',
+    justifyContent: 'center'
   },
   header: {
     color: '#5c68c3',
@@ -204,6 +210,15 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     borderBottomColor: '#5c68c3',
     marginTop: 70,
+  },
+  button: {
+    backgroundColor: "#c8cdea",
+    borderRadius: 15,
+    height: 40,
+    width: 120,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   item2: {
     alignItems: "center",
