@@ -13,16 +13,18 @@ export class SearchBar extends Component {
     state ={
       inputValue: "",
       locals: []
-        };
+    };
 
-
+  // Function reposable to set the component state, inputValue,
+  // equal to user's input in TextInput 
   inputChange = value => {
     this.setState({
       inputValue: value
     });
   };
 
-
+  // Fucntion responsable to search user's input in the APi
+  // and set the state equal to the result 
   search = name => {
     if(name.length !== 0) { 
       const url = `https://indicaai.herokuapp.com/locals/name/${name}` 
@@ -59,26 +61,11 @@ export class SearchBar extends Component {
             onChangeText={value => this.inputChange((value: text))}
             value={inputValue}
             placeholder='Buscar Indicação'
-            style={{
-              width: 295,
-              borderWidth: 1,
-              borderColor: "gray",
-              borderBottomLeftRadius: 5,
-              borderTopLeftRadius: 5,
-              height: 50,
-              padding: 5
-            }}
+            style={styles.TextInput}
           />
           <TouchableOpacity onPress={() => this.search(this.state.inputValue)}>
             <View style={styles.buttonSearch}>
-              <Ionicons
-                name="md-search"
-                size={30}
-                style={{
-                  color: "#FFF",
-                  padding: 10
-                }}
-              />
+              <Ionicons name="md-search" size={30} style={styles.magnifier} />
             </View>
           </TouchableOpacity>
         </View>
@@ -95,17 +82,32 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     marginHorizontal: 10,
   },
+
   containerSearch: {
     marginTop: 5,
     flexDirection: 'row'
   },
-  localList: {
-    padding: 20
+  
+  TextInput: {
+    width: 295,
+    borderWidth: 1,
+    borderColor: "gray",
+    borderBottomLeftRadius: 5,
+    borderTopLeftRadius: 5,
+    height: 50,
+    padding: 5
   },
+  
   buttonSearch: {
     height: 50,
     backgroundColor: '#0AACCC',
     borderBottomRightRadius: 5,
     borderTopRightRadius: 5,
+  },
+
+  magnifier: {
+    color: "#FFF",
+    padding: 10
   }
+  
 });

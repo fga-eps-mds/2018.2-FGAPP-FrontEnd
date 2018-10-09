@@ -15,7 +15,9 @@ class FirstScreen extends Component {
           locals: []
       };
   }
-
+  
+  // Function responsable to set state equal to
+  // SearchBar, coming by onChangeLocals
   changeLocals = vetor => {
     this.setState({
       locals: vetor

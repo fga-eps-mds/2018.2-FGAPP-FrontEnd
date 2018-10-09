@@ -7,11 +7,13 @@ import {
 import Local from "../components/Local";
 
 class ListLocals extends Component {
-
+  
     state = {
       locals: []
     };
     
+    // Fucntion responsable to load all places before mount
+    // the component by setting the state equal to result from fetch
     componentWillMount(){
       const url = fetch(`https://indicaai.herokuapp.com/locals/`, {
         method: "GET",
@@ -32,6 +34,9 @@ class ListLocals extends Component {
         console.log(error);
       });
     }
+
+    // Function responsable update the component
+    // when the state is diferent from parent props (locals.locals[0])
     componentDidUpdate() {
       if(this.props.locals.length !== 0) {
         if(this.props.locals.locals[0] !== this.state.locals)
@@ -40,6 +45,8 @@ class ListLocals extends Component {
           this.setState(locals: responseJson) 
       }
     }
+
+
     render() {
         return (
           <View style={styles.listLocals}> 
