@@ -11,7 +11,6 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { actionSearchLocals } from "../actions/searchBar";
 import Local from "../components/Local";
 
 export class SearchBar extends Component {
@@ -101,19 +100,8 @@ const mapStateToProps = state => {
   }
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setLocals: (locals_params) => {
-      const locals = {
-        locals: locals_params
-      };
-      console.log('dispatch');
-      return dispatch(actionSearchLocals(locals));
-    }
-  };
-};
 
-export default connect(mapStateToProps, mapDispatchToProps) (SearchBar);
+export default connect(mapStateToProps) (SearchBar);
 
 const styles = StyleSheet.create({
   container: {
