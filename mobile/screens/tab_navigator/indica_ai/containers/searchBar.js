@@ -94,14 +94,8 @@ export class SearchBar extends Component {
   };
 };
 
-const mapStateToProps = state => {
-  return {
-    locals: state.locals
-  }
-};
 
-
-export default connect(mapStateToProps) (SearchBar);
+export default (SearchBar);
 
 const styles = StyleSheet.create({
   container: {
