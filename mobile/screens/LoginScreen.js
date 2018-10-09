@@ -10,6 +10,8 @@ import {
     Image,
     StatusBar,
     KeyboardAvoidingView,
+    TouchableOpacity,
+    Linking
 } from "react-native";
 import {Button} from 'native-base';
 import Field from './components/Field';
@@ -87,6 +89,7 @@ class LoginScreen extends Component {
   }
 
     render() {
+      const password_reset_path = `${process.env.INTEGRA_LOGIN_AUTH}/password_reset/`
         return (
           <KeyboardAvoidingView behavior="padding">
             <ImageBackground
@@ -141,7 +144,12 @@ class LoginScreen extends Component {
                   </View>
 
                   <View style={{padding: 5, alignItems: 'center', justifyContent: 'center'}}>
-                    <Text style={{color:  'white', textDecorationLine: 'underline'}}>Esqueci minha senha</Text>
+                    <TouchableOpacity onPress={() => Linking.openURL(password_reset_path)}>
+                      <Text
+                        style={{color:  'white', textDecorationLine: 'underline'}}>
+                        Esqueci minha senha
+                      </Text>
+                    </TouchableOpacity>
                   </View>
 
                 </View>
