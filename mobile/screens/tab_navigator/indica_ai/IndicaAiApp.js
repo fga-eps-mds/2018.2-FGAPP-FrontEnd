@@ -1,16 +1,9 @@
 import React, { Component } from "react";
 import {
   View,
-  Text,
-  StyleSheet,
-  Image,
-  Dimensions,
-  PixelRatio,
-  ScrollView
+  StyleSheet
 } from "react-native";
 import SearchBar from "./containers/searchBar";
-import { Provider } from "react-redux";
-import store from "./redurces/store";
 import ListLocals from './containers/ListLocals'
 
 
@@ -32,23 +25,12 @@ class FirstScreen extends Component {
   render() {
     return (
         <View style={styles.container}>
-          <Provider store={store}>
             <SearchBar onChangeLocals={this.changeLocals} />  
-          </Provider>
-          <Provider store={store}>
-            <ListLocals locals={this.state.locals}/>
-          </Provider>
+            <ListLocals locals={this.state.locals} />
         </View>
     );
   }
 }
-
-const mapStateToProps = () => {
-  console.log(store.getState()); 
-  return {
-    searchBar: {} 
-  };
-};
 
 export default FirstScreen;
 

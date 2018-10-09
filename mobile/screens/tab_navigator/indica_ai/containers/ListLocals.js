@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import {
-  View,
-  Text, 
+  View, 
   StyleSheet, 
-  ScrollView,
-  FlatList
+  ScrollView
 } from "react-native";
 import Local from "../components/Local";
 

@@ -1,17 +1,12 @@
 import React, { Component } from "react";
 import {
   View,
-  Text,
   StyleSheet,
   TextInput,
-  TouchableOpacity,
-  TextBase,
-  ScrollView
+  TouchableOpacity
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import Local from "../components/Local";
+
 
 export class SearchBar extends Component {
 
@@ -29,7 +24,6 @@ export class SearchBar extends Component {
 
 
   search = name => {
-      console.log(name);
     if(name.length !== 0) { 
       const url = `https://indicaai.herokuapp.com/locals/name/${name}` 
       fetch( url, {   
@@ -44,7 +38,6 @@ export class SearchBar extends Component {
           this.setState({
             locals: responseJson,
           })
-          console.log(responseJson);
           this.props.onChangeLocals({locals: this.state.locals});
         })
         .catch(error => {
