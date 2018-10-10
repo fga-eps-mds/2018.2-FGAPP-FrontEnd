@@ -59,7 +59,7 @@ export default class PrivateNotifications extends Component {
 
 
   onPressButton = () => {
-    const url = `http://68.183.28.199:8002/send_push_message/` //function send_push_message url
+    const url = process.env.CARDEFENSE_NOTIFICATIONS + `/send_push_message/` //function send_push_message url
 
     if (this.state.plate.length == 0) {
       Alert.alert("Insira a placa")

@@ -30,7 +30,7 @@ export default class PublicNotifications extends Component {
 
 
     onPressButton = () => {
-        const url = `http://68.183.28.199:8002/send_emergency_push_message/` //function send_emergency_push_message url
+        const url = process.env.CARDEFENSE_NOTIFICATIONS + `/send_emergency_push_message/` //function send_emergency_push_message url
 
         if (this.state.message.length == 0) {
             Alert.alert("Escreva uma mensagem!")
