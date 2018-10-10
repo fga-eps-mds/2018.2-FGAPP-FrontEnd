@@ -33,14 +33,18 @@ class FirstScreen extends Component {
   render() {
     return (
         <View style={styles.container}>
-          <ViewLocal/>
+          <Provider store={store}>
+            <SearchBar onChangeLocals={this.changeLocals} />
+          </Provider>
+          <Provider store={store}>
+            <ListLocals locals={this.state.locals}/>
+          </Provider>
         </View>
     );
   }
 }
 
 const mapStateToProps = () => {
-  console.log(store.getState());
   return {
     searchBar: {}
   };

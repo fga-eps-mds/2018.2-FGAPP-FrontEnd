@@ -8,15 +8,17 @@ import {
 } from "react-native";
 import LocalMap from "../components/LocalMap.js";
 import Icon from 'react-native-vector-icons/Ionicons';
+import { Dimensions } from "react-native";
 
+width = Dimensions.get('window').width;
 
 export default class App extends Component{
   render() {
     return (
         <View style={styles.container}>
           <ScrollView>
-            <Image style={{height: 230, width: 360}}
-            source={require('../assets/fga.jpg')}
+            <Image style={{height: 230, width: width}}
+              source={require('../assets/fga.jpg')}
             />
             <View style={styles.localContainer}>
               <Text style={styles.localName}>
