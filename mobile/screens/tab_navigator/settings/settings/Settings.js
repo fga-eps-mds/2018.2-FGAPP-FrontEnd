@@ -20,10 +20,13 @@ import jwt_decode from 'jwt-decode'
 class Settings extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      name: '',
-      email: '',
-      photo: ''
+      userInfo: {
+        name: '',
+        email: '',
+        photo: 'https://www.logolynx.com/images/logolynx/03/039b004617d1ef43cf1769aae45d6ea2.png'
+      }
     }
   }
 
@@ -33,7 +36,13 @@ class Settings extends Component {
     var jwtDecode = require('jwt-decode');
     var user = jwt_decode(token);
 
-    this.setState({email: user.email});
+    this.setState({
+      userInfo: {
+        name: 'Admin',
+        photo: 'https://www.logolynx.com/images/logolynx/03/039b004617d1ef43cf1769aae45d6ea2.png',
+        email: user.email
+      }
+    })
   }
 
   // Will be done on another screen
@@ -70,22 +79,29 @@ class Settings extends Component {
   }
 
   render() {
+    const { state } = this.props.navigation;
+    var token = state.params ? state.params.token : undefined;
+    
     return (
       <Container style={styles.container}>
         <Content>
           <List>
-            <ListItem noIndent style={styles.cardItem} >
+            <ListItem
+              onPress={() => this.props.navigation.navigate('UserProfile', { userInfo: this.state.userInfo, token })}
+              noIndent
+              style={styles.cardItem}
+            >
               <Left style={{ alignItems: 'center' }}>
                 <Thumbnail
                   large
-                  source={{ uri:'https://www.logolynx.com/images/logolynx/03/039b004617d1ef43cf1769aae45d6ea2.png' }}
+                  source={{uri: this.state.userInfo.photo}}
                 />
                 <Body>
                   <Text style={styles.name}>
-                    Name
+                    {this.state.userInfo.name}
                   </Text>
                   <Text style={styles.email}>
-                    {this.state.email}
+                    {this.state.userInfo.email}
                   </Text>
                 </Body>
               </Left>

@@ -1,5 +1,6 @@
 import { StackNavigator } from 'react-navigation'
 import Settings from './settings/Settings'
+import UserProfile from './settings/UserProfile'
 
 const SettingScreen = new StackNavigator({
     Settings:{
@@ -7,6 +8,12 @@ const SettingScreen = new StackNavigator({
       navigationOptions: {
         tabBarLabel: 'Perfil',
         headerLeft: null,
+      },
+    },
+    UserProfile:{
+      screen: UserProfile,
+      navigationOptions: {
+        tabBarLabel: 'Perfil',
       },
     },
   },

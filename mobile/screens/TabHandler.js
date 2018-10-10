@@ -84,7 +84,6 @@ const TabHandler = new TabNavigator({
         screen: SettingScreen,
         navigationOptions: {
             tabBarLabel: 'Configurações',
-            headerLeft: null,
             title: 'Perfil',
             tabBarIcon: ({ focused }) => (
                 <Icon
