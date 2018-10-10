@@ -25,7 +25,7 @@ class MyProducts extends Component {
     // fetching and sorting data from a mock API
     componentDidMount() {
         var products_path = `${process.env.VENDAS_PRODUCTS}/products`;
-        
+
         console.log('** HELLO')
         console.log(products_path)
 
