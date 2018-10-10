@@ -18,6 +18,23 @@ import {
 import jwt_decode from 'jwt-decode'
 
 class Settings extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: '',
+      email: '',
+      photo: ''
+    }
+  }
+
+  componentDidMount() {
+    const { state } = this.props.navigation;
+    var token = state.params ? state.params.token : undefined;
+    var jwtDecode = require('jwt-decode');
+    var user = jwt_decode(token);
+
+    this.setState({email: user.email});
+  }
 
   // Will be done on another screen
   _onPressButton = async () => {
@@ -53,11 +70,6 @@ class Settings extends Component {
   }
 
   render() {
-    const { state } = this.props.navigation;
-    var token = state.params ? state.params.token : undefined;
-    var jwtDecode = require('jwt-decode');
-    var user = jwt_decode(token);
-
     return (
       <Container style={styles.container}>
         <Content>
@@ -73,7 +85,7 @@ class Settings extends Component {
                     Name
                   </Text>
                   <Text style={styles.email}>
-                    Email
+                    {this.state.email}
                   </Text>
                 </Body>
               </Left>
