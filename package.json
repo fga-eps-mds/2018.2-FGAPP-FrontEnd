@@ -1,5 +1,0 @@
-{
-"scripts": {
-  "coveralls": "jest --coverage && cat ./tests/coverage/lcov.info | coveralls"
-}
-}
