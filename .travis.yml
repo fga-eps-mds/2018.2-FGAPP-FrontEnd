@@ -16,6 +16,7 @@ cache:
   yarn: true
   directories:
     - node_modules
+    
 before_install:
   - docker pull lucascst/gh-pages-docker-travis
   - npm update
