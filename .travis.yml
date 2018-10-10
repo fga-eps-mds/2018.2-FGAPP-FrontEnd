@@ -14,13 +14,19 @@ branches:
 
 cache:
   yarn: true
-
+  directories:
+  - node_modules
 before_install:
   - docker pull lucascst/gh-pages-docker-travis
+  - npm update
+
+install:
+- npm install
 
 script:
   - echo "GH_NAME=${GH_NAME}" >> docs/.env
   - echo "GH_EMAIL=${GH_EMAIL}" >> docs/.env
   - echo "GH_TOKEN=${GH_TOKEN}" >> docs/.env
   - docker run -v `pwd`:"/app" -w "/app" --env-file docs/.env lucascst/gh-pages-docker-travis bash -c "cd docs; sh publish.sh"
-
+  - npm test
+  - npm run coveralls
