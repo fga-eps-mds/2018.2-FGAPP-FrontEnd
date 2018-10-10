@@ -3,6 +3,7 @@ import { FlatList, Text, View, StyleSheet, ScrollView, RefreshControl } from 're
 import { Permissions, Notifications } from 'expo'
 import jwt_decode from 'jwt-decode';
 
+import { Permissions, Notifications } from 'expo'
 
 var tk
 
@@ -64,7 +65,7 @@ export default class Feed extends React.Component {
     ).catch(error => {
       console.log(error)
     })
-
+    
     return fetch('http://:8002/emergencynotifications/')
       .then((response) => response.json())
       .then((responseJson) => {
