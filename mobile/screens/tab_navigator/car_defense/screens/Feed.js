@@ -1,9 +1,6 @@
 import React from 'react';
 import { FlatList, Text, View, StyleSheet, ScrollView, RefreshControl } from 'react-native';
-import { Permissions, Notifications } from 'expo'
 import jwt_decode from 'jwt-decode';
-
-import { Permissions, Notifications } from 'expo'
 
 var tk
 
@@ -19,6 +16,7 @@ async function register() {
   const value = await Expo.Notifications.getExpoPushTokenAsync();
   tk = value;
   console.log(status, value);
+  
 }
 
 export default class Feed extends React.Component {
@@ -39,10 +37,11 @@ export default class Feed extends React.Component {
     this.state = { refreshing: false, }
   }
 
-
   async componentDidMount() {
+
     const {state} = this.props.navigation;
     var token = state.params ? state.params.token : undefined;
+    console.log(token)
     user = jwt_decode(token)
       
     console.log(token)
@@ -50,8 +49,8 @@ export default class Feed extends React.Component {
       id_token: user.user_id,
       notification_token: tk,
     })
-
-    fetch('http://:8005/set_token/', {
+    console.log(notification);
+    fetch('http://5bbe60de72de1d00132535cc.mockapi.io/set_token', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -65,8 +64,8 @@ export default class Feed extends React.Component {
     ).catch(error => {
       console.log(error)
     })
-    
-    return fetch('http://:8002/emergencynotifications/')
+
+    return fetch('http://5bbe60de72de1d00132535cc.mockapi.io/emergencynotifications')
       .then((response) => response.json())
       .then((responseJson) => {
 
@@ -107,9 +106,10 @@ export default class Feed extends React.Component {
                 <Text style={styles.text1}>{item.title}</Text>
                 <Text style={styles.text}>{item.message}</Text>
               </View>
-            )
+            );
           }}
           keyExtractor={({ id }, index) => id}
+
         />
       </ScrollView>
     );

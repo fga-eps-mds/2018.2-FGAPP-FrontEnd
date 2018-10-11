@@ -1,11 +1,9 @@
 import React from 'react';
 import { FlatList, ActivityIndicator, Text, View, StyleSheet, ScrollView, RefreshControl } from 'react-native';
-import { Permissions, Notifications } from 'expo'
-
 
 async function registerForPushNotificationsAsync() {
-  const { status: existingStatus } = await Permissions.getAsync(
-    Permissions.NOTIFICATIONS
+  const { status: existingStatus } = await Expo.Permissions.getAsync(
+    Expo.Permissions.NOTIFICATIONS
   );
   let finalStatus = existingStatus;
 
@@ -14,7 +12,7 @@ async function registerForPushNotificationsAsync() {
   if (existingStatus !== 'granted') {
     // Android remote notification permissions are granted during the app
     // install, so this will only ask on iOS
-    const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+    const { status } = await Expo.Permissions.askAsync(Expo.Permissions.NOTIFICATIONS);
     finalStatus = status;
   }
 
@@ -24,7 +22,7 @@ async function registerForPushNotificationsAsync() {
   }
   var token
   var tk = await Promise
-    .resolve (token = await Notifications.getExpoPushTokenAsync())
+    .resolve (token = await Expo.Notifications.getExpoPushTokenAsync())
     .then(x => token);
   return tk;
   
@@ -55,7 +53,7 @@ export default class Feed extends React.Component {
 
   async componentDidMount() {
     let token = await registerForPushNotificationsAsync();
-    let url = process.env.CARDEFENSE_NOTIFICATIONS + '/notifications/?token=' + token
+    let url = `http://5bbe60de72de1d00132535cc.mockapi.io/emergencynotifications`
 
     return fetch(url)
       .then((response) => response.json())
@@ -83,7 +81,14 @@ export default class Feed extends React.Component {
 
   render() {
     return (
-      <ScrollView style={styles.item}>
+      <ScrollView style={styles.item}
+      refreshControl={
+        <RefreshControl
+          refreshing={this.state.refreshing}
+          onRefresh={this._onRefresh}
+        />
+      }
+      >
         <FlatList
           data={this.state.dataSource}
           renderItem={({ item }) => {
@@ -97,12 +102,7 @@ export default class Feed extends React.Component {
           keyExtractor={({ id }, index) => id.toString()}
           
         />
-        refreshControl={
-            <RefreshControl
-              refreshing={this.state.refreshing}
-              onRefresh={this._onRefresh}
-            />
-          }
+        
       </ScrollView>
     );
   }
@@ -111,9 +111,7 @@ export default class Feed extends React.Component {
 const styles = StyleSheet.create({
   item: {
     backgroundColor: "#ffffff",
-    flexGrow: 1,
     margin: 4,
-    padding: 20,
     shadowColor: "#000000",
     shadowOpacity: 0.8,
     shadowRadius: 2,
@@ -124,11 +122,13 @@ const styles = StyleSheet.create({
     elevation: 4
   },
   item2: {
-    alignItems: 'center',
+    alignItems: "center",
+    justifyContent: 'center',
     backgroundColor: "#ffffff",
     flexGrow: 1,
     margin: 4,
     padding: 20,
+    borderRadius: 10,
     shadowColor: "#000000",
     shadowOpacity: 0.8,
     shadowRadius: 2,
@@ -144,6 +144,6 @@ const styles = StyleSheet.create({
   },
   text1: {
     color: "#5c68c3",
-    fontWeight: '200',
+    fontWeight: 'bold',
   }
 });
