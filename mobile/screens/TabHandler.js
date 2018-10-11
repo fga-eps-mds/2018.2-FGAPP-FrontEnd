@@ -8,7 +8,7 @@ import { TabNavigator } from 'react-navigation';
 import TabHandlerVendasApp from './tab_navigator/vendas/TabHandlerVendasApp';
 import IndicaAiApp from './tab_navigator/indica_ai/IndicaAiApp';
 import RolesApp from './tab_navigator/roles/RolesApp';
-import CarDefenseApp from './tab_navigator/car_defense/CarDefenseApp';
+import CarDefenseTabHandler from './tab_navigator/car_defense/CarDefenseTabHandler';
 import Settings from './tab_navigator/settings/Settings';
 
 const TabHandler = new TabNavigator({
@@ -51,7 +51,7 @@ const TabHandler = new TabNavigator({
         }
     },
     CarDefense: {
-        screen: CarDefenseApp,
+        screen: CarDefenseTabHandler,
         navigationOptions: {
             tabBarLabel: 'CarDefense',
             headerLeft: null,

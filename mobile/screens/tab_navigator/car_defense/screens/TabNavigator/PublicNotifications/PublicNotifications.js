@@ -13,7 +13,6 @@ import {
 
 export default class PublicNotifications extends Component {
 
-
     constructor(props) {
         super(props);
         this.state = {
@@ -22,15 +21,13 @@ export default class PublicNotifications extends Component {
         }
     }
 
-
-
     handleMessage = (text) => {
         this.setState({ message: text })
     }
 
 
     onPressButton = () => {
-        const url = process.env.CARDEFENSE_NOTIFICATIONS + `/send_emergency_push_message/` //function send_emergency_push_message url
+        const url = '' //function send_emergency_push_message url
 
         if (this.state.message.length == 0) {
             Alert.alert("Escreva uma mensagem!")

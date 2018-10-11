@@ -9,37 +9,8 @@ import {
   Alert
 } from 'react-native';
 
-var tk
-
-async function register() {
-  const { status } = await Expo.Permissions.askAsync(
-    Expo.Permissions.NOTIFICATIONS
-  );
-  if (status != 'granted') {
-    alert('You need to enable permissions in settings');
-    return;
-  }
-
-  const token = await Expo.Notifications.getExpoPushTokenAsync();
-  tk = token;
-  console.log(status, token);
-}
-
-
 export default class PrivateNotifications extends Component {
-  componentWillMount() {
-    register();
-    this.listener = Expo.Notifications.addListener(this.listen);
-  }
-  componentWillUnmount() {
-    this.listener && Expo.Notifications.addListener(this.listen);
-  }
-
-  listen = ({ origin, data }) => {
-    console.log('cool data', origin, data);
-  }
-
-
+ 
   constructor(props) {
     super(props);
     this.state = {
@@ -57,9 +28,8 @@ export default class PrivateNotifications extends Component {
     this.setState({ message: text })
   }
 
-
   onPressButton = () => {
-    const url = process.env.CARDEFENSE_NOTIFICATIONS + `/send_push_message/` //function send_push_message url
+    const url = '' //function send_push_message url
 
     if (this.state.plate.length == 0) {
       Alert.alert("Insira a placa")
@@ -103,7 +73,7 @@ export default class PrivateNotifications extends Component {
     return (
       <ScrollView>
         <View style={styles.container}>
-          <Text style={styles.header}>Informações</Text>
+          <Text style={styles.header}>Notificações</Text>
           <Text style={styles.header2}> Placa</Text>
           <TextInput
             style={styles.input2}
