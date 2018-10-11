@@ -9,7 +9,7 @@ import {TabNavigator} from 'react-navigation'
 import RolesConfirmadosNavigator from './screens/TabNavigator/rolesConfirmados/RolesConfirmadosNavigator'
 import CadastroEventos1 from './screens/TabNavigator/cadastroEventos/CadastroEventos1'
 import Feed from './screens/TabNavigator/feed/Feed'
-
+import ImageUpload from './screens/TabNavigator/cadastroEventos/ImageUpload'
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Platform } from 'react-native';
 
@@ -36,6 +36,13 @@ const RolesTabStackNavigator = new TabNavigator({
             tabBarIcon: ({ tintColor }) => <MaterialIcons name='playlist-add' size={27} style={{ color: tintColor }} />
         }
     },
+    ImageUpload: {
+        screen: ImageUpload,
+        navigationOptions: {
+            tabBarLabel: 'ImageUpload'
+        }
+    }
+
 }, {
     headerMode: 'none',                         // I don't want a NavBar at top
     // tabBarPosition: 'bottom',                   // So your Android tabs go bottom
