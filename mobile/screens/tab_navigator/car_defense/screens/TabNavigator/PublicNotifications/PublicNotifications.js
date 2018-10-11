@@ -32,26 +32,35 @@ export default class PublicNotifications extends Component {
     onPressButton = () => {
         const url = process.env.CARDEFENSE_NOTIFICATIONS + `/send_emergency_push_message/` //function send_emergency_push_message url
 
-        let notification = JSON.stringify({
-            title: this.state.title,
-            message: this.state.message
-        })
-
-        fetch(url, {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: notification
-        }).then(response => { return response.json() }
-        ).then(jsonResponse => {
-            console.log(jsonResponse);
+        if (this.state.message.length == 0) {
+            Alert.alert("Escreva uma mensagem!")
         }
-        ).catch(error => {
-            console.log(error)
-        })
+        else if (this.state.message.length < 5) {
+            Alert.alert("Dê mais detalhes!")
+        }
+        else if (this.state.message.length > 5) {
 
+            let notification = JSON.stringify({
+                title: this.state.title,
+                message: this.state.message
+            })
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: notification
+            }).then(response => { return response.json() }
+            ).then(jsonResponse => {
+                console.log(jsonResponse);
+            }
+            ).catch(error => {
+                console.log(error)
+            })
+            Alert.alert("Alerta enviado!")
+        }
     }
     render() {
         return (
@@ -65,16 +74,20 @@ export default class PublicNotifications extends Component {
                         placeholderTextColor="#c8cdea"
                         placeholder="Descreva o ocorrido"
                         multiline={true}
-                        maxLength={255}
+                        maxLength={100}
                         underlineColorAndroid="transparent"
                         onChangeText={this.handleMessage}
                     />
                 </View>
                 <View style={styles.container1}>
-                    <Button title="Enviar"
+                    <TouchableOpacity
+                        style={styles.button}
                         color="#5c68c3"
                         onPress={this.onPressButton}
-                    />
+                        containerViewStyle={{ width: '40%' }}
+                    >
+                        <Text style={{ color: 'white' }}>Enviar</Text>
+                    </TouchableOpacity>
                 </View>
             </ScrollView>
         );
@@ -83,7 +96,9 @@ export default class PublicNotifications extends Component {
 const styles = StyleSheet.create({
     container: {},
     container1: {
-        marginTop: 100
+        marginTop: 80,
+        justifyContent: 'center',
+        flexDirection: 'row'
     },
     header: {
         color: '#5c68c3',
@@ -126,6 +141,15 @@ const styles = StyleSheet.create({
         textAlign: 'left',
         borderBottomColor: '#5c68c3',
         marginTop: 30,
+    },
+    button: {
+        backgroundColor: "#c8cdea",
+        borderRadius: 15,
+        height: 40,
+        width: 121,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
 
 });
