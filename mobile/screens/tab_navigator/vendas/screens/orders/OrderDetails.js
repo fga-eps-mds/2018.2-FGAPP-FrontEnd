@@ -16,17 +16,37 @@ import { LinearGradient } from 'expo';
 
 class OrderDetails extends Component {
 
-
     _onPressButton = async () => {
-      Alert.alert("O botao foi apertado ");
+      Alert.alert("O botao foi apertado. ");
     }
 
-    render() {
-      const {state} = this.props.navigation;
-      var token = state.params ? state.params.token : undefined;
-      var order = state.params ? state.params.order : undefined;
-      var user = jwt_decode(token);
+    loadUser(token, order){
+      const get_product_path = `${process.env.VENDAS_API}/api/get_name/`;
 
+      var name = 'Usuário sem nome';
+  		fetch(get_product_path, {
+  			method: 'POST',
+  			headers: {
+  			'Content-Type': 'application/json',
+  			},
+  			body: JSON.stringify({
+  				'token': token,
+        			 'user_id': order.fk_buyer,
+  			}),
+  		})
+  			.then((response) => { return response.json() })
+  			.then((responseJson) => {
+          if(responseJson.photo != '')
+            name=responseJson.name;
+  			})
+  			.catch((error) => {
+  				console.error(error);
+        });
+
+      return name;
+    }
+
+    loadProduct(token, order){
       const get_product_path = `${process.env.VENDAS_API}/api/get_product/`;
 
       var photo = 'http://www.piniswiss.com/wp-content/uploads/2013/05/image-not-found-4a963b95bf081c3ea02923dceaeb3f8085e1a654fc54840aac61a57a60903fef-300x199.png';
@@ -49,6 +69,17 @@ class OrderDetails extends Component {
   			.catch((error) => {
   				console.error(error);
         });
+
+      return photo;
+    }
+
+    render() {
+      const {state} = this.props.navigation;
+      var token = state.params ? state.params.token : undefined;
+      var order = state.params ? state.params.order : undefined;
+      var user = jwt_decode(token);
+      var photo = this.loadProduct(token, order);
+      var name = this.loadUser(token, order);
 
         return (
           <ScrollView>
@@ -74,7 +105,7 @@ class OrderDetails extends Component {
                 </View>
               </View>
               <View style={{ flexDirection: 'column', paddingLeft: 10 }}>
-                <Text style={{fontSize: 20}}>Cliente: {user.user_id}</Text>
+                <Text style={{fontSize: 20}}>Cliente: {name}</Text>
                 <View style={{height: 10}}/>
                 <Text style={{fontSize: 16, color: '#5A5A5A'}}>{order.buyer_message}</Text>
                 <View style={{height: 50}}/>
