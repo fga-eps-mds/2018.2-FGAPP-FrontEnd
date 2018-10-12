@@ -1,15 +1,9 @@
 import React, { Component } from 'react';
-import {
-    ScrollView,
+import { 
     View,
     Text,
-    TouchableOpacity,
-    TextInput,
-    StyleSheet,
-    Button,
-    Alert
+    StyleSheet
 } from 'react-native';
-
 
 export default class PublicNotifications extends Component {
 
@@ -149,4 +143,10 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
 
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+    }
 });

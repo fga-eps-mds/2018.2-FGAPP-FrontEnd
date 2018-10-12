@@ -16,4 +16,4 @@ export default class RegisterCar extends Component {
     );
   }
 }
-
+export default CarDefenseApp;
