@@ -1,5 +1,5 @@
 /*
-    Screen provided for a seller create a product.
+    Screen provided for a seller update informations about your own products.
 */
 
 import React, { Component } from 'react';
@@ -42,6 +42,11 @@ class MyProductDetails extends Component {
       const {state} = this.props.navigation;
       var token = state.params ? state.params.token : undefined;
       var product = state.params ? state.params.product : undefined;
+
+      var name = this.state.name ? this.state.name : product.name;
+      var price = this.state.price ? this.state.price : product.price;
+      var description = this.state.description ? this.state.name : product.description;
+
       const edit_product_path = `${process.env.VENDAS_API}/api/edit_product/`;
       fetch(edit_product_path, {
         method: 'POST',
@@ -50,9 +55,9 @@ class MyProductDetails extends Component {
         },
         body: JSON.stringify({
             'product_id': product.id,
-            'price': this.state.price,
-            'name': this.state.name,
-            'description': this.state.description,
+            'price': price,
+            'name': name,
+            'description': description,
             'photo': product.photo, // <- Need atention later
             'token':token,
         }),
