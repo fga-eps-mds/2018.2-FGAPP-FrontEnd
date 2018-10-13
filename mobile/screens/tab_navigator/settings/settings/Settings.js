@@ -45,39 +45,6 @@ class Settings extends Component {
     })
   }
 
-  // Will be done on another screen
-  _onPressButton = async () => {
-    const logout_path = `${process.env.INTEGRA_LOGIN_AUTH}/api/logout/`;
-    fetch(logout_path, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-      }),
-    })
-    .then((response) => response.json())
-    .then((responseJson) => {
-      console.log(JSON.stringify(responseJson.detail));
-      if (responseJson.detail == 'Successfully logged out.') {
-        console.log(JSON.stringify('Log OUT'));
-        this.props.navigation.state.params.token = null
-        this.props.navigation.navigate('LoginScreen')
-
-      }
-    })
-    .catch(err => {
-      if (typeof err.text === 'function') {
-        err.text().then(errorMessage => {
-          this.props.dispatch(displayTheError(errorMessage))
-        });
-      } else {
-        Alert.alert('Erro na conexão.');
-        console.log(err)
-      }
-    });
-  }
-
   render() {
     const { state } = this.props.navigation;
     var token = state.params ? state.params.token : undefined;
