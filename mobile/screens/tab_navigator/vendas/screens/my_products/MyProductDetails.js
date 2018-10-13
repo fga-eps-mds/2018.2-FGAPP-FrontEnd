@@ -126,14 +126,14 @@ class MyProductDetails extends Component {
               <Animated.Image source={{ uri: 'http://www.piniswiss.com/wp-content/uploads/2013/05/image-not-found-4a963b95bf081c3ea02923dceaeb3f8085e1a654fc54840aac61a57a60903fef-300x199.png' }} style={[styles.logo, { height: this.imageHeight, width: '100%' }]} />
               <Form style={styles.description}>
                 <Item floatingLabel>
-                  <Label>Name</Label>
+                  <Label>Nome atual: {product.name}</Label>
                   <Input
                     style={{ color: 'black' }}
                     onChangeText={(name) => {this.setState({name})}}
                   />
                 </Item>
                 <Item floatingLabel>
-                  <Label>Price</Label>
+                  <Label>Preço atual: {product.price}</Label>
                   <Input
                     style={{ color: 'black' }}
                     keyboardType='numeric'
