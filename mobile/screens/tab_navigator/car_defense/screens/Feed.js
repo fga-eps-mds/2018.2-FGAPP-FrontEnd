@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, Text, View, StyleSheet, ScrollView, RefreshControl } from 'react-native';
+import { FlatList, Text, View, StyleSheet, ScrollView, RefreshControl, Image } from 'react-native';
 import jwt_decode from 'jwt-decode';
 
 var tk
@@ -104,6 +104,8 @@ export default class Feed extends React.Component {
             return (
               <View style={styles.item2}>
                 <Text style={styles.text1}>{item.title}</Text>
+                <Image source={{uri:item.image}}
+                  style={{width: 400, height: 400}} />
                 <Text style={styles.text}>{item.message}</Text>
               </View>
             );
