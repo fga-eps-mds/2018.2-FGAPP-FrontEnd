@@ -12,7 +12,12 @@ import {
   Button,
   Image
 } from "react-native";
-import {ImagePicker} from 'expo';
+import { ImagePicker } from "expo";
+import {
+  DefaultTheme,
+  TextInput,
+  Provider as PaperProvider
+} from "react-native-paper";
 
 import { Foundation } from "@expo/vector-icons";
 import Input from "./components/Input";
@@ -37,7 +42,7 @@ export default class CadastroEventos1 extends Component {
       adultOnly: false,
       drinks: "",
       foods: "",
-      photo: null,
+      photo: null
     };
   }
 
@@ -176,7 +181,7 @@ export default class CadastroEventos1 extends Component {
         adultOnly: this.state.adultOnly,
         foods: this.state.foods,
         drinks: this.state.drinks,
-        photo: this.state.photo,
+        photo: this.state.photo
       })
     })
       .then(response => response.json())
@@ -210,18 +215,17 @@ export default class CadastroEventos1 extends Component {
         <View style={styles.container}>
           <Title titleText="Cadastro de Novo Role" />
           <Input
+            label="Nome do Rolê"
             iconName="title"
-            placeholder="Nome do Rolê"
             onChangeText={eventName => this.setState({ eventName })}
           />
 
           <View
             style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
           >
-            <Button
-              title="Adicionar imagem"
-              onPress={this._pickImage}
-            />
+            <Button 
+            style={{margin: 20, padding: 20}}
+            title="Adicionar imagem" onPress={this._pickImage} />
             {photo && (
               <Image
                 source={{ uri: photo }}
@@ -232,7 +236,9 @@ export default class CadastroEventos1 extends Component {
 
           <Input
             iconName="description"
-            placeholder="Descrição"
+            label="Descrição"
+            returnKeyType=""
+            multiline={true}
             onChangeText={eventDescription =>
               this.setState({ eventDescription })
             }
@@ -240,40 +246,40 @@ export default class CadastroEventos1 extends Component {
 
           <Input
             iconName="insert-link"
-            placeholder="Link de Referência"
+            label="Link de Referência"
             onChangeText={linkReference => this.setState({ linkReference })}
           />
 
           <Input
             iconName="person"
-            placeholder="Nome para Contato"
+            label="Nome para Contato"
             onChangeText={organizer => this.setState({ organizer })}
           />
 
           <Input
             iconName="phone"
-            placeholder="Telefone para Contato"
+            label="Telefone para Contato"
             onChangeText={organizerTel => this.setState({ organizerTel })}
             keyboardType="numeric"
           />
 
           <Input
             iconName="attach-money"
-            placeholder="Valor do Ingresso"
+            label="Valor do Ingresso"
             onChangeText={value => this.setState({ value })}
             keyboardType="numeric"
           />
 
           <Input
             iconName="place"
-            placeholder="Local"
+            label="Local"
             onChangeText={address => this.setState({ address })}
           />
 
           <Input
             iconType="MaterialCommunityIcons"
             iconName="google-maps"
-            placeholder="Link Localização Google Maps"
+            label="Link Localização Google Maps"
             onChangeText={linkAddress => this.setState({ linkAddress })}
           />
 
@@ -306,14 +312,14 @@ export default class CadastroEventos1 extends Component {
           <Input
             iconType="Entypo"
             iconName="drink"
-            placeholder="Bebidas"
+            label="Bebidas"
             onChangeText={drinks => this.setState({ drinks })}
           />
 
           <Input
             iconType="MaterialCommunityIcons"
             iconName="food-fork-drink"
-            placeholder="Comidas"
+            label="Comidas"
             onChangeText={foods => this.setState({ foods })}
           />
 

@@ -4,6 +4,7 @@ import {
     Text,
     StyleSheet
 } from "react-native";
+import {Provider as PaperProvider} from 'react-native-paper';
 
 import HomeScreen from './screens/HomeScreen'
 import CadastroEventos1 from './screens/TabNavigator/cadastroEventos/CadastroEventos1'
@@ -17,7 +18,9 @@ export default class RolesApp extends Component {
 
     render() {
         return (
-            <RolesStackNavigator />
+            <PaperProvider>
+                <RolesStackNavigator />
+            </PaperProvider>
         );
     }
 }
