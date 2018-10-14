@@ -9,11 +9,11 @@ import {TabNavigator} from 'react-navigation'
 import VendasApp from './tab_navigator/vendas/VendasApp'
 import IndicaAiApp from './tab_navigator/indica_ai/IndicaAiApp'
 import RolesApp from './tab_navigator/roles/RolesApp'
-import CarDefenseApp from './tab_navigator/car_defense/CarDefenseApp'
+import CarDefenseTabHandler from './tab_navigator/car_defense/CarDefenseTabHandler'
 
 const TabStackNavigator = new TabNavigator({
     CarDefense:{
-        screen:CarDefenseApp,
+        screen:CarDefenseTabHandler,
         navigationOptions:{
             tabBarLabel:'CarDefense',
             tabBarIcon: () => {
