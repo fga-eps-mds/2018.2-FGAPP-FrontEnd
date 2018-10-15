@@ -58,7 +58,9 @@ export default class RegisterCar extends Component {
       color: '',
       hasError: false,
       errorMessage: '',
-      refreshing: false,
+      // registered: false,
+      // registerMessage: '',
+      refreshing: false
     };
   }
 
@@ -79,9 +81,9 @@ export default class RegisterCar extends Component {
     const { state } = this.props.navigation;
     var token = state.params ? state.params.token : undefined;
     user = jwt_decode(token)
-    let url = '' + user.user_id
+    let link = 'http://192.168.0.4:8003/car/?token=' + user.user_id
 
-    return fetch(url)
+    return fetch(link)
       .then((response) => response.json())
       .then((responseJson) => {
 
@@ -118,7 +120,7 @@ export default class RegisterCar extends Component {
       var token = state.params ? state.params.token : undefined;
       user = jwt_decode(token)
 
-      const url = '' //cars db models url
+      const url = 'http://192.168.0.4:8003/car/' //cars db models url
 
       let notification = JSON.stringify({
         id_token: user.user_id,
@@ -139,15 +141,15 @@ export default class RegisterCar extends Component {
       }).then(response => { return response.json() }
       ).then(jsonResponse => {
         console.log(jsonResponse);
+        // this.setState({ registered: true, registerMessage: 'Veículo cadastrado!' })
+        Alert.alert('Veículo cadastrado!')
       }
       ).catch(error => {
         console.log(error)
       })
 
     }
-
   }
-
 
   render() {
     return (
@@ -163,29 +165,26 @@ export default class RegisterCar extends Component {
           <Text style={styles.header}> Cadastrar carro</Text>
           <TextInput
             style={styles.input}
-            placeholderTextColor="#c8cdea"
+            placeholderTextColor="#858DC7"
             placeholder="Placa do carro"
             underlineColorAndroid="transparent"
             maxLength={8}
             onChangeText={this.handlePlate}
-            leftIcon={{ type: 'Ionicons', name: 'md-information', color: '#5c68c3' }}
           />
-          {this.state.hasError ? <Text style={{ color: 'red', paddingLeft: 35 }}>{this.state.errorMessage}</Text> : null}
+          {this.state.hasError ? <Text style={{ color: '#E62C00', paddingLeft: 35 }}>{this.state.errorMessage}</Text> : null}
           <TextInput
             style={styles.input}
-            placeholderTextColor="#c8cdea"
-            placeholder="Modelo do carro"
+            placeholderTextColor="#858DC7"
+            placeholder="Modelo do carro (opcional)"
             underlineColorAndroid="transparent"
             onChangeText={this.handleModel}
-            leftIcon={{ type: 'Ionicons', name: 'md-car', color: '#5c68c3' }}
           />
           <TextInput
             style={styles.input}
-            placeholderTextColor="#c8cdea"
-            placeholder="Cor do carro"
+            placeholderTextColor="#858DC7"
+            placeholder="Cor do carro (opcional)"
             underlineColorAndroid="transparent"
             onChangeText={this.handleColor}
-            leftIcon={{ type: 'Ionicons', name: 'md-color-palette', color: '#5c68c3' }}
           />
         </View>
         <View style={styles.container1}>
@@ -195,8 +194,9 @@ export default class RegisterCar extends Component {
             onPress={this.onPressButton}
             containerViewStyle={{ width: '40%' }}
           >
-            <Text style={{ color: 'white' }} >Placa</Text>
+            <Text style={{ color: 'white' }} >Cadastrar</Text>
           </TouchableOpacity>
+          {/* {this.state.registered ? <Text style={{ flexDirection: 'row', justifyContent: 'center', color: '#5c68c3', marginTop: 20 }}>{this.state.registerMessage}</Text> : null } */}
 
         </View>
         <View style={styles.container1}>
@@ -248,6 +248,7 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     borderBottomColor: '#5c68c3',
     marginTop: 70,
+    color: '#5c68c3'
   },
   button: {
     backgroundColor: "#c8cdea",
