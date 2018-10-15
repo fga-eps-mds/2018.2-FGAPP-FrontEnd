@@ -3,38 +3,34 @@ import {
   View,
   StyleSheet
 } from "react-native";
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
+import rootReducers from './reducers'
 import SearchBar from "./containers/searchBar";
 import ListLocals from './containers/ListLocals'
 
+const store = createStore(rootReducers)
 
-class FirstScreen extends Component {
-
-  constructor(props) {
-      super(props);
-      this.state = {
-          locals: []
-      };
-  }
-  
-  // Function responsable to set state equal to
-  // SearchBar, coming by onChangeLocals
-  changeLocals = vetor => {
-    this.setState({
-      locals: vetor
-    });
-  };
+class SearchScreen extends Component {
 
   render() {
+
+    console.log('STORE')
+    console.log(store.getState())
+    console.log('FINISH')
+
     return (
-        <View style={styles.container}>
-            <SearchBar onChangeLocals={this.changeLocals} />  
-            <ListLocals locals={this.state.locals} />
-        </View>
+        <Provider store={store}>
+            <View style={styles.container}>
+                <SearchBar />
+                <ListLocals />
+            </View>
+       </Provider>
     );
   }
 }
 
-export default FirstScreen;
+export default SearchScreen;
 
 const styles = StyleSheet.create({
 

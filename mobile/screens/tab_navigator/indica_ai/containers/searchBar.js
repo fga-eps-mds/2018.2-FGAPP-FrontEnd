@@ -1,19 +1,26 @@
 import React, { Component } from "react";
 import {
   View,
+  Text,
   StyleSheet,
   TextInput,
   TouchableOpacity
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { searchAction } from '../actions'
 
 
 export class SearchBar extends Component {
 
-    state ={
-      inputValue: "",
-      locals: []
-    };
+    constructor(props) {
+        super(props)
+        this.state ={
+            inputValue: "",
+            searchAction: props.searchAction
+        };
+    }
 
   // Function reposable to set the component state, inputValue,
   // equal to user's input in TextInput 
@@ -22,6 +29,12 @@ export class SearchBar extends Component {
       inputValue: value
     });
   };
+
+  componentWillReceiveProps(newProps) {
+      if(newProps.locals !== undefined){
+          this.setState({locals: newProps.locals })
+      }
+  }
 
   // Fucntion responsable to search user's input in the APi
   // and set the state equal to the result 
@@ -37,10 +50,7 @@ export class SearchBar extends Component {
       }) 
         .then(response => response.json())
         .then(responseJson => {
-          this.setState({
-            locals: responseJson,
-          })
-          this.props.onChangeLocals({locals: this.state.locals});
+          this.props.searchAction(responseJson[0])
         })
         .catch(error => {
           console.log(error);
@@ -48,11 +58,9 @@ export class SearchBar extends Component {
     }
   };
 
-    
-
   render() { 
     const { inputValue } = this.state;
-    const { locals } = this.state;
+    const { searchAction } = this.state;
 
     return (
       <View style={styles.container}>
@@ -74,8 +82,14 @@ export class SearchBar extends Component {
   };
 };
 
+const mapStateToProps = store => ({
+    locals: store.searchReducer.locals
+})
 
-export default (SearchBar);
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({ searchAction }, dispatch))
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
 
 const styles = StyleSheet.create({
   container: {
@@ -87,7 +101,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
     flexDirection: 'row'
   },
-  
+
   TextInput: {
     width: 295,
     borderWidth: 1,
@@ -97,7 +111,7 @@ const styles = StyleSheet.create({
     height: 50,
     padding: 5
   },
-  
+
   buttonSearch: {
     height: 50,
     backgroundColor: '#0AACCC',
@@ -109,5 +123,5 @@ const styles = StyleSheet.create({
     color: "#FFF",
     padding: 10
   }
-  
+
 });

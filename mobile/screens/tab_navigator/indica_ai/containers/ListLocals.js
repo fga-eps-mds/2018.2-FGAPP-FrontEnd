@@ -4,6 +4,7 @@ import {
   StyleSheet, 
   ScrollView
 } from "react-native";
+import { connect } from 'react-redux';
 import Local from "../components/Local";
 
 class ListLocals extends Component {
@@ -11,7 +12,7 @@ class ListLocals extends Component {
     state = {
       locals: []
     };
-    
+
     // Fucntion responsable to load all places before mount
     // the component by setting the state equal to result from fetch
     componentWillMount(){
@@ -28,7 +29,6 @@ class ListLocals extends Component {
         this.setState({
           locals: responseJson,
         })
-         console.log(this.state.locals); 
       }) 
       .catch(error => {
         console.log(error);
@@ -37,17 +37,21 @@ class ListLocals extends Component {
 
     // Function responsable update the component
     // when the state is diferent from parent props (locals.locals[0])
-    componentDidUpdate() {
-      if(this.props.locals.length !== 0) {
-        if(this.props.locals.locals[0] !== this.state.locals)
-          this.setState({locals: this.props.locals.locals[0]})
-        else if(this.props.locals.locals[0] === " ")
-          this.setState(locals: responseJson) 
-      }
+    componentWillReceiveProps(newProps) {
+        if(newProps.locals !== undefined){
+            this.setState({locals: newProps.locals })
+        }
     }
 
-
     render() {
+
+        const { locals } = this.state
+
+        console.log('RENDER LIST')
+        console.log(this.state)
+        console.log('FINISH RENDER')
+
+
         return (
           <View style={styles.listLocals}> 
               <ScrollView>
@@ -59,7 +63,11 @@ class ListLocals extends Component {
     }
 }
 
-export default ListLocals;
+const mapStateToProps = store => (console.log('MAP STATE TO PROPS List'), console.log(store),{
+    locals: store.searchReducer.locals
+})
+
+export default connect(mapStateToProps)(ListLocals);
 
 const styles = StyleSheet.create({
   listLocals: {
