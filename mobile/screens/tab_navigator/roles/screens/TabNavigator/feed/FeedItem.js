@@ -14,6 +14,8 @@ import {
 
 import React, { Component } from "react"
 import { StyleSheet, Image, View, TouchableOpacity } from "react-native"
+import {withNavigation} from 'react-navigation'
+
 // const logo = require("./images/logo.png");
 const noPic = require("./images/noPic.png")
 
@@ -23,13 +25,13 @@ class FeedItem extends Component {
 			<Card style={styles.mb}>
 				<TouchableOpacity
 					onPress={() => {
-						console.log("Profile -> " + this.props.nomeRole)
+						console.log("Profile -> " + this.props.nomeRole + "/" + this.props.idRole)
+						this.props.navigation.navigate('Profile', {idRole: this.props.idRole})
 					}}
 				>
 					<View pointerEvents="none">
 						<CardItem>
 							<Left>
-								{/* <Thumbnail source={logo} /> */}
 								<Icon type="FontAwesome" name="calendar" />
 								<Body>
 									<Text>{this.props.nomeRole}</Text>
@@ -95,4 +97,5 @@ const styles = StyleSheet.create({
 		width: 100
 	}
 })
-export default FeedItem
+
+export default withNavigation(FeedItem)

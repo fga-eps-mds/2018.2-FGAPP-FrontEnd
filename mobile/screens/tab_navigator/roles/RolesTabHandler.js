@@ -8,35 +8,28 @@ import {
 import {TabNavigator} from 'react-navigation'
 import RolesConfirmadosNavigator from './screens/TabNavigator/rolesConfirmados/RolesConfirmadosNavigator'
 import CadastroEventos1 from './screens/TabNavigator/cadastroEventos/CadastroEventos1'
-import Feed from './screens/TabNavigator/feed/Feed'
+import Events from './Events'
 
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Platform } from 'react-native';
 
-const RolesTabStackNavigator = new TabNavigator({
+const RolesTabStackNavigator = TabNavigator({
     Feed:{
-        screen:Feed,
+        screen: Events,
         navigationOptions:{
             tabBarLabel:'Feed',
             tabBarIcon: ({ tintColor }) => <MaterialCommunityIcons name='newspaper' size={27} style={{ color: tintColor }} />
-        }
+        },
     },
-   /* RolesConfirmadosNavigator:{
-        screen:RolesConfirmadosNavigator,
-        navigationOptions:{
-            tabBarLabel:'RolesConfirmados',
-            tabBarIcon: ({ tintColor }) => <MaterialIcons name='event-available' size={27} style={{ color: tintColor }} />
-        }
-    },
-    */
     CadastroEventos1:{
         screen: CadastroEventos1,
         navigationOptions:{
             tabBarLabel:'CadastroEventos',
             tabBarIcon: ({ tintColor }) => <MaterialIcons name='playlist-add' size={27} style={{ color: tintColor }} />
-        }
+        },
     },
-}, {
+}, 
+{
     headerMode: 'none',                         // I don't want a NavBar at top
     // tabBarPosition: 'bottom',                   // So your Android tabs go bottom
     tabBarOptions: {

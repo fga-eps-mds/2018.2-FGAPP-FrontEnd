@@ -14,7 +14,7 @@ import {
   Foundation,
 } from "@expo/vector-icons";
 
-// import Feed from '../feed/Feed'
+import Feed from '../feed/Feed'
 import Input from './components/Input'
 import Title from './components/Title'
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";

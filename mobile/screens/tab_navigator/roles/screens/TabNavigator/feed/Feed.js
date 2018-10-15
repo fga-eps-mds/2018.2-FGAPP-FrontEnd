@@ -16,6 +16,8 @@ import {
 import React, { Component } from "react"
 import { View, StyleSheet, ScrollView, RefreshControl } from "react-native"
 import FeedItem from "./FeedItem"
+import {withNavigation} from 'react-navigation'
+
 class Feed extends Component {
 	async componentWillMount() {
 		await Expo.Font.loadAsync({
@@ -24,6 +26,9 @@ class Feed extends Component {
 			Ionicons: require("@expo/vector-icons/fonts/Ionicons.ttf")
 		})
 		this.setState({ loading: false })
+	}
+
+	componentDidMount(){
 		this._refreshFeed()
 	}
 
@@ -36,9 +41,9 @@ class Feed extends Component {
 	_refreshFeed = () => {
 		this.setState({ refreshing: true })
 		fetch("http://209.97.153.172:8002/events/")
-			.then(res => res.json())
-			.then(roles => {
-				this.setState({ loading: false, roles })
+		.then(res => res.json())
+		.then(resJson => {
+			this.setState({ loading: false, roles: resJson })
 			})
 			.then(() => {
 				this.setState({ refreshing: false })
@@ -52,9 +57,10 @@ class Feed extends Component {
 	}
 
 	render() {
-		if (this.state.loading) {
-			return <Expo.AppLoading />
-		}
+		//Loading bugando
+		// if (this.state.loading) {
+		// 	return <Expo.AppLoading />
+		// }
 		return (
 			<View>
 				<ScrollView
@@ -69,15 +75,18 @@ class Feed extends Component {
 					{this.state.roles.map((role, index) => (
 						<FeedItem
 							key={index}
+							idRole={role.id}
 							imgRole={role.photo}
 							nomeRole={role.eventName}
 							org={role.owner}
+							navigation={this.props.navigation}
 						/>
 					))}
 				</ScrollView>
 			</View>
 		)
 	}
+
 }
 
 const styles = StyleSheet.create({

@@ -2,38 +2,30 @@ import React, { Component } from "react";
 import { 
     View,
     Text,
-    StyleSheet
+    StyleSheet,
 } from "react-native";
 
+import {Button} from 'native-base'
+
 import HomeScreen from './screens/HomeScreen'
-import CadastroEventos1 from './screens/TabNavigator/cadastroEventos/CadastroEventos1'
-import CadastroEventos2 from './screens/TabNavigator/cadastroEventos/CadastroEventos2'
-import Feed from './screens/TabNavigator/feed/Feed'
 import {StackNavigator} from 'react-navigation'
 import RolesTabHandler from './RolesTabHandler'
-
 
 export default class RolesApp extends Component {
 
     render() {
         return (
-            <RolesStackNavigator />
+            <RolesStackNavigator/>
         );
     }
 }
 
-const RolesStackNavigator = new StackNavigator({
+const RolesStackNavigator = StackNavigator({
     RolesTabHandler:{
         screen:RolesTabHandler,
         navigationOptions: ({ navigation }) => ({
           header: null,
         }),
-    },
-    HomeScreen:{
-        screen:HomeScreen,
-        navigationOptions: {
-            header: null
-        }
     },
 })
 
