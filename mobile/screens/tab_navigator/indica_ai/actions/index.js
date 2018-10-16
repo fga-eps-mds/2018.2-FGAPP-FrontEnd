@@ -1,6 +1,9 @@
-export const searchAction = localName => (
-    console.log('SEARCH ACTION'),
-    console.log(localName), console.log('FINISH ACTION'), {
+export const requestSearchAction = localName => ({
+    type: 'REQUEST_LOCALS',
+    local: localName,
+})
+
+export const searchAction = locals => ({
     type: 'GET_LOCALS',
-    locals: localName
+    locals: locals,
 })

@@ -1,14 +1,18 @@
 import React, { Component } from "react";
 import {
-  View, 
+  View,
+  Text,
   StyleSheet, 
   ScrollView
 } from "react-native";
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { searchAction } from '../actions'
 import Local from "../components/Local";
+import IconMessage from "../components/IconMessage";
 
 class ListLocals extends Component {
-  
+
     state = {
       locals: []
     };
@@ -25,10 +29,7 @@ class ListLocals extends Component {
       })
       .then(response => response.json())
       .then(responseJson => {
-        const localsFather = this.props.locals;
-        this.setState({
-          locals: responseJson,
-        })
+        this.props.searchAction(responseJson)
       }) 
       .catch(error => {
         console.log(error);
@@ -47,37 +48,36 @@ class ListLocals extends Component {
 
         const { locals } = this.state
 
-        console.log('RENDER LIST')
-        console.log(this.state)
-        console.log('FINISH RENDER')
+        if(locals.length == 0) {
+            return (
+                <IconMessage
+                    message='Nenhum resultado encontrado'
+                    icon='sad'
+                 />
+            )
+        } else {
 
-
-        return (
-          <View style={styles.listLocals}> 
-              <ScrollView>
-                {this.state.locals
-                .map(local => <Local name={local.name} description={local.description}  key={local.id}/>)} 
-              </ScrollView>
-          </View>
-        );
+          return (
+            <ScrollView>
+              {locals.map( local =>
+                  <Local
+                    name={local.name}
+                    description={local.description}
+                    key={local.id}
+                  />
+               )} 
+            </ScrollView>
+          );
+        }
     }
 }
 
-const mapStateToProps = store => (console.log('MAP STATE TO PROPS List'), console.log(store),{
+const mapStateToProps = store => ({
     locals: store.searchReducer.locals
 })
 
-export default connect(mapStateToProps)(ListLocals);
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({ searchAction }, dispatch))
 
-const styles = StyleSheet.create({
-  listLocals: {
-    borderRadius: 5,
-    marginHorizontal: 10,
-  },
+export default connect(mapStateToProps, mapDispatchToProps)(ListLocals);
 
-  LocalsText: {
-    fontSize: 45,
-    fontFamily: 'sans-serif',
-    marginLeft: 5
- } 
-});

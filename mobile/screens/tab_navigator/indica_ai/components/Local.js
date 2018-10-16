@@ -15,10 +15,10 @@ export default class Local extends Component {
 
     const name = this.props.name;
     const description = this.props.description;
-  
+
     return(
         <Card style={styles.localCard}> 
-        
+
          <CardItem header bordered>
             <Text style={styles.localName}>
              {name}
