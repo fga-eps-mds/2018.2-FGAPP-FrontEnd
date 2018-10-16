@@ -1,25 +1,19 @@
-import React, { Component } from 'react';
-import { 
-    View,
-    Text,
-    StyleSheet
-} from 'react-native';
+import React, { Component } from "react";
+import { View, Text, TouchableOpacity, ScrollView, StyleSheet, TextInput, Alert, FlatList, RefreshControl } from 'react-native';
+import Expo from 'expo'
+import { Permissions, Notifications } from 'expo'
 
-class CarDefenseApp extends Component {
-    render() {
-        return (
-            <View style={styles.container}>
-                <Text>RgisterCar</Text>
-            </View>
-        );
-    }
+
+
+export default class RegisterCar extends Component {
+
+
+  render() {
+    return (
+     <View>
+       <Text>Register car</Text>
+     </View>
+    );
+  }
 }
 export default CarDefenseApp;
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
-    }
-});
