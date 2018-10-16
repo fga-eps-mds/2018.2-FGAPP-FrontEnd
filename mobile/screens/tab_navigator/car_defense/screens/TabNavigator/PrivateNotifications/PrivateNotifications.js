@@ -29,32 +29,6 @@ async function register() {
   console.log(status, value);
 }
 
-  onPressButton = () => {
-    const url = '' //function send_push_message url
-
-    if (this.state.plate.length == 0) {
-      Alert.alert("Insira a placa")
-    }
-
-    else if (this.state.plate.length < 7 && this.state.plate.length != 0) {
-      Alert.alert("Placa muito curta!")
-    }
-
-    else if (this.state.message.length == 0) {
-      Alert.alert("Escreva uma mensagem!")
-    }
-
-    else if (this.state.plate.length == 7) {
-      let notification = JSON.stringify({
-        plate: this.state.plate,
-        title: this.state.title,
-        message: this.state.message
-      })
-
-    }
-
-  }
-
 export default class PrivateNotifications extends Component {
   componentWillMount() {
     register();
