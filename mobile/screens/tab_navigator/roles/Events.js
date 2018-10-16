@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {StackNavigator} from 'react-navigation'
 
 import Feed from './screens/TabNavigator/feed/Feed'
-import Profile from './screens/Profile'
+import Profile from './screens/EventProfile/Profile'
 
 export default class Events extends Component{
 	render(){

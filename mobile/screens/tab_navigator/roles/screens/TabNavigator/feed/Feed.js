@@ -16,7 +16,6 @@ import {
 import React, { Component } from "react"
 import { View, StyleSheet, ScrollView, RefreshControl } from "react-native"
 import FeedItem from "./FeedItem"
-import {withNavigation} from 'react-navigation'
 
 class Feed extends Component {
 	async componentWillMount() {
