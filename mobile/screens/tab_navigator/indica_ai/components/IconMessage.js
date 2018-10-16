@@ -1,14 +1,9 @@
 import React, { Component } from 'react'
 import {
     View,
-    Text,
     StyleSheet
 } from 'react-native'
-import {
-    Container,
-    Item,
-    Icon
-} from 'native-base'
+import { Container, Content, Card, CardItem, Text, Icon, Right } from 'native-base'
 
 class IconMessage extends Component {
 
@@ -28,10 +23,18 @@ class IconMessage extends Component {
         } = this.state
 
         return (
-                <View>
-                    <Text>{message}</Text>
-                    <Icon name={icon} style={styles.iconStyle}/>
-                </View>
+            <Container>
+                <Content>
+                    <Card>
+                        <CardItem>
+                            <Text style={styles.viewStyle}>{message}</Text> 
+                            <Right>
+                                <Icon name={icon} style={styles.iconStyle}/>
+                            </Right>
+                        </CardItem>
+                    </Card>
+                </Content>
+            </Container>
         )
     }
 }
@@ -46,6 +49,7 @@ const styles = StyleSheet.create({
 
     iconStyle: {
         opacity: 0.5,
-        fontSize: 150
+        fontSize: 30,
+        color: '#0AACCC'
     }
 })
