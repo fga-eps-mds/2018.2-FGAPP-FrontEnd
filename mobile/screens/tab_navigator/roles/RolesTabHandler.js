@@ -14,7 +14,7 @@ import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Platform } from 'react-native';
 
 const RolesTabStackNavigator = TabNavigator({
-    Feed:{
+    Events:{
         screen: Events,
         navigationOptions:{
             tabBarLabel:'Feed',

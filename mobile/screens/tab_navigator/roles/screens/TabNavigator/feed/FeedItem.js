@@ -16,10 +16,17 @@ import React, { Component } from "react"
 import { StyleSheet, Image, View, TouchableOpacity } from "react-native"
 import {withNavigation} from 'react-navigation'
 
+import Comments from '../../EventComments/Comments';
+
 // const logo = require("./images/logo.png");
 const noPic = require("./images/noPic.png")
 
 class FeedItem extends Component {
+
+	goToComments = () => {
+		this.props.navigate.navigation('Comments')
+	}
+
 	render() {
 		return (
 			<Card style={styles.mb}>
@@ -72,7 +79,7 @@ class FeedItem extends Component {
 					<Button
 						transparent
 						onPress={() => {
-							console.log("Comentários -> " + this.props.nomeRole)
+							this.props.navigation.navigate('Comments', {idRole: this.props.idRole})
 						}}
 					>
 						<Icon active name="chatbubbles" />
