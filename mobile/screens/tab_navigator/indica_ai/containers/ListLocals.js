@@ -1,19 +1,24 @@
 import React, { Component } from "react";
 import {
   View,
-  Text, 
+  Text,
   StyleSheet, 
-  ScrollView,
-  FlatList
+  ScrollView
 } from "react-native";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { searchAction } from '../actions'
 import Local from "../components/Local";
+import IconMessage from "../components/IconMessage";
 
 class ListLocals extends Component {
 
     state = {
       locals: []
     };
-    
+
+    // Fucntion responsable to load all places before mount
+    // the component by setting the state equal to result from fetch
     componentWillMount(){
       const url = fetch(`https://indicaai.herokuapp.com/locals/`, {
         method: "GET",
@@ -24,47 +29,55 @@ class ListLocals extends Component {
       })
       .then(response => response.json())
       .then(responseJson => {
-        const localsFather = this.props.locals;
-        this.setState({
-          locals: responseJson,
-        })
-         console.log(this.state.locals); 
+        this.props.searchAction(responseJson)
       }) 
       .catch(error => {
         console.log(error);
       });
     }
-    componentDidUpdate() {
-      if(this.props.locals.length !== 0) {
-        if(this.props.locals.locals[0] !== this.state.locals)
-          this.setState({locals: this.props.locals.locals[0]})
-        else if(this.props.locals.locals[0] === " ")
-          this.setState(locals: responseJson) 
-      }
+
+    // Function responsable update the component
+    // when the state is diferent from parent props (locals.locals[0])
+    componentWillReceiveProps(newProps) {
+        if(newProps.locals !== undefined){
+            this.setState({locals: newProps.locals })
+        }
     }
+
     render() {
-        return (
-          <View style={styles.listLocals}> 
-              <ScrollView>
-                {this.state.locals
-                .map(local => <Local name={local.name} description={local.description}  key={local.id}/>)} 
-              </ScrollView>
-          </View>
-        );
+
+        const { locals } = this.state
+
+        if(locals.length == 0) {
+            return (
+                <IconMessage
+                    message='Nenhum resultado encontrado'
+                    icon='sad'
+                 />
+            )
+        } else {
+
+          return (
+            <ScrollView>
+              {locals.map( local =>
+                  <Local
+                    name={local.name}
+                    description={local.description}
+                    key={local.id}
+                  />
+               )} 
+            </ScrollView>
+          );
+        }
     }
 }
 
-export default ListLocals;
+const mapStateToProps = store => ({
+    locals: store.searchReducer.locals
+})
 
-const styles = StyleSheet.create({
-  listLocals: {
-    borderRadius: 5,
-    marginHorizontal: 10,
-  },
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({ searchAction }, dispatch))
 
-  LocalsText: {
-    fontSize: 45,
-    fontFamily: 'sans-serif',
-    marginLeft: 5
- } 
-});
+export default connect(mapStateToProps, mapDispatchToProps)(ListLocals);
+

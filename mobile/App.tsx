@@ -8,8 +8,6 @@ import LoginScreen from './screens/LoginScreen'
 import SignUpScreen from './screens/SignUpScreen'
 import TabHandler from './screens/TabHandler'
 
-
-
 export default class App extends React.Component<{}> {
   render() {
     return (
@@ -18,26 +16,26 @@ export default class App extends React.Component<{}> {
   }
 }
 
-const AppStackNavigator = new StackNavigator({
+const AppStackNavigator = StackNavigator({
 
-   WelcomeScreen:{
-     screen:WelcomeScreen,
-     navigationOptions: ({ navigation }) => ({
-       header: null,
-     }),
-   },
-   LoginScreen:{
-     screen:LoginScreen
-   },
-   SignUpScreen:{
-     screen:SignUpScreen
-   },
-  TabHandler:{
-    screen:TabHandler,
-    navigationOptions: ({ navigation }) => ({
-      headerLeft: null,
-    }),
-  }
+    WelcomeScreen:{
+      screen:WelcomeScreen,
+      navigationOptions: ({ navigation }) => ({
+        header: null,
+      }),
+    },
+    LoginScreen:{
+      screen:LoginScreen
+    },
+    SignUpScreen:{
+      screen:SignUpScreen
+    },
+    TabHandler:{
+      screen:TabHandler,
+      navigationOptions: ({ navigation }) => ({
+        headerLeft: null,
+      }),
+    }
 })
 
 const styles = StyleSheet.create({

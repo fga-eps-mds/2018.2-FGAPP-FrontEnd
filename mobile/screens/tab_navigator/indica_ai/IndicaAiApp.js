@@ -1,64 +1,21 @@
 import React, { Component } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  Dimensions,
-  PixelRatio,
-  ScrollView
-} from "react-native";
-import SearchBar from "./containers/searchBar";
-import { Provider } from "react-redux";
-import store from "./redurces/store";
-import ListLocals from './containers/ListLocals'
-import ViewLocal from './containers/ViewLocal'
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
+import rootReducers from './reducers'
+import SearchScreen from './screens/SearchScreen.js'
 
+const store = createStore(rootReducers)
 
-class FirstScreen extends Component {
-
-  constructor(props) {
-      super(props);
-      this.state = {
-          locals: []
-      };
-  }
-
-  changeLocals = vetor => {
-    this.setState({
-      locals: vetor
-    });
-  };
+class IndicaAiApp extends Component {
 
   render() {
+
     return (
-        <View style={styles.container}>
-          <Provider store={store}>
-            <SearchBar onChangeLocals={this.changeLocals} />
-          </Provider>
-          <Provider store={store}>
-            <ListLocals locals={this.state.locals}/>
-          </Provider>
-        </View>
+        <Provider store={store}>
+            <SearchScreen />
+       </Provider>
     );
   }
 }
 
-const mapStateToProps = () => {
-  return {
-    searchBar: {}
-  };
-};
-
-export default FirstScreen;
-
-const styles = StyleSheet.create({
-
-  container: {
-    flex: 1,
-    flexDirection: "column",
-    justifyContent: "flex-start",
-    backgroundColor: "#FFF"
-  }
-
-});
+export default IndicaAiApp;

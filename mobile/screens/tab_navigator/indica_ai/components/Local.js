@@ -1,6 +1,5 @@
 import React, { Component}   from 'react';
 import {
-  View,
   Text,
   StyleSheet
 } from 'react-native';
@@ -16,10 +15,9 @@ export default class Local extends Component {
     const name = this.props.name;
     const description = this.props.description;
 
-    console.log(this.props.description)  
-
     return(
-        <Card>
+        <Card style={styles.localCard}> 
+
          <CardItem header bordered>
             <Text style={styles.localName}>
              {name}
@@ -40,7 +38,11 @@ export default class Local extends Component {
 
 const styles = StyleSheet.create({
 
-  localDescription:{
+  localCard: {
+      borderRadius: 7,
+  },
+
+  localDescription: {
     marginLeft: 0,
     fontSize: 15
   },

@@ -617,6 +617,13 @@
     "@types/prop-types" "*"
     "@types/react" "*"
 
+"@types/react-native@*":
+  version "0.57.1"
+  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.57.1.tgz#493260b221c3404ef34c697e9cce127006935dd8"
+  dependencies:
+    "@types/prop-types" "*"
+    "@types/react" "*"
+
 "@types/react-native@^0.55.14":
   version "0.55.28"
   resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.55.28.tgz#b57d796f6e5ee26ef6fab2328d84ae6f3e67abdf"
