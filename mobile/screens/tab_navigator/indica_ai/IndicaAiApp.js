@@ -1,9 +1,9 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import { 
     View,
     Text,
     StyleSheet
-} from "react-native";
+} from 'react-native';
 
 class FirstScreen extends Component {
     render() {

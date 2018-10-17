@@ -25,25 +25,15 @@ Inside docker's container, execute ***yarn start*** to run the react-native app.
 yarn start
 ```
 ## Development Environment
-Inside ***mobile*** directory, has a .env file. In order to maintain correct domains for external api paths.
 
-#### Using environment variables on JS
+Inside ***mobile*** directory, must have a .env file similar a file called env.mock-reference in the same directory. In order to maintain correct domains for external api paths.
+
+#### Acessando variáveis de ambiente
 ```js
-console.log(process.env.VARIABLES_NAME)
-
-fetch(process.env.USERS_API + 'users/1', {
-    method: 'GET',
-    headers: {
-    'Content-Type': 'application/json',
-    }
-})
-
-```
-#### .env
-```
-USERS_API=https://www.users.com/
+console.log(`${process.env.INTEGRA_LOGIN_AUTH}/login`)
+// must print a url similar to: http://5babadabecc1a70014306b40.mockapi.io/api/rest-auth/login
 ```
 
 ## Mocked development
-In order to easier the development conflicts about external APIs, it is introduced a mocked backend. [More info](https://github.com/micromata/http-fake-backend.git)
+In order to easier the development conflicts about external APIs, it is introduced a external mocked backend. [More info](https://www.mockapi.io/)
 

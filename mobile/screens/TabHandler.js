@@ -1,64 +1,92 @@
-import React, { Component } from "react";
-import { 
-    View,
-    Text,
-    StyleSheet
-} from "react-native";
+import React, { Component } from 'react';
+import {
+    View
+} from 'react-native';
+import { Icon } from 'native-base';
+import { TabNavigator } from 'react-navigation';
+import TabHandlerVendasApp from './tab_navigator/vendas/TabHandlerVendasApp';
+import IndicaAiApp from './tab_navigator/indica_ai/IndicaAiApp';
+import RolesApp from './tab_navigator/roles/RolesApp';
+import Settings from './tab_navigator/settings/Settings';
+import CarDefenseTabHandler from './tab_navigator/car_defense/CarDefenseTabHandler';
 
-import {TabNavigator} from 'react-navigation'
-import VendasApp from './tab_navigator/vendas/VendasApp'
-import IndicaAiApp from './tab_navigator/indica_ai/IndicaAiApp'
-import RolesApp from './tab_navigator/roles/RolesApp'
-import CarDefenseTabHandler from './tab_navigator/car_defense/CarDefenseTabHandler'
-
-const TabStackNavigator = new TabNavigator({
-    CarDefense:{
-        screen:CarDefenseTabHandler,
-        navigationOptions:{
-            tabBarLabel:'CarDefense',
-            tabBarIcon: () => {
-            }
+const TabHandler = new TabNavigator({
+    Roles: {
+        screen: RolesApp,
+        navigationOptions: {
+            tabBarLabel: 'Eventos',
+            headerLeft: null,
+            tabBarIcon: ({ focused }) => (
+                <Icon
+                    name="md-star"
+                    style={{ color: focused ? '#1CBD24' : '#5A5A5A' }}
+                />
+            )
         }
     },
-    IndicaAi:{
-        screen:IndicaAiApp,
-        navigationOptions:{
-            tabBarLabel:'IndicaAi',
-            tabBarIcon: () => {
-            }
+    Vendas: {
+        screen: TabHandlerVendasApp,
+        navigationOptions: {
+            tabBarLabel: 'Vendas',
+            tabBarIcon: ({ focused }) => (
+                <Icon
+                    name="md-cart"
+                    style={{ color: focused ? '#0EAC6F' : '#5A5A5A' }}
+                />
+            )
         }
     },
-    Roles:{
-        screen:RolesApp,
-        navigationOptions:{
-            tabBarLabel:'Rolês',
-            tabBarIcon: () => {
-            }
+    IndicaAi: {
+        screen: IndicaAiApp,
+        navigationOptions: {
+            tabBarLabel: 'IndicaAi',
+            headerLeft: null,
+            tabBarIcon: ({ focused }) => (
+                <Icon 
+                    name="md-locate"
+                    style={{ color: focused ? '#0AACCC' : '#5A5A5A' }}
+                />
+            )
         }
     },
-    Vendas:{
-        screen:VendasApp,
-        navigationOptions:{
-            tabBarLabel:'Vendas',
-            tabBarIcon: () => {
-            }
+    CarDefense: {
+        screen: CarDefenseTabHandler,
+        navigationOptions: {
+            tabBarLabel: 'CarDefense',
+            headerLeft: null,
+            tabBarIcon: ({ focused }) => (
+                <Icon
+                    name="md-car"
+                    style={{ color: focused ? '#5C68C3' : '#5A5A5A' }}
+                />
+            )
         }
-    }
-})
-
-class TabHandler extends Component {
-    render() {
-        return (
-            <TabStackNavigator/>
-        );
-    }
-}
-export default TabHandler;
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
-    }
+    },
+    Settings: {
+        screen: Settings,
+        navigationOptions: {
+            tabBarLabel: 'Configurações',
+            headerLeft: null,
+            tabBarIcon: ({ focused }) => (
+                <Icon
+                    name="md-settings"
+                    style={{ color: focused ? '#BD1C5F' : '#5A5A5A' }}
+                />
+            )
+        }
+    },
+}, {
+    tabBarOptions: {
+        showIcon: true,
+        showLabel: false,
+        style: {
+            backgroundColor: '#171717',
+        },
+        tabStyle: {
+            height: 60,
+        },
+    },
+    animationEnabled: true,
 });
+
+export default TabHandler;
