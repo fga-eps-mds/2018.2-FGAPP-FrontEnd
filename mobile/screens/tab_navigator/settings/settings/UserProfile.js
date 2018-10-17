@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import {
   View,
-  Text,
   StyleSheet,
+  Button
 } from 'react-native';
-import { Button } from 'native-base';
 
 class UserProfile extends Component {
   _logout = async () => {
@@ -47,7 +46,7 @@ class UserProfile extends Component {
     return (
       <View style={styles.container}>
         <Button
-          color="#BD1C5F"
+          color='#BD1C5F'
           onPress={this._logout}
           title="Sair"
         />
