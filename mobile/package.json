@@ -49,10 +49,7 @@
   "dependencies": {
     "@expo/vector-icons": "^6.3.1",
     "@types/react-navigation": "^2.0.23",
-<<<<<<< HEAD
-=======
     "antd": "^3.10.0",
->>>>>>> 98dd2e4f6285c70590a62bc5a68e9636813ccc21
     "babel-plugin-inline-dotenv": "^1.1.2",
     "expo": "^27.0.1",
     "jwt-decode": "^2.2.0",
