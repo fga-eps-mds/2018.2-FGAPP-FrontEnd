@@ -1,17 +1,18 @@
-import React, {Component} from 'react';
-import {View, Text} from 'react-native'
+import React, { Component } from "react"
+import {Card, CardItem} from "native-base"
+import { View, Text } from "react-native"
 
 class Comments extends Component {
-
     render() {
-        return(
-            <View>
-                <Text>
-                    Pagina de comentarios.
-                </Text>
-            </View>
-        )
+        return (
+            <Card>
+                <Text>Comentarios.</Text>
+                <CardItem>
+
+                </CardItem>
+            </Card>
+        );
     }
 }
 
-export default Comments;
+export default Comments
