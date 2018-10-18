@@ -22,10 +22,12 @@ import {
 } from "react-native"
 
 import Geral from "./components/Geral"
-import Descricao from "./components/Descricao"
-import Avaliacao from './components/Avaliacao'
+import Detalhes from "./components/Detalhes"
+import Avaliacao from "./components/Avaliacao"
+import Localizacao from "./components/Localizacao"
+import Contato from "./components/Contato"
 
-const noPic = require("../TabNavigator/feed/images/noPic.png")
+// const noPic = require("../../static/noPic.png")
 
 class Profile extends Component {
 	state = {
@@ -47,10 +49,6 @@ class Profile extends Component {
 			})
 	}
 
-	_gotoURL = () => {
-		Linking.openURL(this.state.role.linkReference)
-	}
-
 	componentDidMount() {
 		const { idRole } = this.props.navigation.state.params
 		this._getDadosRole(idRole)
@@ -68,6 +66,7 @@ class Profile extends Component {
 		return (
 			<ScrollView>
 				<Geral
+					photo={role.photo}
 					eventName={role.eventName}
 					eventHour={role.eventHour}
 					eventDate={role.eventDate}
@@ -75,16 +74,25 @@ class Profile extends Component {
 					adultOnly={role.adultOnly}
 				/>
 
-				<Descricao
+				<Detalhes
 					eventDescription={role.eventDescription}
+					refURL={this.state.role.linkReference}
+				/>
+
+				<Avaliacao />
+
+				<Localizacao
+					address={role.address}
 					linkAddress={role.linkAddress}
 				/>
 
-				<Avaliacao
-				
+				<Contato 
+					organizer={role.organizer}
+					organizerTel={role.organizerTel}
 				/>
 			</ScrollView>
 		)
 	}
 }
+
 export default Profile

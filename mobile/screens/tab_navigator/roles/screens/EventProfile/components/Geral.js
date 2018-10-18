@@ -7,34 +7,38 @@ import {
 	Body,
 	Right,
 	Icon,
+	H2,
+	List,
+	ListItem
 } from "native-base"
-import { View, ScrollView, Text, StyleSheet } from "react-native"
+import { Text, StyleSheet } from "react-native"
 
-const noPic = require("../../TabNavigator/feed/images/noPic.png")
+const adultOnly = require("../../../static/adultOnly.png")
+const noPic = require("../../../static/noPic.png")
 
 class Geral extends Component {
 	render() {
+		const uri = this.props.photo
 		return (
 			<Card>
 				<Text style={{ color: "grey" }}>Geral</Text>
 				<CardItem>
 					<Left>
 						<Thumbnail
-							style={styles.thumbnailDescricao}
-							source={noPic}
+							style={styles.thumbnailGeral}
+							source={this.props.photo == null ? noPic : {uri: uri}}
 						/>
 					</Left>
 
 					<Body>
-						<Text
+						<H2
 							style={{
-								fontSize: 20,
 								textAlign: "center",
 								alignSelf: "center"
 							}}
 						>
 							{this.props.eventName}
-						</Text>
+						</H2>
 
 						<Card style={styles.descCards}>
 							<Left>
@@ -67,18 +71,18 @@ class Geral extends Component {
 
 				{/* Sessão do +18; Se for true, ele mostra o card dizendo que a classificação indicativa é +18 */}
 				{this.props.adultOnly == true && (
-					<Left>
-						<Card>
-							<Body>
-								<CardItem>
-									<Text>Classificação Indicativa: </Text>
-								</CardItem>
-								<CardItem>
-									<Thumbnail small source={noPic} />
-								</CardItem>
-							</Body>
-						</Card>
-					</Left>
+					<Card transparent>
+						<Body>
+							<CardItem>
+								<Text>Classificação Indicativa:</Text>
+								<Thumbnail
+									style={{ marginLeft: 20 }}
+									small
+									source={adultOnly}
+								/>
+							</CardItem>
+						</Body>
+					</Card>
 				)}
 			</Card>
 		)
@@ -89,7 +93,7 @@ const styles = StyleSheet.create({
 	descCards: {
 		flexDirection: "row"
 	},
-	thumbnailDescricao: {
+	thumbnailGeral: {
 		borderWidth: 2,
 		borderColor: "grey",
 		borderRadius: 125,

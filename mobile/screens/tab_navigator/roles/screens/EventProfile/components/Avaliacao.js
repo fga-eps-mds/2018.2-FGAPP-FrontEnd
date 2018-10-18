@@ -32,7 +32,7 @@ class Avaliacao extends Component {
 								<Text style={styles.subHeaders}>
 									Como está o evento?
 								</Text>
-
+								
 								<CardItem style={{ alignSelf: "center" }}>
 									<Left>
 										<TouchableOpacity>
@@ -75,7 +75,7 @@ class Avaliacao extends Component {
 								<Button block primary style={styles.btn}>
 									<Icon name="share" />
 									<Text style={{ color: "white" }}>
-										Compartilhe!
+										Compartilhar
 									</Text>
 								</Button>
 
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
 	likeDislikeBox: {
 		borderWidth: 1,
 		borderRadius: 5,
-		width: 30,
+		width: 50,
 		height: 30,
 
 		alignSelf: "center",
@@ -118,9 +118,9 @@ const styles = StyleSheet.create({
 		alignSelf: "center",
 		fontSize: 15
 	},
-	btn:{
-		margin:7,
-	},
+	btn: {
+		margin: 7
+	}
 })
 
 export default Avaliacao
