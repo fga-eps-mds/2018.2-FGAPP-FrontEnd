@@ -9,104 +9,89 @@ import {
 	View,
 	TouchableHighlight
 } from "react-native"
-import Modal from "react-native-modal"
+
+import CardsDetalhes from "./CardsDetalhes"
+import DescModals from "./DescModals"
 
 class Detalhes extends Component {
-	_gotoURL = () => {
-		Linking.openURL(this.props.refURL)
-	}
-
 	state = {
-		modalVisible: false
+		detailsModalVisible: false,
+		drinksModalVisible: false,
+		foodsModalVisible: false
 	}
 
-	_toggleModal = () => {
-		this.setState({ modalVisible: !this.state.modalVisible })
+	_toggleModal = modal => {
+		if (modal == "details")
+			this.setState({
+				detailsModalVisible: !this.state.detailsModalVisible
+			})
+		else if (modal == "drinks")
+			this.setState({
+				drinksModalVisible: !this.state.drinksModalVisible
+			})
+		else if (modal == "foods")
+			this.setState({ foodsModalVisible: !this.state.foodsModalVisible })
 	}
 
 	render() {
 		return (
 			<View>
-				<Modal
-					isVisible={this.state.modalVisible}
-					onBackButtonPress={this._toggleModal}
-					onBackdropPress={this._toggleModal}
-				>
-					<Card style={styles.modalDescricao}>
-						<CardItem
-							header
-							bordered
-							style={{ height: 50, alignSelf: "center" }}
-						>
-							<Icon name="clipboard" />
-							<Text> Descrição do Rolê</Text>
-						</CardItem>
+				<DescModals
+					visible={this.state.detailsModalVisible}
+					goBack={() => this._toggleModal("details")}
+					icon="clipboard"
+					headerLabel="Descrição do Rolê"
+					text={this.props.eventDescription}
+					link={this.props.refURL}
+				/>
 
-						<ScrollView
-							style={{
-								height: "60%",
-								backgroundColor: "#f2f2f2"
-							}}
-						>
-							<Text style={{ textAlign: "center" }}>
-								{"\n" + this.props.eventDescription + "\n"}
-							</Text>
-						</ScrollView>
+				<DescModals
+					visible={this.state.drinksModalVisible}
+					goBack={() => this._toggleModal("drinks")}
+					icon="beer"
+					headerLabel="Drinks"
+					text={this.props.drinks}
+					color="#B79200"
+				/>
 
-						<CardItem style={{ alignSelf: "center" }}>
-							<Icon name="link" />
-							<Text>Link: </Text>
-							<TouchableOpacity onPress={this._gotoURL}>
-								<Text style={{ color: "blue" }}>
-									{this.props.refURL}
-								</Text>
-							</TouchableOpacity>
-						</CardItem>
-					</Card>
-				</Modal>
+				<DescModals
+					visible={this.state.foodsModalVisible}
+					goBack={() => this._toggleModal("foods")}
+					icon="pizza"
+					headerLabel="Comidas"
+					text={this.props.foods}
+					color="red"
+				/>
 
 				<Card>
-					<Text style={{ color: "grey" }}>Detalhes</Text>
-					<Body>
-						<TouchableOpacity onPress={this._toggleModal}>
-							<Card
-								style={{
-									alignSelf: "center",
-									width: 300
-								}}
-							>
-								<CardItem
-									style={{
-										backgroundColor: "#f2f2f2",
-										height: 100
-									}}
-								>
-									<Text>{this.props.eventDescription}</Text>
-								</CardItem>
+					<Text style={{ color: "grey", marginBottom: 10 }}>
+						Detalhes
+					</Text>
+					
+						<CardsDetalhes
+							onPressCard={() => this._toggleModal("details")}
+							descricao={this.props.eventDescription}
+							icon="clipboard"
+							label="Descrição do Rolê"
+							color="black"
+						/>
 
-								<CardItem
-									bordered
-									style={{ alignSelf: "center" }}
-								>
-									<Icon name="clipboard" />
-									<Text>Descrição do Rolê - </Text>
-									<Text style={{color:'blue'}}>Ver Mais</Text>
-								</CardItem>
-							</Card>
-						</TouchableOpacity>
+						<CardsDetalhes
+							onPressCard={() => this._toggleModal("drinks")}
+							descricao={this.props.drinks}
+							icon="beer"
+							label="Drinks"
+							color="#b79200"
+						/>
 
-						<Button
-							block
-							style={styles.btnDrinks}
-						>
-							<Icon name="beer" />
-							<Text style={{ color: "white" }}>Drinks</Text>
-						</Button>
-						<Button block danger style={styles.btn}>
-							<Icon name="pizza" />
-							<Text style={{ color: "white" }}>Comidas</Text>
-						</Button>
-					</Body>
+						<CardsDetalhes
+							onPressCard={() => this._toggleModal("foods")}
+							descricao={this.props.foods}
+							icon="pizza"
+							label="Comidas"
+							color="#f23a3a"
+						/>
+					
 				</Card>
 			</View>
 		)
@@ -114,31 +99,7 @@ class Detalhes extends Component {
 }
 
 const styles = StyleSheet.create({
-	descricaoRole: {
-		backgroundColor: "#e5e5e5",
-		width: 300,
-		height: 100,
-		borderWidth: 2,
-		borderColor: "grey"
-	},
-	btn: {
-		margin: 7,
-		marginBottom: 10,
-		width: 300,
-		alignSelf: "center"
-	},
-	btnDrinks: {
-		margin: 7,
-		marginBottom: 10,
-		width: 300,
-		alignSelf: "center",
-		backgroundColor: '#eabb00',
-	},
-	modalDescricao: {
-		width: "90%",
-		alignSelf: "center",
-		borderRadius: 10
-	}
+	
 })
 
 export default Detalhes

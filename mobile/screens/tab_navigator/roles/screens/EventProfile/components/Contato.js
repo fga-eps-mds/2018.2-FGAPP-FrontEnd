@@ -10,25 +10,24 @@ import {
 	StyleSheet,
 } from "react-native"
 
+import CardsDetalhes from './CardsDetalhes'
+
 class Contato extends Component {
 	render() {
 		return (
 			<Card>
 				<Text style={{ color: "grey" }}>Suporte</Text>
-				<CardItem>
-					<ScrollView style={styles.descricaoRole}>
-						<Text style={{ textAlign: "center" }}>
-							FAQ E SUPORTE
-						</Text>
-					</ScrollView>
-				</CardItem>
 
-				<CardItem>
-					<Card style={{ width: 320, alignSelf: "center" }}>
-						<Text style={{ color: "grey", fontSize: 10 }}>
-							Contato
-						</Text>
-						<CardItem style={{ paddingTop: 5 }}>
+				<CardsDetalhes 
+					descricao = "TEXTO FAQ"
+					icon='quote'
+					label='FAQ'
+					color='black'
+				/>
+
+				<CardItem style={{alignSelf:'center', width:'100%'}}>
+					<Card style={{ width: '100%', alignSelf:'center'}}>
+						<CardItem>
 							<Icon name="contact" style={styles.contactIcon} />
 							<Card transparent style={{ marginLeft: 10 }}>
 								<Text style={{ fontWeight: "bold" }}>
@@ -45,14 +44,7 @@ class Contato extends Component {
 }
 
 const styles = StyleSheet.create({
-	descricaoRole: {
-		backgroundColor: "#e5e5e5",
-		width: 300,
-		height: 200,
-		alignSelf: "center",
-		borderWidth: 2,
-		borderColor: "grey"
-	},
+	
 	contactIcon:{
 		width:50, 
 		fontSize: 50, 

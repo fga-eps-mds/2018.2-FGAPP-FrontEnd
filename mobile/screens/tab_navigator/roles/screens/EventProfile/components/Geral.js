@@ -19,6 +19,7 @@ const noPic = require("../../../static/noPic.png")
 class Geral extends Component {
 	render() {
 		const uri = this.props.photo
+		const dataFormatada = this.props.eventDate.slice(-2) + '/' + this.props.eventDate.slice(5,7) + '/' + this.props.eventDate.slice(0,4)
 		return (
 			<Card>
 				<Text style={{ color: "grey" }}>Geral</Text>
@@ -45,7 +46,7 @@ class Geral extends Component {
 								<Icon name="time" />
 							</Left>
 							<Right>
-								<Text>{this.props.eventHour}</Text>
+								<Text>{this.props.eventHour.slice(0,5)}h</Text>
 							</Right>
 						</Card>
 
@@ -54,7 +55,7 @@ class Geral extends Component {
 								<Icon name="calendar" />
 							</Left>
 							<Right>
-								<Text>{this.props.eventDate}</Text>
+								<Text>{dataFormatada}</Text>
 							</Right>
 						</Card>
 
@@ -94,11 +95,11 @@ const styles = StyleSheet.create({
 		flexDirection: "row"
 	},
 	thumbnailGeral: {
-		borderWidth: 2,
+		borderWidth: 1,
 		borderColor: "grey",
 		borderRadius: 125,
-		width: 125,
-		height: 125
+		width: 140,
+		height: 140
 	}
 })
 

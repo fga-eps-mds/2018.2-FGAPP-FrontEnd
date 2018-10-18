@@ -76,6 +76,8 @@ class Profile extends Component {
 
 				<Detalhes
 					eventDescription={role.eventDescription}
+					drinks={role.drinks}
+					foods={role.foods}
 					refURL={this.state.role.linkReference}
 				/>
 
