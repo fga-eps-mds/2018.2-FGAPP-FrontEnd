@@ -21,6 +21,7 @@ const noPic = require("./images/noPic.png")
 
 class FeedItem extends Component {
 	render() {
+		const uri = this.props.imgRole
 		return (
 			<Card style={styles.mb}>
 				<TouchableOpacity
@@ -51,7 +52,7 @@ class FeedItem extends Component {
 								source={
 									this.props.imgRole == null //Se o valor de imgRole for null
 										? noPic //então exibe imagem "noPic.png"
-										: this.props.imgRole //caso contrário, exibe a imagem
+										: {uri: uri} //caso contrário, exibe a imagem
 								}
 							/>
 						</CardItem>
