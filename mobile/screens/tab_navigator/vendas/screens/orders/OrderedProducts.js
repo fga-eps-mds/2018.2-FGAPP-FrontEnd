@@ -11,6 +11,7 @@ import {
     RefreshControl
 } from 'react-native';
 import OrderCard from '../../components/OrderCard'
+import BuyerOrderCard from '../../components/BuyerOrderCard'
 import jwt_decode from 'jwt-decode'
 
 class OrderedProducts extends Component {
@@ -18,6 +19,7 @@ class OrderedProducts extends Component {
       super(props);
       this.state = {
           orders: [''],
+          buyer_orders: [''],
           refreshing: false,
       };
     }
@@ -50,6 +52,27 @@ class OrderedProducts extends Component {
       .catch((error) => {
           console.error(error);
       });
+
+      const buyer_orders_path = `${process.env.VENDAS_API}/api/buyer_orders/`;
+
+      fetch(buyer_orders_path, {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+          'user_id': user.user_id,
+          'token': token, // TODO test token
+        }),
+      })
+      .then((response) => response.json())
+      .then((responseJson) => {
+          console.log(responseJson);
+          this.setState({ buyer_orders: responseJson });
+      })
+      .catch((error) => {
+          console.error(error);
+      });
     }
 
     refreshOrders = async () => {
@@ -73,6 +96,19 @@ class OrderedProducts extends Component {
                         />
                     }
                 >
+
+                {this.state.buyer_orders.map((buyer_order, index) => {
+                    return (
+                      <BuyerOrderCard
+                        style={{paddingBottom:20}}
+                        key={index}
+                        orderName = {`${buyer_order.product_name}`}
+                        orderQuantity = {`Quantidade: ${buyer_order.quantity}`}
+                        orderPrice = {parseFloat(buyer_order.total_price).toFixed(2)}
+                      />
+                    );
+                })}
+
                 {this.state.orders.map((order, index) => {
                     return (
                       <OrderCard
