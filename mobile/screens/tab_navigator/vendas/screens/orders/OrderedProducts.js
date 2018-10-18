@@ -68,6 +68,11 @@ class OrderedProducts extends Component {
       .then((response) => response.json())
       .then((responseJson) => {
           console.log(responseJson);
+          if (responseJson.length > 1) {
+            responseJson.sort((order1, order2) => {
+              return (order1.date - order2.date);
+            }).reverse();
+          }
           this.setState({ buyer_orders: responseJson });
       })
       .catch((error) => {
