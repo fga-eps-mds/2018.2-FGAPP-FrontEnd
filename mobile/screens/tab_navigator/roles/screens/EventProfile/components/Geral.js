@@ -10,7 +10,7 @@ import {
 } from "native-base"
 import { View, ScrollView, Text, StyleSheet } from "react-native"
 
-const noPic = require("../../TabNavigator/feed/images/noPic.png")
+const noPic = require("../../../static/noPic.png")
 
 class Geral extends Component {
 	render() {

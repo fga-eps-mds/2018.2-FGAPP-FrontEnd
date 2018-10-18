@@ -25,7 +25,7 @@ import Geral from "./components/Geral"
 import Descricao from "./components/Descricao"
 import Avaliacao from './components/Avaliacao'
 
-const noPic = require("../TabNavigator/feed/images/noPic.png")
+const noPic = require("../../static/noPic.png")
 
 class Profile extends Component {
 	state = {

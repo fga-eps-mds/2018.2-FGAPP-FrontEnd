@@ -16,8 +16,7 @@ import React, { Component } from "react"
 import { StyleSheet, Image, View, TouchableOpacity } from "react-native"
 import {withNavigation} from 'react-navigation'
 
-// const logo = require("./images/logo.png");
-const noPic = require("./images/noPic.png")
+const noPic = require("../../../static/noPic.png")
 
 class FeedItem extends Component {
 	render() {
