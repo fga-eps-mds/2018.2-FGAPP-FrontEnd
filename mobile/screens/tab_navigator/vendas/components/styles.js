@@ -173,4 +173,15 @@ export default {
     padding: 0,
     width: '100%',
     },
+   buyer_order_main: {
+    flex: 1,
+    flexDirection: 'row',
+    //width: '100%',
+    backgroundColor: 'blue', // TODO change backgroundColor
+    paddingTop: 10,
+    paddingBottom: 20,
+    paddingLeft: 20,
+    paddingRight: 20,
+
+  },
 };
