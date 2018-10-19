@@ -22,53 +22,69 @@ class Settings extends Component {
     super(props);
 
     this.state = {
-      userInfo: {
+      profileInfo: {
         name: '',
         email: '',
-        photo: 'https://www.logolynx.com/images/logolynx/03/039b004617d1ef43cf1769aae45d6ea2.png'
+        photo: ''
       }
     }
   }
 
   componentDidMount() {
-    const { state } = this.props.navigation;
-    var token = state.params ? state.params.token : undefined;
-    var jwtDecode = require('jwt-decode');
-    var user = jwt_decode(token);
+    this.loadProfile();
+  }
 
-    this.setState({
-      userInfo: {
-        name: 'Admin',
-        photo: 'https://www.logolynx.com/images/logolynx/03/039b004617d1ef43cf1769aae45d6ea2.png',
-        email: user.email
-      }
+  loadProfile = async () => {
+    const { state } = this.props.navigation;
+    const token = state.params ? state.params.token : undefined;
+    const user = jwt_decode(token);
+
+    const profileInfoPath = `${process.env.INTEGRA_LOGIN_AUTH}/api/users/get_profile/`;
+
+    fetch(profileInfoPath, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        'user_id': user.user_id,
+      }),
     })
+    .then((response) => { return response.json() })
+    .then((responseJson) => {
+      console.log(responseJson);
+
+      this.setState({ profileInfo: responseJson });
+    })
+    .catch((error) => {
+      console.error(error);
+    });
   }
 
   render() {
     const { state } = this.props.navigation;
     var token = state.params ? state.params.token : undefined;
-    
+
     return (
       <Container style={styles.container}>
         <Content>
           <List>
             <ListItem
-              onPress={() => this.props.navigation.navigate('UserProfile', { userInfo: this.state.userInfo, token })}
+              onPress={() => this.props.navigation.navigate('UserProfile', { userInfo: this.state.profileInfo, token })}
               noIndent
               style={styles.cardItem}
             >
               <Left style={{ alignItems: 'center' }}>
                 <Thumbnail
                   large
-                  source={{uri: this.state.userInfo.photo}}
+                  source={{ uri: this.state.profileInfo.photo ? this.state.profileInfo.photo : 'https://www.logolynx.com/images/logolynx/03/039b004617d1ef43cf1769aae45d6ea2.png'}}
                 />
                 <Body>
                   <Text style={styles.name}>
-                    {this.state.userInfo.name}
+                    {this.state.profileInfo.name ? this.state.profileInfo.name : 'Nome de Usuário'}
                   </Text>
                   <Text style={styles.email}>
-                    {this.state.userInfo.email}
+                    {this.state.profileInfo.email}
                   </Text>
                 </Body>
               </Left>
