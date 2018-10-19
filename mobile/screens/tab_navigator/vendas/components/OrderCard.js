@@ -5,6 +5,9 @@ import styles from './styles';
 
 class OrderCard extends Component {
   render() {
+    var status = this.props.orderStatus;
+    var statusValue = (status == 0) ? 'Pendente' : (status == 1 ? 'Atendido' : 'Cancelado');
+
     return (
       <View style={{padding:10}}>
         <TouchableHighlight onPress={this.props.onPress}>
@@ -15,6 +18,7 @@ class OrderCard extends Component {
             </View>
             <View style={{flexDirection: 'column', width: '30%',}}>
               <Text style={styles.order_price}>R$ {this.props.orderPrice}</Text>
+              <Text style={styles.order_status}> {statusValue} </Text>
             </View>
             <View style={{height: 10}} />
           </View>

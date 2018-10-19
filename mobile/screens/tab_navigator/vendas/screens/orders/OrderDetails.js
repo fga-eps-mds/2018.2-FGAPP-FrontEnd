@@ -14,7 +14,8 @@ import styles from '../../components/styles'
 import jwt_decode from 'jwt-decode'
 import { LinearGradient } from 'expo';
 
-//TELA PROVISÓRIA PARA TESTES
+const ORDER_CLOSED = 1;
+
 class OrderDetails extends Component {
 
     attendedOrder = async () => {
@@ -31,7 +32,7 @@ class OrderDetails extends Component {
           },
           body: JSON.stringify({
             'order_id': order.id,
-            'new_status': '1',
+            'new_status': ORDER_CLOSED,
             'token':token,
           }),
         })

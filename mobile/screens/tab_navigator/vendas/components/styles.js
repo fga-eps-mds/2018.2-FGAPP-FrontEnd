@@ -173,4 +173,8 @@ export default {
     padding: 0,
     width: '100%',
     },
+    order_status: {
+     color: 'white',
+     fontSize: 17,
+    },
 };
