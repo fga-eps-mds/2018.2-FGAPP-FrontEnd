@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import {
   View,
   StyleSheet,
-  Button
+  Button,
+  Image,
 } from 'react-native';
+import { Container, Header, Content, Card, CardItem, Body, Text, Form, Item , Label, Input } from 'native-base';
 
 class UserProfile extends Component {
   _logout = async () => {
@@ -45,11 +47,48 @@ class UserProfile extends Component {
 
     return (
       <View style={styles.container}>
-        <Button
-          color='#BD1C5F'
-          onPress={this._logout}
-          title="Sair"
-        />
+        <View style={{margin:5}}>
+          <Card style={{height:150, paddingRight:10}}>
+            <CardItem style={{height:'100%'}}>
+              <Body>
+                <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
+                  <View style={{width:120, height: '100%'}}>
+                    <Image source={{uri: 'http://res.cloudinary.com/demo/image/upload/w_150,h_100,c_fill/sample.jpg'}} style={styles.image_circle} />
+                  </View>
+                  <View>
+                    <Item stackedLabel>
+                      <Label style={{fontSize: 12}}>Nome:</Label>
+                      <Input
+                        style={{fontSize: 12}}
+                        placeholder={'Nome'}
+                      />
+                    </Item>
+                    <Item stackedLabel>
+                      <Label style={{fontSize: 12}}>Email</Label>
+                      <Input
+                        style={{fontSize: 12}}
+                        placeholder={'email@email.com'}
+                      />
+                    </Item>
+                  </View>
+                </View>
+              </Body>
+            </CardItem>
+          </Card>
+        </View>
+        <View style={{margin:5}}>
+          <Button
+            color='#BD1C5F'
+            title="Salvar"
+          />
+        </View>
+        <View style={{margin:5}}>
+          <Button
+            color='#BD1C5F'
+            onPress={this._logout}
+            title="Sair"
+          />
+        </View>
       </View>
     );
   }
@@ -59,7 +98,17 @@ export default UserProfile;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+  },
+  image_circle: {
+    borderWidth:1,
+    borderColor:'rgba(0,0,0,0.2)',
+    alignItems:'center',
+    justifyContent:'center',
+    width:100,
+    height:100,
+    backgroundColor:'#fff',
+    borderRadius:100,
   }
 });
