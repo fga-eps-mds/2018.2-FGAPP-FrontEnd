@@ -18,7 +18,8 @@ import {
 	Text,
 	StyleSheet,
 	Linking,
-	TouchableOpacity
+	TouchableOpacity,
+	ActivityIndicator
 } from "react-native"
 
 import Geral from "./components/Geral"
@@ -58,8 +59,8 @@ class Profile extends Component {
 		const { role } = this.state
 		if (this.state.loading) {
 			return (
-				<View>
-					<Text>LOADING...</Text>
+				<View style={{flex:1, alignContent:'center', justifyContent:'center'}}>
+					<ActivityIndicator size='large' color='#00a50b'/>
 				</View>
 			)
 		}
