@@ -47,6 +47,11 @@ class OrderedProducts extends Component {
       .then((response) => response.json())
       .then((responseJson) => {
           console.log(responseJson);
+          if (responseJson.length > 1) {
+            responseJson.sort((order1, order2) => {
+              return (order1.date - order2.date);
+            }).reverse();
+          }
           this.setState({ orders: responseJson });
       })
       .catch((error) => {
@@ -101,7 +106,6 @@ class OrderedProducts extends Component {
                         />
                     }
                 >
-
                 {this.state.buyer_orders.map((buyer_order, index) => {
                     return (
                       <BuyerOrderCard

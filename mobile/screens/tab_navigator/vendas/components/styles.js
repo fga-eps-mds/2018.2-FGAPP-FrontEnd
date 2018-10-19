@@ -177,7 +177,7 @@ export default {
     flex: 1,
     flexDirection: 'row',
     //width: '100%',
-    backgroundColor: 'blue', // TODO change backgroundColor
+    backgroundColor: '#BD1C5F', // TODO change backgroundColor
     paddingTop: 10,
     paddingBottom: 20,
     paddingLeft: 20,
