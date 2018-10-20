@@ -12,6 +12,8 @@ import {
 	ListItem
 } from "native-base"
 import { Text, StyleSheet } from "react-native"
+import Divider from './Divider'
+import CardHeader from './CardHeader'
 
 const adultOnly = require("../../../static/adultOnly.png")
 const noPic = require("../../../static/noPic.png")
@@ -22,7 +24,7 @@ class Geral extends Component {
 		const dataFormatada = this.props.eventDate.slice(-2) + '/' + this.props.eventDate.slice(5,7) + '/' + this.props.eventDate.slice(0,4)
 		return (
 			<Card>
-				<Text style={{ color: "grey" }}>Geral</Text>
+				<CardHeader text="Geral"/>
 				<CardItem>
 					<Left>
 						<Thumbnail
@@ -40,6 +42,8 @@ class Geral extends Component {
 						>
 							{this.props.eventName}
 						</H2>
+
+						<Divider/>
 
 						<Card style={styles.descCards}>
 							<Left>

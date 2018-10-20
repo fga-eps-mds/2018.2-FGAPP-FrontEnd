@@ -1,12 +1,13 @@
 import React, { Component } from "react"
 import { Card, CardItem, Icon } from "native-base"
 import { View, Text, StyleSheet } from "react-native"
+import CardHeader from './CardHeader'
 
 class Localizacao extends Component {
 	render() {
 		return (
 			<Card>
-				<Text style={{ color: "grey" }}>Localização</Text>
+				<CardHeader text="Localização"/>
 
 				<CardItem>
 					<Icon name="pin" style={{ fontSize: 50, color:"black" }} />
