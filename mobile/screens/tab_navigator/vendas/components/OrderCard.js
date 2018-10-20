@@ -6,31 +6,10 @@ import styles from './styles';
 class OrderCard extends Component {
   constructor(props) {
     super(props);
-
-    if(this.props.orderStatus == 0){
-      this.state = {
-        status: 'Em andamento',
-      };
-    }
-    else if(this.props.orderStatus == 1){
-      this.state = {
-        status: 'Atendido',
-      };
-    }
-    else if(this.props.orderStatus == 2){
-      this.state = {
-        status: 'Cancelado',
-      };
-    }
-    else {
-      this.state = {
-        status: 'erro',
-      };
-    }
   }
 
   render() {
-
+    var status = (this.props.orderStatus == 0) ? 'Pendente' : (this.props.orderStatus == 1 ? 'Atendido' : 'Cancelado');
     return (
       <View style={{padding:10}}>
         <TouchableHighlight onPress={this.props.onPress}>
@@ -41,7 +20,7 @@ class OrderCard extends Component {
             </View>
             <View style={{flexDirection: 'column', width: '35%',}}>
               <Text style={styles.order_price}>R$ {this.props.orderPrice}</Text>
-              <Text style={styles.order_subtitle}>{this.state.status}</Text>
+              <Text style={styles.order_subtitle}>{status}</Text>
             </View>
             <View style={{height: 10}} />
           </View>
