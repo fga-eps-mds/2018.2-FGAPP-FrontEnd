@@ -12,22 +12,47 @@ import {
 	Item
 } from "native-base"
 import React, { Component } from "react"
-import { StyleSheet, Image, View, TouchableOpacity } from "react-native"
+import {
+	StyleSheet,
+	Image,
+	View,
+	TouchableOpacity,
+	ScrollView
+} from "react-native"
+import Divider from "../../EventProfile/components/Divider"
 
 class CommentItem extends Component {
 	render() {
 		return (
-			<Card>
-				<CardItem>
-					<Icon name="person" />
-					<Card style={{ width: "100%" }} transparent>
-						<Text style={{ fontWeight: "bold" }}>
-							{this.props.author}
-						</Text>
-						<Text>{this.props.comment}</Text>
-					</Card>
-				</CardItem>
-			</Card>
+			<View>
+				<Card transparent>
+					<CardItem>
+						<Icon name="person" />
+						<View style={{width: '100%'}}>
+							<View>
+								<Text style={{ fontWeight: "bold" }}>
+									{this.props.author}
+								</Text>
+
+								{this.props.comment.length > 200 
+									? 
+										<View>
+											<Text>{this.props.comment.slice(200)}... - </Text>
+											<TouchableOpacity>
+												<Text>Ver Mais</Text>
+											</TouchableOpacity>
+										</View>
+									: <Text>{this.props.comment}</Text>
+								}
+								<Text style={{color:'grey', fontSize:12}}>Postado em: {this.props.postDate}</Text>
+								{this.props.modifyDate != null &&  <Text style={{color:'grey', fontSize:12}}>Modificado em: {this.props.modifyDate}</Text>}
+							</View>
+						</View>
+					</CardItem>
+				</Card>
+
+				<Divider size="80%" />
+			</View>
 		)
 	}
 }
