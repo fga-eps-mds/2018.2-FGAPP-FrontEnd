@@ -27,15 +27,16 @@ class Feed extends Component {
 		this.setState({ loading: false })
 	}
 
-	componentDidMount(){
-		this._refreshFeed()
-	}
-
 	state = {
 		loading: true,
 		roles: [],
 		refreshing: false
 	}
+	
+	componentDidMount(){
+		this._refreshFeed()
+	}
+
 
 	_refreshFeed = () => {
 		this.setState({ refreshing: true })
