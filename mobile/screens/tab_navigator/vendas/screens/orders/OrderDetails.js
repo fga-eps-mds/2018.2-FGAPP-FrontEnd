@@ -6,18 +6,35 @@ import {
     Image,
     ScrollView,
     CardItem,
-    Button,
     Alert,
     ImageBackground,
 } from 'react-native';
 import styles from '../../components/styles'
 import jwt_decode from 'jwt-decode'
 import { LinearGradient } from 'expo';
+import { Button } from 'native-base';
 
 //TELA PROVISÓRIA PARA TESTES
 class OrderDetails extends Component {
-    _onPressButton = async () => {
-      Alert.alert("O botao foi apertado ");
+
+    constructor(props) {
+      super(props);
+      this.state = {
+        request: 0,
+      };
+    }
+    _cancelButton = async () => {
+      this.setState({ request:2 })
+      this._buttonRequest()
+    }
+
+    _closeButton = async () => {
+      this.setState({ request: 1 })
+      this._buttonRequest()
+    }
+
+    _buttonRequest() {
+      Alert.alert('Funcionou');
     }
 
     render() {
@@ -55,13 +72,26 @@ class OrderDetails extends Component {
                 <Text style={{fontSize: 16}}>{order.buyer_message}</Text>
                 <View style={{height: 50}}/>
               </View>
-              <View style={{flexDirection: 'row'}}>
-                <View style={{width: '70%'}}/>
+              <View>
+                <View style={local_styles.buttonContainer}>
                 <Button
-                  color="#0EAC6F"
-                  title="Atendido"
-                  onPress={this._onPressButton}
-                />
+                  danger
+                  onPress={this._cancelButton}
+                  style={local_styles.button}
+                >
+                <Text style={{color: 'white'}}> CANCELAR </Text>
+                <Text style={{color: 'white'}}> PEDIDO </Text>
+                </Button>
+
+                <Button
+                  success
+                  onPress={this._closeButton}
+                  style={local_styles.button}
+                >
+                <Text style={{color: 'white'}}> ATENDIDO </Text>
+                </Button>
+
+                </View>
               </View>
             </View>
           </ScrollView>
@@ -70,9 +100,24 @@ class OrderDetails extends Component {
 }
 export default OrderDetails;
 
-const styless = StyleSheet.create({
+const local_styles = StyleSheet.create({
     container: {
-        flex: 1,
-        //width: '100%',
+        flex: 1
+    },
+    description: {
+      flex: 1,
+      height: '35%',
+      width: '95%',
+    },
+    buttonContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-around',
+      paddingBottom: 10,
+    },
+    button: {
+      justifyContent: 'center',
+      flexDirection: 'column',
+      height: 40,
+      width: 100,
     }
 });
