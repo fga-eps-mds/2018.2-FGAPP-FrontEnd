@@ -19,8 +19,10 @@ class CommentItem extends Component {
     render() {
         return (
             <View>
-                
+                <Text>{this.props.idComment}</Text>
             </View>
         )
     }
 }
+
+export default CommentItem

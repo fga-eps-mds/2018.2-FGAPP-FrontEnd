@@ -1,21 +1,22 @@
 import React, { Component } from "react"
 import {Card, CardItem, Left, Thumbnail, Body} from "native-base"
-import { View, Text, FlatList } from "react-native"
+import { View, Text, FlatList, ScrollView } from "react-native"
 
-const noPic = require("../TabNavigator/feed/images/noPic.png")
+import CommentItem from './components/CommentItem'
+
+const noPic = require("../../static/noPic.png")
 
 class Comments extends Component {
     state = {
         loading: true,
-        comment: ""
+        comment: []
     }
 
     _getDadosRole = () => {
-        fetch("https://5bc7da788bfe5a00131b6e6d.mockapi.io/comments/")
+        fetch("https://5bc7da788bfe5a00131b6e6d.mockapi.io/eventComments/")
             .then(res => res.json())
             .then(resJson => {
                 this.setState({ loading: false,  comment: resJson})
-                console.log(resJson)
             })
             .catch(error => {
                 this.setState({
@@ -41,27 +42,22 @@ class Comments extends Component {
                 </View>
             )
         }
-        return (
-            <Card>
-                <Text>Comentarios.</Text>
-                <CardItem>
-                <Left>
-                    <Thumbnail
-                        source={noPic}
-                    />
-                </Left>
-                <Body>
-                    <Text>
-                        Lista de comentários aqui.
-                        {
-                            //this.state.comment
-                        }
-                    </Text>
-                </Body>
 
-                </CardItem>
-            </Card>
-        );
+
+        return (
+            <ScrollView>
+                {this.state.comment.map((comment, index)=> (
+                    <CommentItem
+                        key={index}
+                        idComment={comment.id}
+                        author={comment.author}
+                        comment={comment.comment}
+                        postDate={comment.postDateTime}
+                        modifyDate={comment.modifyDateTime}
+                    />
+                ))}
+            </ScrollView>
+        )
     }
 }
 
