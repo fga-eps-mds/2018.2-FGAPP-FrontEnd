@@ -20,21 +20,103 @@ class OrderDetails extends Component {
     constructor(props) {
       super(props);
       this.state = {
-        request: 0,
+        request: '0',
       };
     }
     _cancelButton = async () => {
-      this.setState({ request:2 })
-      this._buttonRequest()
+      const {state} = this.props.navigation;
+      var order = state.params ? state.params.order : undefined;
+      var token = state.params ? state.params.token : undefined;
+      const set_order_status_path = `${process.env.VENDAS_API}/api/set_order_status/`;
+
+      fetch(set_order_status_path, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          'order_id': order.id,
+          'new_status': 2,
+          'token': token,
+        }),
+      })
+      .then((response) => {
+        return response.json();
+      })
+      .then((responseJson) => {
+        if(responseJson.error != undefined)
+          Alert.alert(responseJson.error)
+
+        else
+          Alert.alert('Operação realizada com sucesso.')
+      })
+      .catch((err) => {
+        console.error(err)
+      })
     }
 
     _closeButton = async () => {
-      this.setState({ request: 1 })
-      this._buttonRequest()
+      const {state} = this.props.navigation;
+      var order = state.params ? state.params.order : undefined;
+      var token = state.params ? state.params.token : undefined;
+      const set_order_status_path = `${process.env.VENDAS_API}/api/set_order_status/`;
+
+      fetch(set_order_status_path, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          'order_id': order.id,
+          'new_status': '1',
+          'token': token,
+        }),
+      })
+      .then((response) => {
+        return response.json();
+      })
+      .then((responseJson) => {
+        if(responseJson.error != undefined)
+          Alert.alert(responseJson.error)
+
+        else
+          Alert.alert('Operação realizada com sucesso.')
+      })
+      .catch((err) => {
+        console.error(err)
+      })
     }
 
     _buttonRequest() {
-      Alert.alert('Funcionou');
+      const {state} = this.props.navigation;
+      var order = state.params ? state.params.order : undefined;
+      var token = state.params ? state.params.token : undefined;
+      const set_order_status_path = `${process.env.VENDAS_API}/api/set_order_status/`;
+
+      fetch(set_order_status_path, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          'order_id': order.id,
+          'new_status': this.state.request,
+          'token': token,
+        }),
+      })
+      .then((response) => {
+        return response.json();
+      })
+      .then((responseJson) => {
+        if(responseJson.error != undefined)
+          Alert.alert(responseJson.error)
+
+        else
+          Alert.alert('Operação realizada com sucesso.')
+      })
+      .catch((err) => {
+        console.error(err)
+      })
     }
 
     render() {
