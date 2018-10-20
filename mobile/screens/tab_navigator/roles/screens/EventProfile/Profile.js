@@ -18,15 +18,17 @@ import {
 	Text,
 	StyleSheet,
 	Linking,
-	TouchableOpacity
+	TouchableOpacity,
+	ActivityIndicator
 } from "react-native"
 
 import Geral from "./components/Geral"
-import Descricao from "./components/Descricao"
-import Avaliacao from './components/Avaliacao'
-import Comments from '../EventComments/Comments'
+import Detalhes from "./components/Detalhes"
+import Avaliacao from "./components/Avaliacao"
+import Localizacao from "./components/Localizacao"
+import Contato from "./components/Contato"
 
-const noPic = require("../TabNavigator/feed/images/noPic.png")
+// const noPic = require("../../static/noPic.png")
 
 class Profile extends Component {
 	state = {
@@ -48,10 +50,6 @@ class Profile extends Component {
 			})
 	}
 
-	_gotoURL = () => {
-		Linking.openURL(this.state.role.linkReference)
-	}
-
 	componentDidMount() {
 		const { idRole } = this.props.navigation.state.params
 		this._getDadosRole(idRole)
@@ -61,14 +59,15 @@ class Profile extends Component {
 		const { role } = this.state
 		if (this.state.loading) {
 			return (
-				<View>
-					<Text>LOADING...</Text>
+				<View style={{flex:1, alignContent:'center', justifyContent:'center'}}>
+					<ActivityIndicator size='large' color='#00a50b'/>
 				</View>
 			)
 		}
 		return (
 			<ScrollView>
 				<Geral
+					photo={role.photo}
 					eventName={role.eventName}
 					eventHour={role.eventHour}
 					eventDate={role.eventDate}
@@ -76,13 +75,23 @@ class Profile extends Component {
 					adultOnly={role.adultOnly}
 				/>
 
-				<Descricao
+				<Detalhes
 					eventDescription={role.eventDescription}
+					drinks={role.drinks}
+					foods={role.foods}
+					refURL={this.state.role.linkReference}
+				/>
+
+				<Avaliacao />
+
+				<Localizacao
+					address={role.address}
 					linkAddress={role.linkAddress}
 				/>
 
-				<Avaliacao
-				
+				<Contato 
+					organizer={role.organizer}
+					organizerTel={role.organizerTel}
 				/>
 
 				<Comments
@@ -92,4 +101,5 @@ class Profile extends Component {
 		)
 	}
 }
+
 export default Profile

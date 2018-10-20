@@ -19,7 +19,7 @@ import {withNavigation} from 'react-navigation'
 import Comments from '../../EventComments/Comments';
 
 // const logo = require("./images/logo.png");
-const noPic = require("./images/noPic.png")
+const noPic = require("../../../static/noPic.png")
 
 class FeedItem extends Component {
 
@@ -28,6 +28,7 @@ class FeedItem extends Component {
 	}
 
 	render() {
+		const uri = this.props.imgRole
 		return (
 			<Card style={styles.mb}>
 				<TouchableOpacity
@@ -58,7 +59,7 @@ class FeedItem extends Component {
 								source={
 									this.props.imgRole == null //Se o valor de imgRole for null
 										? noPic //então exibe imagem "noPic.png"
-										: this.props.imgRole //caso contrário, exibe a imagem
+										: {uri: uri} //caso contrário, exibe a imagem
 								}
 							/>
 						</CardItem>
