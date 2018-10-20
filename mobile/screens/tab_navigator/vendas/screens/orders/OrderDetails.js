@@ -36,7 +36,7 @@ class OrderDetails extends Component {
         },
         body: JSON.stringify({
           'order_id': order.id,
-          'new_status': 2,
+          'new_status': '2',
           'token': token,
         }),
       })

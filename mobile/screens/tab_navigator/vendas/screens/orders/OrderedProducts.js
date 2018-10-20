@@ -80,6 +80,7 @@ class OrderedProducts extends Component {
                         key={index}
                         orderName = {`${order.product_name}`}
                         orderQuantity = {`Quantidade: ${order.quantity}`}
+                        orderStatus = {`${order.status}`}
                         orderPrice = {parseFloat(order.total_price).toFixed(2)}
                         onPress={() => this.props.navigation.navigate('OrderDetails', {order: order, token:token})}
                       />
