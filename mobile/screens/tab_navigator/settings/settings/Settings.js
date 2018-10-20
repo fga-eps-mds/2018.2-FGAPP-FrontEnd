@@ -52,9 +52,9 @@ class Settings extends Component {
     })
     .then((response) => { return response.json() })
     .then((responseJson) => {
-      console.log(responseJson);
-
-      this.setState({ profileInfo: responseJson });
+      if (!responseJson.error){
+        this.setState({ profileInfo: responseJson });
+      }
     })
     .catch((error) => {
       console.error(error);
