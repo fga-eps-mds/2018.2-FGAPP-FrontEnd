@@ -11,12 +11,14 @@ import {
 } from "react-native"
 
 import CardsDetalhes from './CardsDetalhes'
+import Divider from './Divider'
+import CardHeader from "./CardHeader";
 
 class Contato extends Component {
 	render() {
 		return (
 			<Card>
-				<Text style={{ color: "grey" }}>Suporte</Text>
+				<CardHeader text="Suporte"/>
 
 				<CardsDetalhes 
 					descricao = "TEXTO FAQ"
@@ -24,6 +26,8 @@ class Contato extends Component {
 					label='FAQ'
 					color='black'
 				/>
+
+				<Divider/>
 
 				<CardItem style={{alignSelf:'center', width:'100%'}}>
 					<Card style={{ width: '100%', alignSelf:'center'}}>

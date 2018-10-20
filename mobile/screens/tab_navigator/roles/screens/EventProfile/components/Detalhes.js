@@ -12,6 +12,7 @@ import {
 
 import CardsDetalhes from "./CardsDetalhes"
 import DescModals from "./DescModals"
+import CardHeader from './CardHeader'
 
 class Detalhes extends Component {
 	state = {
@@ -64,42 +65,37 @@ class Detalhes extends Component {
 				/>
 
 				<Card>
-					<Text style={{ color: "grey", marginBottom: 10 }}>
-						Detalhes
-					</Text>
-					
-						<CardsDetalhes
-							onPressCard={() => this._toggleModal("details")}
-							descricao={this.props.eventDescription}
-							icon="clipboard"
-							label="Descrição do Rolê"
-							color="black"
-						/>
+					<CardHeader text="Detalhes" />
 
-						<CardsDetalhes
-							onPressCard={() => this._toggleModal("drinks")}
-							descricao={this.props.drinks}
-							icon="beer"
-							label="Drinks"
-							color="#b79200"
-						/>
+					<CardsDetalhes
+						onPressCard={() => this._toggleModal("details")}
+						descricao={this.props.eventDescription}
+						icon="clipboard"
+						label="Descrição do Rolê"
+						color="black"
+					/>
 
-						<CardsDetalhes
-							onPressCard={() => this._toggleModal("foods")}
-							descricao={this.props.foods}
-							icon="pizza"
-							label="Comidas"
-							color="#f23a3a"
-						/>
-					
+					<CardsDetalhes
+						onPressCard={() => this._toggleModal("drinks")}
+						descricao={this.props.drinks}
+						icon="beer"
+						label="Drinks"
+						color="#b79200"
+					/>
+
+					<CardsDetalhes
+						onPressCard={() => this._toggleModal("foods")}
+						descricao={this.props.foods}
+						icon="pizza"
+						label="Comidas"
+						color="#f23a3a"
+					/>
 				</Card>
 			</View>
 		)
 	}
 }
 
-const styles = StyleSheet.create({
-	
-})
+const styles = StyleSheet.create({})
 
 export default Detalhes
