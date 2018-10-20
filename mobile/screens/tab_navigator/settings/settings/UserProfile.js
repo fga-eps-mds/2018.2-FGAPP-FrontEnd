@@ -17,7 +17,6 @@ class UserProfile extends Component {
       name: undefined,
       email: undefined,
       photo: undefined,
-
     };
   }
 
@@ -30,30 +29,30 @@ class UserProfile extends Component {
       this.setState({ photo: uri });
     }
   }
+
   _editProfile = async () => {
     const { state } = this.props.navigation;
     var token = state.params ? state.params.token : undefined;
-    var userInfo = state.params ? state.params.userInfo : undefined;
-    var user = jwt_decode(token);
 
+    var user = jwt_decode(token);
     var name = this.state.name;
     var email = this.state.email;
-
     const uri = this.state.photo;
+
     const formData = new FormData();
-    const apiUrl = `${process.env.INTEGRA_LOGIN_AUTH}/api/users/update_profile/`;
+    const updateProfilePath = `${process.env.INTEGRA_LOGIN_AUTH}/api/users/update_profile/`;
     formData.append('user_id', user.user_id);
-    if((name != undefined))
+    if ((name != undefined))
       formData.append('name', name);
 
-    if((email != undefined))
+    if ((email != undefined))
       formData.append('email', email);
 
-    if(uri != undefined){
+    if (uri != undefined) {
       const uriParts = uri.split('.');
       const fileType = uriParts[uriParts.length - 1];
       formData.append('photo', {
-        uri,
+        uri: uri,
         name: `photo.${fileType}`,
         type: `application/${fileType}`,
       });
@@ -67,36 +66,35 @@ class UserProfile extends Component {
         'Content-Type': 'multipart/form-data',
       },
     };
-    fetch(apiUrl, options)
+
+    fetch(updateProfilePath, options)
     .then((response) => {
       return response.json();
     })
     .then((responseJson) => {
-      // Json retorna com erro
-      if (responseJson.error != undefined){
+      if (responseJson.error != undefined) {
         Alert.alert(responseJson.error);
       }
-      // Json retorna sem erro
-      else{
+      else {
         Alert.alert('Informações atualizadas com sucesso.');
-        this.props.navigation.navigate('Settings', { token :token });
+        this.props.navigation.navigate('Settings', { token: token });
       }
     })
-    .catch( err => {
+    .catch(err => {
       if (typeof err.text === 'function') {
         err.text().then(errorMessage => {
-          this.props.dispatch(displayTheError(errorMessage))
+          this.props.dispatch(displayTheError(errorMessage));
         });
       } else {
         Alert.alert("Erro na conexão.");
-        console.log(err)
+        console.log(err);
       }
     });
   }
 
   _logout = async () => {
-    const logout_path = `${process.env.INTEGRA_LOGIN_AUTH}/api/logout/`;
-    fetch(logout_path, {
+    const logoutPath = `${process.env.INTEGRA_LOGIN_AUTH}/api/logout/`;
+    fetch(logoutPath, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -104,26 +102,24 @@ class UserProfile extends Component {
       body: JSON.stringify({
       }),
     })
-      .then((response) => response.json())
-      .then((responseJson) => {
-        console.log(JSON.stringify(responseJson.detail));
-        if (responseJson.detail == 'Successfully logged out.') {
-          console.log(JSON.stringify('Log OUT'));
-          this.props.navigation.state.params.token = null
-          this.props.navigation.navigate('LoginScreen')
-
-        }
-      })
-      .catch(err => {
-        if (typeof err.text === 'function') {
-          err.text().then(errorMessage => {
-            this.props.dispatch(displayTheError(errorMessage))
-          });
-        } else {
-          Alert.alert('Erro na conexão.');
-          console.log(err)
-        }
-      });
+    .then((response) => response.json())
+    .then((responseJson) => {
+      console.log(JSON.stringify(responseJson.detail));
+      if (responseJson.detail == 'Successfully logged out.') {
+        this.props.navigation.state.params.token = null;
+        this.props.navigation.navigate('LoginScreen');
+      }
+    })
+    .catch(err => {
+      if (typeof err.text === 'function') {
+        err.text().then(errorMessage => {
+          this.props.dispatch(displayTheError(errorMessage));
+        });
+      } else {
+        Alert.alert('Erro na conexão.');
+        console.log(err);
+      }
+    });
   }
 
   render() {
@@ -131,7 +127,7 @@ class UserProfile extends Component {
     const userInfo = state.params ? state.params.userInfo : undefined;
     var name = (this.state.name == undefined) ? userInfo.name : this.state.name;
     var email = (this.state.email == undefined) ? userInfo.email : this.state.email;
-    var photo = (this.state.photo == undefined) ? userInfo.photo : this.state.photo
+    var photo = (this.state.photo == undefined) ? userInfo.photo : this.state.photo;
 
     return (
       <View style={styles.container}>
@@ -158,7 +154,7 @@ class UserProfile extends Component {
                       <Input
                         style={{ fontSize: 12 }}
                         placeholder={name}
-                        onChangeText={(name) => this.setState({name})}
+                        onChangeText={(name) => this.setState({ name })}
                       />
                     </Item>
                     <Item stackedLabel>
@@ -166,7 +162,7 @@ class UserProfile extends Component {
                       <Input
                         style={{ fontSize: 12 }}
                         placeholder={email}
-                        onChangeText={(email) => this.setState({email})}
+                        onChangeText={(email) => this.setState({ email })}
                       />
                     </Item>
                   </View>
@@ -213,7 +209,6 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 100,
-    //backgroundColor:'transparent',
   },
   view_circle: {
     alignItems: 'center',

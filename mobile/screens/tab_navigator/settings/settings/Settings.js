@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {
   Text,
   StyleSheet,
-  Alert,
 } from 'react-native';
 import {
   List,
@@ -31,16 +30,15 @@ class Settings extends Component {
   }
 
   componentDidMount() {
-    this.loadProfile();
+    this._loadProfile();
   }
 
-  loadProfile = async () => {
+  _loadProfile = async () => {
     const { state } = this.props.navigation;
     const token = state.params ? state.params.token : undefined;
     const user = jwt_decode(token);
 
     const profileInfoPath = `${process.env.INTEGRA_LOGIN_AUTH}/api/users/get_profile/`;
-
     fetch(profileInfoPath, {
       method: 'POST',
       headers: {
@@ -52,7 +50,7 @@ class Settings extends Component {
     })
     .then((response) => { return response.json() })
     .then((responseJson) => {
-      if (!responseJson.error){
+      if (!responseJson.error) {
         this.setState({ profileInfo: responseJson });
       }
     })
@@ -77,7 +75,7 @@ class Settings extends Component {
               <Left style={{ alignItems: 'center' }}>
                 <Thumbnail
                   large
-                  source={{ uri: this.state.profileInfo.photo ? this.state.profileInfo.photo : 'https://www.logolynx.com/images/logolynx/03/039b004617d1ef43cf1769aae45d6ea2.png'}}
+                  source={{ uri: this.state.profileInfo.photo ? this.state.profileInfo.photo : 'https://www.logolynx.com/images/logolynx/03/039b004617d1ef43cf1769aae45d6ea2.png' }}
                 />
                 <Body>
                   <Text style={styles.name}>
