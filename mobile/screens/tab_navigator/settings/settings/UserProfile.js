@@ -4,21 +4,20 @@ import {
   StyleSheet,
   Button,
   Image,
-  ImageBackground,
   TouchableOpacity,
   Alert,
 } from 'react-native';
-import { Container, Header, Content, Card, CardItem, Body, Text, Form, Item, Label, Input } from 'native-base';
+import { Card, CardItem, Body, Item, Label, Input } from 'native-base';
 import jwt_decode from 'jwt-decode'
 
 class UserProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user_id: 1,
       name: undefined,
       email: undefined,
       photo: undefined,
+
     };
   }
 
@@ -26,7 +25,7 @@ class UserProfile extends Component {
     const {
       cancelled,
       uri,
-    } = await Expo.ImagePicker.launchImageLibraryAsync({ mediaTypes: 'Images', quality: 0.7, base64: true });
+    } = await Expo.ImagePicker.launchImageLibraryAsync({ allowsEditing: true, mediaTypes: 'Images', quality: 0.7, base64: true });
     if (!cancelled) {
       this.setState({ photo: uri });
     }
@@ -37,23 +36,28 @@ class UserProfile extends Component {
     var userInfo = state.params ? state.params.userInfo : undefined;
     var user = jwt_decode(token);
 
-    var name = (this.state.name == undefined) ? userInfo.name : this.state.name;
-    var email = (this.state.email == undefined) ? userInfo.email : this.state.email;
+    var name = this.state.name;
+    var email = this.state.email;
 
-    const uri = (this.state.photo == undefined) ? userInfo.photo : this.state.photo;
-    const uriParts = uri.split('.');
-    const fileType = uriParts[uriParts.length - 1];
+    const uri = this.state.photo;
     const formData = new FormData();
-
     const apiUrl = `${process.env.INTEGRA_LOGIN_AUTH}/api/users/update_profile/`;
     formData.append('user_id', user.user_id);
-    formData.append('name', name);
-    formData.append('email', email);
-    formData.append('photo', {
-      uri,
-      name: `photo.${fileType}`,
-      type: `application/${fileType}`,
-    });
+    if((name != undefined))
+      formData.append('name', name);
+
+    if((email != undefined))
+      formData.append('email', email);
+
+    if(uri != undefined){
+      const uriParts = uri.split('.');
+      const fileType = uriParts[uriParts.length - 1];
+      formData.append('photo', {
+        uri,
+        name: `photo.${fileType}`,
+        type: `application/${fileType}`,
+      });
+    }
 
     const options = {
       method: 'POST',
@@ -75,11 +79,19 @@ class UserProfile extends Component {
       // Json retorna sem erro
       else{
         Alert.alert('Informações atualizadas com sucesso.');
+        this.props.navigation.navigate('Settings', { token :token });
       }
     })
-    .catch((err) => {
-      Alert.alert('Erro interno, não foi possível se comunicar com o servidor.');
-    })
+    .catch( err => {
+      if (typeof err.text === 'function') {
+        err.text().then(errorMessage => {
+          this.props.dispatch(displayTheError(errorMessage))
+        });
+      } else {
+        Alert.alert("Erro na conexão.");
+        console.log(err)
+      }
+    });
   }
 
   _logout = async () => {
@@ -116,8 +128,10 @@ class UserProfile extends Component {
 
   render() {
     const { state } = this.props.navigation;
-    var token = state.params ? state.params.token : undefined;
     const userInfo = state.params ? state.params.userInfo : undefined;
+    var name = (this.state.name == undefined) ? userInfo.name : this.state.name;
+    var email = (this.state.email == undefined) ? userInfo.email : this.state.email;
+    var photo = (this.state.photo == undefined) ? userInfo.photo : this.state.photo
 
     return (
       <View style={styles.container}>
@@ -129,7 +143,7 @@ class UserProfile extends Component {
                   <TouchableOpacity onPress={this._clickPhoto} style={styles.view_circle}>
                     <View>
                       <Image
-                        source={{ uri: 'http://res.cloudinary.com/demo/image/upload/w_150,h_100,c_fill/sample.jpg' }}
+                        source={{ uri: photo }}
                         style={{ width: 100, height: 100, borderRadius: 100, position: 'absolute' }}
                       />
                       <Image
@@ -143,14 +157,16 @@ class UserProfile extends Component {
                       <Label style={{ fontSize: 12 }}>Nome:</Label>
                       <Input
                         style={{ fontSize: 12 }}
-                        placeholder={'Nome'}
+                        placeholder={name}
+                        onChangeText={(name) => this.setState({name})}
                       />
                     </Item>
                     <Item stackedLabel>
                       <Label style={{ fontSize: 12 }}>Email</Label>
                       <Input
                         style={{ fontSize: 12 }}
-                        placeholder={'email@email.com'}
+                        placeholder={email}
+                        onChangeText={(email) => this.setState({email})}
                       />
                     </Item>
                   </View>
