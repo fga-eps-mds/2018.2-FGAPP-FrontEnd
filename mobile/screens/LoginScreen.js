@@ -67,6 +67,8 @@ class LoginScreen extends Component {
    if (responseJson.token != undefined||
          responseJson.key != undefined){
      this.props.navigation.navigate('Settings', {token:responseJson.token})
+     this.props.navigation.navigate('IndicaAi', {token:responseJson.token})
+     console.log(responseJson.token);
       }
    })
    .catch( err => {
