@@ -5,7 +5,6 @@ import rootReducers from './reducers'
 import SearchScreen from './screens/SearchScreen.js'
 
 import {StackNavigator, createStackNavigator} from 'react-navigation'
-import jwt_decode from 'jwt-decode'
 
 const store = createStore(rootReducers)
 
@@ -18,7 +17,7 @@ class IndicaAiApp extends Component {
   render() {
 
     const { params } = this.props.navigation.state;
-    var token = params ? params.token : "DEU RUIM, MEU CHEGADO";
+    var token = params ? params.token : null;
 
     return (
         <Provider store={store}>
