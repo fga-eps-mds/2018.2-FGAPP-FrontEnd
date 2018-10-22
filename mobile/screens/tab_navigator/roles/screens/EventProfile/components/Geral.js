@@ -8,21 +8,16 @@ import {
 	Right,
 	Icon,
 	H2,
-	List,
-	ListItem
 } from "native-base"
 import {
 	View,
 	Text,
 	StyleSheet,
 	TouchableOpacity,
-	Image,
 	Alert
 } from "react-native"
 import Divider from "./Divider"
 import CardHeader from "./CardHeader"
-import PicModal from "./PicModal"
-import Modal from "react-native-modal"
 import ImageView from "react-native-image-view"
 
 const adultOnly = require("../../../static/adultOnly.png")
@@ -119,7 +114,8 @@ class Geral extends Component {
 									<Icon name="cash" />
 								</Left>
 								<Right>
-									<Text>R$ {this.props.value}</Text>
+									{/* Se o número for inteiro, adiciona os 00 centavos após a vírgula. Caso contrário, já o número já vem float */}
+									<Text>R$ {this.props.value %1 === 0 ? this.props.value+".00" : this.props.value}</Text>
 								</Right>
 							</Card>
 						</Body>
