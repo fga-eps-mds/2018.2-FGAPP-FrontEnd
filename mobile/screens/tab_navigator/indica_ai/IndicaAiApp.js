@@ -1,28 +1,37 @@
 import React, { Component } from "react";
-import { Provider } from 'react-redux'
+import {
+  Text
+} from "react-native";
 import { createStore } from 'redux'
-import rootReducers from './reducers'
-import SearchScreen from './screens/SearchScreen.js'
+import { Provider } from 'react-redux'
 
-import {StackNavigator, createStackNavigator} from 'react-navigation'
+const tokenState = {
+  token: ''
+}
 
-const store = createStore(rootReducers)
+const reducer = (tokenState) => {
+  return tokenState
+}
+
+const store = createStore(reducer)
 
 class IndicaAiApp extends Component {
 
-  constructor(props) {
+  constructor(props){
     super(props);
   }
 
   render() {
 
-    const { params } = this.props.navigation.state;
-    var token = params ? params.token : null;
+    const { state } = this.props.navigation;
+    var token = state.params ? state.params.token : "<undefined>";
+    tokenState.token = null ? '' : token
+    //alert(tokenState.token)
 
     return (
-        <Provider store={store}>
-            <SearchScreen />
-       </Provider>
+      <Provider store={store}>
+        <Text>sla</Text>
+      </Provider>
     );
   }
 }
