@@ -9,7 +9,7 @@ import {
 	Left,
 	Right,
 	Row,
-	Item
+	Item, 
 } from "native-base"
 import React, { Component } from "react"
 import {

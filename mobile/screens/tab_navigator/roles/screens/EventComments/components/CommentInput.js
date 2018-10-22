@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {View, Text} from 'react-native'
+import {View, Text, ToastAndroid} from 'react-native'
 import {Form, Item, Input, Textarea, Button} from 'native-base'
 import Divider from '../../EventProfile/components/Divider'
 
@@ -42,6 +42,7 @@ export default class CommentInput extends Component{
 					console.log(
 						"Comentário postado com sucesso!"
 					)
+					ToastAndroid.show('Comentário Postado com sucesso!', ToastAndroid.LONG)
 				}
 			})
 			.catch(err => {
@@ -51,7 +52,7 @@ export default class CommentInput extends Component{
 						console.log(errorMessage)
 					})
 				} else {
-					Alert.alert("Erro na conexão.")
+					alert("Erro na conexão.")
 					console.log(err)
 				}
 			})
@@ -60,7 +61,7 @@ export default class CommentInput extends Component{
 	render(){
 		return(
 			<View>
-				<Textarea 
+				<Textarea
 					style={{width:'80%', alignSelf:'center'}}
 					rowSpan={3} 
 					bordered 
