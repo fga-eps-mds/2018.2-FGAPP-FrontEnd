@@ -56,6 +56,7 @@
     "react": "16.3.1",
     "react-native": "~0.55.2",
     "react-native-elements": "^0.19.1",
+    "react-native-image-view": "^2.0.12",
     "react-native-maps": "^0.21.0",
     "react-native-modal": "^6.5.0",
     "react-navigation": "1.0.0-beta.11",
