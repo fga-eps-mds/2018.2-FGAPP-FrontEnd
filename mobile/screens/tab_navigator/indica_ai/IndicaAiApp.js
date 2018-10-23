@@ -4,33 +4,25 @@ import {
 } from "react-native";
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
+import { authAction } from './actions'
+import rootReducer from './reducers'
+import HomeScreen from './screens/HomeScreen'
 
-const tokenState = {
-  token: ''
-}
-
-const reducer = (tokenState) => {
-  return tokenState
-}
-
-const store = createStore(reducer)
+const store = createStore(rootReducer)
 
 class IndicaAiApp extends Component {
 
-  constructor(props){
-    super(props);
-  }
-
   render() {
 
-    const { state } = this.props.navigation;
-    var token = state.params ? state.params.token : "<undefined>";
-    tokenState.token = null ? '' : token
-    //alert(tokenState.token)
+    console.log(store.getState());
 
+    const {state} = this.props.navigation;
+    var token = state.params ? state.params.token : "<undefined>";
+
+    alert(token)
     return (
       <Provider store={store}>
-        <Text>sla</Text>
+        <HomeScreen user_token="{this.props.navigation.params.token}" />
       </Provider>
     );
   }
