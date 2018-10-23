@@ -16,6 +16,13 @@ export default class App extends React.Component {
           latitudeDelta: 0.0007,
           longitudeDelta: 0.005,
         }}>
+        <MapView.Marker
+        coordinate={{
+              latitude: -15.989602,
+              longitude: -48.044868,}}
+        title = {"Você está aqui!"}
+        >
+        </MapView.Marker>
         </MapView>
         </View>
       )
