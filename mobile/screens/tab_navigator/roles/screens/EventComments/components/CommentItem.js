@@ -20,7 +20,7 @@ import {
 	ScrollView
 } from "react-native";
 import Divider from "../../EventProfile/components/Divider";
-import LikeButton from './LikeButton'
+import LikeButton from "./LikeButton";
 
 class CommentItem extends Component {
 	render() {
@@ -55,7 +55,7 @@ class CommentItem extends Component {
 									</Text>
 								)}
 							</View>
-							<LikeButton/>
+							<LikeButton />
 						</View>
 					</CardItem>
 				</Card>

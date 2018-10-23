@@ -13,7 +13,8 @@ class Comments extends Component {
     state = {
         loading: true,
         refreshing: false,
-        comment: [],
+		comment: [],
+		like: false,
     }
 
 	_getComments = () => {
@@ -72,6 +73,8 @@ class Comments extends Component {
 							comment={comment.comment}
 							postDate={comment.postDateTime}
 							modifyDate={comment.modifyDateTime}
+
+							like={comment.like}
 						/>
 					))}
 				</Card>
