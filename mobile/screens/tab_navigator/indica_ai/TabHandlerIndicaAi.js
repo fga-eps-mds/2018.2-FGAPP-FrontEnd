@@ -38,6 +38,7 @@ const TabHandlerIndicaAI = new TabNavigator({
         },
         style: {
             backgroundColor: '#5A5A5A',
+            
         },
     },
 });
