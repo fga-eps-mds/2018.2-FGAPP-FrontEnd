@@ -16,11 +16,8 @@ class HomeScreen extends Component {
 
   render() {
 
-    //const {state} = this.props.navigation;
-    //var token = state.params ? state.params.token : "<undefined>";
-
     return (
-        <Text>sei la</Text>
+        <Text>{this.props.user_token}</Text>
     );
   }
 }
