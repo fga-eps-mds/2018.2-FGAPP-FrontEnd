@@ -3,6 +3,7 @@ import { Platform, Text, View, StyleSheet } from 'react-native';
 import { Constants, Location, Permissions } from 'expo';
 import MapView, {Marker} from 'react-native-maps';
 import {mapStyle} from '../assets/mapStyle.js';
+import icon from '../assets/icon4.png'
 
 export default class UserMap extends React.Component {
 
@@ -24,9 +25,10 @@ export default class UserMap extends React.Component {
         }}>
         <MapView.Marker
         coordinate={{
-              latitude: this.props.markerLatitude,
-              longitude: this.props.markerLongitude,}}
+              latitude: this.props.markLat,
+              longitude:this.props.markLong,}}
               title = {this.props.name}
+              image = {icon}
         >
         </MapView.Marker>
         </MapView>

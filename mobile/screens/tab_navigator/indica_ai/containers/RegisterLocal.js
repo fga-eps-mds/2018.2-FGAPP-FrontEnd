@@ -14,41 +14,44 @@ import UserLocationMap from "../components/UserLocationMap";
 
 export default class App extends Component{
 
-  state = {
-   location: null,
-   errorMessage: null,
+
+constructor(props){
+  super(props);
+  this.state = {
+    latitude: null,
+    longitude: null,
+    error: null,
    jsonResponse: null,
    jsonDetails: null,
  };
+}
 
- componentWillMount() {
-      if (Platform.OS === 'android' && !Constants.isDevice) {
+  componentDidMount(){
+    this.watchId = navigator.geolocation.watchPosition(
+      (position) => {
         this.setState({
-          errorMessage: 'Oops, this will not work on Sketch in an Android emulator. Try it on your device!',
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+          error: null,
         });
-      } else {
-        this._getLocationAsync();
-      }
-    }
+        this._getDataAsync();
+      },
+      (error) => this.setState({error: error.message}),
+      {enableHighAccuracy: true, timeout: 0, maximumAge: 1000, distanceFilter: 3},
+    );
+  }
 
-    _getLocationAsync = async () => {
-      let { status } = await Permissions.askAsync(Permissions.LOCATION);
-      if (status !== 'granted') {
-        this.setState({
-          errorMessage: 'Permission to access location was denied',
-        });
-      }
-
-      let location = await Location.getCurrentPositionAsync({});
-      this.setState({ location });
-      this._getDataAsync();
-
-    };
+  componentWillUnmount() {
+    navigator.geolocation.clearWatch(this.watchId);
+  }
 
     _getDataAsync = async () => {
-
-     let longitude =  this.state.location['coords']['longitude'];
-     let latitude =   this.state.location['coords']['latitude'];
+      let longitude;
+      let latitude;
+      if(this.state.latitude && this.state.longitude){
+         longitude =  this.state.longitude;
+         latitude =   this.state.latitude;
+      }
      try{
        const response = await fetch('https://maps.googleapis.com/maps/api/geocode/json?latlng='+String(latitude)+','+String(longitude)+'&key=AIzaSyBM9WYVio--JddgNX3TTF6flEhubkpjJYc');
        if(response.ok){
@@ -90,34 +93,37 @@ export default class App extends Component{
 
   render() {
 
-    let longitude;
-    let latitude;
-    if (this.state.location) {
-       longitude = Number(this.state.location['coords']['longitude']);
-       latitude = Number(this.state.location['coords']['latitude']);
-     }
+    let lat;
+    let long;
+
+    if(this.state.latitude && this.state.longitude){
+      lat = this.state.latitude;
+      long = this.state.longitude;
+    }
+
+    let markLat = 0;
+    let markLong = 0;
+
+    if(this.state.latitude && this.state.longitude){
+      markLat = this.state.latitude;
+      markLong = this.state.longitude;
+    }
+
+
+
     let name;
     if(this.state.jsonDetails){
       name = this.state.jsonDetails['result']['name'];
     }
-     let markerLatitude =0;
-     let markerLongitude =0;
-
-     if(latitude){
-      markerLatitude = Number(latitude);
-    }
-      if(longitude){
-       markerLongitude = Number(longitude);
-       }
     return (
       <View style = {styles.container}>
       <Text style = {styles.titleName}>Cadastrar</Text>
       <View style={styles.localMap} elevation={5}>
         <UserLocationMap
-        markerLatitude = {markerLatitude}
-        markerLongitude = {markerLongitude}
-        latitude = {latitude}
-        longitude = {longitude}
+        latitude = {lat}
+        longitude = {long}
+        markLat = {markLat}
+        markLong = {markLong}
         name = {name}
          />
       </View>
