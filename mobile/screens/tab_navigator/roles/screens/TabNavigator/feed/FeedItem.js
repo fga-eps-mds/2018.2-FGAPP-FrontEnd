@@ -15,6 +15,7 @@ import {
 import React, { Component } from "react"
 import { StyleSheet, Image, View, TouchableOpacity } from "react-native"
 import {withNavigation} from 'react-navigation'
+import LikeButton from "./components/LikeButton";
 
 const noPic = require("../../../static/noPic.png")
 
@@ -65,7 +66,7 @@ class FeedItem extends Component {
 							console.log("Likes -> " + this.props.nomeRole)
 						}}
 					>
-						<Icon active name="thumbs-up" />
+						<LikeButton/>
 						<Text>11 Likes</Text>
 					</Button>
 
