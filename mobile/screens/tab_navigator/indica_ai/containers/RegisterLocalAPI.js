@@ -17,7 +17,9 @@ import {
 } from 'native-base'
 
 export default class RegisterLocal extends Component{
+
   render() {
+
     return (
       <Container style={styles.container}>
         <Input rounded placeholder='Nome do local' />
@@ -39,7 +41,9 @@ export default class RegisterLocal extends Component{
         <Textarea rowSpan={5} rounded placeholder='Descrição do local'/>
       </Container>
     );
+
   }
+  
 }
 
 const styles = StyleSheet.create({
