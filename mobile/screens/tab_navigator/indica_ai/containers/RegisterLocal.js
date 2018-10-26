@@ -136,6 +136,7 @@ constructor(props){
             size={30}
           />
           <Text>Não encontrou seu local? Cadastre já!</Text>
+          onPress={() => navigate('RegisterLocalAPI')}
         </Button>
       </View>
     )
