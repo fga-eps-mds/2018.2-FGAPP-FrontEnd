@@ -15,11 +15,17 @@ width = Dimensions.get('window').width;
 export default class ViewLocal extends Component{
     constructor(props) {
       super(props);
-      this.state = {
-        local: props.navigation.state.params.local,
-      }
+      // this.state = {
+      //   local: props.navigation.state.params.local,
+      // }
     }
   render() {
+    console.log("Teste Inicio !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+    console.log(this.props);
+    console.log("Teste Fim !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+    const {state} = this.props.navigation;
+    var local = state.params ? state.params.local : undefined;
+    var name = local.name;
     return (
         <View style={styles.container}>
           <ScrollView>
@@ -29,7 +35,8 @@ export default class ViewLocal extends Component{
             <View style={styles.localContainer}>
               <Text style={styles.localName}>
                 {/* Local Name */}
-                {this.state.local.name}
+                {/* {this.state.local.name} */}
+                {name}
               </Text>
               <Icon style={styles.localHeart}
                 name='ios-heart-outline'
