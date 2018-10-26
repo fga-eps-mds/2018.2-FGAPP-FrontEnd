@@ -12,7 +12,13 @@ import { Dimensions } from "react-native";
 
 width = Dimensions.get('window').width;
 
-export default class App extends Component{
+export default class ViewLocal extends Component{
+    constructor(props) {
+      super(props);
+      this.state = {
+        local: props.navigation.state.params.local,
+      }
+    }
   render() {
     return (
         <View style={styles.container}>
@@ -22,7 +28,8 @@ export default class App extends Component{
             />
             <View style={styles.localContainer}>
               <Text style={styles.localName}>
-                Universidade de Brasília - Faculdade do Gama [FGA]
+                {/* Local Name */}
+                {this.state.local.name}
               </Text>
               <Icon style={styles.localHeart}
                 name='ios-heart-outline'
