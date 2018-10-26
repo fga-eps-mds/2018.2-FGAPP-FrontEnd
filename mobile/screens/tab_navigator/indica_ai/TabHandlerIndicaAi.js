@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { TabNavigator } from 'react-navigation';
 import RegisterLocal from './containers/RegisterLocal';
-import ListLocals from './containers/ListLocals'
-import SearchScreen from './screens/SearchScreen';
+import ListLocals from './containers/ListLocals';
+import SearchTab from './screens/SearchTab';
 
 const TabHandlerIndicaAI = new TabNavigator({
 
-  SearchScreen : {
-    screen: SearchScreen,
+  SearchTab : {
+    screen: SearchTab,
     navigationOptions: {
       tabBarLabel: 'Buscar Local',
     }

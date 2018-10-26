@@ -9,10 +9,11 @@ import {
 import LocalMap from "../components/LocalMap.js";
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Dimensions } from "react-native";
+import { withNavigation } from 'react-navigation';
 
 width = Dimensions.get('window').width;
 
-export default class ViewLocal extends Component{
+class ViewLocal extends Component{
     constructor(props) {
       super(props);
     }
@@ -80,6 +81,8 @@ export default class ViewLocal extends Component{
     );
   }
 }
+
+export default withNavigation(ViewLocal);
 
 const styles = StyleSheet.create({
   container: {

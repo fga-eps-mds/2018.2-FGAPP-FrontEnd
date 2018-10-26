@@ -64,7 +64,7 @@ class ListLocals extends Component {
               {locals.map( local =>
                 <TouchableHighlight
                   onPress={() => {
-                    this.props.navigation.navigate('ViewLocal',{
+                    this.props.navigation.navigate('LocalDetails',{
                     local: local
                     });
                   }} key={local.id}

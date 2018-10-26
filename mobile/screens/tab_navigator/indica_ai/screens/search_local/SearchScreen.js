@@ -9,7 +9,7 @@ import SearchBar from "../../containers/searchBar";
 import ListLocals from '../../containers/ListLocals'
 
 
-class SearchLocal extends Component {
+class SearchScreen extends Component {
   
   render() {
       return (
@@ -21,7 +21,7 @@ class SearchLocal extends Component {
   }
 }
 
-export default SearchLocal;
+export default SearchScreen;
 
 const styles = StyleSheet.create({
 
