@@ -5,7 +5,7 @@ import MapView, {Marker} from 'react-native-maps';
 import {mapStyle} from '../assets/mapStyle.js';
 import icon from '../assets/icon4.png'
 
-export default class UserMap extends React.Component {
+export default class UserLocationMap extends React.Component {
 
   constructor(props){
     super(props);

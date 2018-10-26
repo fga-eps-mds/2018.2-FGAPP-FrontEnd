@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { TabNavigator } from 'react-navigation';
-import RegisterLocal from './containers/RegisterLocal';
-import ListLocals from './containers/ListLocals';
 import SearchTab from './screens/SearchTab';
+import RegisterTab from './screens/RegisterTab';
+import FavoritesTab from './screens/FavoritesTab';
 
 const TabHandlerIndicaAI = new TabNavigator({
 
@@ -12,14 +12,15 @@ const TabHandlerIndicaAI = new TabNavigator({
       tabBarLabel: 'Buscar Local',
     }
   },
-  RegisterLocal : {
-    screen: RegisterLocal,
+  RegisterTab : {
+    screen: RegisterTab,
     navigationOptions: {
       tabBarLabel: 'Cadastrar',
     }
   },
-  Favorites : {
-    screen: ListLocals,
+  FavoritesTab : {
+    // Not implemented
+    screen: FavoritesTab,
     navigationOptions: {
       tabBarLabel: 'Favoritos',
     }
