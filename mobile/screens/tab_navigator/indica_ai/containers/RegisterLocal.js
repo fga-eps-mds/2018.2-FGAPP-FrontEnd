@@ -11,6 +11,8 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Dimensions } from "react-native";
 import UserLocationMap from "../components/UserLocationMap";
+import { Button } from 'native-base'
+import Icon from 'react-native-vector-icons/Entypo';
 
 export default class App extends Component{
 
@@ -117,16 +119,24 @@ constructor(props){
     }
     return (
       <View style = {styles.container}>
-      <Text style = {styles.titleName}>Cadastrar</Text>
-      <View style={styles.localMap} elevation={5}>
-        <UserLocationMap
-        latitude = {lat}
-        longitude = {long}
-        markLat = {markLat}
-        markLong = {markLong}
-        name = {name}
-         />
-      </View>
+        <Text style = {styles.titleName}>Cadastrar</Text>
+        <View style={styles.localMap} elevation={5}>
+          <UserLocationMap
+            latitude = {lat}
+            longitude = {long}
+            markLat = {markLat}
+            markLong = {markLong}
+            name = {name}
+           />
+        </View>
+        <Button full iconLeft>
+          <Icon
+            name='location'
+            color='white'
+            size={30}
+          />
+          <Text>Não encontrou seu local? Cadastre já!</Text>
+        </Button>
       </View>
     )
   }
