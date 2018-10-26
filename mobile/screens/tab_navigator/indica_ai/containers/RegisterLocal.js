@@ -1,9 +1,9 @@
 import { Platform } from 'react-native';
 import React, { Component } from "react";
+import {Button, Text } from 'native-base';
 import { Constants, Location, Permissions } from 'expo';
 import {
   View,
-  Text,
   StyleSheet,
   Image,
   ScrollView
@@ -11,6 +11,7 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Dimensions } from "react-native";
 import UserLocationMap from "../components/UserLocationMap";
+import Expo from "expo";
 
 export default class App extends Component{
 
@@ -18,6 +19,7 @@ export default class App extends Component{
 constructor(props){
   super(props);
   this.state = {
+    loading: true,
     latitude: null,
     longitude: null,
     error: null,
@@ -25,6 +27,14 @@ constructor(props){
    jsonDetails: null,
  };
 }
+  async componentWillMount() {
+    await Expo.Font.loadAsync({
+      Roboto: require("native-base/Fonts/Roboto.ttf"),
+      Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
+      Ionicons: require("@expo/vector-icons/fonts/Ionicons.ttf"),
+    });
+    this.setState({ loading: false });
+  }
 
   componentDidMount(){
     this.watchId = navigator.geolocation.watchPosition(
@@ -57,7 +67,9 @@ constructor(props){
        if(response.ok){
          const jsonResponse = await response.json();
          this.setState({ jsonResponse });
-
+         console.log('-----------------------------------------')
+          console.log(jsonResponse);
+          console.log('-----------------------------------------')
          this._getDetailsAsync();
        }
        throw new Error('Request failed!');
@@ -115,6 +127,9 @@ constructor(props){
     if(this.state.jsonDetails){
       name = this.state.jsonDetails['result']['name'];
     }
+    if (this.state.loading) {
+      return <Expo.AppLoading />;
+    }
     return (
       <View style = {styles.container}>
       <Text style = {styles.titleName}>Cadastrar</Text>
@@ -127,6 +142,9 @@ constructor(props){
         name = {name}
          />
       </View>
+        <Button style={styles.buttonStyle}>
+          <Text>Confirmar</Text>
+        </Button>
       </View>
     )
   }
@@ -134,6 +152,7 @@ constructor(props){
 
 const styles = StyleSheet.create({
   container: {
+    justifyContent: "center",
     position:"absolute",
     backgroundColor: "white",
     top:0,
@@ -142,8 +161,6 @@ const styles = StyleSheet.create({
     right:0
   },
   titleName : {
-    alignItems: 'center',
-    marginLeft: '34%',
     fontSize: 30,
     marginTop: 30,
     color: "#0AACCC",
@@ -161,6 +178,8 @@ const styles = StyleSheet.create({
       height: 1,
       width: 1
     }
+  },
+  buttonStyle:{
+    backgroundColor:"#0AACCC",
   }
-
 });
