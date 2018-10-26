@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import rootReducers from './reducers';
-import RootStack from './RootStack';
 import TabHandlerIndicaAI from './TabHandlerIndicaAi';
 
 
@@ -14,8 +13,7 @@ export default class IndicaAiApp extends Component {
 
     return (
         <Provider store={store}>
-            <RootStack />
-            {/* <TabHandlerIndicaAI /> */}
+            <TabHandlerIndicaAI />
        </Provider>
     );
   }

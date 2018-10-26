@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { TabNavigator } from 'react-navigation';
-import UserLocationMap from './components/UserLocationMap';
 import RegisterLocal from './containers/RegisterLocal';
-import ViewLocal from './containers/ViewLocal';
-import SearchScreen from './screens/SearchScreen.js'
+import ListLocals from './containers/ListLocals'
+import SearchScreen from './screens/SearchScreen';
 
 const TabHandlerIndicaAI = new TabNavigator({
 
@@ -19,8 +18,8 @@ const TabHandlerIndicaAI = new TabNavigator({
       tabBarLabel: 'Cadastrar',
     }
   },
-  ViewLocal : {
-    screen: ViewLocal,
+  Favorites : {
+    screen: ListLocals,
     navigationOptions: {
       tabBarLabel: 'Favoritos',
     }
