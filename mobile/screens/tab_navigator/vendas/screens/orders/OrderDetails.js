@@ -84,16 +84,11 @@ class OrderDetails extends Component {
         return (
           <ScrollView>
             <View style={styles.details_main}>
-              <ImageBackground
+              <Image
                 style={styles.image }
                 source={{ uri: photo}}
               >
-                <LinearGradient
-                  colors={['transparent', 'black']}
-                  locations={[0.982, 0.90]}
-                  style={styles.gradient}
-                />
-              </ImageBackground>
+              </Image>
               <View style={{ flexDirection: 'row', paddingBottom: 2, paddingLeft: 10}}>
                 <View style={{flexDirection: 'column', width: '70%',}}>
                   <Text style={{fontSize: 25}}>{order.product_name}</Text>
