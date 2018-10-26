@@ -52,7 +52,12 @@ constructor(props){
          longitude =  this.state.longitude;
          latitude =   this.state.latitude;
       }
-     try{
+
+      console.log("XXXXXXXXXXXXXXXXXXXXXXXX COORDENADAS NO REQUEST XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+      console.log(this.state.latitude);
+      console.log(this.state.longitude);
+
+     try{ 
        const response = await fetch('https://maps.googleapis.com/maps/api/geocode/json?latlng='+String(latitude)+','+String(longitude)+'&key=AIzaSyBM9WYVio--JddgNX3TTF6flEhubkpjJYc');
        if(response.ok){
          const jsonResponse = await response.json();
@@ -84,6 +89,8 @@ constructor(props){
        if(response.ok){
          const jsonDetails = await response.json();
          this.setState({jsonDetails});
+         console.log("================================ JSON COM OS Detalhes  ======================================");
+         console.log(this.state.jsonDetails);
        }
        throw new Error('Request failed!');
      } catch(Error){
@@ -91,8 +98,19 @@ constructor(props){
      }
    };
 
+   takeNewCoords = (newLatitude, newLongitude) => {
+     this.setState({
+       latitude: newLatitude,
+       longitude: newLongitude,
+     })
+     this._getDataAsync();
+   }
+
   render() {
 
+    console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@ COORDENADAS ATUAIS @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+    console.log(this.state.latitude);
+    console.log(this.state.longitude);
     let lat;
     let long;
 
@@ -109,12 +127,6 @@ constructor(props){
       markLong = this.state.longitude;
     }
 
-
-
-    let name;
-    if(this.state.jsonDetails){
-      name = this.state.jsonDetails['result']['name'];
-    }
     return (
       <View style = {styles.container}>
       <Text style = {styles.titleName}>Cadastrar</Text>
@@ -124,7 +136,8 @@ constructor(props){
         longitude = {long}
         markLat = {markLat}
         markLong = {markLong}
-        name = {name}
+        name = {"Você está aqui!"}
+        sendNewCoods = {this.takeNewCoords}
          />
       </View>
       </View>
