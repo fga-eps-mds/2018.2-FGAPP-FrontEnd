@@ -10,9 +10,8 @@ import ListLocals from '../containers/ListLocals'
 
 
 class SearchScreen extends Component {
-
+  
   render() {
-
       return (
           <View style={styles.container}>
               <SearchBar />

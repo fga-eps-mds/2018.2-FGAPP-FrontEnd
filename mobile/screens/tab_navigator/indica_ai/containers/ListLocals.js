@@ -3,13 +3,15 @@ import {
   View,
   Text,
   StyleSheet, 
-  ScrollView
+  ScrollView,
+  TouchableHighlight
 } from "react-native";
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { searchAction } from '../actions'
 import Local from "../components/Local";
 import IconMessage from "../components/IconMessage";
+import { withNavigation } from 'react-navigation';
 
 class ListLocals extends Component {
 
@@ -60,11 +62,13 @@ class ListLocals extends Component {
           return (
             <ScrollView>
               {locals.map( local =>
+                <TouchableHighlight onPress={() => this.props.navigation.navigate('ViewLocal')}>
                   <Local
                     name={local.name}
                     description={local.description}
                     key={local.id}
                   />
+                </TouchableHighlight>
                )} 
             </ScrollView>
           );
@@ -79,5 +83,9 @@ const mapStateToProps = store => ({
 const mapDispatchToProps = dispatch => (
     bindActionCreators({ searchAction }, dispatch))
 
-export default connect(mapStateToProps, mapDispatchToProps)(ListLocals);
+// export default connect(mapStateToProps, mapDispatchToProps)(ListLocals);
 
+export default withNavigation(connect(
+  mapStateToProps, 
+  { mapDispatchToProps }
+)(ListLocals))
