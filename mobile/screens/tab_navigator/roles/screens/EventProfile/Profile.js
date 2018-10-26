@@ -85,8 +85,8 @@ class Profile extends Component {
 				<Avaliacao />
 
 				<Localizacao
-					address={role.address}
-					linkAddress={role.linkAddress}
+					placeName={role.address}
+					placeRef={'ru unb gama'}
 				/>
 
 				<Contato 

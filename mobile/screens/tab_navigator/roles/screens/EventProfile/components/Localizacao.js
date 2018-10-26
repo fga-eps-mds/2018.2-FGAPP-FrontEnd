@@ -6,6 +6,8 @@ import { Marker, Circle } from "react-native-maps"
 
 import CardHeader from "./CardHeader"
 
+const latLngDelta = 0.005
+
 class Localizacao extends Component {
 	static navigationOptions = {
 		title: "<MapView />"
@@ -16,22 +18,29 @@ class Localizacao extends Component {
 		region: {
 			latitude: 0,
 			longitude: 0,
-			latitudeDelta: 0.003,
-			longitudeDelta: 0.003
+			latitudeDelta: latLngDelta,
+			longitudeDelta: latLngDelta
 		},
 		coordenadaRole: {
-			latitude: -15.9895303,
-			longitude: -48.0469959,
-			latitudeDelta: 0.004,
-			longitudeDelta: 0.004
+			//Valores Padrões para Latitude e Longitude. Servem para caso a informação dada de localização não seja válida
+			latitude: -15.7856594,
+			longitude: -47.8959588,
+			latitudeDelta: latLngDelta,
+			longitudeDelta: latLngDelta
 		},
 		alignLocalBtn: false
 	}
 
 	componentDidMount() {
 		Permissions.askAsync(Permissions.LOCATION)
-		this._getAddressFromCoordinates()
-		this.setState({ region: this.state.coordenadaRole })
+		this._getLocalizationFromAddress()
+			.then( () => {
+				this._getAddressFromCoordinates()				
+			})
+			.then( () => {
+				this.setState({ region: this.state.coordenadaRole })
+				// console.log(JSON.stringify(this.state.coordenadaRole))
+			})
 	}
 
 	_onRegionChange(region) {
@@ -50,16 +59,16 @@ class Localizacao extends Component {
 		}
 	}
 
-	// Isso aqui é só se precisar
+	// Pra definir o local onde o marcador vai ficar
 	_getLocalizationFromAddress = async () => {
 		try {
-			let result = await Location.geocodeAsync("72120-970")
+			let result = await Location.geocodeAsync(this.props.placeRef)
 			this.setState({
-				region: {
+				coordenadaRole: {
 					latitude: result[0].latitude,
 					longitude: result[0].longitude,
-					latitudeDelta: this.state.region.latitudeDelta,
-					longitudeDelta: this.state.region.longitudeDelta
+					latitudeDelta: latLngDelta,
+					longitudeDelta: latLngDelta
 				}
 			})
 		} catch (e) {
@@ -80,7 +89,7 @@ class Localizacao extends Component {
 
 						<View style={{ width: "100%", marginLeft: 20 }}>
 							<Text style={{ fontWeight: "bold" }}>
-								{this.props.address}
+								{this.props.placeName}
 							</Text>
 							<Text style={{ color: "grey" }}>
 								{enderecoRole.city != null &&
@@ -123,7 +132,7 @@ class Localizacao extends Component {
 										longitude: this.state.coordenadaRole
 											.longitude
 									}}
-									title={this.props.address}
+									title={this.props.placeName}
 									description={"Local do Rolê"}
 								/>
 								<Circle
@@ -135,7 +144,7 @@ class Localizacao extends Component {
 									}}
 									radius={20}
 									strokeWidth={2}
-									strokeColor='green'
+									strokeColor="green"
 								/>
 							</MapView>
 						</ScrollView>
@@ -147,12 +156,15 @@ class Localizacao extends Component {
 
 					<Button
 						onPress={() => {
-							this.setState({ region: this.state.coordenadaRole })
+							this._mapView.animateToCoordinate({
+								latitude: this.state.coordenadaRole.latitude,
+								longitude: this.state.coordenadaRole.longitude
+							})
 						}}
 						block
 						style={styles.centralizeBtn}
 					>
-						<Icon name='locate' style={{color: 'black'}}/>
+						<Icon name="locate" style={{ color: "black" }} />
 						<Text> Realinhar Localização</Text>
 					</Button>
 				</Card>
@@ -185,8 +197,9 @@ const styles = StyleSheet.create({
 		marginBottom: 10,
 		alignSelf: "center",
 		width: "95%",
-		backgroundColor: 'white',
+		backgroundColor: "white",
 		borderWidth: 1,
-		borderColor: 'black'
+		borderColor: "black",
+		borderRadius: 20
 	}
 })
