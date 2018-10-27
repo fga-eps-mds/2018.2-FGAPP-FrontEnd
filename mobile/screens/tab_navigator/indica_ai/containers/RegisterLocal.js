@@ -1,10 +1,14 @@
 import { Platform } from 'react-native';
 import React, { Component } from "react";
-import { Container, Text, Title, Button, Left, Right, Body, Icon, Content, Header, Footer, View } from 'native-base';
+import {Button, Text } from 'native-base';
 import { Constants, Location, Permissions } from 'expo';
 import {
+  View,
   StyleSheet,
+  Image,
+  ScrollView
 } from "react-native";
+import Icon from 'react-native-vector-icons/Ionicons';
 import { Dimensions } from "react-native";
 import UserLocationMap from "../components/UserLocationMap";
 import Expo from "expo";
@@ -127,36 +131,34 @@ constructor(props){
       return <Expo.AppLoading />;
     }
     return (
-      <Container style = {styles.container}>
-        <Text style = {styles.titleName}>Cadastrar</Text>
-        <Content scrollEnabled={false}>
-          <View style={styles.localMap} elevation={5}>
-          <UserLocationMap
-            latitude = {lat}
-            longitude = {long}
-            markLat = {markLat}
-            markLong = {markLong}
-            name = {name}
-          />
-          </View>
-        </Content>
-        <Footer>
-          <Button style = {styles.buttonStyle}>
-            <Text>Confirmar</Text>
-          </Button>
-        </Footer>
-      </Container>
+      <View style = {styles.container}>
+      <Text style = {styles.titleName}>Cadastrar</Text>
+      <View style={styles.localMap} elevation={5}>
+        <UserLocationMap
+        latitude = {lat}
+        longitude = {long}
+        markLat = {markLat}
+        markLong = {markLong}
+        name = {name}
+         />
+      </View>
+        <Button style={styles.buttonStyle}>
+          <Text>Confirmar</Text>
+        </Button>
+      </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    ...StyleSheet.absoluteFillObject,
+    justifyContent: "center",
     position:"absolute",
     backgroundColor: "white",
-    justifyContent: 'center',
-    alignItems: 'center',
+    top:0,
+    bottom:0,
+    left:0,
+    right:0
   },
   titleName : {
     fontSize: 30,
