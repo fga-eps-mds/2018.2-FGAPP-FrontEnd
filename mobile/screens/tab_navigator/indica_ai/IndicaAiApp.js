@@ -3,12 +3,10 @@ import {
   Text
 } from "react-native";
 import { createStore } from 'redux'
-import { Provider } from 'react-redux'
-import { authAction } from './actions'
-import rootReducer from './reducers'
-import HomeScreen from './screens/HomeScreen'
-
-const store = createStore(rootReducer)
+import rootReducers from './reducers'
+import SearchScreen from './screens/SearchScreen.js'
+import TabHandlerIndicaAI from './TabHandlerIndicaAi'
+const store = createStore(rootReducers)
 
 class IndicaAiApp extends Component {
 
@@ -19,9 +17,9 @@ class IndicaAiApp extends Component {
     var token = state.params ? state.params.token : undefined;
 
     return (
-      <Provider store={store}>
-        <HomeScreen user_token={token} />
-      </Provider>
+        <Provider store={store}>
+            <TabHandlerIndicaAI />
+       </Provider>
     );
   }
 }
