@@ -34,6 +34,59 @@ describe('Testing Login', () => {
     })
 
     it('should test _onPressButton', () => {
-        wrapper.instance()._onPressButton()
+        var a = wrapper.instance()._onPressButton()
     })
+
+    it('should test checkJson bad username', () => {
+        const responseJson = {
+            "username": "teste@email.com",
+        }
+        wrapper.instance().checkJson(responseJson)
+        expect(wrapper.state('email_field_is_bad')).toBe(true)
+        expect(wrapper.state('email_field_alerts')).toEqual(responseJson.username)
+    })
+
+    it('should test checkJson good email', () => {
+        const responseJson = {}
+        wrapper.instance().checkJson(responseJson)
+        expect(wrapper.state('email_field_is_bad')).toBe(false)
+        expect(wrapper.state('email_field_alerts')).toEqual([''])
+    })
+
+    it('should test checkJson bad password', () => {
+        const responseJson = {
+            "password": "thisisabadpassword",
+        }
+        wrapper.instance().checkJson(responseJson)
+        expect(wrapper.state('password_field_is_bad')).toBe(true)
+        expect(wrapper.state('password_field_alerts')).toEqual(responseJson.password)
+    })
+
+    it('should test checkJson good password', () => {
+        const responseJson = {}
+        wrapper.instance().checkJson(responseJson)
+        expect(wrapper.state('password_field_is_bad')).toBe(false)
+        expect(wrapper.state('password_field_alerts')).toEqual([''])
+    })
+
+    it('should test checkJson non field error', () => {
+        const responseJson = {
+            "non_field_errors": "error"
+        }
+        wrapper.instance().checkJson(responseJson)
+        expect(wrapper.state('non_field_alert')).toEqual(responseJson.non_field_errors)
+    })
+
+    it('should test checkJson non field error', () => {
+        const responseJson = {
+            "token": "thisisafaketoken"
+        }
+        wrapper.instance().checkJson(responseJson)
+        expect(spyNavigate).toHaveBeenCalled()
+    })
+
+    // it('should go to SignUpScreen', () => {
+    //     wrapper.instance().goToSignUpScreen()
+    //     expect(spyNavigate).toHaveBeenCalled()
+    // })
 })
