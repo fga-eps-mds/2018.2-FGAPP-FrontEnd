@@ -116,6 +116,7 @@ class OrderedProducts extends Component {
                         orderName = {`${buyer_order.product_name}`}
                         orderQuantity = {`Quantidade: ${buyer_order.quantity}`}
                         orderPrice = {parseFloat(buyer_order.total_price).toFixed(2)}
+                        orderStatus = {`${buyer_order.status}`}
                       />
                     );
                 })}
