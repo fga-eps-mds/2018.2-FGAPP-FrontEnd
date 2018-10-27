@@ -16,6 +16,7 @@ import {
 import Cookie from 'react-native-cookie';
 import {Button} from 'native-base';
 import Field from './components/Field';
+import SingUp from './components/SingUp';
 
 export default class App extends Component {
 
@@ -28,68 +29,47 @@ export default class App extends Component {
       };
   }
 
-  _onPressButton = async () => {
-
-      var registration_path = `${process.env.INTEGRA_LOGIN_AUTH}/api/registration/`;
-      fetch(registration_path,{
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-        'email': this.state.email,
-        'password1': this.state.password,
-        'password2': this.state.password,
-
-      }),
-  })
-  .then((response) => response.json())
-  .then((responseJson) => {
-    console.log(responseJson);
-    //Campo de email
+  checkJson(responseJson){
     if (responseJson.email != undefined){
       this.setState({ email_field_alerts: responseJson.email})
       this.setState({ email_field_is_bad: true })
     }
     else{
-      this.setState({ email_field_alerts: ['']})
-      this.setState({ email_field_is_bad: false })
+        this.setState({ email_field_alerts: ['']})
+        this.setState({ email_field_is_bad: false })
     }
     //Campo de password
     if (responseJson.password1 != undefined){
-      this.setState({ password_field_alerts: responseJson.password1})
-      this.setState({ password_field_is_bad: true })
+        this.setState({ password_field_alerts: responseJson.password1})
+        this.setState({ password_field_is_bad: true })
     }
     else{
-      this.setState({ password_field_alerts: ['']})
-      this.setState({ password_field_is_bad: false })
+        this.setState({ password_field_alerts: ['']})
+        this.setState({ password_field_is_bad: false })
     }
     //Sem campo
     if (responseJson.non_field_errors != undefined){
-      this.setState({ non_field_alert: responseJson.non_field_errors})
+        this.setState({ non_field_alert: responseJson.non_field_errors})
     }
     else{
-      this.setState({ non_field_alert: ['']})
+        this.setState({ non_field_alert: ['']})
     }
     //Sucesso
-   if (responseJson.token != undefined ||
-       responseJson.key != undefined){
+    if (responseJson.token != undefined || responseJson.key != undefined){
         Alert.alert("Conta criada com sucesso!");
         this.props.navigation.navigate('LoginScreen') //mudei aqui de WelcomeScreen pra LoginScreen
-      }
-   })
+    }
+  
+  }
 
-   .catch( err => {
-     if (typeof err.text === 'function') {
-       err.text().then(errorMessage => {
-         this.props.dispatch(displayTheError(errorMessage))
-       });
-     } else {
-       Alert.alert("Erro na conexão.");
-       console.log(err)
-     }
-   });
+  _onPressButton = async () => {
+    register = await SingUp(this.state.email, this.state.password)
+    .then((response) => response.json())
+    .then((responseJson) => {
+      console.log(responseJson);
+      this.checkJson(responseJson);
+      //Campo de email
+    })
   }
 
   render(){
