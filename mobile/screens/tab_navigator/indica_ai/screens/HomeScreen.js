@@ -9,9 +9,10 @@ import { bindActionCreators } from 'redux';
 
 class HomeScreen extends Component {
 
-  constructor(props){
-    super();
-    props.authAction(props.user_token)
+  componentWillReceiveProps(nextProps){
+    if(nextProps.user_token != undefined){
+      this.props.authAction(nextProps.user_token)
+    }
   }
 
   render() {

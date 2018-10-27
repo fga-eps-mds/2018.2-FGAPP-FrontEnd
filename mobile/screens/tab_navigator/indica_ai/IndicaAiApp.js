@@ -12,10 +12,11 @@ const store = createStore(rootReducer)
 
 class IndicaAiApp extends Component {
 
+
   render() {
 
     const {state} = this.props.navigation;
-    var token = state.params ? state.params.token : "<undefined>";
+    var token = state.params ? state.params.token : undefined;
 
     return (
       <Provider store={store}>
