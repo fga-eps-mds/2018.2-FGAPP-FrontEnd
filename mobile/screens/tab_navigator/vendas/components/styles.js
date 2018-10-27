@@ -172,6 +172,7 @@ export default {
     margin: 0,
     padding: 0,
     width: '100%',
+    backgroundColor: 'white',
     },
     order_status: {
      color: 'white',

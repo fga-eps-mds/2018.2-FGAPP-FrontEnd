@@ -5,7 +5,7 @@
 import ProductCard from '../../components/ProductCard'
 
 import React, { Component } from 'react';
-import { RefreshControl } from 'react-native';
+import { RefreshControl, Alert } from 'react-native';
 import {
 	View,
 	StyleSheet,
@@ -87,14 +87,15 @@ class MyProducts extends Component {
                                 key={index}
                                 photo={product.photo}
                                 name={product.name}
-                                price={parseFloat(product.price).toFixed(2)}
-                            />
-                        );
-                    })}
+								price={parseFloat(product.price).toFixed(2)}
+								onPress={() => {this.props.navigation.navigate('MyProductDetails', {token:token, product:product})} }
+								/>
+								);
+							})}
                   </ScrollView>
                 </View>
                 <Fab
-                    onPress={() => {this.props.navigation.navigate('CreateProduct', {token:token});} }
+					onPress={() => {this.props.navigation.navigate('CreateProduct', {token:token});} }
                     style={styles.fab}>
                     <Icon name='md-add' />
                 </Fab>
@@ -107,7 +108,6 @@ export default MyProducts;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white',
         width: '100%',
     },
     fab: {
