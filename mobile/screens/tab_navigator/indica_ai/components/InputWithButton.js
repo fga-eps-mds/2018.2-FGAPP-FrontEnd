@@ -47,7 +47,7 @@ class InputWithButton extends Component {
                         <Item floatingLabel style={styles.itemStyle}>
                             <Label style={styles.labelStyle}>{label}</Label>
                             <Input
-                                onChangeText={value => this.inputChange((text))}
+                                onChangeText={value => this.inputChange((value))}
                                 value={inputValue}
                             />
                         </Item>
