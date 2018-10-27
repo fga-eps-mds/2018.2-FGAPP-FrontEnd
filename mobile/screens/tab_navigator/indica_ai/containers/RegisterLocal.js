@@ -44,7 +44,7 @@ constructor(props){
           longitude: position.coords.longitude,
           error: null,
         });
-        this._getDataAsync();
+          this._getDataAsync();
       },
       (error) => this.setState({error: error.message}),
       {enableHighAccuracy: true, timeout: 0, maximumAge: 1000, distanceFilter: 3},
@@ -62,6 +62,7 @@ constructor(props){
          longitude =  this.state.longitude;
          latitude =   this.state.latitude;
       }
+
      try{
        const response = await fetch('https://maps.googleapis.com/maps/api/geocode/json?latlng='+String(latitude)+','+String(longitude)+'&key=AIzaSyBM9WYVio--JddgNX3TTF6flEhubkpjJYc');
        if(response.ok){
@@ -95,6 +96,9 @@ constructor(props){
        const response = await fetch('https://maps.googleapis.com/maps/api/place/details/json?placeid='+place_id+'&fields=opening_hours,formatted_address,name,rating,formatted_phone_number&key=AIzaSyBM9WYVio--JddgNX3TTF6flEhubkpjJYc')
        if(response.ok){
          const jsonDetails = await response.json();
+         console.log("**************************")
+         console.log(jsonDetails)
+         console.log("**************************")
          this.setState({jsonDetails});
        }
        throw new Error('Request failed!');
@@ -102,6 +106,25 @@ constructor(props){
        console.log(Error);
      }
    };
+
+   _getNewDataAsync = async (latitude, longitude) => {
+    try{
+      const response = await fetch('https://maps.googleapis.com/maps/api/geocode/json?latlng='+String(latitude)+','+String(longitude)+'&key=AIzaSyBM9WYVio--JddgNX3TTF6flEhubkpjJYc');
+      if(response.ok){
+        const jsonResponse = await response.json();
+        this.setState({ jsonResponse });
+
+        this._getDetailsAsync();
+      }
+      throw new Error('Request failed!');
+    }catch(Error){
+      console.log(Error);
+    }
+  };
+
+   takeNewCoords = (newLatitude, newLongitude) => {
+     this._getNewDataAsync(newLatitude,newLongitude);
+   }
 
   render() {
 
@@ -112,7 +135,6 @@ constructor(props){
       lat = this.state.latitude;
       long = this.state.longitude;
     }
-
     let markLat = 0;
     let markLong = 0;
 
@@ -120,9 +142,6 @@ constructor(props){
       markLat = this.state.latitude;
       markLong = this.state.longitude;
     }
-
-
-
     let name;
     if(this.state.jsonDetails){
       name = this.state.jsonDetails['result']['name'];
@@ -132,19 +151,13 @@ constructor(props){
     }
     return (
       <View style = {styles.container}>
-      <Text style = {styles.titleName}>Cadastrar</Text>
-      <View style={styles.localMap} elevation={5}>
         <UserLocationMap
-        latitude = {lat}
-        longitude = {long}
-        markLat = {markLat}
-        markLong = {markLong}
-        name = {name}
+          latitude = {lat}
+          longitude = {long}
+          markLat = {markLat}
+          markLong = {markLong}
+          sendNewCoods = {this.takeNewCoords}
          />
-      </View>
-        <Button style={styles.buttonStyle}>
-          <Text>Confirmar</Text>
-        </Button>
       </View>
     )
   }
@@ -152,32 +165,14 @@ constructor(props){
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     position:"absolute",
     backgroundColor: "white",
     top:0,
     bottom:0,
     left:0,
     right:0
-  },
-  titleName : {
-    fontSize: 30,
-    marginTop: 30,
-    color: "#0AACCC",
-  },
-  localMap:{
-    height: 300,
-    width: "100%",
-    top: 10,
-    padding:20,
-    backgroundColor:'#d9d9d9',
-    shadowColor: "#000000",
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    shadowOffset: {
-      height: 1,
-      width: 1
-    }
   },
   buttonStyle:{
     backgroundColor:"#0AACCC",
