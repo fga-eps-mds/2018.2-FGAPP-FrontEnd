@@ -172,6 +172,7 @@ export default {
     margin: 0,
     padding: 0,
     width: '100%',
+    backgroundColor: 'white',
     },
    buyer_order_main: {
     flex: 1,
