@@ -16,11 +16,8 @@ export default class UserMap extends React.Component {
       newLongitude: null
     }
   };
-  render(){
-    console.log("________________________________  NOVAS COORDENADAS    ______________________________________________________");
-    console.log(this.state.newLatitude);
-    console.log(this.state.newLongitude);
 
+  render(){
     return(
       <View style = {styles.container}>
       <MapView
@@ -45,7 +42,16 @@ export default class UserMap extends React.Component {
                   newLatitude: event.nativeEvent.coordinate['latitude'],
                   newLongitude: event.nativeEvent.coordinate['longitude']
                 })}}
+
         >
+        <MapView.Callout
+          tooltip={true}>
+              <View style = {styles.calloutStyle}>
+                <Text>
+                  Pressione para ajustar o marcador
+                </Text>
+              </View>
+        </MapView.Callout>
         </MapView.Marker>
         </MapView>
         </View>
@@ -70,5 +76,10 @@ const styles = StyleSheet.create({
    left: 0,
    bottom: 0,
    right: 0
+ },
+ calloutStyle: {
+   backgroundColor: "rgba(255, 255, 255, 0.8)",
+   padding: 10,
+   borderRadius: 10
  }
 });
