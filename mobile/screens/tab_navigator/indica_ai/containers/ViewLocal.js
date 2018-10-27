@@ -47,24 +47,27 @@ class ViewLocal extends Component{
               <Text style={styles.localInfoTitle}>
                 Informações:
               </Text>
+              <View style={styles.fieldDescription}>
+                <Text style={styles.localInfo}>{description}</Text>
+              </View>
               <Icon style={styles.localInfoIcons}
                 name='md-call'
                 color='black'
                 size={25}
               />
-                <Text style={styles.localInfo}>(61) 4002-8922</Text>
+              <Text style={styles.localInfo}>(61) 4002-8922</Text>
               <Icon style={styles.localInfoIcons}
                 name='md-pin'
                 color='black'
                 size={25}
               />
-                <Text style={styles.localInfo}>Qd 90 Lt 99 Setor de Industria</Text>
+              <Text style={styles.localInfo}>Qd 90 Lt 99 Setor de Industria</Text>
               <Icon style={styles.localInfoIcons}
                 name='md-clock'
                 color='black'
                 size={25}
               />
-                <Text style={styles.localInfo}>6:00 - 22:00</Text>
+              <Text style={styles.localInfo}>6:00 - 22:00</Text>
               <View style={styles.hr}></View>
               <Text style={styles.localInfoTitle}>
                 Avaliação:
@@ -86,12 +89,14 @@ export default withNavigation(ViewLocal);
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    flexDirection: "row",
     position:"absolute",
     backgroundColor: "white",
     top:0,
     bottom:0,
     left:0,
-    right:0
+    right:0,
   },
   localContainer:{
     padding: 10,
@@ -131,5 +136,10 @@ const styles = StyleSheet.create({
     left: 50,
     top: -22,
     marginBottom: -10
+  },
+  fieldDescription:{
+    marginTop: 20,
+    marginRight: 10,
+    width: '80%',
   }
 });
