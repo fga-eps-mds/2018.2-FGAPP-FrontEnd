@@ -34,7 +34,7 @@ constructor(props){
           longitude: position.coords.longitude,
           error: null,
         });
-        this._getDataAsync();
+          this._getDataAsync();
       },
       (error) => this.setState({error: error.message}),
       {enableHighAccuracy: true, timeout: 0, maximumAge: 1000, distanceFilter: 3},
@@ -53,11 +53,7 @@ constructor(props){
          latitude =   this.state.latitude;
       }
 
-      console.log("XXXXXXXXXXXXXXXXXXXXXXXX COORDENADAS NO REQUEST XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-      console.log(this.state.latitude);
-      console.log(this.state.longitude);
-
-     try{ 
+     try{
        const response = await fetch('https://maps.googleapis.com/maps/api/geocode/json?latlng='+String(latitude)+','+String(longitude)+'&key=AIzaSyBM9WYVio--JddgNX3TTF6flEhubkpjJYc');
        if(response.ok){
          const jsonResponse = await response.json();
@@ -89,8 +85,6 @@ constructor(props){
        if(response.ok){
          const jsonDetails = await response.json();
          this.setState({jsonDetails});
-         console.log("================================ JSON COM OS Detalhes  ======================================");
-         console.log(this.state.jsonDetails);
        }
        throw new Error('Request failed!');
      } catch(Error){
@@ -98,19 +92,27 @@ constructor(props){
      }
    };
 
+   _getNewDataAsync = async (latitude, longitude) => {
+    try{
+      const response = await fetch('https://maps.googleapis.com/maps/api/geocode/json?latlng='+String(latitude)+','+String(longitude)+'&key=AIzaSyBM9WYVio--JddgNX3TTF6flEhubkpjJYc');
+      if(response.ok){
+        const jsonResponse = await response.json();
+        this.setState({ jsonResponse });
+
+        this._getDetailsAsync();
+      }
+      throw new Error('Request failed!');
+    }catch(Error){
+      console.log(Error);
+    }
+  };
+
    takeNewCoords = (newLatitude, newLongitude) => {
-     this.setState({
-       latitude: newLatitude,
-       longitude: newLongitude,
-     })
-     this._getDataAsync();
+     this._getNewDataAsync(newLatitude,newLongitude);
    }
 
   render() {
 
-    console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@ COORDENADAS ATUAIS @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-    console.log(this.state.latitude);
-    console.log(this.state.longitude);
     let lat;
     let long;
 
@@ -118,7 +120,6 @@ constructor(props){
       lat = this.state.latitude;
       long = this.state.longitude;
     }
-
     let markLat = 0;
     let markLong = 0;
 
