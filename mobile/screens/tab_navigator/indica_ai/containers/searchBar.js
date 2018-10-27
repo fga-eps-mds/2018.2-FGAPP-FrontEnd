@@ -41,6 +41,21 @@ export class SearchBar extends Component {
         .catch(error => {
           console.log(error);
         });
+    } else {
+      const url = fetch(`https://indicaai.herokuapp.com/locals/`, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "aplication/json"
+        }
+      })
+      .then(response => response.json())
+      .then(responseJson => {
+        this.props.searchAction(responseJson)
+      }) 
+      .catch(error => {
+        console.log(error);
+      });
     }
   };
 

@@ -55,7 +55,7 @@ class InputWithButton extends Component {
                       <Button
                           dark
                           style={styles.buttonStyle}
-                          onPress={(value) => this.state.onPress(inputValue)}
+                          onPress={() => this.state.onPress(inputValue)}
                       >
                           <Icon name={icon} style={styles.iconStyle}/>
                       </Button>
