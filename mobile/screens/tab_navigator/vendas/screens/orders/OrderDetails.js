@@ -14,10 +14,38 @@ import styles from '../../components/styles'
 import jwt_decode from 'jwt-decode'
 import { LinearGradient } from 'expo';
 
+const ORDER_CLOSED = 1;
+
 class OrderDetails extends Component {
 
-    _onPressButton = async () => {
-      Alert.alert("O botao foi apertado. ");
+    attendedOrder = async () => {
+        const {state} = this.props.navigation;
+        var token = state.params ? state.params.token : undefined;
+        var order = state.params ? state.params.order : undefined;
+        var user = jwt_decode(token);
+
+        const set_order_status = `${process.env.VENDAS_API}/api/set_order_status/`;
+        fetch(set_order_status, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            'order_id': order.id,
+            'new_status': ORDER_CLOSED,
+            'token':token,
+          }),
+        })
+        .then((response) => {
+          return response.json();
+        })
+        .then((responseJson) => {
+            this.props.navigation.navigate('OrderedProducts', {token:token});
+        })
+        .catch((err) => {
+          this.setState ({ messageError: "Erro interno, não foi possível se comunicar com o servidor."})
+          this.setState({ isDialogVisible: true })
+        })
     }
 
     loadUser(token, order){
@@ -110,7 +138,7 @@ class OrderDetails extends Component {
                 <Button
                   color="#0EAC6F"
                   title="Atendido"
-                  onPress={this._onPressButton}
+                  onPress={this.attendedOrder}
                 />
               </View>
             <View style={{padding:20}}/>

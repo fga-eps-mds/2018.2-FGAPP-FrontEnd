@@ -174,4 +174,8 @@ export default {
     width: '100%',
     backgroundColor: 'white',
     },
+    order_status: {
+     color: 'white',
+     fontSize: 17,
+    },
 };
