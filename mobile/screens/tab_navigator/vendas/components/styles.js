@@ -185,4 +185,8 @@ export default {
     paddingRight: 20,
 
   },
+    order_status: {
+     color: 'white',
+     fontSize: 17,
+    },
 };

@@ -96,6 +96,8 @@ class OrderedProducts extends Component {
     render() {
       const {state} = this.props.navigation;
       var token = state.params ? state.params.token : undefined;
+
+
         return (
           <View style={styles.container}>
                 <ScrollView
@@ -126,6 +128,7 @@ class OrderedProducts extends Component {
                         orderName = {`${order.product_name}`}
                         orderQuantity = {`Quantidade: ${order.quantity}`}
                         orderPrice = {parseFloat(order.total_price).toFixed(2)}
+                        orderStatus = {`${order.status}`}
                         onPress={() => this.props.navigation.navigate('OrderDetails', {order: order, token:token})}
                       />
                     );
