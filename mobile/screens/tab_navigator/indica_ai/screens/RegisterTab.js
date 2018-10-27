@@ -5,6 +5,9 @@ const RegisterTab = StackNavigator({
 
     Home :{
       screen: RegisterScreen,
+      navigationOptions: ({ navigation }) => ({
+        header: null,
+      }),
     }
 })
 

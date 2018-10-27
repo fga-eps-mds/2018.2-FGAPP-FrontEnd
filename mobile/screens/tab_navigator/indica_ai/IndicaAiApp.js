@@ -18,5 +18,3 @@ export default class IndicaAiApp extends Component {
     );
   }
 }
-
-// export default IndicaAiApp;

@@ -50,7 +50,7 @@ _onPressButton = async () => {
 });
 }
 
-  render() {
+  render() {/*
     const {state} = this.props.navigation;
     var token = state.params ? state.params.token : "<undefined>";
     var jwtDecode = require('jwt-decode');
@@ -76,7 +76,8 @@ _onPressButton = async () => {
             />
           </View>
         </View>
-      );
+      );*/
+      return (<Text>asd</Text>);
   }
 }
 export default Settings;

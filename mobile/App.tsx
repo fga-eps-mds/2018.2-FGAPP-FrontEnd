@@ -7,7 +7,6 @@ import WelcomeScreen from './screens/WelcomeScreen'
 import LoginScreen from './screens/LoginScreen'
 import SignUpScreen from './screens/SignUpScreen'
 import TabHandler from './screens/TabHandler'
-import IndicaAiApp from './screens/tab_navigator/indica_ai/IndicaAiApp.js';
 
 export default class App extends React.Component<{}> {
   render() {
@@ -20,7 +19,7 @@ export default class App extends React.Component<{}> {
 const AppStackNavigator = StackNavigator({
 
     WelcomeScreen:{
-      screen:IndicaAiApp,
+      screen:WelcomeScreen,
       navigationOptions: ({ navigation }) => ({
         header: null,
       }),
