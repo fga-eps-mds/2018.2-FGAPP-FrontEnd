@@ -14,6 +14,7 @@ export default async (email, password) => {
     }),
     })
     
+    const registerJson = register.json()
 
-    return register
+    return registerJson
 }

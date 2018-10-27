@@ -13,6 +13,6 @@ const fakeData = {
   
 export default async () => {
     return await new Promise(resolve => {
-        resolve(fakeData.Object)
+        resolve(fakeData.Object.json())
     })
 }

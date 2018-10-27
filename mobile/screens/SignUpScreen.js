@@ -30,6 +30,7 @@ export default class App extends Component {
   }
 
   checkJson(responseJson){
+    //Campo de email
     if (responseJson.email != undefined){
       this.setState({ email_field_alerts: responseJson.email})
       this.setState({ email_field_is_bad: true })
@@ -64,12 +65,7 @@ export default class App extends Component {
 
   _onPressButton = async () => {
     register = await SingUp(this.state.email, this.state.password)
-    .then((response) => response.json())
-    .then((responseJson) => {
-      console.log(responseJson);
-      this.checkJson(responseJson);
-      //Campo de email
-    })
+    this.checkJson(register);
   }
 
   render(){

@@ -10,8 +10,14 @@ configure({adapter: new Adapter()})
 
 describe('Testing SingUp', () => {
     let wrapper = null
+    const spyNavigate = jest.fn()
+    const props = {
+        navigation:{
+            navigate: spyNavigate
+        }
+    }
     beforeEach(() => {
-        wrapper = shallow(<App />)
+        wrapper = shallow(<App {...props}/>)
         wrapper.setState({email_field_is_bad: false})
         wrapper.setState({password_field_is_bad: false})
         wrapper.setState({email_field_alerts: ['']})
@@ -31,7 +37,7 @@ describe('Testing SingUp', () => {
         wrapper.instance()._onPressButton()
     }) 
 
-    it('should test checkJson', () => {
+    it('should test checkJson bad email', () => {
         const responseJson = {
             "email": "teste@email.com",
         }
@@ -39,4 +45,44 @@ describe('Testing SingUp', () => {
         expect(wrapper.state('email_field_is_bad')).toBe(true)
         expect(wrapper.state('email_field_alerts')).toEqual(responseJson.email)
     })
+
+    it('should test checkJson good email', () => {
+        const responseJson = {}
+        wrapper.instance().checkJson(responseJson)
+        expect(wrapper.state('email_field_is_bad')).toBe(false)
+        expect(wrapper.state('email_field_alerts')).toEqual([''])
+    })
+
+    it('should test checkJson bad password', () => {
+        const responseJson = {
+            "password1": "thisisabadpassword",
+        }
+        wrapper.instance().checkJson(responseJson)
+        expect(wrapper.state('password_field_is_bad')).toBe(true)
+        expect(wrapper.state('password_field_alerts')).toEqual(responseJson.password1)
+    })
+
+    it('should test checkJson good password', () => {
+        const responseJson = {}
+        wrapper.instance().checkJson(responseJson)
+        expect(wrapper.state('password_field_is_bad')).toBe(false)
+        expect(wrapper.state('password_field_alerts')).toEqual([''])
+    })
+
+    it('should test checkJson non field error', () => {
+        const responseJson = {
+            "non_field_errors": "error"
+        }
+        wrapper.instance().checkJson(responseJson)
+        expect(wrapper.state('non_field_alert')).toEqual(responseJson.non_field_errors)
+    })
+
+    it('should test checkJson non field error', () => {
+        const responseJson = {
+            "token": "thisisafaketoken"
+        }
+        wrapper.instance().checkJson(responseJson)
+        expect(spyNavigate).toHaveBeenCalled()
+    })
+
 })
