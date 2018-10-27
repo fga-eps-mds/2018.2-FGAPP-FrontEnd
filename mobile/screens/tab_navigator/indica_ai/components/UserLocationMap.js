@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
      alignItems: 'center'
  },
  map: {
+   width:"100%",
    position: 'absolute',
    top: 0,
    left: 0,
