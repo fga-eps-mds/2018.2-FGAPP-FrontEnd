@@ -11,27 +11,25 @@ import { Dimensions } from "react-native";
 import Expo from "expo";
 
 const width = Dimensions.get('window').width;
-const height = Dimensions.get('window').height / 3;
+const height = Dimensions.get('window').height / 2;
 
 export default class LocalDetails extends Component {
     render(){
         return(
             <View style = {styles.container}>
               <Card style = {styles.card}>
-                <CardItem header bordered>
+                <CardItem header>
                   <Text>{this.props.name}</Text>
                 </CardItem>
-                <CardItem bordered>
+                <CardItem>
                   <Body>
                     <Text style = {styles.text}>
                       {'Endereço:'} {this.props.adress}
                     </Text>
                   </Body>
                 </CardItem>
-                <CardItem footer style = {styles.cardFooter}>
-                  <Button>
-                    <Text>{'Você está aqui?'}</Text>
-                  </Button>
+                <CardItem footer>
+                   <Button info style = { styles.buttom}><Text> Confirmar </Text></Button>
                 </CardItem>
               </Card>
             </View>
@@ -44,8 +42,8 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
       position:"absolute",
-      top:  height,
-      bottom:0,
+      top: "60%",
+      bottom: "1%",
       left:0,
       right:0
     },
@@ -57,7 +55,11 @@ const styles = StyleSheet.create({
         fontSize: 10
     },
     card: {
-        width: "95%",
-        height: "90%"
+        width: "100%",
+        height: "90%",
+        bottom: 0
+    },
+    buttom: {
+      height: "90%"
     }
   });

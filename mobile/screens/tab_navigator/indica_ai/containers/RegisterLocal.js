@@ -26,6 +26,7 @@ constructor(props){
     error: null,
    jsonResponse: null,
    jsonDetails: null,
+   jsonListDetails: []
  };
 }
   async componentWillMount() {
@@ -95,25 +96,19 @@ constructor(props){
        if(response.ok){
          const jsonDetails = await response.json();
          this.setState({jsonDetails});
-         console.log("**************************")
-         console.log(jsonDetails)
-         console.log("**************************")
+
        }
        throw new Error('Request failed!');
      } catch(Error){
        console.log(Error);
      }
    };
-
    _getNewDataAsync = async (latitude, longitude) => {
     try{
       const response = await fetch('https://maps.googleapis.com/maps/api/geocode/json?latlng='+String(latitude)+','+String(longitude)+'&key=AIzaSyBM9WYVio--JddgNX3TTF6flEhubkpjJYc');
       if(response.ok){
         const jsonResponse = await response.json();
         this.setState({ jsonResponse });
-        console.log("**************************")
-        console.log(jsonResponse)
-        console.log("**************************")
         this._getDetailsAsync();
       }
       throw new Error('Request failed!');
@@ -142,14 +137,15 @@ constructor(props){
       markLat = this.state.latitude;
       markLong = this.state.longitude;
     }
-    let name = "to na variavel";
+    let name;
     if(this.state.jsonDetails){
       name = this.state.jsonDetails['result']['name'];
     }
-    let adress = "to na variavel";
+    let adress;
     if(this.state.jsonDetails){
       adress = this.state.jsonDetails['result']['formatted_address'];
     }
+
     if (this.state.loading) {
       return <Expo.AppLoading />;
     }

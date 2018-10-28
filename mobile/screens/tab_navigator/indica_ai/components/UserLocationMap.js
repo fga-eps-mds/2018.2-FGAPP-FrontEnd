@@ -7,7 +7,7 @@ import icon from '../assets/icon4.png'
 import RegisterLocal from '../containers/RegisterLocal'
 
 const width = Dimensions.get('window').width;
-const height = Dimensions.get('window').height / 3;
+const height = Dimensions.get('window').height / 2;
 
 export default class UserMap extends React.Component {
 
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
        width: 1
      },
      width,
-     height,
+     height: "60%",
  },
  map: {
    position: 'absolute',
