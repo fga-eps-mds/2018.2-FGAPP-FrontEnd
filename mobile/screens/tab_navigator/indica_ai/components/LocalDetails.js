@@ -11,27 +11,29 @@ import { Dimensions } from "react-native";
 import Expo from "expo";
 
 const width = Dimensions.get('window').width;
-const height = Dimensions.get('window').height / 2;
+const height = Dimensions.get('window').height / 3;
 
 export default class LocalDetails extends Component {
     render(){
-        console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5");
-        console.log(this.props.name);
-        
         return(
             <View style = {styles.container}>
               <Card style = {styles.card}>
-            <CardItem header>
-              <Text>{this.props.name}</Text>
-            </CardItem>
-            <CardItem>
-              <Body>
-                <Text style = {styles.text}>
-                {this.props.adress}
-                </Text>
-              </Body>
-            </CardItem>
-         </Card>
+                <CardItem header bordered>
+                  <Text>{this.props.name}</Text>
+                </CardItem>
+                <CardItem bordered>
+                  <Body>
+                    <Text style = {styles.text}>
+                      {'Endereço:'} {this.props.adress}
+                    </Text>
+                  </Body>
+                </CardItem>
+                <CardItem footer style = {styles.cardFooter}>
+                  <Button>
+                    <Text>{'Você está aqui?'}</Text>
+                  </Button>
+                </CardItem>
+              </Card>
             </View>
         );
     }
@@ -46,6 +48,10 @@ const styles = StyleSheet.create({
       bottom:0,
       left:0,
       right:0
+    },
+    cardFooter: {
+      justifyContent: 'center',
+      alignItems: 'center',
     },
     text: {
         fontSize: 10
