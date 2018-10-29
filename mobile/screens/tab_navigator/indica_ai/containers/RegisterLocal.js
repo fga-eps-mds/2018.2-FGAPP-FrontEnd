@@ -34,7 +34,7 @@ constructor(props){
           longitude: position.coords.longitude,
           error: null,
         });
-        this._getDataAsync();
+          this._getDataAsync();
       },
       (error) => this.setState({error: error.message}),
       {enableHighAccuracy: true, timeout: 0, maximumAge: 1000, distanceFilter: 3},
@@ -52,6 +52,7 @@ constructor(props){
          longitude =  this.state.longitude;
          latitude =   this.state.latitude;
       }
+
      try{
        const response = await fetch('https://maps.googleapis.com/maps/api/geocode/json?latlng='+String(latitude)+','+String(longitude)+'&key=AIzaSyBM9WYVio--JddgNX3TTF6flEhubkpjJYc');
        if(response.ok){
@@ -91,6 +92,25 @@ constructor(props){
      }
    };
 
+   _getNewDataAsync = async (latitude, longitude) => {
+    try{
+      const response = await fetch('https://maps.googleapis.com/maps/api/geocode/json?latlng='+String(latitude)+','+String(longitude)+'&key=AIzaSyBM9WYVio--JddgNX3TTF6flEhubkpjJYc');
+      if(response.ok){
+        const jsonResponse = await response.json();
+        this.setState({ jsonResponse });
+
+        this._getDetailsAsync();
+      }
+      throw new Error('Request failed!');
+    }catch(Error){
+      console.log(Error);
+    }
+  };
+
+   takeNewCoords = (newLatitude, newLongitude) => {
+     this._getNewDataAsync(newLatitude,newLongitude);
+   }
+
   render() {
 
     let lat;
@@ -100,7 +120,6 @@ constructor(props){
       lat = this.state.latitude;
       long = this.state.longitude;
     }
-
     let markLat = 0;
     let markLong = 0;
 
@@ -109,23 +128,18 @@ constructor(props){
       markLong = this.state.longitude;
     }
 
-
-
-    let name;
-    if(this.state.jsonDetails){
-      name = this.state.jsonDetails['result']['name'];
-    }
     return (
       <View style = {styles.container}>
         <Text style = {styles.titleName}>Cadastrar</Text>
         <View style={styles.localMap} elevation={5}>
           <UserLocationMap
-            latitude = {lat}
-            longitude = {long}
-            markLat = {markLat}
-            markLong = {markLong}
-            name = {name}
-          />
+          latitude = {lat}
+          longitude = {long}
+          markLat = {markLat}
+          markLong = {markLong}
+          name = {"Você está aqui!"}
+          sendNewCoods = {this.takeNewCoords}
+           />
         </View>
         <Button
           style={styles.registerButton}
