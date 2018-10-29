@@ -37,7 +37,7 @@ class LoginScreen extends Component {
   .then((responseJson) => {
     console.log(JSON.stringify(responseJson));
     //Campo de email
-   /*if (responseJson.username != undefined){
+   if (responseJson.username != undefined){
      this.setState({ email_field_alerts: responseJson.username})
      this.setState({ email_field_is_bad: true })
     }
@@ -65,9 +65,9 @@ class LoginScreen extends Component {
     }
     //Sucesso
    if (responseJson.token != undefined||
-         responseJson.key != undefined){*/
+         responseJson.key != undefined){
      this.props.navigation.navigate('Settings', {token:responseJson.token})
-      //}
+      }
    })
    .catch( err => {
      if (typeof err.text === 'function') {

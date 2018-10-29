@@ -61,21 +61,20 @@ class ListLocals extends Component {
 
           return (
             <ScrollView>
+
               {locals.map( local =>
-                <TouchableHighlight
-                  onPress={() => {
-                    this.props.navigation.navigate('LocalDetails',{
-                    local: local
-                    });
-                  }} key={local.id}
-                >
                   <Local
                     name={local.name}
                     description={local.description}
+                    onPress={() => {
+                      this.props.navigation.navigate('LocalDetails',{
+                      local: local
+                      });
+                    }}
                     key={local.id}
                   />
-                </TouchableHighlight>
-               )} 
+               )}
+
             </ScrollView>
           );
         }
@@ -87,11 +86,10 @@ const mapStateToProps = store => ({
 })
 
 const mapDispatchToProps = dispatch => (
-    bindActionCreators({ searchAction }, dispatch))
-
-// export default connect(mapStateToProps, mapDispatchToProps)(ListLocals);
+    bindActionCreators({ searchAction }, dispatch)
+)
 
 export default withNavigation(connect(
   mapStateToProps, 
   mapDispatchToProps
-)(ListLocals))
+)(ListLocals));

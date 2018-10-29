@@ -5,10 +5,13 @@ const RegisterTab = StackNavigator({
 
     Home :{
       screen: RegisterScreen,
-      navigationOptions: ({ navigation }) => ({
-        header: null,
-      }),
+    },
+  },
+  {
+    navigationOptions: {
+      header: null,
     }
-})
+  }
+)
 
 export default RegisterTab;

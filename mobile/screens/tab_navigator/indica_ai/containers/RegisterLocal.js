@@ -12,8 +12,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { Dimensions } from "react-native";
 import UserLocationMap from "../components/UserLocationMap";
 
-export default class RegisterLocal extends Component{
-
+export default class App extends Component{
 
 constructor(props){
   super(props);

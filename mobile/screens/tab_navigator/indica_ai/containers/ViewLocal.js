@@ -14,15 +14,14 @@ import { withNavigation } from 'react-navigation';
 width = Dimensions.get('window').width;
 
 class ViewLocal extends Component{
-    constructor(props) {
-      super(props);
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      local: props.navigation.state.params ? props.navigation.state.params.local : undefined,
+    };
+  }
   render() {
-    const {state} = this.props.navigation;
-    var local = state.params ? state.params.local : undefined;
-    var id = local.id;
-    var name = local.name;
-    var description = local.description;
+    const { id, name, description } = this.state.local;
     
     return (
         <View style={styles.container}>
@@ -48,7 +47,9 @@ class ViewLocal extends Component{
                 Informações:
               </Text>
               <View style={styles.fieldDescription}>
-                <Text style={styles.localInfo}>{description}</Text>
+                <Text style={styles.localInfo}>
+                  {description}
+                </Text>
               </View>
               <Icon style={styles.localInfoIcons}
                 name='md-call'
