@@ -12,7 +12,6 @@ const store = createStore(rootReducer)
 
 class IndicaAiApp extends Component {
 
-
   render() {
 
     const {state} = this.props.navigation;

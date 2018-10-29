@@ -1,11 +1,13 @@
 import React, { Component } from "react";
-import {
-  Text
-} from "react-native";
 import { connect } from 'react-redux';
+import { createStore } from 'redux'
 import { Provider } from 'react-redux'
+import rootReducer from '../reducers'
 import { authAction } from '../actions'
 import { bindActionCreators } from 'redux';
+import SearchScreen from './SearchScreen.js'
+
+const store = createStore(rootReducer)
 
 class HomeScreen extends Component {
 
@@ -18,7 +20,9 @@ class HomeScreen extends Component {
   render() {
 
     return (
-        <Text>{this.props.user_token}</Text>
+      <Provider store={store}>
+        <SearchScreen />
+      </Provider>
     );
   }
 }
