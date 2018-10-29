@@ -177,7 +177,6 @@ const styles = StyleSheet.create({
     }
   },
   registerButton: {
-    color: '#0AACCC',
     top: 30,
     marginHorizontal: 10
   }
