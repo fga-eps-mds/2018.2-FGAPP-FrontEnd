@@ -26,7 +26,7 @@ constructor(props){
     error: null,
    jsonResponse: null,
    jsonDetails: null,
-   jsonListDetails: []
+   jsonListDetails: null
  };
 }
   async componentWillMount() {
@@ -71,12 +71,35 @@ constructor(props){
          const jsonResponse = await response.json();
          this.setState({ jsonResponse });
          this._getDetailsAsync();
+         this.setState({jsonListDetails: []});
+         jsonResponse['results'].forEach(result => {
+           this._getListDetailsAsync(result["place_id"]);
+         })
        }
        throw new Error('Request failed!');
      }catch(Error){
        console.log(Error);
      }
    };
+
+   _getNewDataAsync = async (latitude, longitude) => {
+    try{
+      const response = await fetch('https://maps.googleapis.com/maps/api/geocode/json?latlng='+String(latitude)+','+String(longitude)+'&key=AIzaSyBM9WYVio--JddgNX3TTF6flEhubkpjJYc');
+      if(response.ok){
+        const jsonResponse = await response.json();
+        this.setState({ jsonResponse });
+        this._getDetailsAsync();
+        this.setState({jsonListDetails: []});
+        jsonResponse['results'].forEach(result => {
+          this._getListDetailsAsync(result["place_id"]);
+        })
+      }
+      throw new Error('Request failed!');
+    }catch(Error){
+      console.log(Error);
+    }
+  };
+
 
     _getDetailsAsync = async () => {
       let index =0;
@@ -103,25 +126,27 @@ constructor(props){
        console.log(Error);
      }
    };
-   _getNewDataAsync = async (latitude, longitude) => {
+   _getListDetailsAsync = async (place_id) => {
     try{
-      const response = await fetch('https://maps.googleapis.com/maps/api/geocode/json?latlng='+String(latitude)+','+String(longitude)+'&key=AIzaSyBM9WYVio--JddgNX3TTF6flEhubkpjJYc');
+      const response = await fetch('https://maps.googleapis.com/maps/api/place/details/json?placeid='+place_id+'&fields=opening_hours,formatted_address,name,rating,formatted_phone_number&key=AIzaSyBM9WYVio--JddgNX3TTF6flEhubkpjJYc')
       if(response.ok){
-        const jsonResponse = await response.json();
-        this.setState({ jsonResponse });
-        this._getDetailsAsync();
+        const jsonDetails = await response.json();
+        this.setState({jsonListDetails: [...this.state.jsonListDetails, jsonDetails]});
+
       }
       throw new Error('Request failed!');
-    }catch(Error){
+    } catch(Error){
       console.log(Error);
     }
   };
-
    takeNewCoords = (newLatitude, newLongitude) => {
      this._getNewDataAsync(newLatitude,newLongitude);
    }
 
   render() {
+    console.log("__________________________________________________ Lista de detalhes     __________________________________________________________");
+    console.log(this.state.jsonListDetails);
+    console.log("__________________________________________________ Lista de detalhes     __________________________________________________________");
 
     let lat;
     let long;
