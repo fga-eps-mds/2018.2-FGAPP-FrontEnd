@@ -1,9 +1,22 @@
-import React, { Component } from 'react';
-import { TabNavigator } from 'react-navigation';
-import UserLocationMap from './components/UserLocationMap';
-import RegisterLocal from './containers/RegisterLocal';
-import ViewLocal from './containers/ViewLocal';
-import SearchScreen from './screens/SearchScreen.js'
+import { TabNavigator, StackNavigator } from 'react-navigation';
+import SearchScreen from './screens/SearchScreen.js';
+import RegisterLocal from './containers/RegisterLocal.js';
+import RegisterLocalAPI from './containers/RegisterLocalAPI.js';
+
+const RegisterStack = StackNavigator({
+  Register: {
+    screen: RegisterLocal,
+    navigationOptions: {
+      header: null,
+    }
+  },
+  RegisterAPI: {
+    screen: RegisterLocalAPI,
+    navigationOptions: {
+      header: null,
+    }
+  }
+});
 
 const TabHandlerIndicaAI = new TabNavigator({
 
@@ -13,16 +26,10 @@ const TabHandlerIndicaAI = new TabNavigator({
       tabBarLabel: 'Buscar Local',
     }
   },
-  RegisterLocal : {
-    screen: RegisterLocal,
+  Register : {
+    screen: RegisterStack,
     navigationOptions: {
       tabBarLabel: 'Cadastrar',
-    }
-  },
-  ViewLocal : {
-    screen: ViewLocal,
-    navigationOptions: {
-      tabBarLabel: 'Favoritos',
     }
   }
 },
@@ -38,7 +45,7 @@ const TabHandlerIndicaAI = new TabNavigator({
         },
         style: {
             backgroundColor: '#5A5A5A',
-            
+
         },
     },
 });

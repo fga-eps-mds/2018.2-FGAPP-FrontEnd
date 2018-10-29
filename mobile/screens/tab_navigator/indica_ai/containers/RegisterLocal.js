@@ -8,13 +8,11 @@ import {
   Image,
   ScrollView
 } from "react-native";
-import Icon from 'react-native-vector-icons/Ionicons';
-import { Dimensions } from "react-native";
-import UserLocationMap from "../components/UserLocationMap";
-import { Button } from 'native-base'
+import UserLocationMap from "../components/UserLocationMap.js";
+import { Button } from 'native-base';
 import Icon from 'react-native-vector-icons/Entypo';
 
-export default class App extends Component{
+export default class RegisterLocal extends Component{
 
 
 constructor(props){
@@ -127,16 +125,21 @@ constructor(props){
             markLat = {markLat}
             markLong = {markLong}
             name = {name}
-           />
+          />
         </View>
-        <Button full iconLeft>
+        <Button
+          style={styles.registerButton}
+          block
+          info
+          iconLeft
+            onPress={() => this.props.navigation.navigate("RegisterAPI")}
+        >
           <Icon
             name='location'
             color='white'
-            size={30}
+            size={25}
           />
-          <Text>Não encontrou seu local? Cadastre já!</Text>
-          onPress={() => navigate('RegisterLocalAPI')}
+          <Text style={{color: 'white'}}>-- Não encontrou seu local? Cadastre já!</Text>
         </Button>
       </View>
     )
@@ -172,6 +175,11 @@ const styles = StyleSheet.create({
       height: 1,
       width: 1
     }
+  },
+  registerButton: {
+    color: '#0AACCC',
+    top: 30,
+    marginHorizontal: 10
   }
 
 });
