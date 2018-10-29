@@ -16,34 +16,61 @@ import {
   Textarea
 } from 'native-base'
 
-export default class RegisterLocal extends Component{
+export default class RegisterLocalAPI extends Component{
+
+  constructor(props){
+    super(props);
+    this.state={
+      selected: undefined
+    };
+  }
+
+  onValueChange(value: string) {
+    this.setState({
+      selected: value
+    });
+  }
 
   render() {
 
     return (
       <Container style={styles.container}>
-        <Input rounded placeholder='Nome do local' />
-        <Item picker>
+        <Item
+          style={styles.form}
+          regular
+        >
+          <Input placeholder='Nome' />
+        </Item>
+        <Item
+          style={styles.form}
+          picker
+          regular
+        >
           <Picker
-            mode='dropdown'
-            iosIcon={<Icon name='ios-arrow-down-outline' />}
-            style=({ width: undefined })
-            placeholder='Categoria do local'
+            mode="dropdown"
+            placeholder="Categoria"
+            selectedValue={this.state.selected}
+            onValueChange={this.onValueChange.bind(this)}
           >
-            <Picker.Item label='Restaurante' value='0'/>
-            <Picker.Item label='Papelaria' value='1'/>
-            <Picker.Item label='Bar' value='2'/>
-            <Picker.Item label='Banco' value='3'/>
-            <Picker.Item label='Lanchonete' value='4'/>
-            <Picker.Item label='Hookah' value='5'/>
+            <Picker.Item label="Restaurante" value='1'/>
+            <Picker.Item label="Hookah" value='2'/>
+            <Picker.Item label="Bar" value='3'/>
+            <Picker.Item label="Papelaria" value='4'/>
           </Picker>
         </Item>
-        <Textarea rowSpan={5} rounded placeholder='Descrição do local'/>
+        <Textarea
+          rowSpan={5}
+          bordered
+          style={{color='gray', fontSize: 15}}
+          placeholder='Descrição'
+        />
+        <Button>
+        </Button>
       </Container>
     );
 
   }
-  
+
 }
 
 const styles = StyleSheet.create({
@@ -55,5 +82,8 @@ const styles = StyleSheet.create({
     bottom:0,
     left:0,
     right:0
+  },
+  form:{
+    marginBottom: 10
   }
 });

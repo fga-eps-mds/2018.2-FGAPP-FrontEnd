@@ -132,14 +132,14 @@ constructor(props){
           block
           info
           iconLeft
-            onPress={() => this.props.navigation.navigate("RegisterAPI")}
+          onPress={() => this.props.navigation.navigate("RegisterAPI")}
         >
           <Icon
             name='location'
             color='white'
             size={25}
           />
-          <Text style={{color: 'white'}}>-- Não encontrou seu local? Cadastre já!</Text>
+          <Text style={{color: 'white'}}> Não encontrou seu local? Cadastre já!</Text>
         </Button>
       </View>
     )
