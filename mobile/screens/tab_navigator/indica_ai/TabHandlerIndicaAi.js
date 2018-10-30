@@ -1,22 +1,6 @@
-import { TabNavigator, StackNavigator } from 'react-navigation';
+import { TabNavigator } from 'react-navigation';
 import SearchScreen from './screens/SearchScreen.js';
-import RegisterLocal from './containers/RegisterLocal.js';
-import RegisterLocalAPI from './containers/RegisterLocalAPI.js';
-
-const RegisterStack = StackNavigator({
-  Register: {
-    screen: RegisterLocal,
-    navigationOptions: {
-      header: null,
-    }
-  },
-  RegisterAPI: {
-    screen: RegisterLocalAPI,
-    navigationOptions: {
-      header: null,
-    }
-  }
-});
+import RegisterTab from './screens/RegisterLocal.js';
 
 const TabHandlerIndicaAI = new TabNavigator({
 
@@ -26,8 +10,8 @@ const TabHandlerIndicaAI = new TabNavigator({
       tabBarLabel: 'Buscar Local',
     }
   },
-  Register : {
-    screen: RegisterStack,
+  RegisterTab : {
+    screen: RegisterTab,
     navigationOptions: {
       tabBarLabel: 'Cadastrar',
     }
