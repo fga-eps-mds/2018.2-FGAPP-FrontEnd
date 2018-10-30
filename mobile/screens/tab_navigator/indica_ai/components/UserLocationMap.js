@@ -6,7 +6,7 @@ import {mapStyle} from '../assets/mapStyle.js'
 import icon from '../assets/icon4.png'
 import RegisterLocal from '../containers/RegisterLocal'
 
-export default class UserMap extends React.Component {
+export default class UserLocationMap extends React.Component {
 
   constructor(props){
     super(props);

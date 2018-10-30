@@ -1,26 +1,26 @@
 import React, { Component } from 'react';
 import { TabNavigator } from 'react-navigation';
-import UserLocationMap from './components/UserLocationMap';
-import RegisterLocal from './containers/RegisterLocal';
-import ViewLocal from './containers/ViewLocal';
-import SearchScreen from './screens/SearchScreen.js'
+import SearchTab from './screens/SearchTab';
+import RegisterTab from './screens/RegisterTab';
+import FavoritesTab from './screens/FavoritesTab';
 
 const TabHandlerIndicaAI = new TabNavigator({
 
-  SearchScreen : {
-    screen: SearchScreen,
+  SearchTab : {
+    screen: SearchTab,
     navigationOptions: {
       tabBarLabel: 'Buscar Local',
     }
   },
-  RegisterLocal : {
-    screen: RegisterLocal,
+  RegisterTab : {
+    screen: RegisterTab,
     navigationOptions: {
       tabBarLabel: 'Cadastrar',
     }
   },
-  ViewLocal : {
-    screen: ViewLocal,
+  FavoritesTab : {
+    // Not implemented
+    screen: FavoritesTab,
     navigationOptions: {
       tabBarLabel: 'Favoritos',
     }
