@@ -3,26 +3,21 @@ import {
   View,
   StyleSheet
 } from "react-native";
-import { Spinner } from 'native-base';
-import { connect } from 'react-redux';
-import SearchBar from "../containers/searchBar";
-import ListLocals from '../containers/ListLocals'
+import RegisterLocalAPI from '../../containers/RegisterLocalAPI.js';
 
 
-class SearchScreen extends Component {
+class RegisterAPIScreen extends Component {
 
   render() {
-
       return (
           <View style={styles.container}>
-              <SearchBar />
-              <ListLocals />
+              <RegisterLocalAPI />
           </View>
       );
   }
 }
 
-export default SearchScreen;
+export default RegisterAPIScreen;
 
 const styles = StyleSheet.create({
 

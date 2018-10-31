@@ -1,7 +1,8 @@
 import React, { Component}   from 'react';
 import {
   Text,
-  StyleSheet
+  StyleSheet,
+  TouchableOpacity,
 } from 'react-native';
 import { Card, CardItem } from 'native-base' 
 
@@ -9,6 +10,9 @@ import { Card, CardItem } from 'native-base'
 export default class Local extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      onPress: props.onPress,
+    }
   }
   render() {
 
@@ -16,6 +20,7 @@ export default class Local extends Component {
     const description = this.props.description;
 
     return(
+      <TouchableOpacity onPress={() => this.state.onPress()}>
         <Card style={styles.localCard}> 
 
          <CardItem header bordered>
@@ -31,6 +36,7 @@ export default class Local extends Component {
          </CardItem>
 
         </Card>
+      </TouchableOpacity>
     );
   }
 }
