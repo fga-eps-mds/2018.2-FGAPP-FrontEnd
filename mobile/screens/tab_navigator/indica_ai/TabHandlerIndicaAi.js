@@ -1,4 +1,3 @@
-import React, { Component } from 'react';
 import { TabNavigator } from 'react-navigation';
 import SearchTab from './screens/SearchTab';
 import RegisterTab from './screens/RegisterTab';
@@ -38,7 +37,7 @@ const TabHandlerIndicaAI = new TabNavigator({
         },
         style: {
             backgroundColor: '#5A5A5A',
-            
+
         },
     },
 });

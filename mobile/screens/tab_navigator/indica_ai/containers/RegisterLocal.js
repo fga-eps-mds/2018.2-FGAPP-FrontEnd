@@ -8,11 +8,12 @@ import {
   Image,
   ScrollView
 } from "react-native";
-import Icon from 'react-native-vector-icons/Ionicons';
-import { Dimensions } from "react-native";
-import UserLocationMap from "../components/UserLocationMap";
+import UserLocationMap from "../components/UserLocationMap.js";
+import { Button } from 'native-base';
+import Icon from 'react-native-vector-icons/Entypo';
+import { withNavigation } from 'react-navigation';
 
-export default class App extends Component{
+class RegisterLocal extends Component{
 
 constructor(props){
   super(props);
@@ -129,21 +130,37 @@ constructor(props){
 
     return (
       <View style = {styles.container}>
-      <Text style = {styles.titleName}>Cadastrar</Text>
-      <View style={styles.localMap} elevation={5}>
-        <UserLocationMap
-        latitude = {lat}
-        longitude = {long}
-        markLat = {markLat}
-        markLong = {markLong}
-        name = {"Você está aqui!"}
-        sendNewCoods = {this.takeNewCoords}
-         />
-      </View>
+        <Text style = {styles.titleName}>Cadastrar</Text>
+        <View style={styles.localMap} elevation={5}>
+          <UserLocationMap
+          latitude = {lat}
+          longitude = {long}
+          markLat = {markLat}
+          markLong = {markLong}
+          name = {"Você está aqui!"}
+          sendNewCoods = {this.takeNewCoords}
+           />
+        </View>
+        <Button
+          style={styles.registerButton}
+          block
+          info
+          iconLeft
+          onPress={() => this.props.navigation.navigate("RegisterAPI")}
+        >
+          <Icon
+            name='location'
+            color='white'
+            size={25}
+          />
+          <Text style={{color: 'white'}}> Não encontrou seu local? Cadastre já!</Text>
+        </Button>
       </View>
     )
   }
 }
+
+export default withNavigation(RegisterLocal);
 
 const styles = StyleSheet.create({
   container: {
@@ -174,6 +191,10 @@ const styles = StyleSheet.create({
       height: 1,
       width: 1
     }
+  },
+  registerButton: {
+    top: 30,
+    marginHorizontal: 10
   }
 
 });

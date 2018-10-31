@@ -3,19 +3,21 @@ import {
   View,
   StyleSheet
 } from "react-native";
-import RegisterLocal from '../../containers/RegisterLocal.js';
+import RegisterLocalAPI from '../../containers/RegisterLocalAPI.js';
 
-class RegisterScreen extends Component {
+
+class RegisterAPIScreen extends Component {
+
   render() {
       return (
           <View style={styles.container}>
-              <RegisterLocal />
+              <RegisterLocalAPI />
           </View>
       );
   }
 }
 
-export default RegisterScreen;
+export default RegisterAPIScreen;
 
 const styles = StyleSheet.create({
 
