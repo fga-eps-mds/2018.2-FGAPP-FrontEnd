@@ -8,12 +8,14 @@ import {
   ScrollView
 } from "react-native";
 import { Dimensions } from "react-native";
+import Icon from 'react-native-vector-icons/Entypo';
 import Expo from "expo";
+import { withNavigation } from 'react-navigation';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height / 2;
 
-export default class LocalDetails extends Component {
+class LocalDetails extends Component {
     render(){
         return(
             <View style = {styles.container}>
@@ -30,14 +32,29 @@ export default class LocalDetails extends Component {
                   </ScrollView>
                   </Body>
                 </CardItem>
-                <CardItem footer>
-                   <Button info style = { styles.buttom}><Text> Confirmar </Text></Button>
+                <CardItem footer style={styles.cardFooter}>
+                     <Button info style={styles.button} ><Text> {"Chek-in"} </Text></Button>
+                     <Button
+                        info
+                        style={styles.button}
+                        bordered
+                        onPress={() => this.props.navigation.navigate("RegisterAPI")}
+                     >
+                       <Icon
+                         name='location'
+                         color='#0AACCC'
+                         size={25}
+                       />
+                       <Text style={{color: '#0AACCC'}}>Cadastrar</Text>
+                     </Button>
                 </CardItem>
               </Card>
             </View>
         );
     }
 }
+
+export default withNavigation(LocalDetails);
 
 const styles = StyleSheet.create({
     container: {
@@ -50,8 +67,16 @@ const styles = StyleSheet.create({
       right:0
     },
     cardFooter: {
-      justifyContent: 'center',
+      justifyContent: 'space-around',
       alignItems: 'center',
+      flexDirection: 'row'
+    },
+    button: {
+      padding: 10
+    },
+    buttonRegister: {
+      backgroundColor: 'white',
+      color: '#0AACCC'
     },
     text: {
       flex: 1,
@@ -59,10 +84,5 @@ const styles = StyleSheet.create({
     },
     card: {
         width: "100%",
-        height: "90%",
-        bottom: 0
     },
-    buttom: {
-      height: "90%"
-    }
   });
