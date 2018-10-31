@@ -14,5 +14,3 @@ export default class RegisterLocalAPI extends Component{
   }
 
 }
-
-export default withNavigation(RegisterLocalAPI);

@@ -11,8 +11,9 @@ import {
 import UserLocationMap from "../components/UserLocationMap.js";
 import { Button } from 'native-base';
 import Icon from 'react-native-vector-icons/Entypo';
+import { withNavigation } from 'react-navigation';
 
-export default class RegisterLocal extends Component{
+class RegisterLocal extends Component{
 
 
 constructor(props){
@@ -129,7 +130,7 @@ constructor(props){
     }
 
     return (
-      <Vie/*w style = {styles.container}>
+      <View style = {styles.container}>
         <Text style = {styles.titleName}>Cadastrar</Text>
         <View style={styles.localMap} elevation={5}>
           <UserLocationMap
@@ -159,6 +160,8 @@ constructor(props){
     )
   }
 }
+
+export default withNavigation(RegisterLocal);
 
 const styles = StyleSheet.create({
   container: {
