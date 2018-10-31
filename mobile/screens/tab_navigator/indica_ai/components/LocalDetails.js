@@ -23,7 +23,7 @@ export default class LocalDetails extends Component {
                 </CardItem>
                 <CardItem>
                   <Body>
-                    <Text style = {styles.text}>
+                    <Text numberOfLines={2} style = {styles.text}>
                       {'Endereço:'} {this.props.adress}
                     </Text>
                   </Body>
@@ -52,7 +52,8 @@ const styles = StyleSheet.create({
       alignItems: 'center',
     },
     text: {
-        fontSize: 10
+      flex: 1,
+        fontSize: 15
     },
     card: {
         width: "100%",
