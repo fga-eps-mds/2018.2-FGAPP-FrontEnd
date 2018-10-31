@@ -17,7 +17,7 @@ class RegisterAPIScreen extends Component {
   }
 }
 
-export default RegisterScreen;
+export default RegisterAPIScreen;
 
 const styles = StyleSheet.create({
 

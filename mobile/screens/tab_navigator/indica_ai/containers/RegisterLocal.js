@@ -129,7 +129,7 @@ constructor(props){
     }
 
     return (
-      <View style = {styles.container}>
+      <Vie/*w style = {styles.container}>
         <Text style = {styles.titleName}>Cadastrar</Text>
         <View style={styles.localMap} elevation={5}>
           <UserLocationMap

@@ -3,7 +3,7 @@ import {
   View,
   StyleSheet
 } from "react-native";
-import RegisterLocal from '../../containers/RegisterLocal';
+import RegisterLocal from '../../containers/RegisterLocal.js';
 
 
 class RegisterScreen extends Component {

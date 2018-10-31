@@ -8,10 +8,11 @@ import RegisterAPIForm from '../components/RegisterAPIForm.js'
 export default class RegisterLocalAPI extends Component{
 
   render() {
-
     return (
       <RegisterAPIForm />
     );
-
   }
+
 }
+
+export default withNavigation(RegisterLocalAPI);

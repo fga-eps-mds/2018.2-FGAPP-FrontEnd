@@ -1,6 +1,6 @@
 import { TabNavigator } from 'react-navigation';
 import SearchScreen from './screens/SearchScreen.js';
-import RegisterTab from './screens/RegisterLocal.js';
+import RegisterTab from './screens/RegisterTab.js';
 
 const TabHandlerIndicaAI = new TabNavigator({
 

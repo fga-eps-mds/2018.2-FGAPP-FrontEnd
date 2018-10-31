@@ -1,15 +1,15 @@
 import {StackNavigator} from 'react-navigation';
-import RegisterLocal from '../../containers/RegisterLocal.js';
-import RegisterLocalAPI from '../../containers/RegisterLocalPI.js';
+import RegisterScreen from './register_local/RegisterScreen.js';
+import RegisterAPIScreen from './register_local/RegisterAPIScreen.js';
 
 
 const RegisterTab = StackNavigator({
 
     Register :{
-      screen: RegisterLocal,
+      screen: RegisterScreen,
     },
     RegisterAPI :{
-      screen: RegisterLocalAPI,
+      screen: RegisterAPIScreen,
     }
   },
   {
