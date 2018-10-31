@@ -16,6 +16,19 @@ import {
 import {Button} from 'native-base';
 import Field from './components/Field';
 
+async function getExpoToken() {
+  const { status } = await Expo.Permissions.askAsync(
+    Expo.Permissions.NOTIFICATIONS
+  );
+  if (status != 'granted') {
+    alert('Você precisa permitir notificações nas configurações.');
+    return;
+  }
+
+  const token = await Expo.Notifications.getExpoPushTokenAsync();
+  console.log(token)
+}
+
 class LoginScreen extends Component {
 
   constructor(props) {
@@ -71,11 +84,11 @@ class LoginScreen extends Component {
       this.setState({ non_field_alert: ['']})
     }
     //Sucesso
-   if (responseJson.token != undefined||
-         responseJson.key != undefined){
+   if (responseJson.token != undefined || responseJson.key != undefined){
+     getExpoToken();
      this.props.navigation.navigate('TabHandler', {token:responseJson.token})
-      }
-   })
+   }
+  })
    .catch( err => {
      if (typeof err.text === 'function') {
        err.text().then(errorMessage => {
