@@ -17,6 +17,7 @@ class UserProfile extends Component {
       name: undefined,
       email: undefined,
       photo: undefined,
+      need_logout: false,
     };
   }
 
@@ -28,6 +29,35 @@ class UserProfile extends Component {
     if (!cancelled) {
       this.setState({ photo: uri });
     }
+  }
+  _logout = async () => {
+    const logoutPath = `${process.env.INTEGRA_LOGIN_AUTH}/api/logout/`;
+    fetch(logoutPath, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+      }),
+    })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      console.log(JSON.stringify(responseJson.detail));
+      if (responseJson.detail == 'Successfully logged out.') {
+        this.props.navigation.state.params.token = null;
+        this.props.navigation.navigate('LoginScreen');
+      }
+    })
+    .catch(err => {
+      if (typeof err.text === 'function') {
+        err.text().then(errorMessage => {
+          this.props.dispatch(displayTheError(errorMessage));
+        });
+      } else {
+        Alert.alert('Erro na conexão.');
+        console.log(err);
+      }
+    });
   }
 
   _editProfile = async () => {
@@ -45,9 +75,10 @@ class UserProfile extends Component {
     if ((name != undefined))
       formData.append('name', name);
 
-    if ((email != undefined))
+    if ((email != undefined)){
       formData.append('email', email);
-
+      this.setState({ need_logout: true });
+    }  
     if (uri != undefined) {
       const uriParts = uri.split('.');
       const fileType = uriParts[uriParts.length - 1];
@@ -76,8 +107,14 @@ class UserProfile extends Component {
         Alert.alert(responseJson.error);
       }
       else {
-        Alert.alert('Informações atualizadas com sucesso.');
-        this.props.navigation.navigate('Settings', { token: token });
+        if(this.state.need_logout){
+          Alert.alert('Entre no app novamente para aplicar mudanças');
+          this._logout();
+        }
+        else{
+          Alert.alert('Informações atualizadas com sucesso.');
+          this.props.navigation.navigate('Settings', { token: token });
+        }
       }
     })
     .catch(err => {
@@ -87,36 +124,6 @@ class UserProfile extends Component {
         });
       } else {
         Alert.alert("Erro na conexão.");
-        console.log(err);
-      }
-    });
-  }
-
-  _logout = async () => {
-    const logoutPath = `${process.env.INTEGRA_LOGIN_AUTH}/api/logout/`;
-    fetch(logoutPath, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-      }),
-    })
-    .then((response) => response.json())
-    .then((responseJson) => {
-      console.log(JSON.stringify(responseJson.detail));
-      if (responseJson.detail == 'Successfully logged out.') {
-        this.props.navigation.state.params.token = null;
-        this.props.navigation.navigate('LoginScreen');
-      }
-    })
-    .catch(err => {
-      if (typeof err.text === 'function') {
-        err.text().then(errorMessage => {
-          this.props.dispatch(displayTheError(errorMessage));
-        });
-      } else {
-        Alert.alert('Erro na conexão.');
         console.log(err);
       }
     });
