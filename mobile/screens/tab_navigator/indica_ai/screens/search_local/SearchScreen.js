@@ -5,14 +5,13 @@ import {
 } from "react-native";
 import { Spinner } from 'native-base';
 import { connect } from 'react-redux';
-import SearchBar from "../containers/searchBar";
-import ListLocals from '../containers/ListLocals'
+import SearchBar from "../../containers/searchBar";
+import ListLocals from '../../containers/ListLocals'
 
 
 class SearchScreen extends Component {
-
+  
   render() {
-
       return (
           <View style={styles.container}>
               <SearchBar />

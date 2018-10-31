@@ -14,7 +14,6 @@ import Icon from 'react-native-vector-icons/Entypo';
 
 export default class RegisterLocal extends Component{
 
-
 constructor(props){
   super(props);
   this.state = {

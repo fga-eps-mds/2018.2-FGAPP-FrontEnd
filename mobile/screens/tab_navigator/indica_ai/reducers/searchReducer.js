@@ -3,8 +3,7 @@ const searchReducer = (state = [], action) => {
         case 'GET_LOCALS':
             return {
                 ...state,
-                locals: action.locals,
-                requestLocals: false
+                locals: action.locals
             }
         default:
             return state
