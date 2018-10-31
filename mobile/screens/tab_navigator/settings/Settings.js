@@ -19,7 +19,7 @@ class Settings extends Component {
 }
 
 _onPressButton = async () => {
-    
+
     fetch(this.state.url+'/logout/', {
       method: 'POST',
       headers: {
@@ -51,32 +51,32 @@ _onPressButton = async () => {
 }
 
   render() {
-    // const {state} = this.props.navigation;
-    // var token = state.params ? state.params.token : "<undefined>";
-    // var jwtDecode = require('jwt-decode');
-    // var user = jwt_decode(token);
-    //   return (
-    //     <View style={{flex: 1, flexDirection: 'column'}}>
-    //       <View style={{ height: '90%', flex: 1, flexDirection: 'row'}}>
-    //         <View>
-    //         <Image
-    //           style={{width: 100, height: 100}}
-    //           source={{uri: 'https://facebook.github.io/react-native/docs/assets/favicon.png'}}
-    //         />
-    //         </View>
-    //         <View>
-    //         <Text> {"<Nome de Usuário>"}</Text>
-    //         <Text>{user.email}</Text>
-    //         </View>
-    //       </View>
-    //       <View style={{ height: '10%'}}>
-    //         <Button
-    //               onPress={this._onPressButton}
-    //               title="Sair"
-    //         />
-    //       </View>
-    //     </View>
-    //   );
+   const {state} = this.props.navigation;
+   var token = state.params ? state.params.token : "<undefined>";
+   var jwtDecode = require('jwt-decode');
+   var user = jwt_decode(token);
+     return (
+       <View style={{flex: 1, flexDirection: 'column'}}>
+         <View style={{ height: '90%', flex: 1, flexDirection: 'row'}}>
+           <View>
+           <Image
+             style={{width: 100, height: 100}}
+             source={{uri: 'https://facebook.github.io/react-native/docs/assets/favicon.png'}}
+           />
+           </View>
+           <View>
+           <Text> {"<Nome de Usuário>"}</Text>
+           <Text>{user.email}</Text>
+           </View>
+         </View>
+         <View style={{ height: '10%'}}>
+           <Button
+                   onPress={this._onPressButton}
+                   title="Sair"
+             />
+           </View>
+         </View>
+       );
       return (<Text>asd</Text>);
   }
 }

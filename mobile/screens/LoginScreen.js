@@ -37,37 +37,37 @@ class LoginScreen extends Component {
   .then((responseJson) => {
     console.log(JSON.stringify(responseJson));
     //Campo de email
-  //  if (responseJson.username != undefined){
-  //    this.setState({ email_field_alerts: responseJson.username})
-  //    this.setState({ email_field_is_bad: true })
-  //   }
-  //   else{
-  //     this.setState({ email_field_alerts: ['']})
-  //     this.setState({ email_field_is_bad: false })
-  //   }
+    if (responseJson.username != undefined){
+      this.setState({ email_field_alerts: responseJson.username})
+      this.setState({ email_field_is_bad: true })
+     }
+     else{
+       this.setState({ email_field_alerts: ['']})
+      this.setState({ email_field_is_bad: false })
+     }
 
-  //   //Campo de password
-  //   if (responseJson.password != undefined){
-  //     this.setState({ password_field_alerts: responseJson.password})
-  //     this.setState({ password_field_is_bad: true })
-  //   }
-  //   else{
-  //     this.setState({ password_field_alerts: ['']})
-  //     this.setState({ password_field_is_bad: false })
-  //   }
+     //Campo de password
+     if (responseJson.password != undefined){
+       this.setState({ password_field_alerts: responseJson.password})
+       this.setState({ password_field_is_bad: true })
+     }
+     else{
+       this.setState({ password_field_alerts: ['']})
+       this.setState({ password_field_is_bad: false })
+    }
 
-  //   //Sem campo
-  //   if (responseJson.non_field_errors != undefined){
-  //     this.setState({ non_field_alert: responseJson.non_field_errors})
-  //   }
-  //   else{
-  //     this.setState({ non_field_alert: ['']})
-  //   }
-  //   //Sucesso
-  //  if (responseJson.token != undefined||
-  //        responseJson.key != undefined){
+    //Sem campo
+     if (responseJson.non_field_errors != undefined){
+       this.setState({ non_field_alert: responseJson.non_field_errors})
+     }
+     else{
+       this.setState({ non_field_alert: ['']})
+     }
+     //Sucesso
+    if (responseJson.token != undefined||
+          responseJson.key != undefined){
      this.props.navigation.navigate('Settings', {token:responseJson.token})
-      // }
+       }
    })
    .catch( err => {
      if (typeof err.text === 'function') {
