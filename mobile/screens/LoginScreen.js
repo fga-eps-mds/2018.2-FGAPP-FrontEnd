@@ -16,7 +16,7 @@ import {
 import {Button} from 'native-base';
 import Field from './components/Field';
 
-async function getExpoToken() {
+async function getExpoToken(loginToken) {
   const { status } = await Expo.Permissions.askAsync(
     Expo.Permissions.NOTIFICATIONS
   );
@@ -25,8 +25,15 @@ async function getExpoToken() {
     return;
   }
 
-  const token = await Expo.Notifications.getExpoPushTokenAsync();
-  console.log(token)
+  const notificationToken = await Expo.Notifications.getExpoPushTokenAsync();
+  storeToken(loginToken, notificationToken)
+}
+
+async function storeToken(loginToken, notificationToken){
+  console.log(loginToken)
+  console.log(notificationToken)
+
+  // TODO Fetch to post token on login microservice
 }
 
 class LoginScreen extends Component {
@@ -85,7 +92,7 @@ class LoginScreen extends Component {
     }
     //Sucesso
    if (responseJson.token != undefined || responseJson.key != undefined){
-     getExpoToken();
+     getExpoToken(responseJson.token);
      this.props.navigation.navigate('TabHandler', {token:responseJson.token})
    }
   })
