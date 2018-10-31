@@ -3,19 +3,20 @@ import {
   View,
   StyleSheet
 } from "react-native";
-import RegisterLocal from '../../containers/RegisterLocal.js';
+import RegisterLocal from '../../containers/RegisterLocal';
 
-class RegisterScreen extends Component {
+
+class FavoritesScreen extends Component {
+  
   render() {
       return (
           <View style={styles.container}>
-              <RegisterLocal />
           </View>
       );
   }
 }
 
-export default RegisterScreen;
+export default FavoritesScreen;
 
 const styles = StyleSheet.create({
 

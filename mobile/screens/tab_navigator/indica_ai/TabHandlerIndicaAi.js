@@ -1,11 +1,12 @@
 import { TabNavigator } from 'react-navigation';
-import SearchScreen from './screens/SearchScreen.js';
-import RegisterTab from './screens/RegisterTab.js';
+import SearchTab from './screens/SearchTab';
+import RegisterTab from './screens/RegisterTab';
+import FavoritesTab from './screens/FavoritesTab';
 
 const TabHandlerIndicaAI = new TabNavigator({
 
-  SearchScreen : {
-    screen: SearchScreen,
+  SearchTab : {
+    screen: SearchTab,
     navigationOptions: {
       tabBarLabel: 'Buscar Local',
     }
@@ -14,6 +15,13 @@ const TabHandlerIndicaAI = new TabNavigator({
     screen: RegisterTab,
     navigationOptions: {
       tabBarLabel: 'Cadastrar',
+    }
+  },
+  FavoritesTab : {
+    // Not implemented
+    screen: FavoritesTab,
+    navigationOptions: {
+      tabBarLabel: 'Favoritos',
     }
   }
 },
