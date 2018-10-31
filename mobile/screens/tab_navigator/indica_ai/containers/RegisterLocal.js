@@ -1,14 +1,19 @@
 import { Platform } from 'react-native';
 import React, { Component } from "react";
+import {Button, Text } from 'native-base';
 import { Constants, Location, Permissions } from 'expo';
 import {
   View,
-  Text,
   StyleSheet,
   Image,
   ScrollView
 } from "react-native";
-import UserLocationMap from "../components/UserLocationMap.js";
+
+import Icon from 'react-native-vector-icons/Ionicons';
+import { Dimensions } from "react-native";
+import UserLocationMap from "../components/UserLocationMap";
+import Expo from "expo";
+import LocalDetails from "../components/LocalDetails"
 import { Button } from 'native-base';
 import Icon from 'react-native-vector-icons/Entypo';
 import { withNavigation } from 'react-navigation';
@@ -18,6 +23,7 @@ class RegisterLocal extends Component{
 constructor(props){
   super(props);
   this.state = {
+    loading: true,
     latitude: null,
     longitude: null,
     error: null,
@@ -25,6 +31,14 @@ constructor(props){
    jsonDetails: null,
  };
 }
+  async componentWillMount() {
+    await Expo.Font.loadAsync({
+      Roboto: require("native-base/Fonts/Roboto.ttf"),
+      Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
+      Ionicons: require("@expo/vector-icons/fonts/Ionicons.ttf"),
+    });
+    this.setState({ loading: false });
+  }
 
   componentDidMount(){
     this.watchId = navigator.geolocation.watchPosition(
@@ -58,14 +72,29 @@ constructor(props){
        if(response.ok){
          const jsonResponse = await response.json();
          this.setState({ jsonResponse });
-
          this._getDetailsAsync();
+
        }
        throw new Error('Request failed!');
      }catch(Error){
        console.log(Error);
      }
    };
+
+   _getNewDataAsync = async (latitude, longitude) => {
+    try{
+      const response = await fetch('https://maps.googleapis.com/maps/api/geocode/json?latlng='+String(latitude)+','+String(longitude)+'&key=AIzaSyBM9WYVio--JddgNX3TTF6flEhubkpjJYc');
+      if(response.ok){
+        const jsonResponse = await response.json();
+        this.setState({ jsonResponse });
+        this._getDetailsAsync();
+      }
+      throw new Error('Request failed!');
+    }catch(Error){
+      console.log(Error);
+    }
+  };
+
 
     _getDetailsAsync = async () => {
       let index =0;
@@ -85,34 +114,19 @@ constructor(props){
        if(response.ok){
          const jsonDetails = await response.json();
          this.setState({jsonDetails});
+
        }
        throw new Error('Request failed!');
      } catch(Error){
        console.log(Error);
      }
    };
-
-   _getNewDataAsync = async (latitude, longitude) => {
-    try{
-      const response = await fetch('https://maps.googleapis.com/maps/api/geocode/json?latlng='+String(latitude)+','+String(longitude)+'&key=AIzaSyBM9WYVio--JddgNX3TTF6flEhubkpjJYc');
-      if(response.ok){
-        const jsonResponse = await response.json();
-        this.setState({ jsonResponse });
-
-        this._getDetailsAsync();
-      }
-      throw new Error('Request failed!');
-    }catch(Error){
-      console.log(Error);
-    }
-  };
-
    takeNewCoords = (newLatitude, newLongitude) => {
      this._getNewDataAsync(newLatitude,newLongitude);
    }
 
   render() {
-
+  
     let lat;
     let long;
 
@@ -127,20 +141,31 @@ constructor(props){
       markLat = this.state.latitude;
       markLong = this.state.longitude;
     }
+    let name;
+    if(this.state.jsonDetails){
+      name = this.state.jsonDetails['result']['name'];
+    }
+    let adress;
+    if(this.state.jsonDetails){
+      adress = this.state.jsonDetails['result']['formatted_address'];
+    }
 
+    if (this.state.loading) {
+      return <Expo.AppLoading />;
+    }
     return (
       <View style = {styles.container}>
-        <Text style = {styles.titleName}>Cadastrar</Text>
-        <View style={styles.localMap} elevation={5}>
-          <UserLocationMap
+        <UserLocationMap
           latitude = {lat}
           longitude = {long}
           markLat = {markLat}
           markLong = {markLong}
-          name = {"Você está aqui!"}
           sendNewCoods = {this.takeNewCoords}
-           />
-        </View>
+         />
+         <LocalDetails
+           name = {name}
+           adress = {adress}
+        />
         <Button
           style={styles.registerButton}
           block
@@ -164,6 +189,8 @@ export default withNavigation(RegisterLocal);
 
 const styles = StyleSheet.create({
   container: {
+    justifyContent: 'center',
+    alignItems: 'center',
     position:"absolute",
     backgroundColor: "white",
     top:0,
@@ -196,5 +223,4 @@ const styles = StyleSheet.create({
     top: 30,
     marginHorizontal: 10
   }
-
 });
