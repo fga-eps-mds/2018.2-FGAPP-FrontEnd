@@ -19,13 +19,15 @@ export default class LocalDetails extends Component {
             <View style = {styles.container}>
               <Card style = {styles.card}>
                 <CardItem header>
-                  <Text>{this.props.name}</Text>
+                  <Text numberOfLines={1}>{this.props.name}</Text>
                 </CardItem>
                 <CardItem>
                   <Body>
+                  <ScrollView>
                     <Text numberOfLines={2} style = {styles.text}>
                       {'Endereço:'} {this.props.adress}
                     </Text>
+                  </ScrollView>
                   </Body>
                 </CardItem>
                 <CardItem footer>
