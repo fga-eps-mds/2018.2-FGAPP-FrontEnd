@@ -1,5 +1,13 @@
 {
   "expo": {
+    "name": "IntegraApps",
+    "description": "Aplicativo de utilitários para a Faculdade do Gama, Universidade de Brasília.",
+    "githubUrl": "https://github.com/fga-eps-mds/2018.2-FGAPP-FrontEnd",
+    "orientation": "portrait",
+    "icon": "./assets/IntegraApps_icon.png",
+    "notification": {
+      "icon": "./assets/IntegraApps_icon.png"
+    },
     "sdkVersion": "27.0.0",
     "packagerOpts": {
       "sourceExts": ["ts", "tsx"],
