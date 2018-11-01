@@ -11,6 +11,7 @@ import {
     Animated
 } from 'react-native';
 import ProductImage from '../../components/ProductImage';
+import APButton from '../../components/APButton';
 import { Textarea, Form, Item, Input, Label, Button } from 'native-base';
 import jwt_decode from 'jwt-decode';
 import ErrorDialog from './ErrorDialog';
@@ -157,13 +158,10 @@ class CreateProduct extends Component {
                   >
                     <Text style={{color: 'white'}}> CANCELAR </Text>
                   </Button>
-                  <Button
+                  <APButton
                     onPress={this.registerProduct}
-                    style={styles.button}
-                    success
-                  >
-                    <Text style={{color: 'white'}}> SALVAR </Text>
-                  </Button>
+                    text="SALVAR"
+                  />
                 </View>
               </ToogleView>
             </Animated.View>
