@@ -17,6 +17,10 @@ import { StyleSheet, Image, View, TouchableOpacity } from "react-native"
 import {withNavigation} from 'react-navigation'
 import LikeButton from "./components/LikeButton";
 
+<<<<<<< HEAD
+=======
+// const logo = require("./images/logo.png");
+>>>>>>> origin/roles-app/event-profile
 const noPic = require("../../../static/noPic.png")
 
 class FeedItem extends Component {

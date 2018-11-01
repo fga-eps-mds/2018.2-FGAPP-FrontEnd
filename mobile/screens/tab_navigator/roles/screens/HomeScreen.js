@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import cadastroEventosScreen from './TabNavigator/cadastroEventos/CadastroEventos1';
 
-
 export default class HomeScreen extends Component {
 
     cadastrarEvento() {

@@ -19,78 +19,94 @@ import {
 	TouchableOpacity
 } from "react-native"
 
+import Divider from './Divider'
+import CardHeader from './CardHeader'
+
 class Avaliacao extends Component {
+	state = {
+		thumbsUp: false,
+		thumbsDown: false
+	}
+
+	_toggleThumbs(thumbs) {
+		if (thumbs == "up") {
+			if (this.state.thumbsDown)
+				this.setState({ thumbsDown: !this.state.thumbsDown })
+			this.setState({ thumbsUp: !this.state.thumbsUp })
+		} else if (thumbs == "down") {
+			if (this.state.thumbsUp)
+				this.setState({ thumbsUp: !this.state.thumbsUp })
+			this.setState({ thumbsDown: !this.state.thumbsDown })
+		}
+	}
+
 	render() {
 		return (
 			<Card>
-				<Text style={{ color: "grey" }}>Avaliação</Text>
-
+				<CardHeader text="Avaliação"/>
 				<Body>
-					<List>
-						<ListItem>
-							<Card transparent style={styles.subCards}>
-								<Text style={styles.subHeaders}>
-									Como está o evento?
-								</Text>
+					<Card transparent style={styles.subCards}>
+						<Text style={styles.subHeaders}>
+							Como está o evento?
+						</Text>
 
-								<CardItem style={{ alignSelf: "center" }}>
-									<Left>
-										<TouchableOpacity>
-											<Icon
-												name="thumbs-up"
-												style={{ fontSize: 40 }}
-											/>
-										</TouchableOpacity>
+						<CardItem style={{ alignSelf: "center", marginBottom:-30}}>
+							<Left>
+								<TouchableOpacity
+									onPress={() => this._toggleThumbs("up")}
+								>
+									<Icon
+										name="thumbs-up"
+										style={{
+											fontSize: 40,
+											color: this.state.thumbsUp
+												? "green"
+												: "black"
+										}}
+									/>
+								</TouchableOpacity>
 
-										<Text style={styles.likeDislikeBox}>
-											11
-										</Text>
-									</Left>
+								<Text style={styles.likeDislikeBox}>11</Text>
+							</Left>
 
-									<Right>
-										<CardItem>
-											<Text style={styles.likeDislikeBox}>
-												4
-											</Text>
-											<TouchableOpacity>
-												<Icon
-													name="thumbs-down"
-													style={{
-														fontSize: 40,
-														color: "black"
-													}}
-												/>
-											</TouchableOpacity>
-										</CardItem>
-									</Right>
+							<Right>
+								<CardItem>
+									<Text style={styles.likeDislikeBox}>4</Text>
+									<TouchableOpacity
+										onPress={() =>
+											this._toggleThumbs("down")
+										}
+									>
+										<Icon
+											name="thumbs-down"
+											style={{
+												fontSize: 40,
+												color: this.state.thumbsDown
+													? "red"
+													: "black"
+											}}
+										/>
+									</TouchableOpacity>
 								</CardItem>
-							</Card>
-						</ListItem>
+							</Right>
+						</CardItem>
+					</Card>
 
-						<ListItem>
-							<Card transparent style={styles.subCards}>
-								<Text style={styles.subHeaders}>
-									Chame alguém!
-								</Text>
-								<Button block primary style={styles.btn}>
-									<Icon name="share" />
-									<Text style={{ color: "white" }}>
-										Compartilhe!
-									</Text>
-								</Button>
+					<Divider size={200}/>
 
-								<Text style={styles.subHeaders}>
-									Fale que chegou!
-								</Text>
-								<Button block success style={styles.btn}>
-									<Icon name="pin" />
-									<Text style={{ color: "white" }}>
-										Check-in
-									</Text>
-								</Button>
-							</Card>
-						</ListItem>
-					</List>
+					<Card transparent style={styles.subCards}>
+						<Text style={styles.subHeaders}>Chame alguém!</Text>
+						<Button block primary style={styles.btn}>
+							<Icon name="share" />
+							<Text style={{ color: "white" }}>Compartilhar</Text>
+						</Button>
+
+						<Text style={styles.subHeaders}>Fale que chegou!</Text>
+						<Button block success style={styles.btn}>
+							<Icon name="pin" />
+							<Text style={{ color: "white" }}>Check-in</Text>
+						</Button>
+					</Card>
 				</Body>
 			</Card>
 		)
@@ -101,7 +117,7 @@ const styles = StyleSheet.create({
 	likeDislikeBox: {
 		borderWidth: 1,
 		borderRadius: 5,
-		width: 30,
+		width: 50,
 		height: 30,
 
 		alignSelf: "center",
@@ -118,8 +134,8 @@ const styles = StyleSheet.create({
 		alignSelf: "center",
 		fontSize: 15
 	},
-	btn:{
-		margin:7,
+	btn: {
+		margin: 7
 	},
 })
 
