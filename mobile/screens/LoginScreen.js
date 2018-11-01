@@ -15,6 +15,7 @@ import {
 } from "react-native";
 import {Button} from 'native-base';
 import Field from './components/Field';
+import jwt_decode from 'jwt-decode'
 
 async function getExpoToken(loginToken) {
   const { status } = await Expo.Permissions.askAsync(
@@ -30,10 +31,21 @@ async function getExpoToken(loginToken) {
 }
 
 async function storeToken(loginToken, notificationToken){
-  console.log(loginToken)
-  console.log(notificationToken)
+  var user = jwt_decode(loginToken);
 
-  // TODO Fetch to post token on login microservice
+  const notification_path = `${process.env.NOTIFICATION_MICROSERVICE}/api/save_user_token/`;
+  fetch(notification_path, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      'user_token': notificationToken,
+      'user_id': user.user_id,
+    }),
+  }).catch( err => {
+    console.log(err)
+  });
 }
 
 class LoginScreen extends Component {
