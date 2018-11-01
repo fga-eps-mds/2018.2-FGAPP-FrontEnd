@@ -9,7 +9,7 @@ import {
 	Icon,
 	H2,
 } from "native-base"
-<<<<<<< HEAD
+
 import {
 	View,
 	Text,
@@ -17,19 +17,12 @@ import {
 	TouchableOpacity,
 	Alert
 } from "react-native"
+
 import Divider from "./Divider"
 import CardHeader from "./CardHeader"
 import ImageView from "react-native-image-view"
-=======
-import { Text, StyleSheet } from "react-native"
-import Divider from './Divider'
-import CardHeader from './CardHeader'
->>>>>>> origin/roles-app/event-comments
 
-<<<<<<< HEAD
-=======
 const adultOnly = require("../../../static/adultOnly.png")
->>>>>>> origin/roles-app/event-profile
 const noPic = require("../../../static/noPic.png")
 
 class Geral extends Component {
@@ -58,7 +51,6 @@ class Geral extends Component {
 			}
 		]
 		return (
-<<<<<<< HEAD
 			<View>
 				<ImageView
 					images={images}
@@ -66,17 +58,6 @@ class Geral extends Component {
 					isVisible={this.state.picModalVisible}
 					animationType="fade"
 				/>
-=======
-			<Card>
-				<CardHeader text="Geral"/>
-				<CardItem>
-					<Left>
-						<Thumbnail
-							style={styles.thumbnailGeral}
-							source={this.props.photo == null ? noPic : {uri: uri}}
-						/>
-					</Left>
->>>>>>> origin/roles-app/event-comments
 
 				<Card>
 					<CardHeader text="Geral" />
@@ -98,7 +79,6 @@ class Geral extends Component {
 							</TouchableOpacity>
 						</Left>
 
-<<<<<<< HEAD
 						<Body>
 							<H2
 								style={{
@@ -108,18 +88,6 @@ class Geral extends Component {
 							>
 								{this.props.eventName}
 							</H2>
-=======
-						<Divider/>
-
-						<Card style={styles.descCards}>
-							<Left>
-								<Icon name="time" />
-							</Left>
-							<Right>
-								<Text>{this.props.eventHour.slice(0,5)}h</Text>
-							</Right>
-						</Card>
->>>>>>> origin/roles-app/event-comments
 
 							<Divider />
 

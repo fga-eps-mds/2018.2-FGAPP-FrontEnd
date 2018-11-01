@@ -17,13 +17,10 @@ class Feed extends Component {
 		this.setState({ loading: false })
 	}
 
-<<<<<<< HEAD
 	componentDidMount() {
 		// this._refreshFeed()
 	}
 
-=======
->>>>>>> origin/roles-app/event-comments
 	state = {
 		loading: false,
 		roles: [],

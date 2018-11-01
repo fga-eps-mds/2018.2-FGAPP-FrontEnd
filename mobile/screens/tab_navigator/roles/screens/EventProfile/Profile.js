@@ -29,11 +29,7 @@ import Localizacao from "./components/Localizacao"
 import Contato from "./components/Contato"
 import Comments from '../EventComments/Comments'
 
-<<<<<<< HEAD
 const noPic = require("../../static/noPic.png")
-=======
-// const noPic = require("../../static/noPic.png")
->>>>>>> origin/roles-app/event-profile
 
 class Profile extends Component {
 	state = {
