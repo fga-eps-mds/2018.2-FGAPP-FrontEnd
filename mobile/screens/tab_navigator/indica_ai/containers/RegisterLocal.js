@@ -9,14 +9,10 @@ import {
   ScrollView
 } from "react-native";
 
-import Icon from 'react-native-vector-icons/Ionicons';
 import { Dimensions } from "react-native";
 import UserLocationMap from "../components/UserLocationMap";
 import Expo from "expo";
 import LocalDetails from "../components/LocalDetails"
-import { Button } from 'native-base';
-import Icon from 'react-native-vector-icons/Entypo';
-import { withNavigation } from 'react-navigation';
 
 class RegisterLocal extends Component{
 
@@ -68,7 +64,9 @@ constructor(props){
       }
 
      try{
-       const response = await fetch('https://maps.googleapis.com/maps/api/geocode/json?latlng='+String(latitude)+','+String(longitude)+'&key=AIzaSyBM9WYVio--JddgNX3TTF6flEhubkpjJYc');
+       const response = await fetch('https://maps.googleapis.com/maps/api/geocode/json?latlng='
+                            + String(latitude) + ',' + String(longitude)
+                            + '&key=AIzaSyBM9WYVio--JddgNX3TTF6flEhubkpjJYc');
        if(response.ok){
          const jsonResponse = await response.json();
          this.setState({ jsonResponse });
@@ -166,26 +164,12 @@ constructor(props){
            name = {name}
            adress = {adress}
         />
-        <Button
-          style={styles.registerButton}
-          block
-          info
-          iconLeft
-          onPress={() => this.props.navigation.navigate("RegisterAPI")}
-        >
-          <Icon
-            name='location'
-            color='white'
-            size={25}
-          />
-          <Text style={{color: 'white'}}> Não encontrou seu local? Cadastre já!</Text>
-        </Button>
       </View>
     )
   }
 }
 
-export default withNavigation(RegisterLocal);
+export default RegisterLocal;
 
 const styles = StyleSheet.create({
   container: {
@@ -219,8 +203,4 @@ const styles = StyleSheet.create({
       width: 1
     }
   },
-  registerButton: {
-    top: 30,
-    marginHorizontal: 10
-  }
 });
