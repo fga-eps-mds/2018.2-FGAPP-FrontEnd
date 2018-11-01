@@ -3,6 +3,7 @@ import {StackNavigator} from 'react-navigation'
 
 import Feed from './screens/TabNavigator/feed/Feed'
 import Profile from './screens/EventProfile/Profile'
+import Comments from './screens/EventComments/Comments'
 
 export default class Events extends Component{
 	render(){
@@ -26,4 +27,13 @@ const StackEvents = StackNavigator({
 			// header: null,
 		}),
 	},
+
+	Comments: {
+		screen: Comments,
+		navigationOptions: ({ navigation }) => ({
+			// header: null,
+		}),
+	},
+
+
 })

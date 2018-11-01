@@ -18,12 +18,22 @@ import {withNavigation} from 'react-navigation'
 import LikeButton from "./components/LikeButton";
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+import Comments from '../../EventComments/Comments';
+
+>>>>>>> origin/roles-app/event-comments
 // const logo = require("./images/logo.png");
 >>>>>>> origin/roles-app/event-profile
 const noPic = require("../../../static/noPic.png")
 
 class FeedItem extends Component {
+
+	goToComments = () => {
+		this.props.navigate.navigation('Comments')
+	}
+
 	render() {
 		const uri = this.props.imgRole
 		return (
@@ -77,7 +87,7 @@ class FeedItem extends Component {
 					<Button
 						transparent
 						onPress={() => {
-							console.log("Comentários -> " + this.props.nomeRole)
+							this.props.navigation.navigate('Comments', {idRole: this.props.idRole})
 						}}
 					>
 						<Icon active name="chatbubbles" />

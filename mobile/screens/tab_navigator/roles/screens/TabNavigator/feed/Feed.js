@@ -17,16 +17,24 @@ class Feed extends Component {
 		this.setState({ loading: false })
 	}
 
+<<<<<<< HEAD
 	componentDidMount() {
 		// this._refreshFeed()
 	}
 
+=======
+>>>>>>> origin/roles-app/event-comments
 	state = {
 		loading: false,
 		roles: [],
 		refreshing: false,
 		feedInit: true,
 	}
+	
+	componentDidMount(){
+		this._refreshFeed()
+	}
+
 
 	_refreshFeed = () => {
 		this.state.feedInit == true && this.setState({feedInit: false})

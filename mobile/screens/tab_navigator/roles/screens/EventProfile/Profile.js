@@ -27,6 +27,7 @@ import Detalhes from "./components/Detalhes"
 import Avaliacao from "./components/Avaliacao"
 import Localizacao from "./components/Localizacao"
 import Contato from "./components/Contato"
+import Comments from '../EventComments/Comments'
 
 <<<<<<< HEAD
 const noPic = require("../../static/noPic.png")
@@ -96,6 +97,10 @@ class Profile extends Component {
 				<Contato 
 					organizer={role.organizer}
 					organizerTel={role.organizerTel}
+				/>
+
+				<Comments
+
 				/>
 			</ScrollView>
 		)

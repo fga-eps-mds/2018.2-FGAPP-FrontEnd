@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+<<<<<<< HEAD
 import { Card, CardItem, Icon, Button } from "native-base"
 import { View, ScrollView, Text, StyleSheet } from "react-native"
 import { MapView, Location, Permissions } from "expo"
@@ -7,6 +8,11 @@ import { Marker, Circle } from "react-native-maps"
 import CardHeader from "./CardHeader"
 
 const latLngDelta = 0.005
+=======
+import { Card, CardItem, Icon } from "native-base"
+import { View, Text, StyleSheet } from "react-native"
+import CardHeader from './CardHeader'
+>>>>>>> origin/roles-app/event-comments
 
 class Localizacao extends Component {
 	static navigationOptions = {
@@ -80,9 +86,14 @@ class Localizacao extends Component {
 		const { enderecoRole } = this.state
 
 		return (
+<<<<<<< HEAD
 			<View>
 				<Card>
 					<CardHeader text="Localização" />
+=======
+			<Card>
+				<CardHeader text="Localização"/>
+>>>>>>> origin/roles-app/event-comments
 
 					<CardItem>
 						<Icon name="pin" style={styles.pinIcon} />
