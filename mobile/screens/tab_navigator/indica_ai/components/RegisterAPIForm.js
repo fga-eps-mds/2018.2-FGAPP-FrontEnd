@@ -13,7 +13,8 @@ import {
   Input,
   Label,
   Picker,
-  Textarea
+  Textarea,
+  Button
 } from 'native-base'
 import CategorySelect from './CategorySelect.js';
 
@@ -22,7 +23,11 @@ export default class RegisterAPIForm extends Component{
   constructor(props){
     super(props);
     this.state={
-      selected: undefined
+      selected: undefined,
+      jsonForm: {
+        name: null,
+        description: null
+      }
     };
   }
 
@@ -41,14 +46,22 @@ export default class RegisterAPIForm extends Component{
           style={styles.pickerForm}
           regular
         >
-        <Input placeholder='Nome' />
+        <Input placeholder='Nome'
+        />
         </Item>
         <Textarea
           rowSpan={5}
           bordered
           placeholder='Descrição'
         />
+        <View style = {styles.button }>
+        <Button block info>
+            <Text style = {{color: "white"}}>Confirmar</Text>
+          </Button>
+        </View>
       </Container>
+
+
     );
 
   }
@@ -63,10 +76,13 @@ const styles = StyleSheet.create({
     top:0,
     bottom:0,
     left:0,
-    right:0
+    right:0,
   },
   pickerForm:{
     top: 65,
     marginBottom: 74
+  },
+  button: {
+    padding: 10,
   }
 });
