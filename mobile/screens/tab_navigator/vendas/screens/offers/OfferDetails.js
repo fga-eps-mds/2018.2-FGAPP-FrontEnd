@@ -91,6 +91,21 @@ class FormPicker extends Component {
       };
     }
 
+    sendNotification = async (fk_vendor) => {
+      const path = `${process.env.NOTIFICATION_MICROSERVICE}/api/send_push_message/`
+      fetch( path, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          'user_id': fk_vendor,
+          'title': 'Novo pedido de compra',
+          'message': 'Abra o aplicativo para mais informações',
+        }),
+      })
+    }
+
     openDialog = async () => {
       this.setState({ buyer_message: '' })
       this.setState({ isDialogVisible: true })
@@ -126,6 +141,7 @@ class FormPicker extends Component {
     })
     .then((response) => response.json())
     .then((responseJson) => {
+      this.sendNotification(product.fk_vendor);
       console.log(responseJson);
       if(responseJson.error != undefined)
         Alert.alert(responseJson.error);
