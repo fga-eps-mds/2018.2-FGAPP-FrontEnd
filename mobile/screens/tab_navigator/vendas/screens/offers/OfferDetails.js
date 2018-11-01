@@ -91,8 +91,8 @@ class FormPicker extends Component {
       };
     }
 
-    sendNotification = async (fk_vendor) => {
-      const path = `${process.env.NOTIFICATION_MICROSERVICE}/api/send_push_message/`
+    sendNotification = async (fk_vendor, token) => {
+      const path = `${process.env.VENDAS_API}/api/send_push_message/`
       fetch( path, {
         method: 'POST',
         headers: {
@@ -102,6 +102,7 @@ class FormPicker extends Component {
           'user_id': fk_vendor,
           'title': 'Novo pedido de compra',
           'message': 'Abra o aplicativo para mais informações',
+          'token': token,
         }),
       })
     }
@@ -141,7 +142,7 @@ class FormPicker extends Component {
     })
     .then((response) => response.json())
     .then((responseJson) => {
-      this.sendNotification(product.fk_vendor);
+      this.sendNotification(product.fk_vendor, token);
       console.log(responseJson);
       if(responseJson.error != undefined)
         Alert.alert(responseJson.error);
