@@ -33,7 +33,7 @@ class LocalDetails extends Component {
                   </Body>
                 </CardItem>
                 <CardItem footer style={styles.cardFooter}>
-                     <Button info style={styles.button} ><Text> {"Chek-in"} </Text></Button>
+                     <Button info style={styles.button} ><Text> {"Check-in"} </Text></Button>
                      <Button
                         info
                         style={styles.button}
