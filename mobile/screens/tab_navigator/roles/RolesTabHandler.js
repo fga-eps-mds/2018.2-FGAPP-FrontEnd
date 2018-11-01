@@ -11,9 +11,10 @@ import CadastroEventos1 from './screens/TabNavigator/cadastroEventos/CadastroEve
 import Feed from './screens/TabNavigator/feed/Feed'
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Platform } from 'react-native';
+import Events from './Events'
 
 const RolesTabStackNavigator = TabNavigator({
-    Events:{
+    Feed:{
         screen: Events,
         navigationOptions:{
             tabBarLabel:'Feed',

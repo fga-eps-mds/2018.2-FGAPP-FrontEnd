@@ -87,7 +87,7 @@ class Profile extends Component {
 
 				<Localizacao
 					placeName={role.address}
-					placeRef={'ru unb gama'}
+					placeRef={'RU UnB Gama'}
 				/>
 
 				<Contato 
