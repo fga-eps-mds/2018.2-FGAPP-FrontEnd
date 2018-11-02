@@ -10,7 +10,7 @@ import {
     Alert,
     ImageBackground,
 } from 'react-native';
-import styles from '../../components/styles'
+import styles from '../../styles'
 import jwt_decode from 'jwt-decode'
 import { LinearGradient } from 'expo';
 

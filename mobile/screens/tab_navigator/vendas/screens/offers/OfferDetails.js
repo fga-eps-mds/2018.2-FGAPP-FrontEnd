@@ -7,7 +7,7 @@ import {
     Alert,
 } from 'react-native';
 import ProductImage from '../../components/ProductImage';
-import styles from '../../components/styles';
+import styles from '../../styles';
 import { Card, CardItem, Text, Left, Right, Content, Body} from 'native-base';
 import OfferDialog from '../../components/OfferDialog';
 import jwt_decode from 'jwt-decode';

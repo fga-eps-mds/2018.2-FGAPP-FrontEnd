@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { Image, TouchableHighlight } from 'react-native';
 import { Card, CardItem, Text, Left, Right, View } from 'native-base';
-import styles from './styles';
+import styles from '../styles';
 
 class BuyerOrderCard extends Component {
   render() {
     var status = this.props.orderStatus;
     var statusValue = (status == 0) ? 'Pendente' : (status == 1 ? 'Atendido' : 'Cancelado');
-    
+
     return (
       <View style={{padding:10}}>
         <TouchableHighlight onPress={this.props.onPress}>

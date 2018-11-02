@@ -15,6 +15,7 @@ import {
 } from "react-native";
 import {Button} from 'native-base';
 import Field from './components/Field';
+import styles from './tab_navigator/vendas/styles';
 
 class LoginScreen extends Component {
 
@@ -93,7 +94,7 @@ class LoginScreen extends Component {
         return (
           <KeyboardAvoidingView behavior="padding">
             <ImageBackground
-              style={{ width: '100%', height: '100%' }}
+              style={{width: '100%', height: '100%'}}
               imageStyle={{resizeMode: 'stretch'}}
               source={{
                 uri: 'https://i.imgur.com/dvhebUS.png'
@@ -160,11 +161,3 @@ class LoginScreen extends Component {
     }
 }
 export default LoginScreen;
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
-    }
-});
