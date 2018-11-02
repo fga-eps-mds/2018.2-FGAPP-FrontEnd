@@ -7,24 +7,35 @@ import {
 import MapView from "react-native-maps"
 
 export default class LocalMap extends Component {
+  constructor(props) {
+    console.log("TESTE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+    console.log(props);
+    super(props);
+    this.state = {
+      name: props.name,
+      description: props.description,
+      latitude: props.latitude,
+      longitude: props.longitude,
+    };
+  }
   render() {
     return(
       <View style = {styles.container}>
         <MapView style = {styles.map}
           region = {{
-            latitude: -15.989602,
-            longitude: -48.044868,
+            latitude: this.state.latitude,
+            longitude: this.state.longitude,
             latitudeDelta: 0.007,
             longitudeDelta: 0.007,
           }}
         >
         <MapView.Marker
           coordinate = {{
-            latitude: -15.989602,
-            longitude: -48.044868,
+            latitude: this.state.latitude,
+            longitude: this.state.longitude,
           }}
-          title = {'FGA'}
-          description = {'Universidade de Brasília - Faculdade do Gama'}
+          title = {this.state.name}
+          description = {this.state.description}
         />
         </MapView>
       </View>

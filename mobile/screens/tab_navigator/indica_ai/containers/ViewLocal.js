@@ -21,7 +21,16 @@ class ViewLocal extends Component{
     };
   }
   render() {
-    const { id, name, description } = this.state.local;
+    const {
+      id,
+      name,
+      description,
+      address,
+      latitude,
+      longitude,
+      telephone,
+      local_ratings,
+    } = this.state.local;
     
     return (
         <View style={styles.container}>
@@ -40,7 +49,12 @@ class ViewLocal extends Component{
               />
               <View style={styles.hr}></View>
               <View style={styles.localMap}>
-                <LocalMap/>
+                <LocalMap
+                  latitude = {latitude}
+                  longitude = {longitude}
+                  name = {name}
+                  description = {description}
+                />
               </View>
               <View style={styles.hr}></View>
               <Text style={styles.localInfoTitle}>
@@ -56,13 +70,13 @@ class ViewLocal extends Component{
                 color='black'
                 size={25}
               />
-              <Text style={styles.localInfo}>(61) 4002-8922</Text>
+              <Text style={styles.localInfo}>{telephone}</Text>
               <Icon style={styles.localInfoIcons}
                 name='md-pin'
                 color='black'
                 size={25}
               />
-              <Text style={styles.localInfo}>Qd 90 Lt 99 Setor de Industria</Text>
+              <Text style={styles.localInfo}>{address}</Text>
               <Icon style={styles.localInfoIcons}
                 name='md-clock'
                 color='black'
