@@ -108,10 +108,36 @@ constructor(props){
         place_id = this.state.jsonResponse['results'][index]['place_id'];
       }
      try{
-       const response = await fetch('https://maps.googleapis.com/maps/api/place/details/json?placeid='+place_id+'&fields=opening_hours,formatted_address,name,rating,formatted_phone_number&key=AIzaSyBM9WYVio--JddgNX3TTF6flEhubkpjJYc')
+       const response = await fetch('https://maps.googleapis.com/maps/api/place/details/json?placeid='+
+                                    place_id+
+                                    '&fields=opening_hours,formatted_address,name,rating,formatted_phone_number,photo,rating,geometry&key=AIzaSyBM9WYVio--JddgNX3TTF6flEhubkpjJYc')
        if(response.ok){
          const jsonDetails = await response.json();
          this.setState({jsonDetails});
+          let name = jsonDetails['result']['name']
+          let address = jsonDetails['result']['formatted_address']
+          var obj = {name, address}
+          console.log(JSON.stringify(obj));
+          jsonDetails['result']['formatted_phone_number']
+          jsonDetails['result']['formatted_address']
+          jsonDetails['result']['rating']
+          jsonDetails['result']['geometry']['location']['lat']
+          jsonDetails['result']['geometry']['location']['lng']
+          jsonDetails['result']['photos'][0]['photo_reference']
+          jsonDetails['result']['opening_hours']['periods'][0]['close']['time']
+          jsonDetails['result']['opening_hours']['periods'][0]['open']['time']
+          jsonDetails['result']['opening_hours']['periods'][1]['close']['time']
+          jsonDetails['result']['opening_hours']['periods'][1]['open']['time']
+          jsonDetails['result']['opening_hours']['periods'][2]['close']['time']
+          jsonDetails['result']['opening_hours']['periods'][2]['open']['time']
+          jsonDetails['result']['opening_hours']['periods'][3]['close']['time']
+          jsonDetails['result']['opening_hours']['periods'][3]['open']['time']
+          jsonDetails['result']['opening_hours']['periods'][4]['close']['time']
+          jsonDetails['result']['opening_hours']['periods'][4]['open']['time']
+          jsonDetails['result']['opening_hours']['periods'][5]['close']['time']
+          jsonDetails['result']['opening_hours']['periods'][5]['open']['time']
+          jsonDetails['result']['opening_hours']['periods'][6]['close']['time']
+          jsonDetails['result']['opening_hours']['periods'][6]['open']['time']
 
        }
        throw new Error('Request failed!');
@@ -123,8 +149,18 @@ constructor(props){
      this._getNewDataAsync(newLatitude,newLongitude);
    }
 
+   sendData = data => {
+     fetch(`https://indicaai.herokuapp.com/locals`, {
+       method: 'POST',
+       body: JSON.stringify(data),
+       headers: {
+         'Content-Type': 'aplication/json'
+       }
+     })
+   };
+
   render() {
-  
+
     let lat;
     let long;
 
