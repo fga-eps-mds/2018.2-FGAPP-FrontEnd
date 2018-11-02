@@ -114,31 +114,6 @@ constructor(props){
        if(response.ok){
          const jsonDetails = await response.json();
          this.setState({jsonDetails});
-          let name = jsonDetails['result']['name']
-          let address = jsonDetails['result']['formatted_address']
-          var obj = {name, address}
-          console.log(JSON.stringify(obj));
-          jsonDetails['result']['formatted_phone_number']
-          jsonDetails['result']['formatted_address']
-          jsonDetails['result']['rating']
-          jsonDetails['result']['geometry']['location']['lat']
-          jsonDetails['result']['geometry']['location']['lng']
-          jsonDetails['result']['photos'][0]['photo_reference']
-          jsonDetails['result']['opening_hours']['periods'][0]['close']['time']
-          jsonDetails['result']['opening_hours']['periods'][0]['open']['time']
-          jsonDetails['result']['opening_hours']['periods'][1]['close']['time']
-          jsonDetails['result']['opening_hours']['periods'][1]['open']['time']
-          jsonDetails['result']['opening_hours']['periods'][2]['close']['time']
-          jsonDetails['result']['opening_hours']['periods'][2]['open']['time']
-          jsonDetails['result']['opening_hours']['periods'][3]['close']['time']
-          jsonDetails['result']['opening_hours']['periods'][3]['open']['time']
-          jsonDetails['result']['opening_hours']['periods'][4]['close']['time']
-          jsonDetails['result']['opening_hours']['periods'][4]['open']['time']
-          jsonDetails['result']['opening_hours']['periods'][5]['close']['time']
-          jsonDetails['result']['opening_hours']['periods'][5]['open']['time']
-          jsonDetails['result']['opening_hours']['periods'][6]['close']['time']
-          jsonDetails['result']['opening_hours']['periods'][6]['open']['time']
-
        }
        throw new Error('Request failed!');
      } catch(Error){
@@ -149,24 +124,34 @@ constructor(props){
      this._getNewDataAsync(newLatitude,newLongitude);
    }
 
-   sendData = data => {
-     fetch(`https://indicaai.herokuapp.com/locals`, {
-       method: 'POST',
-       body: JSON.stringify(data),
-       headers: {
-         'Content-Type': 'aplication/json'
+   sendData = async(data) => {
+     //try{
+       const response = await fetch(`https://indicaai.herokuapp.com/locals`, {
+         method: 'POST',
+         body: JSON.stringify(data),
+         headers: {
+           'Content-Type': 'aplication/json'
+         }
+       })
+       console.log(response);
+       if(response.ok){
+         const jsonResponse = await response.json();
+         console.log(jsonResponse);
        }
-     })
+     /*}
+     catch(response.status==500){
+       console.log("DEU RUIM");
+     }*/
    };
 
   render() {
 
-    let lat;
-    let long;
+    let latitude;
+    let longitude;
 
     if(this.state.latitude && this.state.longitude){
-      lat = this.state.latitude;
-      long = this.state.longitude;
+      latitude= this.state.latitude;
+      longitude = this.state.longitude;
     }
     let markLat = 0;
     let markLong = 0;
@@ -179,10 +164,20 @@ constructor(props){
     if(this.state.jsonDetails){
       name = this.state.jsonDetails['result']['name'];
     }
-    let adress;
+    let address;
     if(this.state.jsonDetails){
-      adress = this.state.jsonDetails['result']['formatted_address'];
+      address = this.state.jsonDetails['result']['formatted_address'];
     }
+    let telephone;
+    let rating;
+
+    if(this.state.jsonDetails){
+      telephone = this.state.jsonDetails['result']['formatted_phone_number']
+      rating = this.state.jsonDetails['result']['rating']
+    }
+    const data = {name, address, telephone, latitude, longitude}
+    console.log(data);
+    this.sendData(data);
 
     if (this.state.loading) {
       return <Expo.AppLoading />;
@@ -190,15 +185,15 @@ constructor(props){
     return (
       <View style = {styles.container}>
         <UserLocationMap
-          latitude = {lat}
-          longitude = {long}
+          latitude = {latitude}
+          longitude = {longitude}
           markLat = {markLat}
           markLong = {markLong}
           sendNewCoods = {this.takeNewCoords}
          />
          <LocalDetails
            name = {name}
-           adress = {adress}
+           address = {address}
         />
       </View>
     )
