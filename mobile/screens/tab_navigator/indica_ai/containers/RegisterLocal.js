@@ -110,10 +110,11 @@ constructor(props){
      try{
        const response = await fetch('https://maps.googleapis.com/maps/api/place/details/json?placeid='+
                                     place_id+
-                                    '&fields=opening_hours,formatted_address,name,rating,formatted_phone_number,photo,rating,geometry&key=AIzaSyBM9WYVio--JddgNX3TTF6flEhubkpjJYc')
+                                    '&fields=opening_hours,formatted_address,name,rating,formatted_phone_number,photo,rating,geometry,reviews&key=AIzaSyBM9WYVio--JddgNX3TTF6flEhubkpjJYc')
        if(response.ok){
          const jsonDetails = await response.json();
          this.setState({jsonDetails});
+         //console.log(jsonDetails);
        }
        throw new Error('Request failed!');
      } catch(Error){
@@ -125,8 +126,10 @@ constructor(props){
    }
 
    sendData = async(data) => {
-     //try{
-       const response = await fetch(`https://indicaai.herokuapp.com/locals`, {
+     try{
+        console.log('===========================================')
+       console.log(data);
+       const response = await fetch(`https://dev-indicaai.herokuapp.com/locals`, {
          method: 'POST',
          body: JSON.stringify(data),
          headers: {
@@ -136,18 +139,25 @@ constructor(props){
        console.log(response);
        if(response.ok){
          const jsonResponse = await response.json();
-         console.log(jsonResponse);
+         //console.log(jsonResponse);
        }
-     /*}
-     catch(response.status==500){
+     }
+     catch(error){
        console.log("DEU RUIM");
-     }*/
+     }
    };
 
   render() {
 
-    let latitude;
-    let longitude;
+
+    let name = "asdA";
+    let latitude = -16.000512;
+    let longitude = -48.0587723;
+
+    const data = {longitude, name, latitude}
+
+    /*let latitude;
+    let longitude;*/
 
     if(this.state.latitude && this.state.longitude){
       latitude= this.state.latitude;
@@ -160,7 +170,7 @@ constructor(props){
       markLat = this.state.latitude;
       markLong = this.state.longitude;
     }
-    let name;
+    //let name;
     if(this.state.jsonDetails){
       name = this.state.jsonDetails['result']['name'];
     }
@@ -175,8 +185,7 @@ constructor(props){
       telephone = this.state.jsonDetails['result']['formatted_phone_number']
       rating = this.state.jsonDetails['result']['rating']
     }
-    const data = {name, address, telephone, latitude, longitude}
-    console.log(data);
+    //console.log(data);
     this.sendData(data);
 
     if (this.state.loading) {
