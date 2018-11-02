@@ -13,10 +13,13 @@ import {
 import ProductImage from '../../components/ProductImage';
 import GreenButton from '../../components/GreenButton';
 import RedButton from '../../components/RedButton';
-import { Textarea, Form, Item, Input, Label, Button } from 'native-base';
+import InputLab from '../../components/InputLab';
+import { Textarea, Form } from 'native-base';
 import jwt_decode from 'jwt-decode';
 import ErrorDialog from './ErrorDialog';
 import ToogleView from './ToogleView';
+
+const DEFAULT_IMAGE = 'http://www.piniswiss.com/wp-content/uploads/2013/05/image-not-found-4a963b95bf081c3ea02923dceaeb3f8085e1a654fc54840aac61a57a60903fef-300x199.png';
 
 class CreateProduct extends Component {
     constructor(props) {
@@ -129,23 +132,20 @@ class CreateProduct extends Component {
                   isDialogVisible={this.state.isDialogVisible}
                   backButton = {this.closeDialog}
               />
-              <Animated.Image source={{ uri: 'http://www.piniswiss.com/wp-content/uploads/2013/05/image-not-found-4a963b95bf081c3ea02923dceaeb3f8085e1a654fc54840aac61a57a60903fef-300x199.png' }} style={[styles.logo, { height: this.imageHeight, width: '100%' }]} />
+              <Animated.Image source={{ uri: DEFAULT_IMAGE }} style={[styles.logo, { height: this.imageHeight, width: '100%' }]} />
               <Form style={styles.description}>
-                <Item floatingLabel>
-                  <Label>Título</Label>
-                  <Input
-                    style={{ color: 'black' }}
-                    onChangeText={(title) => {this.setState({title})}}
-                  />
-                </Item>
-                <Item floatingLabel>
-                  <Label>Preço</Label>
-                  <Input
-                    style={{ color: 'black' }}
-                    keyboardType='numeric'
-                    onChangeText={(price) => {this.setState({price})}}
-                  />
-                </Item>
+
+                <InputLab
+                  nameLabel='Título'
+                  onChangeText={(title) => this.setState({title})}
+                />
+
+                <InputLab
+                  nameLabel = 'Preço'
+                  keyboardType='numeric'
+                  onChangeText={(price) => {this.setState({price})}}
+                />
+
                 <Textarea
                   style={{ color: 'black' }}
                   onChangeText={(description) => {this.setState({description})}}

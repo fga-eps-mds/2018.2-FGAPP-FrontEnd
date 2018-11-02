@@ -15,6 +15,7 @@ import { Icon, Fab } from 'native-base';
 import jwt_decode from 'jwt-decode';
 
 class MyProducts extends Component {
+
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -67,9 +68,10 @@ class MyProducts extends Component {
 	componentDidMount() {
 		this.loadUserProducts();
 	}
+
   render() {
-		const { state } = this.props.navigation;
-		var token = state.params ? state.params.token : undefined;
+			const { state } = this.props.navigation;
+			var token = state.params ? state.params.token : undefined;
         return (
             <View style={styles.container}>
                 <View>
@@ -87,15 +89,15 @@ class MyProducts extends Component {
                                 key={index}
                                 photo={product.photo}
                                 name={product.name}
-								price={parseFloat(product.price).toFixed(2)}
-								onPress={() => {this.props.navigation.navigate('MyProductDetails', {token:token, product:product})} }
-								/>
-								);
+																price={parseFloat(product.price).toFixed(2)}
+																onPress={() => {this.props.navigation.navigate('MyProductDetails', {token:token, product:product})} }
+																/>
+															);
 							})}
                   </ScrollView>
                 </View>
                 <Fab
-					          onPress={() => {this.props.navigation.navigate('CreateProduct', {token:token});} }
+										onPress={() => {this.props.navigation.navigate('CreateProduct', {token:token});} }
                     style={styles.fab}>
                     <Icon name='md-add' />
                 </Fab>
