@@ -15,7 +15,7 @@ Enzyme.configure({adapter: new Adapter()});
   it('Testing onPress', () => {
     const onPressMock = jest.fn();
     const wrapper = shallow(<GreenButton onPress = {onPressMock}/>);
-    const button = wrapper.find('Styled(Button)').at(0);
+    const button = wrapper.find('TouchableOpacity').at(0);
     button.simulate('press');
     expect(onPressMock).toBeCalled();
   })

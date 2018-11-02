@@ -11,10 +11,13 @@ import {
     Animated
 } from 'react-native';
 import ProductImage from '../../components/ProductImage';
-import { Textarea, Form, Item, Input, Label, Button } from 'native-base';
+import { Textarea, Form } from 'native-base';
 import jwt_decode from 'jwt-decode';
 import ErrorDialog from './ErrorDialog';
 import ToogleView from './ToogleView';
+import GreenButton from '../../components/GreenButton';
+import RedButton from '../../components/RedButton';
+import InputLab from '../../components/InputLab';
 
 class MyProductDetails extends Component {
     constructor(props) {
@@ -38,6 +41,12 @@ class MyProductDetails extends Component {
       this.setState({ isDialogVisible: false })
     }
 
+    _goBack = async () => {
+      const {state} = this.props.navigation;
+      var token = state.params ? state.params.token : undefined;
+
+      this.props.navigation.navigate('MyProducts', {token:token});
+    }
     editProduct = async () => {
       const {state} = this.props.navigation;
       var token = state.params ? state.params.token : undefined;
@@ -118,9 +127,7 @@ class MyProductDetails extends Component {
 
     render() {
         const {state} = this.props.navigation;
-        var token = state.params ? state.params.token : undefined;
         var product = state.params ? state.params.product : undefined;
-
         return (
             <Animated.View style={[styles.container, { paddingBottom: this.keyboardHeight }]}>
               <ErrorDialog
@@ -130,21 +137,18 @@ class MyProductDetails extends Component {
               />
               <Animated.Image source={{ uri: 'http://www.piniswiss.com/wp-content/uploads/2013/05/image-not-found-4a963b95bf081c3ea02923dceaeb3f8085e1a654fc54840aac61a57a60903fef-300x199.png' }} style={[styles.logo, { height: this.imageHeight, width: '100%' }]} />
               <Form style={styles.description}>
-                <Item floatingLabel>
-                  <Label>Nome atual: {product.name}</Label>
-                  <Input
-                    style={{ color: 'black' }}
+
+                  <InputLab
+                    nameLabel={product.name}
                     onChangeText={(name) => {this.setState({name})}}
                   />
-                </Item>
-                <Item floatingLabel>
-                  <Label>Preço atual: {product.price}</Label>
-                  <Input
-                    style={{ color: 'black' }}
+
+                  <InputLab
+                    nameLabel={product.price}
                     keyboardType='numeric'
                     onChangeText={(price) => {this.setState({price})}}
                   />
-                </Item>
+
                 <Textarea
                   style={{ color: 'black' }}
                   onChangeText={(description) => {this.setState({description})}}
@@ -155,20 +159,14 @@ class MyProductDetails extends Component {
               </Form>
               <ToogleView hide={this.state.isButtonsHidden}>
                 <View style={styles.buttonContainer}>
-                  <Button
-                    onPress={() => {this.props.navigation.navigate('MyProducts', {token:token});}}
-                    style={styles.button}
-                    danger
-                  >
-                    <Text style={{color: 'white'}}> CANCELAR </Text>
-                  </Button>
-                  <Button
+                  <RedButton
+                    onPress={this._goBack}
+                    text="CANCELAR"
+                  />
+                  <GreenButton
                     onPress={this.editProduct}
-                    style={styles.button}
-                    success
-                  >
-                    <Text style={{color: 'white'}}> SALVAR </Text>
-                  </Button>
+                    text="SALVAR"
+                  />
                 </View>
               </ToogleView>
             </Animated.View>
@@ -192,9 +190,4 @@ const styles = StyleSheet.create({
       justifyContent: 'space-around',
       paddingBottom: 10,
     },
-    button: {
-      justifyContent: 'center',
-      height: 40,
-      width: 100,
-    }
 });
