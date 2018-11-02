@@ -1,4 +1,49 @@
 export default {
+  imageBackgrd: {
+    width: '100%',
+    height: '100%',
+  },
+  logoView: {
+    flex: 1,
+    flexDirection: 'column',
+    paddingTop: '0%',
+    justifyContent: 'space-evenly',
+  },
+  logoViewSet: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  logoImage: {
+    width: 1000/4,
+    height: 561/4,
+  },
+  formStyle: {
+    paddingLeft: '5%',
+    paddingRight: '5%',
+  },
+  fieldStyle: {
+    paddingBottom: 10,
+    paddingTop: 5,
+  },
+  loginBtn: {
+   color: 'black',
+   fontWeight: 'bold',
+  },
+  signUpBtn: {
+    color:  'white',
+    fontWeight: 'bold',
+  },
+  loginContent: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingLeft: '35%',
+    paddingRight: '35%',
+  },
+  forgotPassword: {
+    padding: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   item: {
     backgroundColor: 'white',
     paddingTop: 20,

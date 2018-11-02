@@ -11,7 +11,7 @@ import {
     Animated
 } from 'react-native';
 import ProductImage from '../../components/ProductImage';
-import APButton from '../../components/APButton';
+import GreenButton from '../../components/GreenButton';
 import { Textarea, Form, Item, Input, Label, Button } from 'native-base';
 import jwt_decode from 'jwt-decode';
 import ErrorDialog from './ErrorDialog';
@@ -158,7 +158,7 @@ class CreateProduct extends Component {
                   >
                     <Text style={{color: 'white'}}> CANCELAR </Text>
                   </Button>
-                  <APButton
+                  <GreenButton
                     onPress={this.registerProduct}
                     text="SALVAR"
                   />

@@ -1,9 +1,9 @@
 import styles from './../styles';
 import React from 'react';
 import {Text} from 'react-native';
-import {Content, Button} from 'native-base';
+import {Button} from 'native-base';
 
-class APButton extends React.Component{
+class GreenButton extends React.Component{
   render(){
     return(
         <Button
@@ -17,4 +17,4 @@ class APButton extends React.Component{
   }
 }
 
-export default APButton;
+export default GreenButton;
