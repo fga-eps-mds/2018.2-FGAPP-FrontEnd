@@ -35,12 +35,33 @@ it('test openDialog to be true',() => {
   const navigation = jest.fn();
   const wrapper = shallow(<CreateProduct navigation = {navigation}/>);
   const openDialog = wrapper.instance().openDialog();
-  console.log(openDialog);
+  //console.log(openDialog);
 });
 
 it('test closeDialog to be false',() => {
   const navigation = jest.fn();
   const wrapper = shallow(<CreateProduct navigation = {navigation}/>);
   const closeDialog = wrapper.instance().closeDialog();
-  console.log(closeDialog);
+  //console.log(closeDialog);
+});
+
+it('test goBack',() => {
+  const navigation = jest.fn();
+  const wrapper = shallow(<CreateProduct navigation = {navigation}/>);
+  const _goBack = wrapper.instance()._goBack();
+  //console.log(_goBack);
+});
+
+it('test registerProduct function',() => {
+  const navigation = jest.fn();
+  const wrapper = shallow(<CreateProduct navigation = {navigation}/>);
+  const registerProduct = wrapper.instance().registerProduct();
+  //console.log(registerProduct);
+});
+
+it('test componentWillUnmount function',() => {
+  const navigation = jest.fn();
+  const wrapper = shallow(<CreateProduct navigation = {navigation}/>);
+  const componentWillUnmount = wrapper.instance().componentWillUnmount();
+  //console.log(registerProduct);
 });
