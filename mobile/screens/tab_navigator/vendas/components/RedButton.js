@@ -3,10 +3,10 @@ import React from 'react';
 import {Text, TouchableOpacity} from 'react-native';
 
 
-class GreenButton extends React.Component{
+class RedButton extends React.Component{
   render(){
     return(
-      <TouchableOpacity style={styles.customBtnBG}
+      <TouchableOpacity style={styles.customBtnBR}
         onPress={() => this.props.onPress()}>
         <Text style={styles.customBtnText}> {this.props.text} </Text>
       </TouchableOpacity>
@@ -14,4 +14,4 @@ class GreenButton extends React.Component{
   }
 }
 
-export default GreenButton;
+export default RedButton;

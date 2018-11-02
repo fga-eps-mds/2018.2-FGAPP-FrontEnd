@@ -11,6 +11,7 @@ import styles from '../../styles';
 import { Card, CardItem, Text, Left, Right, Content, Body} from 'native-base';
 import OfferDialog from '../../components/OfferDialog';
 import jwt_decode from 'jwt-decode';
+import GreenButton from '../../components/GreenButton';
 
 const Quantity = [
   {
@@ -149,9 +150,7 @@ class FormPicker extends Component {
     render() {
       const {state} = this.props.navigation;
       var product = state.params ? state.params.product : undefined;
-
       const characters = `${this.state.buyer_message.length.toString()}/${this.state.max_characters}`;
-
       var price = `${this.state.quantity*product.price}`;
 
       return (
@@ -178,11 +177,10 @@ class FormPicker extends Component {
                 </Body>
               </CardItem>
               <CardItem style = {styles.buttonCard}>
-              <TouchableOpacity style={styles.customBtnBG}
-              onPress={this.openDialog}>
-                <Text style={styles.customBtnText}> Pedir </Text>
-              </TouchableOpacity>
-
+              <GreenButton
+                onPress={this.openDialog}
+                text="Pedir"
+              />
               <OfferDialog
                 isDialogVisible = {this.state.isDialogVisible}
                 backButton = {this.closeDialog}

@@ -135,7 +135,7 @@ class OrderDetails extends Component {
                 <View style={{height: 50}}/>
               </View>
               <View style={{flexDirection: 'row'}}>
-                <View style={{width: '70%'}}/>
+                <View style={{width: '60%'}}/>
                 <GreenButton
                   text="Atendido"
                   onPress={this.attendedOrder}

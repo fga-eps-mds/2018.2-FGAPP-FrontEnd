@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import ProductImage from '../../components/ProductImage';
 import GreenButton from '../../components/GreenButton';
+import RedButton from '../../components/RedButton';
 import { Textarea, Form, Item, Input, Label, Button } from 'native-base';
 import jwt_decode from 'jwt-decode';
 import ErrorDialog from './ErrorDialog';
@@ -37,6 +38,13 @@ class CreateProduct extends Component {
     }
     closeDialog = async () => {
       this.setState({ isDialogVisible: false })
+    }
+
+    _goBack = async () => {
+      const {state} = this.props.navigation;
+      var token = state.params ? state.params.token : undefined;
+
+      this.props.navigation.navigate('MyProducts', {token:token});
     }
 
     registerProduct = async () => {
@@ -114,9 +122,6 @@ class CreateProduct extends Component {
     }
 
     render() {
-        const {state} = this.props.navigation;
-        var token = state.params ? state.params.token : undefined;
-
         return (
             <Animated.View style={[styles.container, { paddingBottom: this.keyboardHeight }]}>
               <ErrorDialog
@@ -151,13 +156,10 @@ class CreateProduct extends Component {
               </Form>
               <ToogleView hide={this.state.isButtonsHidden}>
                 <View style={styles.buttonContainer}>
-                  <Button
-                    onPress={() => {this.props.navigation.navigate('MyProducts', {token:token});}}
-                    style={styles.button}
-                    danger
-                  >
-                    <Text style={{color: 'white'}}> CANCELAR </Text>
-                  </Button>
+                  <RedButton
+                    onPress={this._goBack}
+                    text="CANCELAR"
+                  />
                   <GreenButton
                     onPress={this.registerProduct}
                     text="SALVAR"

@@ -95,7 +95,7 @@ class MyProducts extends Component {
                   </ScrollView>
                 </View>
                 <Fab
-					onPress={() => {this.props.navigation.navigate('CreateProduct', {token:token});} }
+					          onPress={() => {this.props.navigation.navigate('CreateProduct', {token:token});} }
                     style={styles.fab}>
                     <Icon name='md-add' />
                 </Fab>

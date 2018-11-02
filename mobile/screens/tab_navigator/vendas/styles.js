@@ -157,9 +157,22 @@ export default {
     fontSize: 15,
   },
   customBtnBG: {
+    flex: 0,
     backgroundColor: "#0EAC6F",
-    paddingVertical: 10,
-    paddingHorizontal: 15,
+    height: 50,
+    width: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+  },
+  customBtnBR: {
+    flex: 0,
+    backgroundColor: "#830037",
+    height: 50,
+    width: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
   },
   buttonCard:{
     backgroundColor: 'transparent',
@@ -168,10 +181,10 @@ export default {
     paddingLeft: '70%',
   },
   customBtnText: {
-    fontSize: 20,
-    fontWeight: '400',
+    fontSize: 16,
+    fontWeight: '300',
     color: 'white',
-    alignItems: 'flex-start',
+    alignItems: 'center',
   },
   PickerStyle: {
     position: 'absolute',
