@@ -8,14 +8,12 @@ import MapView from "react-native-maps"
 
 export default class LocalMap extends Component {
   constructor(props) {
-    console.log("TESTE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-    console.log(props);
     super(props);
     this.state = {
-      name: props.name,
-      description: props.description,
-      latitude: props.latitude,
-      longitude: props.longitude,
+      name: props.name ? props.name : 'Sem Nome',
+      description: props.description ? props.description: '',
+      latitude: props.latitude ? props.latitude : 0.00000000,
+      longitude: props.longitude ? props.longitude: 0.00000000,
     };
   }
   render() {

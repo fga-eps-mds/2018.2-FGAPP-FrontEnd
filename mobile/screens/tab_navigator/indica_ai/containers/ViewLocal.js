@@ -54,7 +54,7 @@ class ViewLocal extends Component{
                   longitude = {longitude}
                   name = {name}
                   description = {description}
-                />
+                  />
               </View>
               <View style={styles.hr}></View>
               <Text style={styles.localInfoTitle}>
