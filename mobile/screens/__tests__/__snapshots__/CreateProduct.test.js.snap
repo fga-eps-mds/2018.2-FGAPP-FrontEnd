@@ -351,6 +351,7 @@ exports[`renders correctly 1`] = `
       <TextInput
         allowFontScaling={true}
         editable={true}
+        nameLabel="Título"
         onBlur={[Function]}
         onChangeText={[Function]}
         onFocus={[Function]}
@@ -452,6 +453,7 @@ exports[`renders correctly 1`] = `
         allowFontScaling={true}
         editable={true}
         keyboardType="numeric"
+        nameLabel="Preço"
         onBlur={[Function]}
         onChangeText={[Function]}
         onFocus={[Function]}
