@@ -6,7 +6,6 @@ export default {
   logoView: {
     flex: 1,
     flexDirection: 'column',
-    paddingTop: '0%',
     justifyContent: 'space-evenly',
   },
   logoViewSet: {
@@ -44,6 +43,12 @@ export default {
     alignItems: 'center',
     justifyContent: 'center',
   },
+  signUp: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingLeft: '35%',
+    paddingRight: '35%',
+  },
   item: {
     backgroundColor: 'white',
     paddingTop: 20,
@@ -74,7 +79,6 @@ export default {
   order_main: {
     flex: 1,
     flexDirection: 'row',
-    //width: '100%',
     backgroundColor: '#0EAC6F',
     paddingTop: 10,
     paddingBottom: 20,
@@ -222,7 +226,6 @@ export default {
    buyer_order_main: {
     flex: 1,
     flexDirection: 'row',
-    //width: '100%',
     backgroundColor: '#BD1C5F', // TODO change backgroundColor
     paddingTop: 10,
     paddingBottom: 20,
