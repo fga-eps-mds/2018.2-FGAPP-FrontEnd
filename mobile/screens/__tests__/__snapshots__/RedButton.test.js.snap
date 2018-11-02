@@ -22,7 +22,7 @@ exports[`renders correctly 1`] = `
     Object {
       "alignItems": "center",
       "alignSelf": "center",
-      "backgroundColor": "#0EAC6F",
+      "backgroundColor": "#830037",
       "flex": 0,
       "height": 50,
       "justifyContent": "center",

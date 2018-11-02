@@ -538,26 +538,13 @@ exports[`renders correctly 1`] = `
         style={
           Object {
             "alignItems": "center",
-            "alignSelf": "flex-start",
-            "backgroundColor": "#d9534f",
-            "borderBottomWidth": null,
-            "borderColor": "#007aff",
-            "borderLeftWidth": null,
-            "borderRadius": 5,
-            "borderRightWidth": null,
-            "borderTopWidth": null,
-            "borderWidth": undefined,
-            "elevation": 2,
-            "flexDirection": "row",
-            "height": 45,
-            "justifyContent": "space-between",
+            "alignSelf": "center",
+            "backgroundColor": "#830037",
+            "flex": 0,
+            "height": 50,
+            "justifyContent": "center",
             "opacity": 1,
-            "paddingBottom": 6,
-            "paddingTop": 6,
-            "shadowColor": undefined,
-            "shadowOffset": undefined,
-            "shadowOpacity": undefined,
-            "shadowRadius": undefined,
+            "width": 100,
           }
         }
         testID={undefined}
@@ -569,11 +556,16 @@ exports[`renders correctly 1`] = `
           ellipsizeMode="tail"
           style={
             Object {
+              "alignItems": "center",
               "color": "white",
+              "fontSize": 16,
+              "fontWeight": "300",
             }
           }
         >
-           CANCELAR 
+           
+          CANCELAR
+           
         </Text>
       </View>
       <View
@@ -596,26 +588,12 @@ exports[`renders correctly 1`] = `
         style={
           Object {
             "alignItems": "center",
-            "alignSelf": "flex-start",
-            "backgroundColor": "#5cb85c",
-            "borderBottomWidth": null,
-            "borderColor": "#007aff",
-            "borderLeftWidth": null,
-            "borderRadius": 5,
-            "borderRightWidth": null,
-            "borderTopWidth": null,
-            "borderWidth": undefined,
-            "elevation": 2,
-            "flexDirection": "row",
-            "height": 40,
+            "alignSelf": "center",
+            "backgroundColor": "#0EAC6F",
+            "flex": 0,
+            "height": 50,
             "justifyContent": "center",
             "opacity": 1,
-            "paddingBottom": 6,
-            "paddingTop": 6,
-            "shadowColor": undefined,
-            "shadowOffset": undefined,
-            "shadowOpacity": undefined,
-            "shadowRadius": undefined,
             "width": 100,
           }
         }
@@ -628,11 +606,16 @@ exports[`renders correctly 1`] = `
           ellipsizeMode="tail"
           style={
             Object {
+              "alignItems": "center",
               "color": "white",
+              "fontSize": 16,
+              "fontWeight": "300",
             }
           }
         >
+           
           SALVAR
+           
         </Text>
       </View>
     </View>
