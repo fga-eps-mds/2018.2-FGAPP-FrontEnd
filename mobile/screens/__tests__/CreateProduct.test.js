@@ -8,17 +8,7 @@ import renderer from 'react-test-renderer';
 Enzyme.configure({adapter: new Adapter()});
 
 it('renders correctly', () => {
-  const tree = renderer.create(<CreateProduct />).toJSON();
+  const navigation = jest.fn();
+  const tree = renderer.create(<CreateProduct navigation={navigation}/>).toJSON();
   expect(tree).toMatchSnapshot();
 });
-
-const flushPromises = () => new Promise(resolve => setImmediate(resolve));
-
-it('Should call registerProduct function', async() => {
-  const spy = jest.spyOn(CreateProduct.prototype, 'registerProduct');
-  const wrapper = shallow(<CreateProduct />);
-  wrapper.setState({fk_vendor: 1}, {name: 'Brigadeiro'}, {price: 1.5}, {photo: 'https://panelinha-sitenovo.s3-sa-east-1.amazonaws.com/receita/958014000000-Brigadeiro.jpg'}, {description: 'nham nham'});
-  await flushPromises();
-  wrapper.update();
-  const
-})

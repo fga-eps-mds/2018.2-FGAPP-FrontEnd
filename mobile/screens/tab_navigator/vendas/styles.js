@@ -237,4 +237,9 @@ export default {
      color: 'white',
      fontSize: 17,
     },
+    button: {
+      justifyContent: 'center',
+      height: 40,
+      width: 100,
+    }
 };

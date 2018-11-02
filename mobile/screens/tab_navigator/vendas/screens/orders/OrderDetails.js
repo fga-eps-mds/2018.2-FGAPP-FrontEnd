@@ -13,6 +13,7 @@ import {
 import styles from '../../styles'
 import jwt_decode from 'jwt-decode'
 import { LinearGradient } from 'expo';
+import GreenButton from '../../components/GreenButton';
 
 const ORDER_CLOSED = 1;
 
@@ -135,9 +136,8 @@ class OrderDetails extends Component {
               </View>
               <View style={{flexDirection: 'row'}}>
                 <View style={{width: '70%'}}/>
-                <Button
-                  color="#0EAC6F"
-                  title="Atendido"
+                <GreenButton
+                  text="Atendido"
                   onPress={this.attendedOrder}
                 />
               </View>

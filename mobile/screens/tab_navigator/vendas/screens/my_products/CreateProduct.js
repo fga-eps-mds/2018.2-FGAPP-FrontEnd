@@ -185,9 +185,4 @@ const styles = StyleSheet.create({
       justifyContent: 'space-around',
       paddingBottom: 10,
     },
-    button: {
-      justifyContent: 'center',
-      height: 40,
-      width: 100,
-    }
 });
