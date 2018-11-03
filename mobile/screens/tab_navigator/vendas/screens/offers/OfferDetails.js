@@ -83,7 +83,7 @@ import FormPicker from '../../components/FormPicker';
 
     render() {
       const {state} = this.props.navigation;
-      var product = state.params ? state.params.product : undefined;
+      var product = this.state.params ? state.params.product : undefined;
       const characters = `${this.state.buyer_message.length.toString()}/${this.state.max_characters}`;
       var price = `${this.state.quantity*product.price}`;
 

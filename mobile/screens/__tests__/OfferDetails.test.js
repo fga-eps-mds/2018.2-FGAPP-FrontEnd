@@ -15,12 +15,12 @@ it('renders correctly', () => {
 
 it('test openDialog to be true', () => {
   const navigation = jest.fn();
-  const wrapper = shallow(<Offers navigation = {navigation}/>);
+  const wrapper = shallow(<OfferDetails navigation = {navigation}/>);
   const openDialog = wrapper.instance().openDialog();
 });
 
 it('test closeDialog to be false', () => {
   const navigation = jest.fn();
-  const wrapper = shallow(<Offers navigation = {navigation}/>);
+  const wrapper = shallow(<OfferDetails navigation = {navigation}/>);
   const openDialog = wrapper.instance().closeDialog();
 });
