@@ -66,7 +66,7 @@ class Offers extends Component {
 
 	render() {
 		const { state } = this.props.navigation;
-		var token = state.params ? state.params.token : undefined;
+		var token = this.state.params ? state.params.token : undefined;
 		return (
 			<View style={styles.container}>
 				<ScrollView
