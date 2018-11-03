@@ -5,7 +5,8 @@ import {
   StyleSheet,
   Image,
   ScrollView,
-  TextInput
+  TextInput,
+  Alert
 } from "react-native";
 import {
   Container,
@@ -58,7 +59,22 @@ export default class RegisterAPIForm extends Component{
        placeholder="Descrição"
        onChangeText = {(description) => this.setState({description})} />
         <View style = {styles.button }>
-        <Button block info onPress = {()=>this.props.sendDataToTheForm(this.state.name, this.state.description)}>
+        <Button block info onPress = {
+          ()=>{
+          if(!(this.state.name && this.state.description)){
+            Alert.alert(
+                        "Os campos 'Nome' e 'Descrição' não podem estar vazios!",
+                        '',
+                        [
+                          {text: 'OK', onPress: () => console.log('OK Pressed')}
+                        ],
+                        { cancelable: false }
+                      )
+          }else {
+            this.props.sendDataToTheForm(this.state.name, this.state.description)
+          }
+
+        }}>
             <Text style = {{color: "white"}}>Confirmar</Text>
           </Button>
         </View>
