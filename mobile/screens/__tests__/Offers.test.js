@@ -12,3 +12,9 @@ it('renders correctly', () => {
   const tree = renderer.create(<Offers navigation={navigation}/>).toJSON();
   expect(tree).toMatchSnapshot();
 });
+
+it('test loadOffers',() => {
+  const navigation = jest.fn();
+  const wrapper = shallow(<Offers navigation = {navigation}/>);
+  const loadOffers = wrapper.instance().loadOffers();
+});
