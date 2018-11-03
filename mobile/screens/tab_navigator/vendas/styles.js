@@ -192,7 +192,6 @@ export default {
     left: '70%',
     paddingVertical: 50,
     paddingHorizontal: 50,
-    color: 'black',
     alignSelf: 'center',
    },
    PickerText: {
