@@ -4,7 +4,8 @@ import {
   Text,
   StyleSheet,
   Image,
-  ScrollView
+  ScrollView,
+  TextInput
 } from "react-native";
 import {
   Container,
@@ -24,21 +25,22 @@ export default class RegisterAPIForm extends Component{
     super(props);
     this.state={
       selected: undefined,
-      jsonForm: {
-        name: null,
-        description: null
-      }
+      name: null,
+      description: null
     };
   }
 
   onValueChange(value: string) {
     this.setState({
-      selected: value
+      selected: value,
     });
   }
 
   render() {
-
+    console.log("_____________________________________________________________________________________________");
+    console.log(this.state.name);
+    console.log(this.state.description);
+    console.log("_____________________________________________________________________________________________");
     return (
       <Container style={styles.container}>
         <CategorySelect/>
@@ -47,21 +49,20 @@ export default class RegisterAPIForm extends Component{
           regular
         >
         <Input placeholder='Nome'
+        onChangeText = {(name) => this.setState({name})}
         />
         </Item>
-        <Textarea
-          rowSpan={5}
-          bordered
-          placeholder='Descrição'
-        />
+       <Textarea
+       rowSpan={5}
+       bordered
+       placeholder="Descrição"
+       onChangeText = {(description) => this.setState({description})} />
         <View style = {styles.button }>
-        <Button block info>
+        <Button block info onPress = {()=>this.props.sendDataToTheForm(this.state.name, this.state.description)}>
             <Text style = {{color: "white"}}>Confirmar</Text>
           </Button>
         </View>
       </Container>
-
-
     );
 
   }
