@@ -93,3 +93,11 @@ test('change input price ', () => {
   price.simulate('changeText','text');
   expect(wrapper.state('price')).toBe('text');
 });
+
+test('change text area description ', () => {
+  const wrapper = shallow(<CreateProduct />);
+  //console.log(wrapper.debug());
+  const description = wrapper.find('Styled(Textarea)').at(0);
+  description.simulate('changeText','text');
+  expect(wrapper.state('description')).toBe('text');
+});
