@@ -63,5 +63,33 @@ it('test componentWillUnmount function',() => {
   const navigation = jest.fn();
   const wrapper = shallow(<CreateProduct navigation = {navigation}/>);
   const componentWillUnmount = wrapper.instance().componentWillUnmount();
-  //console.log(registerProduct);
+  //console.log(componentWillUnmount);
+});
+
+// it('test keyboardDidShow function',() => {
+//   const navigation = jest.fn();
+//   const wrapper = shallow(<CreateProduct navigation = {navigation}/>);
+//   const _keyboardDidShow = wrapper.instance()._keyboardDidShow();
+//   //console.log(_keyboardDidShow);
+// });
+//
+// it('test keyboardDidHide function',() => {
+//   const navigation = jest.fn();
+//   const wrapper = shallow(<CreateProduct navigation = {navigation}/>);
+//   const _keyboardDidHide = wrapper.instance()._keyboardDidHide();
+//   //console.log(_keyboardDidHide);
+// });
+
+test('change input title ', () => {
+  const wrapper = shallow(<CreateProduct />);
+  const title = wrapper.find('InputLab').at(0);
+  title.simulate('changeText','text');
+  expect(wrapper.state('title')).toBe('text');
+});
+
+test('change input price ', () => {
+  const wrapper = shallow(<CreateProduct />);
+  const price = wrapper.find('InputLab').at(1);
+  price.simulate('changeText','text');
+  expect(wrapper.state('price')).toBe('text');
 });
