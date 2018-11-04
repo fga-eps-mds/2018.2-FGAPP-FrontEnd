@@ -126,32 +126,29 @@ constructor(props){
      this._getNewDataAsync(newLatitude,newLongitude);
    }
 
-   sendData = async(data) => {
-
-     console.log(JSON.stringify(data));
-     console.log('=============================================================');
-     console.log(data);
-
-     try{
-        //console.log(data);
-       const response = await fetch(`https://dev-indicaai.herokuapp.com/locals`, {
-         method: 'POST',
-         headers: {
-           'Accept': 'aplication/json',
-           'Content-Type': 'aplication/json'
-         },
-         body: JSON.stringify(data)
-       })
-       console.log(response);
-       if(!response.ok){
-         const jsonResponse = await response.json();
-         console.log(jsonResponse);
-       }
-     }
-     catch(error){
-       console.log(error);
-     }
-   };
+   sendData = async (data) => {
+    try {
+      const response = await fetch('https://dev-indicaai.herokuapp.com/locals', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+      console.log('===========================================')
+      console.log(response);
+      if (response.ok) {
+        const jsonResponse = await response.json();
+        console.log('Sucesso')
+        console.log('===========================================')
+        console.log(jsonResponse);
+      }
+    }
+    catch (error) {
+      console.log("DEU RUIM");
+    }
+  };
 
    /*sendRating = async(rating) => {
      try{
@@ -187,8 +184,9 @@ constructor(props){
 
   render() {
 
-    let latitude;
-    let longitude;
+    let name = "asdA";
+    let latitude = -16.000512;
+    let longitude = -48.0587723;
 
     if(this.state.latitude && this.state.longitude){
       latitude= this.state.latitude;
@@ -201,7 +199,7 @@ constructor(props){
       markLat = this.state.latitude;
       markLong = this.state.longitude;
     }
-    let name;
+    // let name;
     if(this.state.jsonDetails){
       name = this.state.jsonDetails['result']['name'];
     }
@@ -218,7 +216,7 @@ constructor(props){
     }
     //console.log(data);
     const data = {name, latitude, longitude}
-    //this.sendData(data);
+    this.sendData(data);
 
     /*rating = 5;
     this.sendRating(rating);*/
