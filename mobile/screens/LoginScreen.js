@@ -11,7 +11,7 @@ import {
 import Field from './components/Field';
 
 class LoginScreen extends Component {
-  
+
   constructor(props) {
       super(props);
       this.state = {
@@ -23,7 +23,7 @@ class LoginScreen extends Component {
 
   _onPressButton = async () => {
       var login_path = `${process.env.INTEGRA_LOGIN_AUTH}/login/`;
-      fetch(login_path, {
+      fetch('http://5babadabecc1a70014306b40.mockapi.io/api/rest-auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

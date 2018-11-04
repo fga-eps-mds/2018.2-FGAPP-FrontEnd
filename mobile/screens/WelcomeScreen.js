@@ -2,13 +2,24 @@ import React, { Component } from "react";
 import {
     View,
     StyleSheet,
-    Button
+    Button,
+    Linking
 } from 'react-native';
 
 class WelcomeScreen extends Component {
 
     static navigationOption = {
         header: 'none'
+    }
+
+    termsOfUse = () => {
+      Linking.canOpenURL('https://github.com/fga-eps-mds/2018.2-FGAPP-FrontEnd/blob/indica-ai-app/195-homologation-environment/mobile/TERMS_OF_USE.md').then(supported => {
+        if (supported) {
+          Linking.openURL('https://github.com/fga-eps-mds/2018.2-FGAPP-FrontEnd/blob/indica-ai-app/195-homologation-environment/mobile/TERMS_OF_USE.md');
+        } else {
+          console.log("Don't know how to open TERMS OF USE");
+        }
+      }); 
     }
 
     render() {
@@ -21,6 +32,10 @@ class WelcomeScreen extends Component {
                 <Button
                     title='Sign Up'
                     onPress={() => this.props.navigation.navigate('SignUpScreen')}
+                />
+                <Button
+                      onPress={this.termsOfUse}
+                      title="Termos de Uso"
                 />
             </View>
         );
