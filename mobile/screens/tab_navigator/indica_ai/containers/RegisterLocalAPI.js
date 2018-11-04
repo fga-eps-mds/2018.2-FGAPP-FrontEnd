@@ -3,33 +3,51 @@ import {
   Text,
   ScrollView
 } from "react-native";
+import { withNavigation,createStackNavigator } from 'react-navigation';
 import RegisterAPIForm from '../components/RegisterAPIForm.js'
 
 export default class RegisterLocalAPI extends Component{
 
- _postForm  = async (jsonForm) => {
-  try{
-    const response = await fetch('#', {method: 'POST', body: JSON.stringify(jsonForm)});
-  	if(response.ok){
-      const jsonResponse = await response.json();
-      return jsonResponse;
-    }
-    throw new Error('Request failed!');
-  }catch(error){
-    console.log(error);
-  }
-}
+ _postForm  = async (name,description) => {
+       console.log("DESCRIÇÃO NO POST: " + description);
+       console.log("NAME NO POST: "+name);
+       const url  = "https://dev-indicaai.herokuapp.com/locals/";
+       const jsonTest = JSON.stringify({
+               name: "LOCAL TEST",
+               category_id: 1,
+               latitude: 10.00000000,
+               longitude: 10.00000000,
+               description: "empty",
+               address: "rua zzzz quadra zzzz"
+             });
 
-  takeDataFromTheForm = (JsonForm) => {
-    this._postForm (JsonForm);
+          fetch(url, {
+                   method: 'POST',
+                   headers: {
+                     Accept: 'application/json',
+                     'Content-Type': 'application/json',
+                   },
+                   body: jsonTest,
+                 })
+         .then((response) => response.json())
+         .then((responseJson) => {
+            return responseJson.status
+          })
+         .catch((error) => {
+            console.error(error);
+          });
+
+      }
+
+  takeDataFromTheForm = (name, description) => {
+    return this._postForm (name, description);
   }
 
   render() {
     return (
       <RegisterAPIForm
-      sendDateFromTheForm = {this.takeDataFromTheForm}
+      sendDataToTheForm = {this.takeDataFromTheForm}
       />
     );
   }
-
 }
