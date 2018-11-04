@@ -1,12 +1,15 @@
 {
   "expo": {
-    "name": "Integra App",
-    "icon": "./assets/icon.png",
+    "name": "Integra",
+    "icon": "assets/icon.png",
     "splash": {
-      "image": "./assets/splash.png"
+      "image": "assets/splash.png",
+      "backgroundColor": "#BD1C5F"
     },
     "slug": "integra-app",
     "sdkVersion": "27.0.0",
+    "githubUrl": "https://github.com/fga-eps-mds/2018.2-FGAPP-FrontEnd",
+    "primaryColor": "#BD1C5F",
     "packagerOpts": {
       "sourceExts": ["ts", "tsx"],
       "transformer": "node_modules/react-native-typescript-transformer/index.js"
