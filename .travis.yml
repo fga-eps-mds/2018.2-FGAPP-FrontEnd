@@ -38,6 +38,7 @@ jobs:
       if: branch = master
       node_js: lts/*
       script:
+        - cd mobile
         - cp config/app-production.json app.json
         - npm ci
         - npx expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD
@@ -47,6 +48,7 @@ jobs:
       if: branch = dev
       node_js: lts/*
       script:
+        - cd mobile
         - cp config/app-development.json app.json
         - npm ci
         - npx expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD
