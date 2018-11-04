@@ -25,4 +25,4 @@ deploy:
   bucket: GCS Bucket
   on:
     repo: fga-eps-mds/2018.2-FGAPP-FrontEnd
-    branch: indica-ai-app/195-homologation-environment
+    branch: dev
