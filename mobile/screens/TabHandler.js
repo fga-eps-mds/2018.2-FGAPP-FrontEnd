@@ -9,7 +9,7 @@ import TabHandlerVendasApp from './tab_navigator/vendas/TabHandlerVendasApp';
 import IndicaAiApp from './tab_navigator/indica_ai/IndicaAiApp';
 import RolesApp from './tab_navigator/roles/RolesApp';
 import CarDefenseApp from './tab_navigator/car_defense/CarDefenseApp';
-import Settings from './tab_navigator/settings/Settings';
+import SettingScreen from './tab_navigator/settings/SettingScreen';
 
 const TabHandler = new TabNavigator({
     Roles: {
@@ -80,11 +80,10 @@ const TabHandler = new TabNavigator({
             }
         }
     },
-    Settings: {
-        screen: Settings,
+    SettingScreen: {
+        screen: SettingScreen,
         navigationOptions: {
             tabBarLabel: 'Configurações',
-            headerLeft: null,
             title: 'Perfil',
             tabBarIcon: ({ focused }) => (
                 <Icon
