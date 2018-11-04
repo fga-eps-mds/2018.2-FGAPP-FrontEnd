@@ -16,6 +16,11 @@ const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height / 2;
 
 class LocalDetails extends Component {
+
+  dispatchSendData = () =>{
+    this.props.sendData(this.props.data);
+  }
+
     render(){
         return(
             <View style = {styles.container}>
@@ -36,9 +41,9 @@ class LocalDetails extends Component {
                      <Button
                         info
                         style={styles.button}
-                        onPress={() => this.props.sendData}
+                        onPress={this.dispatchSendData}
                      >
-                        <Text> {"Chek-in"} </Text>
+                        <Text> {"Check-in"} </Text>
                      </Button>
                      <Button
                         info

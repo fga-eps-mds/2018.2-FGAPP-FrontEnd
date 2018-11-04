@@ -6,6 +6,7 @@ import {
   View,
   StyleSheet,
   Image,
+  TouchableOpacity,
   ScrollView
 } from "react-native";
 
@@ -126,38 +127,68 @@ constructor(props){
    }
 
    sendData = async(data) => {
+
+     console.log(JSON.stringify(data));
+     console.log('=============================================================');
+     console.log(data);
+
      try{
-        console.log('===========================================')
-       console.log(data);
+        //console.log(data);
        const response = await fetch(`https://dev-indicaai.herokuapp.com/locals`, {
          method: 'POST',
-         body: JSON.stringify(data),
          headers: {
+           'Accept': 'aplication/json',
            'Content-Type': 'aplication/json'
-         }
+         },
+         body: JSON.stringify(data)
        })
        console.log(response);
-       if(response.ok){
+       if(!response.ok){
          const jsonResponse = await response.json();
-         //console.log(jsonResponse);
+         console.log(jsonResponse);
        }
      }
      catch(error){
-       console.log("DEU RUIM");
+       console.log(error);
      }
    };
 
+   /*sendRating = async(rating) => {
+     try{
+        console.log(rating);
+       const response = await fetch(`https://dev-indicaai.herokuapp.com/local_ratings`, {
+         method: 'POST',
+         body: rating
+       })
+       console.log(response);
+       if(!response.ok){
+         const jsonResponse = await response.json();
+         console.log(jsonResponse);
+       }
+     }
+     catch(error){
+       console.log(error);
+     }
+   };*/
+
+
+   /*sendData = data => {
+     console.log(data);
+     const response = fetch('https://dev-indicaai.herokuapp.com/locals', {
+        method: 'post',
+        body: JSON.stringify(data)
+      }).then(res => res.json())
+      .catch(error => console.log("Error: ", error))
+      .then(response => console.log('Success: ', response));
+      console.log(response);
+   }*/
+
+
+
   render() {
 
-
-    let name = "asdA";
-    let latitude = -16.000512;
-    let longitude = -48.0587723;
-
-    const data = {longitude, name, latitude}
-
-    /*let latitude;
-    let longitude;*/
+    let latitude;
+    let longitude;
 
     if(this.state.latitude && this.state.longitude){
       latitude= this.state.latitude;
@@ -170,7 +201,7 @@ constructor(props){
       markLat = this.state.latitude;
       markLong = this.state.longitude;
     }
-    //let name;
+    let name;
     if(this.state.jsonDetails){
       name = this.state.jsonDetails['result']['name'];
     }
@@ -186,7 +217,11 @@ constructor(props){
       rating = this.state.jsonDetails['result']['rating']
     }
     //console.log(data);
-    this.sendData(data);
+    const data = {name, latitude, longitude}
+    //this.sendData(data);
+
+    /*rating = 5;
+    this.sendRating(rating);*/
 
     if (this.state.loading) {
       return <Expo.AppLoading />;
@@ -201,6 +236,8 @@ constructor(props){
           sendNewCoods = {this.takeNewCoords}
          />
          <LocalDetails
+           data = {data}
+           sendData = {this.sendData}
            name = {name}
            address = {address}
         />
