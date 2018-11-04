@@ -8,20 +8,27 @@ import RegisterAPIForm from '../components/RegisterAPIForm.js'
 
 export default class RegisterLocalAPI extends Component{
 
+  constructor(props){
+    super(props);
+    this.state = {
+      requestStatus: false
+   };
+  }
+
  _postForm  = async (name,description) => {
        console.log("DESCRIÇÃO NO POST: " + description);
        console.log("NAME NO POST: "+name);
        const url  = "https://dev-indicaai.herokuapp.com/locals/";
        const jsonTest = JSON.stringify({
-               name: "LOCAL TEST",
+               name: name,
                category_id: 1,
                latitude: 10.00000000,
                longitude: 10.00000000,
-               description: "empty",
+               description: description,
                address: "rua zzzz quadra zzzz"
              });
-
-          fetch(url, {
+          try{
+         const response = await fetch(url, {
                    method: 'POST',
                    headers: {
                      Accept: 'application/json',
@@ -29,24 +36,28 @@ export default class RegisterLocalAPI extends Component{
                    },
                    body: jsonTest,
                  })
-         .then((response) => response.json())
-         .then((responseJson) => {
-            return responseJson.status
-          })
-         .catch((error) => {
+          const jsonResponse = await response.json()
+           console.log(jsonResponse);
+           if(jsonResponse['status'] === "SUCCESS"){
+              this.setState({requestStatus: true})
+            }
+         }catch(error){
             console.error(error);
-          });
-
+          }
       }
 
   takeDataFromTheForm = (name, description) => {
-    return this._postForm (name, description);
+     this._postForm (name, description);
+
   }
 
   render() {
+    console.log("================== STATUS NO REQUEST ===================");
+    console.log(this.state.requestStatus);
     return (
       <RegisterAPIForm
       sendDataToTheForm = {this.takeDataFromTheForm}
+      requestStatus = {this.state.requestStatus}
       />
     );
   }

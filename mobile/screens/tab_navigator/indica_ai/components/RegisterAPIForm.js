@@ -19,6 +19,7 @@ import {
   Button
 } from 'native-base'
 import CategorySelect from './CategorySelect.js';
+import { withNavigation } from 'react-navigation';
 
 export default class RegisterAPIForm extends Component{
 
@@ -27,7 +28,7 @@ export default class RegisterAPIForm extends Component{
     this.state={
       selected: undefined,
       name: null,
-      description: null
+      description: null,
     };
   }
 
@@ -38,10 +39,20 @@ export default class RegisterAPIForm extends Component{
   }
 
   render() {
-    console.log("_____________________________________________________________________________________________");
-    console.log(this.state.name);
-    console.log(this.state.description);
-    console.log("_____________________________________________________________________________________________");
+    console.log("------------------  form status -------------------");
+    console.log(this.props.requestStatus);
+
+    if(this.props.requestStatus){
+      Alert.alert(
+                  'Local cadastrado com sucesso!',
+                  "",
+                  [
+                    {text: 'OK', onPress : () => console.log('ok pressed')}
+                  ],
+                  { cancelable: false }
+                )
+
+}
     return (
       <Container style={styles.container}>
         <CategorySelect/>
@@ -63,18 +74,19 @@ export default class RegisterAPIForm extends Component{
           ()=>{
           if(!(this.state.name && this.state.description)){
             Alert.alert(
-                        "Os campos 'Nome' e 'Descrição' não podem estar vazios!",
-                        '',
+                        'Atenção!',
+                        "Os campos 'Nome' ou 'Descrição' não podem estar vazios",
                         [
                           {text: 'OK', onPress: () => console.log('OK Pressed')}
                         ],
                         { cancelable: false }
                       )
           }else {
-            this.props.sendDataToTheForm(this.state.name, this.state.description)
+           this.props.sendDataToTheForm(this.state.name, this.state.description)
+               }
           }
 
-        }}>
+        }>
             <Text style = {{color: "white"}}>Confirmar</Text>
           </Button>
         </View>
