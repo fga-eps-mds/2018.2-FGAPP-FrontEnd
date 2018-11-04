@@ -3,19 +3,15 @@ import { Image, TouchableHighlight } from 'react-native';
 import { Card, CardItem, Text, Left, Right, View } from 'native-base';
 import styles from './styles';
 
-class OrderCard extends Component {
-  constructor(props) {
-    super(props);
-  }
-
+class BuyerOrderCard extends Component {
   render() {
     var status = this.props.orderStatus;
     var statusValue = (status == 0) ? 'Pendente' : (status == 1 ? 'Atendido' : 'Cancelado');
-
+    
     return (
       <View style={{padding:10}}>
         <TouchableHighlight onPress={this.props.onPress}>
-          <View style={styles.order_main}>
+          <View style={styles.buyer_order_main}>
             <View style={{flexDirection: 'column', width: '65%',}}>
               <Text style={styles.order_title}>{this.props.orderName}</Text>
               <Text style={styles.order_subtitle}>{this.props.orderQuantity}</Text>
@@ -31,4 +27,4 @@ class OrderCard extends Component {
     );
   }
 }
-export default OrderCard;
+export default BuyerOrderCard;
