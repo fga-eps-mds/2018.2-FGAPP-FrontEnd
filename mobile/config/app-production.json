@@ -16,7 +16,7 @@
     },
     "android": {
       "package": "com.unbgama.integra",
-      "versionCode": 3
+      "versionCode": 2
     }
   }
 }

@@ -1,6 +1,6 @@
 {
-  "name": "mobile",
-  "version": "0.1.0",
+  "name": "integra",
+  "version": "0.0.2",
   "private": true,
   "devDependencies": {
     "@types/jest": "^22.2.3",
@@ -29,6 +29,9 @@
         "useBabelrc": true
       }
     },
+    "transformIgnorePatterns": [
+      "node_modules/(?!react-native|react-navigation)/"
+    ],
     "moduleFileExtensions": [
       "ts",
       "tsx",
@@ -47,13 +50,22 @@
     }
   },
   "dependencies": {
+    "@expo/vector-icons": "^6.3.1",
+    "@types/react-navigation": "^2.0.23",
+    "antd": "^3.10.0",
     "babel-plugin-inline-dotenv": "^1.1.2",
     "expo": "^27.0.1",
-    "native-base": "^2.6.0",
+    "jwt-decode": "^2.2.0",
+    "native-base": "^2.8.0",
     "react": "16.3.1",
     "react-native": "~0.55.2",
+    "react-native-cookie": "^0.2.0",
+    "react-native-maps": "^0.21.0",
+    "react-native-vector-icons": "^6.0.1",
     "react-navigation": "1.0.0-beta.11",
     "react-redux": "5.0.7",
-    "redux": "4.0.0"
+    "redux": "4.0.0",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0"
   }
 }

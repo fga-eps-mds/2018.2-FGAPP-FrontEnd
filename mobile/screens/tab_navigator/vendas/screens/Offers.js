@@ -1,20 +1,24 @@
+/*
+    Screen provided to present the products already ordered by a certain user.
+*/
+
 import React, { Component } from 'react';
-import { 
+import {
     View,
     Text,
     StyleSheet
 } from 'react-native';
 
-class RolesApp extends Component {
+class Offers extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text>Rolês</Text>
+                <Text>Offers</Text>
             </View>
         );
     }
 }
-export default RolesApp;
+export default Offers;
 
 const styles = StyleSheet.create({
     container: {
