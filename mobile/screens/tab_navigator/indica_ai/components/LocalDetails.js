@@ -19,9 +19,6 @@ const height = Dimensions.get('window').height / 2;
 
 class LocalDetails extends Component {
     render(){
-      console.log("___________________  COORDENADAS NOS DETALHES _______________________________________________________-");
-      console.log(this.props.latitude);
-      console.log(this.props.longitude);
         return(
             <View style = {styles.container}>
               <Card style = {styles.card}>
@@ -44,7 +41,8 @@ class LocalDetails extends Component {
                         style={styles.button}
                         bordered
                         onPress={() => {
-                          this.props.navigation.navigate("RegisterAPI")
+                          //sending data to the page Register api screen through navigation
+                          this.props.navigation.navigate("RegisterAPI", {latitude:this.props.latitude, longitude:this.props.longitude})
 
                         }}
                      >

@@ -16,14 +16,12 @@ export default class RegisterLocalAPI extends Component{
   }
 
  _postForm  = async (name,description) => {
-       console.log("DESCRIÇÃO NO POST: " + description);
-       console.log("NAME NO POST: "+name);
        const url  = "https://dev-indicaai.herokuapp.com/locals/";
        const jsonTest = JSON.stringify({
                name: name,
                category_id: 1,
-               latitude: 10.00000000,
-               longitude: 10.00000000,
+               latitude: this.props.latitude,
+               longitude: this.props.longitude,
                description: description,
                address: "rua zzzz quadra zzzz"
              });
@@ -52,8 +50,6 @@ export default class RegisterLocalAPI extends Component{
   }
 
   render() {
-    console.log("================== STATUS NO REQUEST ===================");
-    console.log(this.state.requestStatus);
     return (
       <RegisterAPIForm
       sendDataToTheForm = {this.takeDataFromTheForm}

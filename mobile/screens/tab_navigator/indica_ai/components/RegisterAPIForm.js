@@ -39,9 +39,6 @@ export default class RegisterAPIForm extends Component{
   }
 
   render() {
-    console.log("------------------  form status -------------------");
-    console.log(this.props.requestStatus);
-
     if(this.props.requestStatus){
       Alert.alert(
                   'Local cadastrado com sucesso!',
