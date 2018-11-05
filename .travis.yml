@@ -36,20 +36,22 @@ jobs:
 
     - stage: production deploy
       if: branch = master
-      node_js: lts/*
+      node_js:
+        - '9.3'
       script:
         - cd mobile
         - cp config/app-production.json app.json
-        - npm install -g expo-cli
+        - yarn install expo-cli
         - expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD
         - expo publish --non-interactive
 
     - stage: homologation deploy
       if: branch = dev
-      node_js: lts/*
+      node_js:
+        - '9.3'
       script:
         - cd mobile
         - cp config/app-development.json app.json
-        - npm install -g expo-cli
+        - yarn install expo-cli
         - expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD
         - expo publish --non-interactive
