@@ -1,5 +1,8 @@
+[![Maintainability](https://api.codeclimate.com/v1/badges/9f8f416c478c348e9dd3/maintainability)](https://codeclimate.com/github/fga-eps-mds/2018.2-FGAPP-FrontEnd/maintainability)
+
 # Integra APP
 An application developed by university students, for university students.
+
 
 ## Requirements
 This projects needs some requirements that need to be downloaded.
