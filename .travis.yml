@@ -35,7 +35,8 @@ jobs:
         - docker run -v `pwd`:"/app" -w "/app" --env-file docs/.env lucascst/gh-pages-docker-travis bash -c "cd docs; sh publish.sh"
 
     - stage: production deploy
-      if: branch = master
+      on:
+        - master
       node_js:
         - '9.3'
       script:
