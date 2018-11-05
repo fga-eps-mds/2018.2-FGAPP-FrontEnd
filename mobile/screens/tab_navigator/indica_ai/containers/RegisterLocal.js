@@ -3,11 +3,12 @@ import React, { Component } from "react";
 import {Button, Text } from 'native-base';
 import { Constants, Location, Permissions } from 'expo';
 import {
-  View,
-  StyleSheet,
-  Image,
-  TouchableOpacity,
-  ScrollView
+    View,
+    StyleSheet,
+    Image,
+    TouchableOpacity,
+    ScrollView,
+    Alert
 } from "react-native";
 
 import { Dimensions } from "react-native";
@@ -115,7 +116,6 @@ constructor(props){
        if(response.ok){
          const jsonDetails = await response.json();
          this.setState({jsonDetails});
-         //console.log(jsonDetails);
        }
        throw new Error('Request failed!');
      } catch(Error){
@@ -126,64 +126,28 @@ constructor(props){
      this._getNewDataAsync(newLatitude,newLongitude);
    }
 
-   sendData = async(data) => {
-
-     console.log(JSON.stringify(data));
-     console.log('=============================================================');
-     console.log(data);
-
+   sendData = async (data) => {
      try{
-        //console.log(data);
        const response = await fetch(`https://dev-indicaai.herokuapp.com/locals`, {
          method: 'POST',
          headers: {
-           'Accept': 'aplication/json',
-           'Content-Type': 'aplication/json'
+           Accept: 'application/json',
+           'Content-Type': 'application/json'
          },
          body: JSON.stringify(data)
        })
-       console.log(response);
-       if(!response.ok){
+       if(response.ok){
          const jsonResponse = await response.json();
-         console.log(jsonResponse);
+         Alert.alert(
+          'Alert Title',
+          'My Alert Msg',
+        )
        }
      }
      catch(error){
        console.log(error);
      }
    };
-
-   /*sendRating = async(rating) => {
-     try{
-        console.log(rating);
-       const response = await fetch(`https://dev-indicaai.herokuapp.com/local_ratings`, {
-         method: 'POST',
-         body: rating
-       })
-       console.log(response);
-       if(!response.ok){
-         const jsonResponse = await response.json();
-         console.log(jsonResponse);
-       }
-     }
-     catch(error){
-       console.log(error);
-     }
-   };*/
-
-
-   /*sendData = data => {
-     console.log(data);
-     const response = fetch('https://dev-indicaai.herokuapp.com/locals', {
-        method: 'post',
-        body: JSON.stringify(data)
-      }).then(res => res.json())
-      .catch(error => console.log("Error: ", error))
-      .then(response => console.log('Success: ', response));
-      console.log(response);
-   }*/
-
-
 
   render() {
 
@@ -216,16 +180,13 @@ constructor(props){
       telephone = this.state.jsonDetails['result']['formatted_phone_number']
       rating = this.state.jsonDetails['result']['rating']
     }
-    //console.log(data);
-    const data = {name, latitude, longitude}
-    //this.sendData(data);
 
-    /*rating = 5;
-    this.sendRating(rating);*/
+    const data = {name, address, telephone, latitude, longitude}
 
     if (this.state.loading) {
       return <Expo.AppLoading />;
     }
+
     return (
       <View style = {styles.container}>
         <UserLocationMap
