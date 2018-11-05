@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import {
   Text,
-  ScrollView
+  ScrollView,
+  Alert
 } from "react-native";
 import { withNavigation,createStackNavigator } from 'react-navigation';
 import RegisterAPIForm from '../components/RegisterAPIForm.js'
@@ -11,7 +12,7 @@ export default class RegisterLocalAPI extends Component{
   constructor(props){
     super(props);
     this.state = {
-      requestStatus: false
+      requestStatus: null
    };
   }
 
@@ -37,7 +38,9 @@ export default class RegisterLocalAPI extends Component{
           const jsonResponse = await response.json()
            console.log(jsonResponse);
            if(jsonResponse['status'] === "SUCCESS"){
-              this.setState({requestStatus: true})
+              this.setState({requestStatus: "SUCCESS"})
+            }else{
+              this.setState({requestStatus: "FAILED"})
             }
          }catch(error){
             console.error(error);
@@ -50,10 +53,29 @@ export default class RegisterLocalAPI extends Component{
   }
 
   render() {
+    if(this.state.requestStatus === "SUCCESS"){
+      Alert.alert(
+                  'Local cadastrado com sucesso!',
+                  "",
+                  [
+                    {text: 'OK', onPress : console.log("")}
+                  ],
+                  { cancelable: false }
+                )
+
+      }else if (this.state.requestStatus === "FAILED"){
+        Alert.alert(
+                    'Ooops!',
+                    "Houve um erro ao cadastrar esse local, tente novamente mais tarde",
+                    [
+                      {text: 'OK', onPress : () => console.log("OK Pressed")}
+                    ],
+                    { cancelable: false }
+                  )
+      }
     return (
       <RegisterAPIForm
       sendDataToTheForm = {this.takeDataFromTheForm}
-      requestStatus = {this.state.requestStatus}
       />
     );
   }

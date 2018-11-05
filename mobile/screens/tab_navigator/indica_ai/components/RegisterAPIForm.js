@@ -20,6 +20,7 @@ import {
 } from 'native-base'
 import CategorySelect from './CategorySelect.js';
 import { withNavigation } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation';
 
 export default class RegisterAPIForm extends Component{
 
@@ -39,17 +40,6 @@ export default class RegisterAPIForm extends Component{
   }
 
   render() {
-    if(this.props.requestStatus){
-      Alert.alert(
-                  'Local cadastrado com sucesso!',
-                  "",
-                  [
-                    {text: 'OK', onPress : () => console.log('ok pressed')}
-                  ],
-                  { cancelable: false }
-                )
-
-}
     return (
       <Container style={styles.container}>
         <CategorySelect/>
