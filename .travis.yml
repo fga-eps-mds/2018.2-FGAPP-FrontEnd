@@ -40,9 +40,9 @@ jobs:
       script:
         - cd mobile
         - cp config/app-production.json app.json
-        - npm ci
-        - npx expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD
-        - npx expo publish --non-interactive
+        - npm install -g expo-cli
+        - expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD
+        - expo publish --non-interactive
 
     - stage: homologation deploy
       if: branch = dev
@@ -50,6 +50,6 @@ jobs:
       script:
         - cd mobile
         - cp config/app-development.json app.json
-        - npm ci
-        - npx expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD
-        - npx expo publish --non-interactive
+        - npm install -g expo-cli
+        - expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD
+        - expo publish --non-interactive
