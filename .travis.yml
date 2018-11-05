@@ -13,6 +13,7 @@ jobs:
       cache:
         directories:
         - ./mobile/node_modules
+
     - stage: deploy gh-pages
       if: branch = master
       sudo: required
@@ -33,12 +34,24 @@ jobs:
         - echo "GH_TOKEN=${GH_TOKEN}" >> docs/.env
         - docker run -v `pwd`:"/app" -w "/app" --env-file docs/.env lucascst/gh-pages-docker-travis bash -c "cd docs; sh publish.sh"
 
-deploy:
-  provider: gcs
-  access_key_id: GOOGSI44B6RXSK2LML5Q3MBY
-  secret_access_key:
-    secure: BAMfeflc3p/ZlPlVuFRcPIftbJ8OiO38FTGuM3sBfnWiDGweknIvVhY/X9/ay33aVWOvXPVvNXuJ04MkIWzsSaSYV6FRgtMJUoSBfoRmSLB0ueR0zzy2b1n+6Yz1LA5CXdK4qNVg7Pvnlf5qltvj1lMLikJ0+3cUyDTY5XuOZTV2Nz4w8sjOFNIQIUJQWGdGQr5ifLygrbRLs1cruO3vfye3DXU1RmD13XP9/cQp/mSFcPkiTUAMsKDa8RlCLdt2zepMO/J8IvN1z6O0cZbXYWDC5rb3/mV+i8onW7ujbynN0vgZnEeAvwOmI/nhMhXweS6p6pNG6T1itVW8vDHurcwngwH2W3piYZhJfSipntdy+fgSCXXraY6HnJulhPxIeXBxg3/75aJHNtHW16eatljueAXf6yzaBjmXKOy0WDh+Yj3PmtHx+8sAfroqChi1ALVsI8J8QfPCNsCg/Fgr1Ob0StGb7s6GcTlpy4N08H1JMfHqVBP/430hpQDJbq4KNL6Q7bQHQxMJzAELHJXgWXLurWRGTkGXk51k4gmz4coSMIOH73bvrCZOcXe/46P1DrH8V5weBUph9vqU+NC71nkHX1ypkJcEIjfop8MqRWUFhR+gg1o+wKz4ztW+XlTetycpTxFCQ0XcwyibHMh8SxuCIiIdft6qr0HvPeArfGE=
-  bucket: GCS Bucket
-  on:
-    repo: fga-eps-mds/2018.2-FGAPP-FrontEnd
-    branch: dev
+    - stage: production deploy
+      if: branch = master
+      node_js:
+        - '9.3'
+      script:
+        - cd mobile
+        - cp config/app-production.json app.json
+        - yarn add expo-cli
+        - yarn expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD
+        - yarn expo publish --non-interactive
+
+    - stage: homologation deploy
+      if: branch = dev
+      node_js:
+        - '9.3'
+      script:
+        - cd mobile
+        - cp config/app-development.json app.json
+        - yarn add expo-cli
+        - yarn expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD
+        - yarn expo publish --non-interactive
