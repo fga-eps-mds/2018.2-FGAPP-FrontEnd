@@ -7,12 +7,17 @@ import {
 import { withNavigation,createStackNavigator } from 'react-navigation';
 import RegisterAPIForm from '../components/RegisterAPIForm.js'
 
-export default class RegisterLocalAPI extends Component{
+class RegisterLocalAPI extends Component{
 
   constructor(props){
     super(props);
     this.state = {
-      requestStatus: null
+      requestStatus: null,
+      local: {
+        name: null,
+        description: null,
+        id: null
+      }
    };
   }
 
@@ -49,7 +54,13 @@ export default class RegisterLocalAPI extends Component{
 
   takeDataFromTheForm = (name, description) => {
      this._postForm (name, description);
-
+     this.setState({
+       local: {
+         name: name,
+         description: description,
+         id: null
+       }
+     })
   }
 
   render() {
@@ -58,7 +69,8 @@ export default class RegisterLocalAPI extends Component{
                   'Local cadastrado com sucesso!',
                   "",
                   [
-                    {text: 'OK', onPress : console.log("")}
+                    {text: 'OK', onPress : ()=> this.props.navigation.navigate('LocalDetails',{
+                      local: this.state.local})}
                   ],
                   { cancelable: false }
                 )
@@ -68,7 +80,7 @@ export default class RegisterLocalAPI extends Component{
                     'Ooops!',
                     "Houve um erro ao cadastrar esse local, tente novamente mais tarde",
                     [
-                      {text: 'OK', onPress : () => console.log("OK Pressed")}
+                      {text: 'OK', onPress : () => this.props.navigation.navigate("Register")}
                     ],
                     { cancelable: false }
                   )
@@ -80,3 +92,4 @@ export default class RegisterLocalAPI extends Component{
     );
   }
 }
+export default withNavigation(RegisterLocalAPI);
