@@ -41,7 +41,7 @@ jobs:
       script:
         - cd mobile
         - cp config/app-production.json app.json
-        - yarn install expo-cli
+        - yarn add expo-cli
         - expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD
         - expo publish --non-interactive
 
@@ -52,6 +52,6 @@ jobs:
       script:
         - cd mobile
         - cp config/app-development.json app.json
-        - yarn install expo-cli
+        - yarn add expo-cli
         - expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD
         - expo publish --non-interactive
