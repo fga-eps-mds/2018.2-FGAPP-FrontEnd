@@ -138,10 +138,6 @@ constructor(props){
        })
        if(response.ok){
          const jsonResponse = await response.json();
-         Alert.alert(
-          'Alert Title',
-          'My Alert Msg',
-        )
        }
      }
      catch(error){
