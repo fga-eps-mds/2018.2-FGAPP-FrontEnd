@@ -58,6 +58,7 @@ class WelcomeScreen extends Component {
                             <Button
                                 info
                                 bordered
+                                rounded
                                 title='Sign Up'
                                 onPress={() => this.props.navigation.navigate('SignUpScreen')}
                             >
@@ -65,6 +66,7 @@ class WelcomeScreen extends Component {
                             </Button>
                             <Button
                                 info
+                                rounded
                                 title='log in'
                                 onPress={() => this.props.navigation.navigate('LoginScreen')}
                             >
