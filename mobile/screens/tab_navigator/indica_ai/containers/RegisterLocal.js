@@ -138,10 +138,19 @@ constructor(props){
        })
        if(response.ok){
          const jsonResponse = await response.json();
+         Alert.alert(
+           'Local cadastrado com sucesso!',
+           "",
+            { cancelable: false }
+         )
        }
      }
      catch(error){
-       console.log(error);
+       Alert.alert(
+         "Houve um erro ao cadastrar esse local, tente novamente mais tarde.",,
+         "",
+          { cancelable: false }
+       )
      }
    };
 
@@ -175,9 +184,17 @@ constructor(props){
     if(this.state.jsonDetails){
       telephone = this.state.jsonDetails['result']['formatted_phone_number']
       rating = this.state.jsonDetails['result']['rating']
+      for(const i=0; i<7; i++){
+        day = jsonDetails['result']['opening_hours']['periods'][i]
+        opens = jsonDetails['result']['opening_hours']['periods'][i]['open']['time']
+        closes = jsonDetails['result']['opening_hours']['periods'][i]['close']['time']
+        opening_hours[i] = {day, opens, closes}
+        console.log(day, opens, closes);
+        console.log(opening_hours);
+      }
     }
 
-    const data = {name, address, telephone, latitude, longitude}
+    const data = {name, address, telephone, latitude, longitude, opening_hours}
 
     if (this.state.loading) {
       return <Expo.AppLoading />;
