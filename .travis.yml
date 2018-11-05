@@ -42,8 +42,8 @@ jobs:
         - cd mobile
         - cp config/app-production.json app.json
         - yarn add expo-cli
-        - expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD
-        - expo publish --non-interactive
+        - yarn expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD
+        - yarn expo publish --non-interactive
 
     - stage: homologation deploy
       if: branch = dev
@@ -53,5 +53,5 @@ jobs:
         - cd mobile
         - cp config/app-development.json app.json
         - yarn add expo-cli
-        - expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD
-        - expo publish --non-interactive
+        - yarn expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD
+        - yarn expo publish --non-interactive
