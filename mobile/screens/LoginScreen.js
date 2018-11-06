@@ -15,6 +15,7 @@ import {
 } from "react-native";
 import {Button} from 'native-base';
 import Field from './components/Field';
+import Login from './components/Login';
 
 class LoginScreen extends Component {
 
@@ -27,22 +28,7 @@ class LoginScreen extends Component {
       };
   }
 
-  _onPressButton = async () => {
-      const login_path = `${process.env.INTEGRA_LOGIN_AUTH}/api/login/`;
-
-      fetch(login_path, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-        'username': this.state.email, //UsernameField foi definido como email
-        'password': this.state.password,
-      }),
-  })
-  .then((response) => response.json())
-  .then((responseJson) => {
-    console.log(JSON.stringify(responseJson));
+  checkJson(responseJson){
     //Campo de email
    if (responseJson.username != undefined){
      this.setState({ email_field_alerts: responseJson.username})
@@ -71,21 +57,14 @@ class LoginScreen extends Component {
       this.setState({ non_field_alert: ['']})
     }
     //Sucesso
-   if (responseJson.token != undefined||
-         responseJson.key != undefined){
-     this.props.navigation.navigate('TabHandler', {token:responseJson.token})
-      }
-   })
-   .catch( err => {
-     if (typeof err.text === 'function') {
-       err.text().then(errorMessage => {
-         this.props.dispatch(displayTheError(errorMessage))
-       });
-     } else {
-       Alert.alert("Erro na conexão.");
-       console.log(err)
-     }
-   });
+    if (responseJson.token != undefined|| responseJson.key != undefined){
+      this.props.navigation.navigate('TabHandler', {token:responseJson.token})
+    }
+  }
+
+  _onPressButton = async () => {
+    login = await Login(this.state.email, this.state.password)
+    this.checkJson(login);
   }
 
     render() {
