@@ -35,8 +35,6 @@ class ViewLocal extends Component{
 
   render() {
     const { id, name, description } = this.state.local;
-    console.log("______________      ID        ______________________________");
-    console.log(id);
     return (
         <View style={styles.container}>
           <ScrollView>
@@ -56,6 +54,7 @@ class ViewLocal extends Component{
      <View style = {{top: -15}}>
       <FavoriteContainer
        favMessageView = {this.favMessage}
+       id = {id}
      />
      </View>
    </View>
