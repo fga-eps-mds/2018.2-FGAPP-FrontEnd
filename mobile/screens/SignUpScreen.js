@@ -16,7 +16,7 @@ import {
 import Cookie from 'react-native-cookie';
 import {Button} from 'native-base';
 import Field from './components/Field';
-import SingUp from './components/SingUp';
+import SignUp from './components/SignUp';
 
 export default class App extends Component {
 
@@ -64,7 +64,7 @@ export default class App extends Component {
   }
 
   _onPressButton = async () => {
-    register = await SingUp(this.state.email, this.state.password)
+    register = await SignUp(this.state.email, this.state.password)
     this.checkJson(register);
   }
 

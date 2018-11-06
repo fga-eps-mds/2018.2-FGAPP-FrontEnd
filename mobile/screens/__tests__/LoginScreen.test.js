@@ -29,7 +29,7 @@ describe('Testing Login', () => {
         expect(wrapper.find(KeyboardAvoidingView)).toHaveLength(1)
     })
 
-    it('should test SingUp', (done) => {
+    it('should test SignUp', (done) => {
         done()
     })
 

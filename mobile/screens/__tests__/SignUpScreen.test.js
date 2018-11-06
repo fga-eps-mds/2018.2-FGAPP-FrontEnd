@@ -4,11 +4,11 @@ import Adapter from 'enzyme-adapter-react-16'
 import App from '../SignUpScreen'
 import {KeyboardAvoidingView} from 'react-native';
 
-jest.mock('../components/SingUp')
+jest.mock('../components/SignUp')
 
 configure({adapter: new Adapter()})
 
-describe('Testing SingUp', () => {
+describe('Testing SignUp', () => {
     let wrapper = null
     const spyNavigate = jest.fn()
     const props = {
@@ -29,7 +29,7 @@ describe('Testing SingUp', () => {
         expect(wrapper.find(KeyboardAvoidingView)).toHaveLength(1)
     })
 
-    it('should test SingUp', (done) => {
+    it('should test SignUp', (done) => {
         done()
     })
 
