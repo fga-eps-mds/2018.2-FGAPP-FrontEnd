@@ -121,10 +121,11 @@ constructor(props){
    };
    takeNewCoords = (newLatitude, newLongitude) => {
      this._getNewDataAsync(newLatitude,newLongitude);
+     this.setState({latitude: newLatitude, longitude: newLongitude});
    }
 
   render() {
-  
+
     let lat;
     let long;
 
@@ -163,6 +164,8 @@ constructor(props){
          <LocalDetails
            name = {name}
            adress = {adress}
+           latitude = {lat}
+           longitude = {long}
         />
       </View>
     )

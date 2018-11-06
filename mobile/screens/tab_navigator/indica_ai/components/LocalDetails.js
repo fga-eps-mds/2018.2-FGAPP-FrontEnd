@@ -1,4 +1,5 @@
 import { Platform } from 'react-native';
+import { createStackNavigator } from 'react-navigation';
 import React, { Component } from "react";
 import {View,Button, Text, Card, CardItem, Body } from 'native-base';
 import { Constants, Location, Permissions } from 'expo';
@@ -11,6 +12,7 @@ import { Dimensions } from "react-native";
 import Icon from 'react-native-vector-icons/Entypo';
 import Expo from "expo";
 import { withNavigation } from 'react-navigation';
+
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height / 2;
@@ -33,12 +35,18 @@ class LocalDetails extends Component {
                   </Body>
                 </CardItem>
                 <CardItem footer style={styles.cardFooter}>
-                     <Button info style={styles.button} ><Text> {"Chek-in"} </Text></Button>
+                     <Button info style={styles.button} ><Text> {"Check-in"} </Text></Button>
                      <Button
                         info
                         style={styles.button}
                         bordered
-                        onPress={() => this.props.navigation.navigate("RegisterAPI")}
+                        onPress={() => {
+                          //sending data to the page Register api screen through navigation
+                          this.props.navigation.navigate("RegisterAPI",
+                          {latitude:this.props.latitude, longitude:this.props.longitude,
+                           adress:this.props.adress })
+
+                        }}
                      >
                        <Icon
                          name='location'
