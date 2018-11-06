@@ -10,7 +10,7 @@ import LocalMap from "../components/LocalMap.js";
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Dimensions } from "react-native";
 import { withNavigation } from 'react-navigation';
-import FavoriteIcon from "../components/FavoriteIcon";
+import FavoriteContainer from "./FavoriteContainer";
 import { showMessage, hideMessage } from "react-native-flash-message";
 import FlashMessage from "react-native-flash-message";
 
@@ -35,7 +35,8 @@ class ViewLocal extends Component{
 
   render() {
     const { id, name, description } = this.state.local;
-
+    console.log("______________      ID        ______________________________");
+    console.log(id);
     return (
         <View style={styles.container}>
           <ScrollView>
@@ -53,8 +54,8 @@ class ViewLocal extends Component{
       <Text style = {{fontSize: 20}}>{name}</Text>
      </View>
      <View style = {{top: -15}}>
-      <FavoriteIcon
-       favMessage = {this.favMessage}
+      <FavoriteContainer
+       favMessageView = {this.favMessage}
      />
      </View>
    </View>
@@ -129,20 +130,6 @@ const styles = StyleSheet.create({
     width: 330,
     left: 4.5,
     marginVertical: 10
-  },
-  localName:{
-    width: 250,
-    fontSize: 20,
-    marginTop: 10,
-    marginLeft: 15,
-    marginBottom: -25,
-    justifyContent: 'flex-start'
-
-  },
-  localHeart:{
-    marginLeft: 285,
-    top: -15,
-    justifyContent: 'flex-end'
   },
   localMap:{
     height: 180,

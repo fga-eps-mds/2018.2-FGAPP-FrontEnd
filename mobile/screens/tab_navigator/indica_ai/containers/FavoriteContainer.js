@@ -9,10 +9,15 @@ import {
 } from "react-native";
 
 export default class FavoriteContainer extends React.Component {
+  favMessageIcon = (fav)=>{
+    this.props.favMessageView(fav)
+  }
   render(){
     return(
       <View>
-        <FavoriteIcon/>
+        <FavoriteIcon
+        favMessageIcon = {this.favMessageIcon}
+        />
       </View>
     )
   }

@@ -8,15 +8,16 @@ import {
   View,
 } from "react-native";
 const w = Dimensions.get("window");
+import FavoriteContainer from "../containers/FavoriteContainer"
 export default class App extends React.Component {
   state = {
     liked: false,
   };
 
+
   toggleLike = () =>{
     this.setState(state => ({ liked: !state.liked }))
-    this.props.favMessage(this.state.liked)
-
+    this.props.favMessageIcon(this.state.liked)
   }
 
   render() {
