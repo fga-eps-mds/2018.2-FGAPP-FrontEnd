@@ -29,7 +29,7 @@ class RegisterLocalAPI extends Component{
                latitude: this.props.latitude,
                longitude: this.props.longitude,
                description: description,
-               address: "rua zzzz quadra zzzz"
+               address: this.props.adress
              });
           try{
          const response = await fetch(url, {
@@ -44,6 +44,13 @@ class RegisterLocalAPI extends Component{
            console.log(jsonResponse);
            if(jsonResponse['status'] === "SUCCESS"){
               this.setState({requestStatus: "SUCCESS"})
+              this.setState({
+                local: {
+                  name: name,
+                  description: description,
+                  id: jsonResponse["data"][0]["id"]
+                }
+              })
             }else{
               this.setState({requestStatus: "FAILED"})
             }
@@ -54,13 +61,6 @@ class RegisterLocalAPI extends Component{
 
   takeDataFromTheForm = (name, description) => {
      this._postForm (name, description);
-     this.setState({
-       local: {
-         name: name,
-         description: description,
-         id: null
-       }
-     })
   }
 
   render() {
