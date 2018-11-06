@@ -10,6 +10,9 @@ import LocalMap from "../components/LocalMap.js";
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Dimensions } from "react-native";
 import { withNavigation } from 'react-navigation';
+import FavoriteIcon from "../components/FavoriteIcon";
+import { showMessage, hideMessage } from "react-native-flash-message";
+import FlashMessage from "react-native-flash-message";
 
 width = Dimensions.get('window').width;
 
@@ -20,9 +23,19 @@ class ViewLocal extends Component{
       local: props.navigation.state.params ? props.navigation.state.params.local : undefined,
     };
   }
+  favMessage = (fav)=>{
+      showMessage({
+               message: fav ?  "Removido dos favoritos": "Adicionado aos favoritos" ,
+               type: fav ? "warning":"success",
+               position: "center",
+               icon: fav ? "info":"success",
+               duration: 900
+             });
+  }
+
   render() {
     const { id, name, description } = this.state.local;
-    
+
     return (
         <View style={styles.container}>
           <ScrollView>
@@ -30,14 +43,21 @@ class ViewLocal extends Component{
               source={require('../assets/fga.jpg')}
             />
             <View style={styles.localContainer}>
-              <Text style={styles.localName}>
-                {name}
-              </Text>
-              <Icon style={styles.localHeart}
-                name='ios-heart-outline'
-                color='black'
-                size={30}
-              />
+            <View style={{
+     flex: 1,
+     flexDirection: 'row',
+     justifyContent: 'flex-start',
+     top: 10
+   }}>
+     <View>
+      <Text style = {{fontSize: 20}}>{name}</Text>
+     </View>
+     <View style = {{top: -15}}>
+      <FavoriteIcon
+       favMessage = {this.favMessage}
+     />
+     </View>
+   </View>
               <View style={styles.hr}></View>
               <View style={styles.localMap}>
                 <LocalMap/>
@@ -81,6 +101,7 @@ class ViewLocal extends Component{
                 <Text style={styles.localInfo}>4.0</Text>
             </View>
           </ScrollView>
+        <FlashMessage position="top"/>
         </View>
     );
   }
@@ -115,10 +136,13 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginLeft: 15,
     marginBottom: -25,
+    justifyContent: 'flex-start'
+
   },
   localHeart:{
     marginLeft: 285,
-    top: -15
+    top: -15,
+    justifyContent: 'flex-end'
   },
   localMap:{
     height: 180,
