@@ -4,6 +4,10 @@ import { Card, CardItem, Text, Left, Right, View } from 'native-base';
 import styles from './styles';
 
 class OrderCard extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     var status = this.props.orderStatus;
     var statusValue = (status == 0) ? 'Pendente' : (status == 1 ? 'Atendido' : 'Cancelado');
