@@ -57,9 +57,9 @@ class ViewLocal extends Component {
               Informações:
             </Text>
 
-            {this.displayJsxTelephone(telephone)}
+            {this.displayJsxInformation(telephone, icon = 'md-call')}
 
-            {this.displayJsxAddress(address)}
+            {this.displayJsxInformation(address, icon = 'md-pin')}
 
             <View style={styles.fieldInfo}>
               <Icon style={styles.localInfoIcons}
@@ -110,29 +110,12 @@ class ViewLocal extends Component {
     }
   }
 
-  displayJsxTelephone(info) {
+  displayJsxInformation(info, icon) {
     if (info) {
       return (
         <View style={styles.fieldInfo}>
           <Icon style={styles.localInfoIcons}
-            name='md-call'
-            color='black'
-            size={25}
-          />
-          <Text style={styles.localInfo}>
-            {info}
-          </Text>
-        </View>
-      );
-    }
-  }
-
-  displayJsxAddress(info) {
-    if (info) {
-      return (
-        <View style={styles.fieldInfo}>
-          <Icon style={styles.localInfoIcons}
-            name='md-pin'
+            name = {icon}
             color='black'
             size={25}
           />
