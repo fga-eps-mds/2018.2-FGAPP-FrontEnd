@@ -10,6 +10,7 @@ import LocalMap from "../components/LocalMap.js";
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Dimensions } from "react-native";
 import { withNavigation } from 'react-navigation';
+import OpeningHoursPanel from '../components/OpeningHoursPanel';
 
 width = Dimensions.get('window').width;
 
@@ -30,65 +31,57 @@ class ViewLocal extends Component {
       longitude,
       telephone,
       local_ratings,
+      opening_hours,
     } = this.state.local;
 
     return (
-      <View style={styles.container}>
-        <ScrollView>
-          <Image style={{ height: 230, width: width }}
-            source={require('../assets/fga.jpg')}
+      <ScrollView style={styles.container}>
+        <Image style={{ height: 230, width: width }}
+          source={require('../assets/fga.jpg')}
+        />
+
+        <View style={styles.localContainer}>
+          <Text style={styles.localName}>
+            {name}
+          </Text>
+          <Icon style={styles.localHeart}
+            name='ios-heart-outline'
+            color='black'
+            size={30}
           />
 
-          <View style={styles.localContainer}>
-            <Text style={styles.localName}>
-              {name}
-            </Text>
-            <Icon style={styles.localHeart}
-              name='ios-heart-outline'
-              color='black'
-              size={30}
-            />
+          <View style={styles.hr}></View>
 
-            <View style={styles.hr}></View>
+          {this.displayLocalMap(latitude, longitude, name, description)}
 
-            {this.displayLocalMap(latitude, longitude, name, description)}
-
-            <Text style={styles.localInfoTitle}>
-              Informações:
+          <Text style={styles.localInfoTitle}>
+            Informações:
             </Text>
 
-            {this.displayJsxInformation(telephone, icon = 'md-call')}
+          {this.displayJsxInformation(telephone, icon = 'md-call')}
 
-            {this.displayJsxInformation(address, icon = 'md-pin')}
+          {this.displayJsxInformation(address, icon = 'md-pin')}
 
-            <View style={styles.fieldInfo}>
-              <Icon style={styles.localInfoIcons}
-                name='md-clock'
-                color='black'
-                size={25}
-              />
-              <Text style={styles.localInfo}>6:00 - 22:00</Text>
-            </View>
+          {this.displayJsxOpeningHours(opening_hours, icon = 'md-clock')}
 
-            <View style={styles.fieldDescription}>
-              {this.displayJsxDescription(description)}
-            </View>
-
-            <View style={styles.hr}></View>
-
-            <Text style={styles.localInfoTitle}>
-              Avaliação:
-            </Text>
-
-            <Icon style={styles.localInfoIcons}
-              name='md-star'
-              color='black'
-              size={25}
-            />
-            <Text style={styles.localInfo}>4.0</Text>
+          <View style={styles.fieldDescription}>
+            {this.displayJsxDescription(description)}
           </View>
-        </ScrollView>
-      </View>
+
+          <View style={styles.hr}></View>
+
+          <Text style={styles.localInfoTitle}>
+            Avaliação:
+            </Text>
+
+          <Icon style={styles.localInfoIcons}
+            name='md-star'
+            color='black'
+            size={25}
+          />
+          <Text style={styles.localInfo}>4.0</Text>
+        </View>
+      </ScrollView>
     );
   }
 
@@ -115,7 +108,7 @@ class ViewLocal extends Component {
       return (
         <View style={styles.fieldInfo}>
           <Icon style={styles.localInfoIcons}
-            name = {icon}
+            name={icon}
             color='black'
             size={25}
           />
@@ -123,6 +116,25 @@ class ViewLocal extends Component {
             {info}
           </Text>
         </View>
+      );
+    }
+  }
+
+  displayJsxOpeningHours(opening_hours, icon){
+    if (opening_hours) {
+      return (
+        <View style={styles.fieldHours}>
+            <Icon style={styles.localInfoIcons}
+              name= {icon}
+              color='black'
+              size={25}
+            />
+            <View style={styles.localHours}>
+              <OpeningHoursPanel
+                title="Horários"
+                opening_hours={opening_hours} />
+            </View>
+          </View>
       );
     }
   }
@@ -144,7 +156,7 @@ export default withNavigation(ViewLocal);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "row",
+    flexDirection: "column",
     position: "absolute",
     backgroundColor: "white",
     top: 0,
@@ -179,7 +191,8 @@ const styles = StyleSheet.create({
     left: 10
   },
   localInfoIcons: {
-    left: 20
+    left: 20,
+    position: 'relative'
   },
   localInfoTitle: {
     left: 20,
@@ -191,10 +204,23 @@ const styles = StyleSheet.create({
     top: -22,
     marginBottom: -10,
   },
+  localHours: {
+    left: 10,
+    top: -12,
+    width: '100%',
+    marginBottom: -10,
+  },
   fieldInfo: {
     marginTop: 10,
     marginRight: 10,
     width: '80%',
+  },
+  fieldHours: {
+    flex: 1,
+    marginTop: 10,
+    marginRight: 10,
+    width: '80%',
+    flexDirection: 'row',
   },
   fieldDescription: {
     marginTop: 30,
