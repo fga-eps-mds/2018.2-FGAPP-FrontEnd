@@ -56,7 +56,7 @@ class ViewLocal extends Component {
 
           <Text style={styles.localInfoTitle}>
             Informações:
-            </Text>
+          </Text>
 
           {this.displayJsxInformation(telephone, icon = 'md-call')}
 
@@ -120,21 +120,21 @@ class ViewLocal extends Component {
     }
   }
 
-  displayJsxOpeningHours(opening_hours, icon){
+  displayJsxOpeningHours(opening_hours, icon) {
     if (opening_hours) {
       return (
         <View style={styles.fieldHours}>
-            <Icon style={styles.localInfoIcons}
-              name= {icon}
-              color='black'
-              size={25}
-            />
-            <View style={styles.localHours}>
-              <OpeningHoursPanel
-                title="Horários"
-                opening_hours={opening_hours} />
-            </View>
+          <Icon style={styles.localInfoIcons}
+            name={icon}
+            color='black'
+            size={25}
+          />
+          <View style={styles.localHours}>
+            <OpeningHoursPanel
+              title="Horários"
+              opening_hours={opening_hours} />
           </View>
+        </View>
       );
     }
   }
@@ -142,9 +142,15 @@ class ViewLocal extends Component {
   displayJsxDescription(description) {
     if (description) {
       return (
-        <Text style={styles.description}>
-          {description}
-        </Text>
+        <View style={styles.fieldDescription}>
+          <View style={styles.hr}></View>
+          <Text style={styles.localInfoTitle}>
+              Descrição:
+          </Text>
+          <Text style={styles.description}>
+            {description}
+          </Text>
+        </View>
       );
     }
   }
@@ -223,7 +229,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   fieldDescription: {
-    marginTop: 30,
+    marginTop: 10,
     marginRight: 10,
     width: '80%',
   },
@@ -231,6 +237,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     left: 50,
     top: -22,
-    marginBottom: -10,
+    marginTop: 20,
+    marginBottom: 10,
   }
 });
