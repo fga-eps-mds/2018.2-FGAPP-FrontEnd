@@ -200,7 +200,6 @@ constructor(props){
 
     let opening_hours = [];
     opening_hours = this.state.opening_hours;
-    console.log(opening_hours);
 
     const data = {name, address, telephone, latitude, longitude, opening_hours}
 
