@@ -19,7 +19,6 @@ width = Dimensions.get('window').width;
 
 class ViewLocal extends Component {
   constructor(props) {
-    console.log("================================================================")
     super(props);
     this.state = {
       local: props.navigation.state.params ? props.navigation.state.params.local : undefined,
