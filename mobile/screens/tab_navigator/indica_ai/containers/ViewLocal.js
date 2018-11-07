@@ -68,18 +68,8 @@ class ViewLocal extends Component {
             {this.displayJsxDescription(description)}
           </View>
 
-          <View style={styles.hr}></View>
+          {this.displayJsxRating(local_ratings)}
 
-          <Text style={styles.localInfoTitle}>
-            Avaliação:
-            </Text>
-
-          <Icon style={styles.localInfoIcons}
-            name='md-star'
-            color='black'
-            size={25}
-          />
-          <Text style={styles.localInfo}>4.0</Text>
         </View>
       </ScrollView>
     );
@@ -121,7 +111,7 @@ class ViewLocal extends Component {
   }
 
   displayJsxOpeningHours(opening_hours, icon) {
-    if (opening_hours) {
+    if (!(Object.keys(opening_hours).length === 0)) {
       return (
         <View style={styles.fieldHours}>
           <Icon style={styles.localInfoIcons}
@@ -145,11 +135,35 @@ class ViewLocal extends Component {
         <View style={styles.fieldDescription}>
           <View style={styles.hr}></View>
           <Text style={styles.localInfoTitle}>
-              Descrição:
+            Descrição:
           </Text>
           <Text style={styles.description}>
             {description}
           </Text>
+        </View>
+      );
+    }
+  }
+
+  displayJsxRating(local_ratings) {
+    if (!(Object.keys(local_ratings).length === 0)) {
+      let average = 0;
+      for (const index in local_ratings) {
+        average += local_ratings[index]['value'];
+      }
+      average = average / local_ratings.length;
+      return (
+        <View style={styles.fieldInfo}>
+          <View style={styles.hr}></View>
+          <Text style={styles.localInfoTitle}>
+            Avaliação:
+          </Text>
+          <Icon style={styles.localInfoIcons}
+            name='md-star'
+            color='black'
+            size={25}
+          />
+          <Text style={styles.localInfo}>{average}</Text>
         </View>
       );
     }

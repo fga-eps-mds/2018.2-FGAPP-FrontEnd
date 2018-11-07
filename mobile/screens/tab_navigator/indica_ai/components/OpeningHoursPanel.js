@@ -79,7 +79,9 @@ class OpeningHoursPanel extends Component {
 
         <View style={styles.body} onLayout={this._setMaxHeight.bind(this)}>
           {this.state.opening_hours.map(hour =>
-            <Text>{this.displayDay(hour['day'])} : {hour['opens']} - {hour['closes']}</Text>
+            <Text key={hour['day']}>
+              {this.displayDay(hour['day'])} : {hour['opens']} - {hour['closes']}
+            </Text>
           )}
         </View>
 
@@ -88,9 +90,9 @@ class OpeningHoursPanel extends Component {
   }
 
   displayDay(day_number) {
-    if(day_number){
+    if (day_number) {
       let day;
-      switch(day_number){
+      switch (day_number) {
         case 1:
           day = 'Domingo';
           break;
