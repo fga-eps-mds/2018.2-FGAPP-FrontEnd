@@ -19,7 +19,7 @@ export default class ErrorModal extends React.Component{
               color='red'
               size={50}
               />
-              <Text style={styles.boxTitle}>Ocorreu um erro ao cadastrar este local.</Text>
+              <Text style={styles.boxTitle}>Erro ao cadastrar este local.</Text>
               <View style={styles.buttonContainer}>
                 <TouchableOpacity style={[styles.button, styles.cancelButton]} onPress={this.props.onCancel}>
                   <Text style={styles.buttonText}>OK</Text>

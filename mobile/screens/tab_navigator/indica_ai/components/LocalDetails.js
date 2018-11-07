@@ -32,7 +32,8 @@ class LocalDetails extends Component {
                   <Body>
                   <ScrollView>
                     <Text numberOfLines={2} style = {styles.text}>
-                      {'Endereço:'} {this.props.adress}
+                      {'Endereço:'} {this.props.address}
+
                     </Text>
                   </ScrollView>
                   </Body>

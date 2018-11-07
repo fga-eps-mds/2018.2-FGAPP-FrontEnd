@@ -14,7 +14,9 @@ import {
 import { Dimensions } from "react-native";
 import UserLocationMap from "../components/UserLocationMap";
 import Expo from "expo";
-import LocalDetails from "../components/LocalDetails"
+import LocalDetails from "../components/LocalDetails";
+import SuccessModal from '../components/SuccessModal';
+import ErrorModal from '../components/ErrorModal';
 
 class RegisterLocal extends Component{
 
@@ -27,6 +29,9 @@ constructor(props){
     error: null,
    jsonResponse: null,
    jsonDetails: null,
+   opening_hours: [],
+   successModalVisible: false,
+   errorModalVisible: false,
  };
 }
   async componentWillMount() {
@@ -116,6 +121,21 @@ constructor(props){
        if(response.ok){
          const jsonDetails = await response.json();
          this.setState({jsonDetails});
+         console.log(jsonDetails);
+         let obj=[];
+         for(let i=0; i<7; i++){
+           if(jsonDetails['result']['opening_hours']['periods'][i]){
+             day = i+1;
+             this.setState({day});
+             opens = jsonDetails['result']['opening_hours']['periods'][i]['open']['time'];
+             this.setState({opens});
+             closes = jsonDetails['result']['opening_hours']['periods'][i]['close']['time'];
+             this.setState({closes});
+             obj = {day, opens, closes};
+             this.state.opening_hours = [ ...this.state.opening_hours, obj];
+           }
+         }
+         this.state.opening_hours = []
        }
        throw new Error('Request failed!');
      } catch(Error){
@@ -138,23 +158,16 @@ constructor(props){
        })
        if(response.ok){
          const jsonResponse = await response.json();
-         Alert.alert(
-           'Local cadastrado com sucesso!',
-           "",
-            { cancelable: false }
-         )
+         this.setState({ successModalVisible: true })
        }
      }
      catch(error){
-       Alert.alert(
-         "Houve um erro ao cadastrar esse local, tente novamente mais tarde.",,
-         "",
-          { cancelable: false }
-       )
+       this.setState({ errorModalVisible: true })
      }
    };
 
   render() {
+
 
     let latitude;
     let longitude;
@@ -180,19 +193,14 @@ constructor(props){
     }
     let telephone;
     let rating;
-
     if(this.state.jsonDetails){
       telephone = this.state.jsonDetails['result']['formatted_phone_number']
       rating = this.state.jsonDetails['result']['rating']
-      for(const i=0; i<7; i++){
-        day = jsonDetails['result']['opening_hours']['periods'][i]
-        opens = jsonDetails['result']['opening_hours']['periods'][i]['open']['time']
-        closes = jsonDetails['result']['opening_hours']['periods'][i]['close']['time']
-        opening_hours[i] = {day, opens, closes}
-        console.log(day, opens, closes);
-        console.log(opening_hours);
-      }
     }
+
+    let opening_hours = [];
+    opening_hours = this.state.opening_hours;
+    console.log(opening_hours);
 
     const data = {name, address, telephone, latitude, longitude, opening_hours}
 
@@ -214,6 +222,14 @@ constructor(props){
            sendData = {this.sendData}
            name = {name}
            address = {address}
+        />
+        <SuccessModal
+          onCancel={() => this.setState({ successModalVisible: false })}
+          visible={this.state.successModalVisible}
+        />
+        <ErrorModal
+          onCancel={() => this.setState({ errorModalVisible: false })}
+          visible={this.state.errorModalVisible}
         />
       </View>
     )
