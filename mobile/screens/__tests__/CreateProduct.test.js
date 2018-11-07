@@ -7,59 +7,56 @@ import renderer from 'react-test-renderer';
 
 Enzyme.configure({adapter: new Adapter()});
 
+
+
 it('renders correctly', () => {
   const navigation = jest.fn();
   const tree = renderer.create(<CreateProduct navigation={navigation}/>).toJSON();
   expect(tree).toMatchSnapshot();
 });
 
-it('test openDialog to be true',() => {
+it('tests openDialog to be true',() => {
   const navigation = jest.fn();
   const wrapper = shallow(<CreateProduct navigation = {navigation}/>);
   const openDialog = wrapper.instance().openDialog();
   //console.log(openDialog);
 });
 
-it('test closeDialog to be false',() => {
+it('tests closeDialog to be false',() => {
   const navigation = jest.fn();
   const wrapper = shallow(<CreateProduct navigation = {navigation}/>);
   const closeDialog = wrapper.instance().closeDialog();
-  //console.log(closeDialog);
 });
 
-it('test goBack',() => {
+it('tests goBack function',() => {
   const navigation = jest.fn();
   const wrapper = shallow(<CreateProduct navigation = {navigation}/>);
   const _goBack = wrapper.instance()._goBack();
-  //console.log(_goBack);
 });
 
-it('test registerProduct function',() => {
+it('tests registerProduct function',() => {
   const navigation = jest.fn();
   const wrapper = shallow(<CreateProduct navigation = {navigation}/>);
   const registerProduct = wrapper.instance().registerProduct();
-  //console.log(registerProduct);
 });
 
-it('test componentWillUnmount function',() => {
+it('tests componentWillUnmount function',() => {
   const navigation = jest.fn();
   const wrapper = shallow(<CreateProduct navigation = {navigation}/>);
   const componentWillUnmount = wrapper.instance().componentWillUnmount();
-  //console.log(componentWillUnmount);
 });
 
-// it('test keyboardDidShow function',() => {
-//   const navigation = jest.fn();
-//   const wrapper = shallow(<CreateProduct navigation = {navigation}/>);
-//   const _keyboardDidShow = wrapper.instance()._keyboardDidShow();
-//   //console.log(_keyboardDidShow);
-// });
+it('tests keyboardDidShow function',() => {
+  const navigation = jest.fn();
+  const isButtonsHidden = true;
+  const wrapper = shallow(<CreateProduct navigation = {navigation}/>);
+  const _keyboardDidShow = wrapper.instance()._keyboardDidShow();
+});
 
 it('test keyboardDidHide function',() => {
   const navigation = jest.fn();
   const wrapper = shallow(<CreateProduct navigation = {navigation}/>);
   const _keyboardDidHide = wrapper.instance()._keyboardDidHide();
-  //console.log(_keyboardDidHide);
 });
 
 test('change input title ', () => {
