@@ -117,11 +117,11 @@ constructor(props){
      try{
        const response = await fetch('https://maps.googleapis.com/maps/api/place/details/json?placeid='+
                                     place_id+
-                                    '&fields=opening_hours,formatted_address,name,rating,formatted_phone_number,photo,rating,geometry,reviews&key=AIzaSyBM9WYVio--JddgNX3TTF6flEhubkpjJYc')
+                                    '&fields=opening_hours,formatted_address,name,rating,formatted_phone_number,'
+                                     +'photo,rating,geometry,reviews&key=AIzaSyBM9WYVio--JddgNX3TTF6flEhubkpjJYc')
        if(response.ok){
          const jsonDetails = await response.json();
          this.setState({jsonDetails});
-         console.log(jsonDetails);
          let obj=[];
          for(let i=0; i<7; i++){
            if(jsonDetails['result']['opening_hours']['periods'][i]){
