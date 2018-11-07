@@ -19,6 +19,7 @@ width = Dimensions.get('window').width;
 
 class ViewLocal extends Component {
   constructor(props) {
+    console.log("================================================================")
     super(props);
     this.state = {
       local: props.navigation.state.params ? props.navigation.state.params.local : undefined,
@@ -45,7 +46,7 @@ class ViewLocal extends Component {
       telephone,
       local_ratings,
       opening_hours,
-    } = this.state.local;
+    } = this.state.local ? this.state.local : undefined;
 
     return (
       <ScrollView style={styles.container}>
