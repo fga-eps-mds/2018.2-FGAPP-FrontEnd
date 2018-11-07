@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import { Icon, Fab } from 'native-base';
 import jwt_decode from 'jwt-decode';
+import axios from 'axios';
 
 class MyProducts extends Component {
 
@@ -34,28 +35,25 @@ class MyProducts extends Component {
 		var user = jwt_decode(token);
 		const my_products_screen_path = `${process.env.VENDAS_API}/api/my_products_screen/`;
 
-		fetch(my_products_screen_path, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
-				'user_id': user.user_id,
-				'token': token,
-			}),
+		var self = this;
+      	axios.post(my_products_screen_path,{
+			'user_id': user.user_id,
+			'token': token,
 		})
-			.then((response) => { return response.json() })
-			.then((responseJson) => {
-				if (responseJson.length > 1) {
-					responseJson.sort((product1, product2) => {
-						return (product1.price - product2.price);
-					});
-				}
-				this.setState({ products: responseJson });
-			})
-			.catch((err) => {
-				console.log(err);
-			})
+		.then (function (response) {
+			console.log('response.data', response.data);
+			console.log('response.status', response.status);
+			if (response.data.length > 1) {
+				response.data.sort((product1, product2) => {
+					return (product1.price - product2.price);
+				});
+			}
+			self.setState({ products: response.data });
+		})
+		.catch(function (error) {
+			console.log('error', error);
+		})
+		
 	}
 
 	refreshUserProducts = async () => {
@@ -89,15 +87,15 @@ class MyProducts extends Component {
                                 key={index}
                                 photo={product.photo}
                                 name={product.name}
-																price={parseFloat(product.price).toFixed(2)}
-																onPress={() => {this.props.navigation.navigate('MyProductDetails', {token:token, product:product})} }
-																/>
-															);
-							})}
+								price={parseFloat(product.price).toFixed(2)}
+								onPress={() => {this.props.navigation.navigate('MyProductDetails', {token:token, product:product})} }
+							/>
+						);
+					})}
                   </ScrollView>
                 </View>
                 <Fab
-										onPress={() => {this.props.navigation.navigate('CreateProduct', {token:token});} }
+					onPress={() => {this.props.navigation.navigate('CreateProduct', {token:token});} }
                     style={styles.fab}>
                     <Icon name='md-add' />
                 </Fab>
