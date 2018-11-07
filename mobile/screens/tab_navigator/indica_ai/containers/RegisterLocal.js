@@ -144,6 +144,7 @@ constructor(props){
    };
    takeNewCoords = (newLatitude, newLongitude) => {
      this._getNewDataAsync(newLatitude,newLongitude);
+     this.setState({latitude: newLatitude, longitude: newLongitude});
    }
 
    sendData = async (data) => {
@@ -167,8 +168,7 @@ constructor(props){
    };
 
   render() {
-
-
+    
     let latitude;
     let longitude;
 

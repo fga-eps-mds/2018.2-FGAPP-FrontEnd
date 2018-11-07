@@ -4,14 +4,25 @@ import {
   StyleSheet
 } from "react-native";
 import RegisterLocalAPI from '../../containers/RegisterLocalAPI.js';
+import { withNavigation,createStackNavigator } from 'react-navigation';
 
 
 class RegisterAPIScreen extends Component {
-
+constructor(props){
+  super(props);
+  this.state = {
+    //taking data from the page LocalDetails through navigation!!
+    latitude: this.props.navigation.state.params.latitude,
+    longitude: this.props.navigation.state.params.longitude
+  }
+}
   render() {
       return (
           <View style={styles.container}>
-              <RegisterLocalAPI />
+              <RegisterLocalAPI
+                latitude = {this.state.latitude}
+                longitude = {this.state.longitude}
+              />
           </View>
       );
   }
