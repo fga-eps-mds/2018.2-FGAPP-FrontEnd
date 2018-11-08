@@ -10,62 +10,13 @@ import {
 	TouchableOpacity,
 	Switch
 } from "react-native";
+import { ImagePicker } from "expo";
 import { Icon, TextInput, Button, H2, Item, Input } from "native-base";
 
 import CadastroInput from "./CadastroInput/index.js";
-import MapsModal from './MapsModal/index.js'
+import MapsModal from "./MapsModal/index.js";
 
 const eighteen = require("../../../static/eighteen.png");
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		alignContent: "center",
-		backgroundColor: "white",
-		justifyContent: "space-between"
-	},
-	inputContainer: {
-		width: "80%",
-		alignSelf: "center",
-		justifyContent: "space-around",
-		alignItems: "center",
-		flexDirection: "row",
-		marginTop: 10
-	},
-	pageBtn: {
-		width: "100%",
-		backgroundColor: "#1CBD24",
-		alignSelf: "center",
-		borderRadius: 0
-	},
-	doublePageBtn: {
-		flexDirection: "row",
-		width: "100%",
-		alignSelf: "center",
-		backgroundColor: "green"
-	},
-	stageIndicator: {
-		alignSelf: "center",
-		width: 50,
-		backgroundColor: "rgba(0,0,0,0.07)",
-		alignItems: "center",
-		borderRadius: 10,
-		margin: 5
-	},
-	questionText: {
-		textAlign: "center",
-		fontWeight: "bold",
-		width: "70%",
-		alignSelf: "center"
-	},
-	dateTimePicker: {
-		borderBottomWidth: 1,
-		borderColor: "lightgrey",
-		minWidth: "40%",
-		justifyContent: "center",
-		alignItems: "center"
-	}
-});
 
 export default class CadastroEventos1 extends Component {
 	state = {
@@ -86,8 +37,8 @@ export default class CadastroEventos1 extends Component {
 		photo: null,
 
 		stage: 0,
-    blocked: true,
-    modalVisibility: false,
+		blocked: true,
+		modalVisibility: false
 	};
 
 	_resetStates() {
@@ -109,20 +60,20 @@ export default class CadastroEventos1 extends Component {
 			photo: null,
 
 			blocked: true
-    });
-    console.log('States resetados')
-    console.log(this.state);
-  }
-  
-  componentDidMount(){
-    this._resetStates()
-  }
+		});
+		console.log("States resetados");
+		console.log(this.state);
+	}
+
+	componentDidMount() {
+		this._resetStates();
+	}
 
 	_cadastraRole() {
 		console.log("DEBUG - Rolê cadastrado!");
 		Alert.alert("Sucesso!", "Seu evento foi cadastrado!");
-    this._resetStates();
-    this.setState({stage: 0})
+		this._resetStates();
+		this.setState({ stage: 0 });
 	}
 
 	_stageValidation() {
@@ -224,11 +175,27 @@ export default class CadastroEventos1 extends Component {
 		}
 	}
 
-  _toggleModal(){
-    this.setState({modalVisibility: !this.state.modalVisibility})
-  }
+	_imagePicker = async () => {
+		let result = await ImagePicker.launchImageLibraryAsync({
+			allowsEditing: true,
+			aspect: [1, 1]
+		  });
+
+		console.log("Image Picker:" + result);
+
+		if (!result.cancelled) {
+			this.setState({ photo: result.uri });
+			console.log(this.state.photo);
+		  }
+	};
+
+	_toggleModal() {
+		this.setState({ modalVisibility: !this.state.modalVisibility });
+	}
 
 	render() {
+		let { photo } = this.state;
+
 		if (this.state.stage === 0) {
 			return (
 				<View flex={1} backgroundColor="white" justifyContent="space-around">
@@ -412,10 +379,17 @@ export default class CadastroEventos1 extends Component {
 									alignSelf: "center",
 									marginTop: 10
 								}}
+								onPress={this._imagePicker}
 							>
 								<Icon type="FontAwesome" name="camera" />
-								<Text style={{color: 'white'}}>Upload da imagem</Text>
+								<Text style={{ color: "white" }}>Upload da imagem</Text>
 							</Button>
+							{photo && (
+								<Image
+									source={{ uri: photo }}
+									style={{ width: 200, height: 200 }}
+								/>
+							)}
 						</View>
 
 						<View style={styles.doublePageBtn}>
@@ -446,11 +420,11 @@ export default class CadastroEventos1 extends Component {
 		} else if (this.state.stage === 3) {
 			return (
 				<View flex={1} backgroundColor="white">
-          <MapsModal
-            visible = {this.state.modalVisibility}
-            closeModal={() => this._toggleModal()}
-            // address = {address => this.state.address}
-          />
+					<MapsModal
+						visible={this.state.modalVisibility}
+						closeModal={() => this._toggleModal()}
+						// address = {address => this.state.address}
+					/>
 					<View style={styles.stageIndicator}>
 						<Text>3/3</Text>
 					</View>
@@ -489,8 +463,8 @@ export default class CadastroEventos1 extends Component {
 									marginTop: 10,
 									alignSelf: "center",
 									borderRadius: 10
-                }}
-                onPress={()=>this._toggleModal()}
+								}}
+								onPress={() => this._toggleModal()}
 							>
 								<Icon
 									type="MaterialIcons"
@@ -550,3 +524,53 @@ export default class CadastroEventos1 extends Component {
 		}
 	}
 }
+
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		alignContent: "center",
+		backgroundColor: "white",
+		justifyContent: "space-between"
+	},
+	inputContainer: {
+		width: "80%",
+		alignSelf: "center",
+		justifyContent: "space-around",
+		alignItems: "center",
+		flexDirection: "row",
+		marginTop: 10
+	},
+	pageBtn: {
+		width: "100%",
+		backgroundColor: "#1CBD24",
+		alignSelf: "center",
+		borderRadius: 0
+	},
+	doublePageBtn: {
+		flexDirection: "row",
+		width: "100%",
+		alignSelf: "center",
+		backgroundColor: "green"
+	},
+	stageIndicator: {
+		alignSelf: "center",
+		width: 50,
+		backgroundColor: "rgba(0,0,0,0.07)",
+		alignItems: "center",
+		borderRadius: 10,
+		margin: 5
+	},
+	questionText: {
+		textAlign: "center",
+		fontWeight: "bold",
+		width: "70%",
+		alignSelf: "center"
+	},
+	dateTimePicker: {
+		borderBottomWidth: 1,
+		borderColor: "lightgrey",
+		minWidth: "40%",
+		justifyContent: "center",
+		alignItems: "center"
+	}
+});
