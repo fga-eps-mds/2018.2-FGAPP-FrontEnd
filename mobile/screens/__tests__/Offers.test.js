@@ -18,3 +18,9 @@ it('test loadOffers',() => {
   const wrapper = shallow(<Offers navigation = {navigation}/>);
   const loadOffers = wrapper.instance().loadOffers();
 });
+
+it('test refreshOffers',() => {
+  const navigation = jest.fn();
+  const wrapper = shallow(<Offers navigation = {navigation}/>);
+  const refreshOffers = wrapper.instance().refreshOffers();
+});
