@@ -133,7 +133,7 @@ class ViewLocal extends Component {
     }
   }
 
-  displayJsxOpeningHours(opening_hours, icon) {
+  displayJsxOpeningHours(opening_hours = {}, icon) {
     if (!(Object.keys(opening_hours).length === 0)) {
       return (
         <View style={styles.fieldHours}>
@@ -168,7 +168,7 @@ class ViewLocal extends Component {
     }
   }
 
-  displayJsxRating(local_ratings) {
+  displayJsxRating(local_ratings = {}) {
     if (!(Object.keys(local_ratings).length === 0)) {
       let average = 0;
       for (const index in local_ratings) {
@@ -228,7 +228,7 @@ const styles = StyleSheet.create({
     marginLeft: 285,
     top: -15
   },
-  localMap:{
+  localMap: {
     height: 180,
     width: 320,
     left: 10
