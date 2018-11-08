@@ -13,7 +13,10 @@
     "react-test-renderer": "16.3.1",
     "ts-jest": "^22.4.6",
     "tslib": "^1.9.1",
-    "typescript": "^2.8.3"
+    "typescript": "^2.8.3",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "json-loader": "^0.5.7"
   },
   "main": "./node_modules/react-native-scripts-ts/build/bin/crna-entry.js",
   "scripts": {
@@ -29,6 +32,9 @@
         "useBabelrc": true
       }
     },
+    "transformIgnorePatterns": [
+      "node_modules/(?!react-native|react-navigation)/"
+    ],
     "moduleFileExtensions": [
       "ts",
       "tsx",
@@ -49,16 +55,16 @@
   "dependencies": {
     "@expo/vector-icons": "^6.3.1",
     "babel-plugin-inline-dotenv": "^1.1.2",
-    "expo": "^27.0.1",
+    "expo": "^27.1.1",
     "expo-cli": "^2.3.6",
     "jwt-decode": "^2.2.0",
     "native-base": "^2.8.0",
     "react": "16.3.1",
+    "react-dom": "^16.6.0",
     "react-native": "~0.55.2",
     "react-native-cookie": "^0.2.0",
     "react-native-dialog": "^5.3.0",
     "react-native-dialog-input": "^1.0.4",
-    "react-native-keyboard-aware-scroll-view": "^0.7.2",
     "react-navigation": "1.0.0-beta.11",
     "react-redux": "5.0.7",
     "redux": "4.0.0"
