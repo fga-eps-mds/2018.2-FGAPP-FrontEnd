@@ -14,6 +14,7 @@ import OpeningHoursPanel from '../components/OpeningHoursPanel';
 import FavoriteContainer from "./FavoriteContainer";
 import { showMessage, hideMessage } from "react-native-flash-message";
 import FlashMessage from "react-native-flash-message";
+import AddImages from "./AddImages";
 
 width = Dimensions.get('window').width;
 
@@ -55,20 +56,26 @@ class ViewLocal extends Component {
 
         <View style={styles.localContainer}>
 
-          <View style={{
-            flex: 1,
-            flexDirection: 'row',
-            justifyContent: 'flex-start',
-            top: 10
-          }}>
+          <View style={styles.localUtilitaries}>
             <View>
-              <Text style={{ fontSize: 20 }}>{name}</Text>
+              <Text style={styles.localInfoTitle}>{name}</Text>
             </View>
-            <View style={{ top: -15 }}>
+            <View style={styles.localHeart}>
               <FavoriteContainer
                 favMessageView={this.favMessage}
                 id={id}
               />
+            </View>
+          </View>
+
+          <View style={styles.hr}></View>
+
+          <View style={styles.fieldImages}>
+            <Text style={{ fontSize: 20, marginTop: 15, left: 20 }}>
+              Enviar Imagem
+            </Text>
+            <View style={styles.addImage}>
+              <AddImages />
             </View>
           </View>
 
@@ -93,8 +100,8 @@ class ViewLocal extends Component {
           {this.displayJsxRating(local_ratings)}
 
           <FlashMessage position="top" />
-        </View >
-      </ScrollView >
+        </View>
+      </ScrollView>
     );
   }
 
@@ -210,6 +217,23 @@ const styles = StyleSheet.create({
   localContainer: {
     padding: 10,
   },
+  localUtilitaries: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    width: '100%',
+    top: 10
+  },
+  addImage: {
+    marginLeft: 25,
+    marginTop: 8
+  },
+  fieldImages: {
+    flex: 1,
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+  },
   hr: {
     borderBottomColor: 'black',
     borderBottomWidth: 1,
@@ -225,8 +249,8 @@ const styles = StyleSheet.create({
     marginBottom: -25,
   },
   localHeart: {
-    marginLeft: 285,
-    top: -15
+    bottom: 15,
+    marginLeft: 20
   },
   localMap: {
     height: 180,
@@ -239,7 +263,8 @@ const styles = StyleSheet.create({
   },
   localInfoTitle: {
     left: 20,
-    fontSize: 18,
+    fontSize: 25,
+    fontWeight: 'bold',
     marginBottom: 7
   },
   localInfo: {
