@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
 		justifyContent: "space-around",
 		alignItems: "center",
 		flexDirection: "row",
-		marginTop: 10
+		marginTop: -5
 	}
 });
 
@@ -25,12 +25,14 @@ export default class CadastroInput extends Component {
 				<Icon
 					type={this.props.iconType}
 					name={this.props.iconName}
-					style={{ fontSize: 30, marginTop: 15 }}
+          style={{ fontSize: 30, marginTop: 15 }}
 				/>
 				<Item style={{ width: "80%" }}>
 					<Input
 						placeholder={this.props.placeholder}
-						style={{ textAlign: "center" }}
+            style={{ textAlign: "center" }}
+            onChangeText={(text)=>this.props.onChangeText(text)}
+            keyboardType = {this.props.keyboardType == null ? 'default' : this.props.keyboardType }
 					/>
 				</Item>
 			</View>
