@@ -278,7 +278,8 @@ export default class CadastroEventos1 extends Component {
 								placeholder="Nome do rolê"
 								iconType="MaterialIcons"
 								iconName="text-format"
-								onChangeText={eventName => this.setState({ eventName })}
+                onChangeText={eventName => this.setState({ eventName })}
+                value={this.state.eventName}
 							/>
 						</View>
 
@@ -291,7 +292,8 @@ export default class CadastroEventos1 extends Component {
 								iconType="Foundation"
 								iconName="ticket"
 								onChangeText={value => this.setState({ value })}
-								keyboardType="numeric"
+                keyboardType="numeric"
+                value={this.state.value}
 							/>
 						</View>
 
@@ -375,7 +377,8 @@ export default class CadastroEventos1 extends Component {
 								iconName="file-text"
 								onChangeText={eventDescription =>
 									this.setState({ eventDescription })
-								}
+                }
+                value={this.state.eventDescription}
 							/>
 						</View>
 
@@ -388,13 +391,15 @@ export default class CadastroEventos1 extends Component {
 									placeholder="Drinks"
 									iconType="Entypo"
 									iconName="drink"
-									onChangeText={drinks => this.setState({ drinks })}
+                  onChangeText={drinks => this.setState({ drinks })}
+                  value={this.state.drinks}
 								/>
 								<CadastroInput
 									placeholder="Comidas"
 									iconType="MaterialCommunityIcons"
 									iconName="food"
-									onChangeText={foods => this.setState({ foods })}
+                  onChangeText={foods => this.setState({ foods })}
+                  value={this.state.foods}
 								/>
 							</View>
 						</View>
@@ -463,7 +468,8 @@ export default class CadastroEventos1 extends Component {
 								placeholder="Link de referência"
 								iconType="Feather"
 								iconName="link"
-								onChangeText={linkReference => this.setState({ linkReference })}
+                onChangeText={linkReference => this.setState({ linkReference })}
+                value={this.state.linkReference}
 							/>
 						</View>
 
@@ -475,7 +481,8 @@ export default class CadastroEventos1 extends Component {
 								placeholder="Nome do Local"
 								iconType="MaterialIcons"
 								iconName="place"
-								onChangeText={address => this.setState({ address })}
+                onChangeText={address => this.setState({ address })}
+                value={this.state.address}
 							/>
 							{/* Espaçamento */}
 							<View style={{ height: 10 }} />
@@ -509,7 +516,8 @@ export default class CadastroEventos1 extends Component {
 								placeholder="Nome para Contato"
 								iconType="MaterialIcons"
 								iconName="person"
-								onChangeText={organizer => this.setState({ organizer })}
+                onChangeText={organizer => this.setState({ organizer })}
+                value={this.state.organizer}
 							/>
 							{/* Espaçamento */}
 							<View style={{ height: 10 }} />
@@ -518,7 +526,8 @@ export default class CadastroEventos1 extends Component {
 								placeholder="Telefone para Contato"
 								iconType="FontAwesome"
 								iconName="phone"
-								onChangeText={organizerTel => this.setState({ organizerTel })}
+                onChangeText={organizerTel => this.setState({ organizerTel })}
+                value={this.state.organizerTel}
 							/>
 						</View>
 

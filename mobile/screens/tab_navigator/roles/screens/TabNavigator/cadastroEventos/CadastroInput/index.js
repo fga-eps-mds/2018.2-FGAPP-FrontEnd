@@ -33,6 +33,8 @@ export default class CadastroInput extends Component {
             style={{ textAlign: "center" }}
             onChangeText={(text)=>this.props.onChangeText(text)}
             keyboardType = {this.props.keyboardType == null ? 'default' : this.props.keyboardType }
+            defaultValue=''
+            value={this.props.value === '' || this.props.value === null ? '' : this.props.value } 
 					/>
 				</Item>
 			</View>
