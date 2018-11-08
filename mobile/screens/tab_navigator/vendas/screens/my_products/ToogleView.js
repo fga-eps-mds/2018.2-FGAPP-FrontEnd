@@ -27,7 +27,7 @@ ToogleView.propTypes = {
       PropTypes.element,
     ])),
   ]).isRequired,
-  style: View.propTypes.style,
+  style: PropTypes.style,
   hide: PropTypes.bool,
 };
 

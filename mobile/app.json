@@ -12,6 +12,13 @@
     "packagerOpts": {
       "sourceExts": ["ts", "tsx"],
       "transformer": "node_modules/react-native-typescript-transformer/index.js"
+    },
+    "name": "Integra Vendas",
+    "icon": "./icon.png",
+    "version": "1.0.0",
+    "slug": "integra-vendas",
+    "android":{
+      "package":"com.integravendas.app"
     }
   }
 }
