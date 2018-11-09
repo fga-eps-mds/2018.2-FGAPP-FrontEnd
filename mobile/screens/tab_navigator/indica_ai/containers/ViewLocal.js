@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import {
   View,
-  Text,
   StyleSheet,
   Image,
   ImageBackground,
   ScrollView
 } from "react-native";
+import { Container, Header, Content, Card, CardItem, Text, Body } from 'native-base';
 import LocalMap from "../components/LocalMap.js";
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Dimensions } from "react-native";
@@ -50,58 +50,63 @@ class ViewLocal extends Component {
     } = this.state.local ? this.state.local : undefined;
 
     return (
-      <ScrollView style={styles.container}>
-
+      <View style={styles.container}>
         <ImageBackground style={styles.imageLocal} source={require('../assets/fga.jpg')}>
+          <FlashMessage position="top"/>
           <View style={styles.addImage}>
             <AddImages />
           </View>
         </ImageBackground>
+        <ScrollView>
 
-        <View style={styles.localContainer}>
+          <Content>
 
-          <View style={styles.localHeader}>
-            <View>
-              <Text style={styles.localInfoTitle}>{name}</Text>
+            <View style={styles.localContainer}>
+
+              <View style={styles.localHeader}>
+                <View>
+                  <Text style={styles.localInfoTitle}>{name}</Text>
+                </View>
+                <View style={styles.localHeart}>
+                  <FavoriteContainer
+                    favMessageView={this.favMessage}
+                    id={id}
+                  />
+                </View>
+              </View>
+
+
+              {this.displayLocalMap(latitude, longitude, name, description)}
+
+              <Card>
+                <CardItem header bordered>
+                  <Text style={styles.localInfoTitle}>
+                    Informações:
+                </Text>
+                </CardItem>
+
+                {this.displayJsxInformation(telephone, icon = 'md-call')}
+
+                {this.displayJsxInformation(address, icon = 'md-pin')}
+
+                {this.displayJsxOpeningHours(opening_hours, icon = 'md-clock')}
+              </Card>
+
+              {this.displayJsxDescription(description)}
+
+              {this.displayJsxRating(local_ratings)}
+
             </View>
-            <View style={styles.localHeart}>
-              <FavoriteContainer
-                favMessageView={this.favMessage}
-                id={id}
-              />
-            </View>
-          </View>
-
-          <View style={styles.hr}></View>
-
-          {this.displayLocalMap(latitude, longitude, name, description)}
-
-          <Text style={styles.localInfoTitle}>
-            Informações:
-          </Text>
-
-          {this.displayJsxInformation(telephone, icon = 'md-call')}
-
-          {this.displayJsxInformation(address, icon = 'md-pin')}
-
-          {this.displayJsxOpeningHours(opening_hours, icon = 'md-clock')}
-
-          <View style={styles.fieldDescription}>
-            {this.displayJsxDescription(description)}
-          </View>
-
-          {this.displayJsxRating(local_ratings)}
-
-          <FlashMessage position="top" />
-        </View>
-      </ScrollView>
+          </Content>
+        </ScrollView>
+      </View>
     );
   }
 
   displayLocalMap(latitude, longitude, name, description) {
     if (latitude && longitude) {
       return (
-        <View>
+        <Card style={{ flex: 1 }}>
           <View style={styles.localMap}>
             <LocalMap
               latitude={latitude}
@@ -110,8 +115,7 @@ class ViewLocal extends Component {
               description={description}
             />
           </View>
-          <View style={styles.hr}></View>
-        </View>
+        </Card>
       );
     }
   }
@@ -155,15 +159,18 @@ class ViewLocal extends Component {
   displayJsxDescription(description) {
     if (description) {
       return (
-        <View style={styles.fieldDescription}>
-          <View style={styles.hr}></View>
-          <Text style={styles.localInfoTitle}>
-            Descrição:
-          </Text>
-          <Text style={styles.description}>
-            {description}
-          </Text>
-        </View>
+        <Card>
+          <CardItem header bordered>
+            <Text style={styles.localInfoTitle}>
+              Descrição:
+            </Text>
+          </CardItem>
+          <CardItem>
+            <Text style={styles.description}>
+              {description}
+            </Text>
+          </CardItem>
+        </Card>
       );
     }
   }
@@ -176,18 +183,21 @@ class ViewLocal extends Component {
       }
       average = average / local_ratings.length;
       return (
-        <View style={styles.fieldInfo}>
-          <View style={styles.hr}></View>
-          <Text style={styles.localInfoTitle}>
-            Avaliação:
-          </Text>
-          <Icon style={styles.localInfoIcons}
-            name='md-star'
-            color='black'
-            size={25}
-          />
-          <Text style={styles.localInfo}>{average}</Text>
-        </View>
+        <Card>
+          <CardItem header bordered>
+            <Text style={styles.localInfoTitle}>
+              Avaliação:
+                </Text>
+          </CardItem>
+          <CardItem>
+            <Icon style={styles.localInfoIcons}
+              name='md-star'
+              color='black'
+              size={25}
+            />
+            <Text style={styles.localInfo}>{average}</Text>
+          </CardItem>
+        </Card>
       );
     }
   }
@@ -226,13 +236,6 @@ const styles = StyleSheet.create({
   addImage: {
     margin: 10,
   },
-  hr: {
-    borderBottomColor: 'black',
-    borderBottomWidth: 1,
-    width: 330,
-    left: 4.5,
-    marginVertical: 10
-  },
   localName: {
     width: 250,
     fontSize: 20,
@@ -246,14 +249,14 @@ const styles = StyleSheet.create({
   },
   localMap: {
     height: 180,
-    width: 320,
-    left: 10
+    width: '100%',
   },
   localInfoIcons: {
     left: 20,
     position: 'relative'
   },
   localInfoTitle: {
+    color: '#333',
     left: 20,
     fontSize: 25,
     fontWeight: 'bold',
@@ -285,11 +288,10 @@ const styles = StyleSheet.create({
   fieldDescription: {
     marginTop: 10,
     marginRight: 10,
-    width: '80%',
+    width: '100%',
   },
   description: {
     fontSize: 16,
-    left: 50,
     top: -22,
     marginTop: 20,
     marginBottom: 10,
