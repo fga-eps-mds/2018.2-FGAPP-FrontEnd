@@ -27,7 +27,6 @@ class Offers extends Component {
 		};
 	}
 	componentDidMount(){
-		console.log('componentWillMount')
         getUserToken()
         .then(res => {
 			this.setState({ token: res })
