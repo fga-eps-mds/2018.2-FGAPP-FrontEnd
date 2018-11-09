@@ -1,16 +1,13 @@
 default:
-	echo "\n message:\n---\nChanges were made on the image... please execute\nmake build\n---"
-	make up $(IP)
-	make run
-
-up:
-	python get-ip-address.py $(IP)
-	docker-compose up -d
+	make build
+	make run $(IP)
 
 build:
 	docker-compose build
 
 run:
+	python get-ip-address.py $(IP)
+	docker-compose up -d
 	docker-compose exec front bash -c "yarn; bash"
 
 down:
