@@ -14,6 +14,7 @@ import OpeningHoursPanel from '../components/OpeningHoursPanel';
 import FavoriteContainer from "./FavoriteContainer";
 import { showMessage, hideMessage } from "react-native-flash-message";
 import FlashMessage from "react-native-flash-message";
+import Direction from "./Direction"
 
 width = Dimensions.get('window').width;
 
@@ -111,6 +112,12 @@ class ViewLocal extends Component {
             />
           </View>
           <View style={styles.hr}></View>
+          <View style = {{flex: 1, justifyContent: "center", alignItems: "center"}}>
+            <Direction
+              latitude = {latitude}
+              longitude = {longitude}
+                    />
+          </View>
         </View>
       );
     }
