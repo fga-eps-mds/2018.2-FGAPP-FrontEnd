@@ -12,8 +12,9 @@ class AddImages extends Component {
     return (
       <TouchableOpacity>
         <Icon
-          name="ios-add-circle-outline"
-          size={45}
+          name="ios-add-circle"
+          size={60}
+          color = 'white'
         />
       </TouchableOpacity>
     );

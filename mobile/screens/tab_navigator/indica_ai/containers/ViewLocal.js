@@ -4,6 +4,7 @@ import {
   Text,
   StyleSheet,
   Image,
+  ImageBackground,
   ScrollView
 } from "react-native";
 import LocalMap from "../components/LocalMap.js";
@@ -50,13 +51,16 @@ class ViewLocal extends Component {
 
     return (
       <ScrollView style={styles.container}>
-        <Image style={{ height: 230, width: width }}
-          source={require('../assets/fga.jpg')}
-        />
+
+        <ImageBackground style={styles.imageLocal} source={require('../assets/fga.jpg')}>
+          <View style={styles.addImage}>
+            <AddImages />
+          </View>
+        </ImageBackground>
 
         <View style={styles.localContainer}>
 
-          <View style={styles.localUtilitaries}>
+          <View style={styles.localHeader}>
             <View>
               <Text style={styles.localInfoTitle}>{name}</Text>
             </View>
@@ -65,17 +69,6 @@ class ViewLocal extends Component {
                 favMessageView={this.favMessage}
                 id={id}
               />
-            </View>
-          </View>
-
-          <View style={styles.hr}></View>
-
-          <View style={styles.fieldImages}>
-            <Text style={{ fontSize: 20, marginTop: 15, left: 20 }}>
-              Enviar Imagem
-            </Text>
-            <View style={styles.addImage}>
-              <AddImages />
             </View>
           </View>
 
@@ -217,7 +210,13 @@ const styles = StyleSheet.create({
   localContainer: {
     padding: 10,
   },
-  localUtilitaries: {
+  imageLocal: {
+    alignItems: 'flex-end',
+    justifyContent: 'flex-end',
+    height: 230,
+    width: width
+  },
+  localHeader: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-start',
@@ -225,14 +224,7 @@ const styles = StyleSheet.create({
     top: 10
   },
   addImage: {
-    marginLeft: 25,
-    marginTop: 8
-  },
-  fieldImages: {
-    flex: 1,
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
+    margin: 10,
   },
   hr: {
     borderBottomColor: 'black',
