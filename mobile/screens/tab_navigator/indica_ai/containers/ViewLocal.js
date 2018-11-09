@@ -51,15 +51,16 @@ class ViewLocal extends Component {
 
     return (
       <View style={styles.container}>
-        <ImageBackground style={styles.imageLocal} source={require('../assets/fga.jpg')}>
-          <FlashMessage position="top"/>
-          <View style={styles.addImage}>
-            <AddImages />
-          </View>
-        </ImageBackground>
-        <ScrollView>
 
+        <ScrollView>
           <Content>
+
+            <ImageBackground style={styles.imageLocal} source={require('../assets/fga.jpg')}>
+              <FlashMessage position="top" />
+              <View style={styles.addImage}>
+                <AddImages />
+              </View>
+            </ImageBackground>
 
             <View style={styles.localContainer}>
 
@@ -82,7 +83,8 @@ class ViewLocal extends Component {
                 <CardItem header bordered>
                   <Text style={styles.localInfoTitle}>
                     Informações:
-                </Text>
+                    {opening_hours[0]['day'][0]}
+                  </Text>
                 </CardItem>
 
                 {this.displayJsxInformation(telephone, icon = 'md-call')}
@@ -148,7 +150,6 @@ class ViewLocal extends Component {
           />
           <View style={styles.localHours}>
             <OpeningHoursPanel
-              title="Horários"
               opening_hours={opening_hours} />
           </View>
         </View>
@@ -268,10 +269,9 @@ const styles = StyleSheet.create({
     marginBottom: -10,
   },
   localHours: {
-    left: 10,
     top: -12,
     width: '100%',
-    marginBottom: -10,
+    marginLeft: 20,
   },
   fieldInfo: {
     marginTop: 10,
@@ -279,7 +279,6 @@ const styles = StyleSheet.create({
     width: '80%',
   },
   fieldHours: {
-    flex: 1,
     marginTop: 10,
     marginRight: 10,
     width: '80%',
