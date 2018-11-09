@@ -59,7 +59,8 @@ export default class CadastroEventos1 extends Component {
 			foods: "",
 			photo: null,
 
-			blocked: true
+			blocked: true,
+			errorMessage: ""
 		});
 		console.log("States resetados");
 		console.log(this.state);
@@ -222,13 +223,25 @@ export default class CadastroEventos1 extends Component {
 		})
 			.then(response => response.json())
 			.then(responseJson => {
-				console.log("Sucesso?");
-				console.log(responseJson);
-				return responseJson;
+				//console.log("Sucesso?");
+				//console.log(responseJson);
+				//return responseJson;
+				if (responseJson.length) {
+					const error = JSON.parse(responseJson[0]);
+					this.setState({ errorMessage: error["error"] });
+					Alert.alert("Erro", this.state.errorMessage);
+				} else {
+					console.log(responseJson);
+					console.log("Rolê cadastrado com sucesso!");
+					Alert.alert("Parabéns!", "O Rolê foi cadastrado com sucesso!");
+				}
 			})
 			.catch(error => {
-				console.error("Erroooooooou!");
 				console.error(error);
+				Alert.alert(
+					"Problemas na conexão!",
+					"Verifique sua conexão e tente novamente mais tarde."
+				);
 			});
 	}
 
@@ -541,6 +554,7 @@ export default class CadastroEventos1 extends Component {
 								iconName="phone"
 								onChangeText={organizerTel => this.setState({ organizerTel })}
 								value={this.state.organizerTel}
+								keyboardType="phone-pad"
 							/>
 						</View>
 
