@@ -17,15 +17,18 @@ class AddImages extends Component {
   }
 
   pickImage = async () => {
-    const result = await ImagePicker.lauchImageLibraryAsync({
+    const result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
       base64: true,
+      quality: 0.3,
+      aspect: [4, 3],
     });
 
     if(!result.cancelled) { 
       this.setState({
         image: result.uri,
       });
+    console.log(result);
     } 
   };  
 
@@ -55,7 +58,7 @@ class AddImages extends Component {
 
   render() {
     return (
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => this.pickImage()}>
         <Icon
           name="ios-add-circle"
           size={60}
