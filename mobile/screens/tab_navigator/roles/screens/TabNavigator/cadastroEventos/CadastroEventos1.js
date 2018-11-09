@@ -70,8 +70,8 @@ export default class CadastroEventos1 extends Component {
 	}
 
 	_cadastraRole() {
-		console.log("DEBUG - Rolê cadastrado!");
-		Alert.alert("Sucesso!", "Seu evento foi cadastrado!");
+		console.log("DEBUG - Tentando cadastrar rolê!");
+		this._fetch();
 		this._resetStates();
 		this.setState({ stage: 0 });
 	}
@@ -139,12 +139,15 @@ export default class CadastroEventos1 extends Component {
 		try {
 			const { action, year, month, day } = await DatePickerAndroid.open({
 				// Use `new Date()` for current date.
-				date: new Date()
+				date: new Date(),
+				minDate: new Date()
 			});
 			if (action !== DatePickerAndroid.dismissedAction) {
 				// console.log(year);
 				// console.log(month);
 				// console.log(day);
+
+				month += 1; //Month goes from 0 to 11, 0 is January
 				this.setState({
 					eventDate: year + "-" + month + "-" + day
 				});
@@ -179,18 +182,54 @@ export default class CadastroEventos1 extends Component {
 		let result = await ImagePicker.launchImageLibraryAsync({
 			allowsEditing: true,
 			aspect: [1, 1]
-		  });
+		});
 
 		console.log("Image Picker:" + result);
 
 		if (!result.cancelled) {
 			this.setState({ photo: result.uri });
 			console.log(this.state.photo);
-		  }
+		}
 	};
 
 	_toggleModal() {
 		this.setState({ modalVisibility: !this.state.modalVisibility });
+	}
+
+	_fetch() {
+		fetch("http://roles-events.herokuapp.com/events/", {
+			method: "POST",
+			headers: {
+				Accept: "application/json",
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify({
+				owner: this.state.organizer, // Verificar Front-End e Back para decisão sobre este campo
+				eventName: this.state.eventName,
+				linkReference: "https://" + this.state.linkReference + ".com", // Verificar Front-End e Back para decisão sobre este campo
+				organizer: this.state.organizer,
+				value: this.state.value,
+				address: this.state.address,
+				linkAddress: "https://www.google.com/", // Verificar Front-End e Back para decisão sobre este campo
+				eventDate: this.state.eventDate,
+				eventHour: this.state.eventHour,
+				adultOnly: this.state.adultOnly,
+				eventDescription: this.state.eventDescription,
+				// photo: null,
+				foods: this.state.foods,
+				drinks: this.state.drinks
+			})
+		})
+			.then(response => response.json())
+			.then(responseJson => {
+				console.log("Sucesso?");
+				console.log(responseJson);
+				return responseJson;
+			})
+			.catch(error => {
+				console.error("Erroooooooou!");
+				console.error(error);
+			});
 	}
 
 	render() {
@@ -245,8 +284,8 @@ export default class CadastroEventos1 extends Component {
 								placeholder="Nome do rolê"
 								iconType="MaterialIcons"
 								iconName="text-format"
-                onChangeText={eventName => this.setState({ eventName })}
-                value={this.state.eventName}
+								onChangeText={eventName => this.setState({ eventName })}
+								value={this.state.eventName}
 							/>
 						</View>
 
@@ -259,8 +298,8 @@ export default class CadastroEventos1 extends Component {
 								iconType="Foundation"
 								iconName="ticket"
 								onChangeText={value => this.setState({ value })}
-                keyboardType="numeric"
-                value={this.state.value}
+								keyboardType="numeric"
+								value={this.state.value}
 							/>
 						</View>
 
@@ -344,8 +383,8 @@ export default class CadastroEventos1 extends Component {
 								iconName="file-text"
 								onChangeText={eventDescription =>
 									this.setState({ eventDescription })
-                }
-                value={this.state.eventDescription}
+								}
+								value={this.state.eventDescription}
 							/>
 						</View>
 
@@ -358,15 +397,15 @@ export default class CadastroEventos1 extends Component {
 									placeholder="Drinks"
 									iconType="Entypo"
 									iconName="drink"
-                  onChangeText={drinks => this.setState({ drinks })}
-                  value={this.state.drinks}
+									onChangeText={drinks => this.setState({ drinks })}
+									value={this.state.drinks}
 								/>
 								<CadastroInput
 									placeholder="Comidas"
 									iconType="MaterialCommunityIcons"
 									iconName="food"
-                  onChangeText={foods => this.setState({ foods })}
-                  value={this.state.foods}
+									onChangeText={foods => this.setState({ foods })}
+									value={this.state.foods}
 								/>
 							</View>
 						</View>
@@ -442,8 +481,8 @@ export default class CadastroEventos1 extends Component {
 								placeholder="Link de referência"
 								iconType="Feather"
 								iconName="link"
-                onChangeText={linkReference => this.setState({ linkReference })}
-                value={this.state.linkReference}
+								onChangeText={linkReference => this.setState({ linkReference })}
+								value={this.state.linkReference}
 							/>
 						</View>
 
@@ -455,8 +494,8 @@ export default class CadastroEventos1 extends Component {
 								placeholder="Nome do Local"
 								iconType="MaterialIcons"
 								iconName="place"
-                onChangeText={address => this.setState({ address })}
-                value={this.state.address}
+								onChangeText={address => this.setState({ address })}
+								value={this.state.address}
 							/>
 							{/* Espaçamento */}
 							<View style={{ height: 10 }} />
@@ -490,8 +529,8 @@ export default class CadastroEventos1 extends Component {
 								placeholder="Nome para Contato"
 								iconType="MaterialIcons"
 								iconName="person"
-                onChangeText={organizer => this.setState({ organizer })}
-                value={this.state.organizer}
+								onChangeText={organizer => this.setState({ organizer })}
+								value={this.state.organizer}
 							/>
 							{/* Espaçamento */}
 							<View style={{ height: 10 }} />
@@ -500,8 +539,8 @@ export default class CadastroEventos1 extends Component {
 								placeholder="Telefone para Contato"
 								iconType="FontAwesome"
 								iconName="phone"
-                onChangeText={organizerTel => this.setState({ organizerTel })}
-                value={this.state.organizerTel}
+								onChangeText={organizerTel => this.setState({ organizerTel })}
+								value={this.state.organizerTel}
 							/>
 						</View>
 
@@ -522,7 +561,7 @@ export default class CadastroEventos1 extends Component {
 									width: "50%",
 									backgroundColor: "#1CBD24"
 								}}
-								onPress={() => this._stageValidation()}
+								onPress={() => this._fetch()}
 							>
 								<Text style={{ color: "white" }}>Concluir</Text>
 							</Button>

@@ -27,7 +27,7 @@ class Feed extends Component {
 
   _refreshFeed = () => {
     this.setState({refreshing: true})
-    fetch('http://209.97.153.172:8002/events/')
+    fetch('http://roles-events.herokuapp.com/events/')
     .then(res => res.json())
     .then(roles =>{
       this.setState({ loading: false, roles })
