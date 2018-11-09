@@ -5,27 +5,31 @@ import {
     StyleSheet,
     Image,
     ScrollView,
-    CardItem,
     Alert,
-    ImageBackground,
 } from 'react-native';
 import styles from '../../components/styles'
 import jwt_decode from 'jwt-decode'
-import { LinearGradient } from 'expo';
 import { Button } from 'native-base';
+import {getUserToken} from '../../../../../AuthMethods'
 
 class OrderDetails extends Component {
 
     constructor(props) {
       super(props);
       this.state = {
+        token: 'undefined',
         request: '0',
       };
+    }
+
+    componentWillMount(){
+      getUserToken()
+      .then(res => this.setState({ token: res }))
+      .catch(err => alert("Erro"));
     }
     _cancelButton = async () => {
       const {state} = this.props.navigation;
       var order = state.params ? state.params.order : undefined;
-      var token = state.params ? state.params.token : undefined;
       const set_order_status_path = `${process.env.VENDAS_API}/api/set_order_status/`;
 
       fetch(set_order_status_path, {
@@ -36,7 +40,7 @@ class OrderDetails extends Component {
         body: JSON.stringify({
           'order_id': order.id,
           'new_status': '2',
-          'token': token,
+          'token': this.state.token,
         }),
       })
       .then((response) => {
@@ -57,7 +61,6 @@ class OrderDetails extends Component {
     _closeButton = async () => {
       const {state} = this.props.navigation;
       var order = state.params ? state.params.order : undefined;
-      var token = state.params ? state.params.token : undefined;
       const set_order_status_path = `${process.env.VENDAS_API}/api/set_order_status/`;
 
       fetch(set_order_status_path, {
@@ -68,7 +71,7 @@ class OrderDetails extends Component {
         body: JSON.stringify({
           'order_id': order.id,
           'new_status': '1',
-          'token': token,
+          'token': this.state.token,
         }),
       })
       .then((response) => {
@@ -89,7 +92,6 @@ class OrderDetails extends Component {
     _buttonRequest() {
       const {state} = this.props.navigation;
       var order = state.params ? state.params.order : undefined;
-      var token = state.params ? state.params.token : undefined;
       const set_order_status_path = `${process.env.VENDAS_API}/api/set_order_status/`;
 
       fetch(set_order_status_path, {
@@ -100,7 +102,7 @@ class OrderDetails extends Component {
         body: JSON.stringify({
           'order_id': order.id,
           'new_status': this.state.request,
-          'token': token,
+          'token': this.state.token,
         }),
       })
       .then((response) => {
@@ -118,7 +120,7 @@ class OrderDetails extends Component {
       })
     }
 
-    loadUser(token, order){
+    loadUser(order){
       const get_product_path = `${process.env.VENDAS_API}/api/get_name/`;
 
       var name = 'Usuário sem nome';
@@ -128,7 +130,7 @@ class OrderDetails extends Component {
   			'Content-Type': 'application/json',
   			},
   			body: JSON.stringify({
-  				'token': token,
+  				'token': this.state.token,
         	'user_id': order.fk_buyer,
   			}),
   		})
@@ -144,7 +146,7 @@ class OrderDetails extends Component {
       return name;
     }
 
-    loadProduct(token, order){
+    loadProduct(order){
       const get_product_path = `${process.env.VENDAS_API}/api/get_product/`;
 
       var photo = 'http://www.piniswiss.com/wp-content/uploads/2013/05/image-not-found-4a963b95bf081c3ea02923dceaeb3f8085e1a654fc54840aac61a57a60903fef-300x199.png';
@@ -154,7 +156,7 @@ class OrderDetails extends Component {
   				'Content-Type': 'application/json',
   			},
   			body: JSON.stringify({
-  				'token': token,
+  				'token': this.state.token,
           'product_id': order.fk_product,
   			}),
   		})
@@ -173,11 +175,9 @@ class OrderDetails extends Component {
 
     render() {
       const {state} = this.props.navigation;
-      var token = state.params ? state.params.token : undefined;
       var order = state.params ? state.params.order : undefined;
-      var user = jwt_decode(token);
-      var photo = this.loadProduct(token, order);
-      var name = this.loadUser(token, order);
+      var photo = this.loadProduct(order);
+      var name = this.loadUser(order);
 
         return (
           <ScrollView style={{ backgroundColor: 'white' }}>

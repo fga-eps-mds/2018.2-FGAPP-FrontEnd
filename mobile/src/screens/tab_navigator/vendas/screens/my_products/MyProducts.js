@@ -13,11 +13,13 @@ import {
 } from 'react-native';
 import { Icon, Fab } from 'native-base';
 import jwt_decode from 'jwt-decode';
+import {getUserToken} from '../../../../../AuthMethods'
 
 class MyProducts extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			token:undefined,
 			products: [{
 				name: '',
 				price: '',
@@ -26,11 +28,17 @@ class MyProducts extends Component {
 			refreshing: false,
 		};
 	}
+	componentWillMount(){
+		getUserToken()
+		.then(res => {
+			this.setState({ token: res })
+			this.loadUserProducts();
+		})
+		.catch(err => alert("Erro"));
+	  }
 
 	loadUserProducts = async () => {
-		const { state } = this.props.navigation;
-		var token = state.params ? state.params.token : undefined;
-		var user = jwt_decode(token);
+		var user = jwt_decode(this.state.token);
 		const my_products_screen_path = `${process.env.VENDAS_API}/api/my_products_screen/`;
 
 		fetch(my_products_screen_path, {
@@ -40,7 +48,7 @@ class MyProducts extends Component {
 			},
 			body: JSON.stringify({
 				'user_id': user.user_id,
-				'token': token,
+				'token': this.state.token,
 			}),
 		})
 			.then((response) => { return response.json() })
@@ -64,12 +72,8 @@ class MyProducts extends Component {
 		})
 	}
 
-	componentDidMount() {
-		this.loadUserProducts();
-	}
   render() {
-		const { state } = this.props.navigation;
-		var token = state.params ? state.params.token : undefined;
+
         return (
             <View style={styles.container}>
                 <View>
@@ -88,14 +92,14 @@ class MyProducts extends Component {
                                 photo={product.photo}
                                 name={product.name}
 								price={parseFloat(product.price).toFixed(2)}
-								onPress={() => {this.props.navigation.navigate('MyProductDetails', {token:token, product:product})} }
+								onPress={() => {this.props.navigation.navigate('MyProductDetails', {product:product})} }
 								/>
 								);
 							})}
                   </ScrollView>
                 </View>
                 <Fab
-					onPress={() => {this.props.navigation.navigate('CreateProduct', {token:token});} }
+					onPress={() => {this.props.navigation.navigate('CreateProduct');} }
                     style={styles.fab}>
                     <Icon name='md-add' />
                 </Fab>

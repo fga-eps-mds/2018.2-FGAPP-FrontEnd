@@ -1,8 +1,8 @@
-import {StackNavigator} from 'react-navigation'
+import {createStackNavigator} from 'react-navigation'
 import Offers from './offers/Offers'
 import OfferDetails from './offers/OfferDetails'
 
-const OfferScreen = new StackNavigator({
+const OfferScreen = createStackNavigator({
     Offers:{
       screen:Offers,
       navigationOptions: {

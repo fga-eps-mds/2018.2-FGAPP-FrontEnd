@@ -1,8 +1,8 @@
-import {StackNavigator} from 'react-navigation'
+import {createStackNavigator} from 'react-navigation'
 import OrderedProducts from './orders/OrderedProducts'
 import OrderDetails from './orders/OrderDetails'
 
-const OrderScreen = new StackNavigator({
+const OrderScreen = createStackNavigator({
   OrderedProducts:{
       screen:OrderedProducts,
       navigationOptions: {

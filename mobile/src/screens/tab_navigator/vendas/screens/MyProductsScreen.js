@@ -1,9 +1,9 @@
-import {StackNavigator} from 'react-navigation'
+import {createStackNavigator} from 'react-navigation'
 import CreateProduct from './my_products/CreateProduct'
 import MyProducts from './my_products/MyProducts'
 import MyProductDetails from './my_products/MyProductDetails'
 
-const MyProductsScreen = new StackNavigator({
+const MyProductsScreen = createStackNavigator({
     MyProducts:{
       screen:MyProducts,
       navigationOptions: {

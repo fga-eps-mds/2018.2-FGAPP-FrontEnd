@@ -15,6 +15,7 @@ import { Textarea, Form, Item, Input, Label, Button } from 'native-base';
 import jwt_decode from 'jwt-decode';
 import ErrorDialog from './ErrorDialog';
 import ToogleView from './ToogleView';
+import {getUserToken} from '../../../../../AuthMethods'
 
 class MyProductDetails extends Component {
     constructor(props) {
@@ -22,6 +23,7 @@ class MyProductDetails extends Component {
       this.keyboardHeight = new Animated.Value(0);
       this.imageHeight = new Animated.Value(199);
       this.state = {
+        token:undefined,
         isButtonsHidden: false,
         name: '',
         price: '',
@@ -29,6 +31,11 @@ class MyProductDetails extends Component {
         isDialogVisible: false,
         messageError: '',
       };
+    }
+    componentWillMount(){
+      getUserToken()
+      .then(res => this.setState({ token: res }))
+      .catch(err => alert("Erro"));
     }
 
     openDialog = async () => {
@@ -40,7 +47,6 @@ class MyProductDetails extends Component {
 
     editProduct = async () => {
       const {state} = this.props.navigation;
-      var token = state.params ? state.params.token : undefined;
       var product = state.params ? state.params.product : undefined;
 
       var name = this.state.name ? this.state.name : product.name;
@@ -59,7 +65,7 @@ class MyProductDetails extends Component {
             'name': name,
             'description': description,
             'photo': product.photo, // <- Need atention later
-            'token':token,
+            'token':this.state.token,
         }),
       })
       .then((response) => {
@@ -71,7 +77,7 @@ class MyProductDetails extends Component {
           this.setState({ isDialogVisible: true })
         }
         else{
-          this.props.navigation.navigate('MyProducts', {token:token});
+          this.props.navigation.navigate('MyProducts');
         }
       })
       .catch((err) => {
@@ -118,7 +124,6 @@ class MyProductDetails extends Component {
 
     render() {
         const {state} = this.props.navigation;
-        var token = state.params ? state.params.token : undefined;
         var product = state.params ? state.params.product : undefined;
 
         return (
@@ -156,7 +161,7 @@ class MyProductDetails extends Component {
               <ToogleView hide={this.state.isButtonsHidden}>
                 <View style={styles.buttonContainer}>
                   <Button
-                    onPress={() => {this.props.navigation.navigate('MyProducts', {token:token});}}
+                    onPress={() => {this.props.navigation.navigate('MyProducts');}}
                     style={styles.button}
                     danger
                   >

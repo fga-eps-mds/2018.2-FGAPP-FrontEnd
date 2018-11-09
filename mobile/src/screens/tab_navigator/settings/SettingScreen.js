@@ -1,8 +1,8 @@
-import { StackNavigator } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation'
 import Settings from './settings/Settings'
 import UserProfile from './settings/UserProfile'
 
-const SettingScreen = new StackNavigator({
+const SettingScreen = createStackNavigator({
     Settings:{
       screen:Settings,
       navigationOptions: {

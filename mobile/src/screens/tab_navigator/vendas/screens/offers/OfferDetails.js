@@ -11,6 +11,7 @@ import styles from '../../components/styles';
 import { Card, CardItem, Text, Left, Right, Content, Body} from 'native-base';
 import OfferDialog from '../../components/OfferDialog';
 import jwt_decode from 'jwt-decode';
+import {getUserToken} from '../../../../../AuthMethods'
 
 const Quantity = [
   {
@@ -84,11 +85,18 @@ class FormPicker extends Component {
     constructor(props){
       super(props);
       this.state = {
+        token: undefined,
         quantity: '1',
         isDialogVisible: false,
         buyer_message: '',
         max_characters: '120',
       };
+    }
+
+    componentWillMount(){
+          getUserToken()
+          .then(res => this.setState({ token: res }))
+          .catch(err => alert("Erro"));
     }
 
     openDialog = async () => {
@@ -104,8 +112,7 @@ class FormPicker extends Component {
     submitDialog = async () => {
       const {state} = this.props.navigation;
       var product = state.params ? state.params.product : undefined;
-      var token = state.params ? state.params.token : undefined;
-      var user = jwt_decode(token);
+      var user = jwt_decode(this.state.token);
       const create_order_path = `${process.env.VENDAS_API}/api/create_order/`;
 
       fetch(create_order_path,{
@@ -121,7 +128,7 @@ class FormPicker extends Component {
           'total_price': product.price*this.state.quantity,
           'quantity': this.state.quantity,
           'product_name': product.name,
-          'token': token,
+          'token': this.state.token,
         }),
     })
     .then((response) => response.json())

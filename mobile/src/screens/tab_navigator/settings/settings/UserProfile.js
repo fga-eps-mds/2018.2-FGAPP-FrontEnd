@@ -9,16 +9,23 @@ import {
 } from 'react-native';
 import { Card, CardItem, Body, Item, Label, Input } from 'native-base';
 import jwt_decode from 'jwt-decode'
+import { getUserToken, onSignOut } from "../../../../AuthMethods";
 
 class UserProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      token: undefined,
       name: undefined,
       email: undefined,
       photo: undefined,
       need_logout: false,
     };
+  }
+  componentWillMount(){
+    getUserToken()
+    .then(res => this.setState({ token: res }))
+    .catch(err => alert("Erro"));
   }
 
   _clickPhoto = async () => {
@@ -31,40 +38,13 @@ class UserProfile extends Component {
     }
   }
   _logout = async () => {
-    const logoutPath = `${process.env.INTEGRA_LOGIN_AUTH}/api/logout/`;
-    fetch(logoutPath, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-      }),
-    })
-    .then((response) => response.json())
-    .then((responseJson) => {
-      console.log(JSON.stringify(responseJson.detail));
-      if (responseJson.detail == 'Successfully logged out.') {
-        this.props.navigation.state.params.token = null;
-        this.props.navigation.navigate('LoginScreen');
-      }
-    })
-    .catch(err => {
-      if (typeof err.text === 'function') {
-        err.text().then(errorMessage => {
-          this.props.dispatch(displayTheError(errorMessage));
-        });
-      } else {
-        Alert.alert('Erro na conexão.');
-        console.log(err);
-      }
-    });
+    onSignOut()
+    this.props.navigation.navigate('LoginScreen');
   }
 
   _editProfile = async () => {
     const { state } = this.props.navigation;
-    var token = state.params ? state.params.token : undefined;
-
-    var user = jwt_decode(token);
+    var user = jwt_decode(this.state.token);
     var name = this.state.name;
     var email = this.state.email;
     const uri = this.state.photo;
@@ -113,7 +93,7 @@ class UserProfile extends Component {
         }
         else{
           Alert.alert('Informações atualizadas com sucesso.');
-          this.props.navigation.navigate('Settings', { token: token });
+          this.props.navigation.navigate('Settings');
         }
       }
     })

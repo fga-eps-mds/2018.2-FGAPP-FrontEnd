@@ -13,23 +13,30 @@ import {
 import OrderCard from '../../components/OrderCard'
 import BuyerOrderCard from '../../components/BuyerOrderCard'
 import jwt_decode from 'jwt-decode'
+import {getUserToken} from '../../../../../AuthMethods'
 
 class OrderedProducts extends Component {
     constructor(props) {
       super(props);
       this.state = {
+          token: undefined,
           orders: [''],
           buyer_orders: [''],
           refreshing: false,
       };
     }
-    componentDidMount(){
-        this.loadOrders();
-    }
+    componentWillMount(){
+        getUserToken()
+        .then(res =>{ 
+            this.setState({ token: res })
+            this.loadOrders();
+        })
+        .catch(err => alert("Erro"));
+      }
+
     loadOrders = async () => {
       const {state} = this.props.navigation;
-      var token = state.params ? state.params.token : undefined;
-      var user = jwt_decode(token);
+      var user = jwt_decode(this.state.token);
 
       //Referencia para API gateway
       const orders_screen_path = `${process.env.VENDAS_API}/api/orders_screen/`;
@@ -41,7 +48,7 @@ class OrderedProducts extends Component {
           },
           body: JSON.stringify({
           'user_id': user.user_id, //UsernameField foi definido como email
-          'token': token,
+          'token': this.state.token,
         }),
       })
       .then((response) => response.json())
@@ -67,7 +74,7 @@ class OrderedProducts extends Component {
           },
           body: JSON.stringify({
           'user_id': user.user_id,
-          'token': token, // TODO test token
+          'token': this.state.token, // TODO test token
         }),
       })
       .then((response) => response.json())
@@ -93,11 +100,7 @@ class OrderedProducts extends Component {
     }
 
 
-    render() {
-      const {state} = this.props.navigation;
-      var token = state.params ? state.params.token : undefined;
-
-
+    render() {      
         return (
           <View style={styles.container}>
                 <ScrollView
@@ -117,7 +120,7 @@ class OrderedProducts extends Component {
                         orderQuantity = {`Quantidade: ${buyer_order.quantity}`}
                         orderPrice = {parseFloat(buyer_order.total_price).toFixed(2)}
                         orderStatus = {`${buyer_order.status}`}
-                        onPress={() => this.props.navigation.navigate('OrderDetails', {order: buyer_order, token:token})}
+                        onPress={() => this.props.navigation.navigate('OrderDetails', {order: buyer_order})}
                       />
                     );
                 })}
@@ -132,7 +135,7 @@ class OrderedProducts extends Component {
                         orderStatus = {`${order.status}`}
                         orderPrice = {parseFloat(order.total_price).toFixed(2)}
                         orderStatus = {`${order.status}`}
-                        onPress={() => this.props.navigation.navigate('OrderDetails', {order: order, token:token})}
+                        onPress={() => this.props.navigation.navigate('OrderDetails', {order: order})}
                       />
                     );
                 })}

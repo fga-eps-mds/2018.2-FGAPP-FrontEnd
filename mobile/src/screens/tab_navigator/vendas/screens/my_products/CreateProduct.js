@@ -15,6 +15,7 @@ import { Textarea, Form, Item, Input, Label, Button } from 'native-base';
 import jwt_decode from 'jwt-decode';
 import ErrorDialog from './ErrorDialog';
 import ToogleView from './ToogleView';
+import {getUserToken} from '../../../../../AuthMethods'
 
 class CreateProduct extends Component {
     constructor(props) {
@@ -22,6 +23,7 @@ class CreateProduct extends Component {
       this.keyboardHeight = new Animated.Value(0);
       this.imageHeight = new Animated.Value(199);
       this.state = {
+        token:undefined,
         isButtonsHidden: false,
         title: '',
         price: '',
@@ -29,6 +31,11 @@ class CreateProduct extends Component {
         isDialogVisible: false,
         messageError: '',
       };
+    }
+    componentWillMount(){
+      getUserToken()
+      .then(res => this.setState({ token: res }))
+      .catch(err => alert("Erro"));
     }
 
     openDialog = async () => {
@@ -39,10 +46,7 @@ class CreateProduct extends Component {
     }
 
     registerProduct = async () => {
-      const {state} = this.props.navigation;
-      var token = state.params ? state.params.token : undefined;
-      var jwtDecode = require('jwt-decode');
-      var user = jwt_decode(token);
+      var user = jwt_decode(this.state.token);
       const create_product_path = `${process.env.VENDAS_API}/api/create_product/`;
       fetch(create_product_path, {
         method: 'POST',
@@ -55,7 +59,7 @@ class CreateProduct extends Component {
           'price': this.state.price,
           'photo': 'https://foodrevolution.org/wp-content/uploads/2018/04/blog-featured-diabetes-20180406-1330.jpg',
           'description': this.state.description,
-          'token':token,
+          'token':this.state.token,
         }),
       })
       .then((response) => {
@@ -67,7 +71,7 @@ class CreateProduct extends Component {
           this.setState({ isDialogVisible: true })
         }
         else{
-          this.props.navigation.navigate('MyProducts', {token:token});
+          this.props.navigation.navigate('MyProducts');
         }
       })
       .catch((err) => {
@@ -113,8 +117,6 @@ class CreateProduct extends Component {
     }
 
     render() {
-        const {state} = this.props.navigation;
-        var token = state.params ? state.params.token : undefined;
 
         return (
             <Animated.View style={[styles.container, { paddingBottom: this.keyboardHeight }]}>
@@ -151,7 +153,7 @@ class CreateProduct extends Component {
               <ToogleView hide={this.state.isButtonsHidden}>
                 <View style={styles.buttonContainer}>
                   <Button
-                    onPress={() => {this.props.navigation.navigate('MyProducts', {token:token});}}
+                    onPress={() => {this.props.navigation.navigate('MyProducts');}}
                     style={styles.button}
                     danger
                   >

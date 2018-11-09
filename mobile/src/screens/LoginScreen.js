@@ -2,13 +2,10 @@ import React, { Component } from "react";
 import {
     View,
     Text,
-    TextInput,
     StyleSheet,
     FlatList,
-    Alert,
     ImageBackground,
     Image,
-    StatusBar,
     KeyboardAvoidingView,
     TouchableOpacity,
     Linking
@@ -16,6 +13,7 @@ import {
 import {Button} from 'native-base';
 import Field from './components/Field';
 import Login from './components/Login';
+import { onSignIn } from "../AuthMethods";
 
 class LoginScreen extends Component {
 
@@ -58,7 +56,8 @@ class LoginScreen extends Component {
     }
     //Sucesso
     if (responseJson.token != undefined|| responseJson.key != undefined){
-      this.props.navigation.navigate('TabHandler', {token:responseJson.token})
+      onSignIn(responseJson.token);
+      this.props.navigation.navigate('TabHandler')
     }
   }
 
