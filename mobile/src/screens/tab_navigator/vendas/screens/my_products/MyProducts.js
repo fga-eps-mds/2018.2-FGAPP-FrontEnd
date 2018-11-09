@@ -28,14 +28,14 @@ class MyProducts extends Component {
 			refreshing: false,
 		};
 	}
-	componentWillMount(){
+	componentDidMount(){
 		getUserToken()
 		.then(res => {
 			this.setState({ token: res })
 			this.loadUserProducts();
 		})
 		.catch(err => alert("Erro"));
-	  }
+	}
 
 	loadUserProducts = async () => {
 		var user = jwt_decode(this.state.token);

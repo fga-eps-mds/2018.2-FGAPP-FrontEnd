@@ -25,17 +25,16 @@ class OrderedProducts extends Component {
           refreshing: false,
       };
     }
-    componentWillMount(){
+    componentDidMount(){
         getUserToken()
         .then(res =>{ 
             this.setState({ token: res })
             this.loadOrders();
         })
         .catch(err => alert("Erro"));
-      }
+    }
 
     loadOrders = async () => {
-      const {state} = this.props.navigation;
       var user = jwt_decode(this.state.token);
 
       //Referencia para API gateway

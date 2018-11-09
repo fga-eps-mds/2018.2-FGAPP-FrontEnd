@@ -1,10 +1,10 @@
-import { createStackNavigator } from 'react-navigation';
+import { StackNavigator } from 'react-navigation';
 import LoginScreen from './screens/LoginScreen';
 import SignUpScreen from './screens/SignUpScreen';
 import TabHandler from './screens/TabHandler';
 import { StatusBar, Platform } from 'react-native';
 
-const SignedOutRoutes = createStackNavigator({
+const SignedOutRoutes = new StackNavigator({
     LoginScreen:{
         screen:LoginScreen,
         navigationOptions: ({ navigation }) => ({
@@ -21,17 +21,17 @@ const SignedOutRoutes = createStackNavigator({
     },
 });
   
-const SignedInRoutes = createStackNavigator({
+const SignedInRoutes = new StackNavigator({
     TabHandler:{
-        screen:TabHandler,
-        navigationOptions: ({ navigation }) => ({
-            header: null,
-        }),
+         screen:TabHandler,
+        // navigationOptions: ({ navigation }) => ({
+        //     header: null,
+        // }),
     },
 });
 
 export const RootNavigator = (signedIn = false) => {
-    return createStackNavigator({
+    return new StackNavigator({
         SignedIn: { screen: SignedInRoutes },
         SignedOut: { screen: SignedOutRoutes }
     },
@@ -40,7 +40,7 @@ export const RootNavigator = (signedIn = false) => {
         mode: "modal",
         initialRouteName: signedIn ? "SignedIn" : "SignedOut",
         navigationOptions: {
-            gesturesEnabled: false
+            gesturesEnabled: false,
         },
         cardStyle: {
             paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight

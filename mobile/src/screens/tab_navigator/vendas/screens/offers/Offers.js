@@ -26,7 +26,7 @@ class Offers extends Component {
 			refreshing: true,
 		};
 	}
-	componentWillMount(){
+	componentDidMount(){
 		console.log('componentWillMount')
         getUserToken()
         .then(res => {

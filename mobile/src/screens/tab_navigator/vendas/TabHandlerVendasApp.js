@@ -3,12 +3,12 @@
 */
 
 import React, { Component } from 'react';
-import { createBottomTabNavigator } from 'react-navigation';
+import { TabNavigator } from 'react-navigation';
 import MyProductsScreen from './screens/MyProductsScreen';
 import OfferScreen from './screens/OfferScreen';
 import OrderScreen from './screens/OrderScreen';
 
-const TabHandlerVendasApp = createBottomTabNavigator({
+const TabHandlerVendasApp = new TabNavigator({
     OfferScreen: {
         screen: OfferScreen,
         navigationOptions: {
