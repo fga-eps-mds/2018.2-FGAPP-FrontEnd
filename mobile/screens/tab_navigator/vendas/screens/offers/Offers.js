@@ -37,9 +37,9 @@ class Offers extends Component {
         })
         .then (function (response) {
             console.log('response.data', response.data);
-			console.log('response.status', response.status);
+						console.log('response.status', response.status);
 			if(response.status == 200){
-				if (response.data.length > 1) {
+				if(response.data.length > 1) {
 					response.data.sort((product1, product2) => {
 						return (product1.price - product2.price);
 					});

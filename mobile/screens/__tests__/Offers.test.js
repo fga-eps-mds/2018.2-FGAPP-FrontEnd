@@ -24,3 +24,17 @@ it('test refreshOffers',() => {
   const wrapper = shallow(<Offers navigation = {navigation}/>);
   const refreshOffers = wrapper.instance().refreshOffers();
 });
+
+it('should test resetNavigation correctly', () => {
+  const navigation = jest.fn();
+  let Offers = renderer.create(
+      <Offers navigation={navigation}
+        navigate={action =>
+          expect(action).toEqual(navigation.navigate)
+        }
+      />
+    )
+    .getInstance();
+
+  Offers.onPress(navigation.navigate);
+});
