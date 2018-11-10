@@ -17,7 +17,7 @@ export default class Local extends Component {
   render() {
 
     const name = this.props.name;
-    const address = this.props.address;
+    const description = this.props.description;
 
     return(
       <TouchableOpacity onPress={() => this.state.onPress()}>
@@ -31,7 +31,7 @@ export default class Local extends Component {
 
          <CardItem>
             <Text style={styles.localDescription}>
-              {address}
+              {description}
            </Text>
          </CardItem>
 

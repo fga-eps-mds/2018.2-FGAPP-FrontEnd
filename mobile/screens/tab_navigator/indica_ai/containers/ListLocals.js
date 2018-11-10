@@ -50,6 +50,7 @@ class ListLocals extends Component {
     render() {
 
         const { locals } = this.state
+        const publicities = locals.map(local => local.address);
 
         if(locals.length == 0) {
             return (
@@ -59,21 +60,26 @@ class ListLocals extends Component {
                  />
             )
         } else {
-
           return (
             <ScrollView showsVerticalScrollIndicator={false}>
 
               {locals.map( local =>
+
+                publicity ?
                   <Publicity
                     name={local.name}
                     address={local.address}
                     onPress={() => {
                       this.props.navigation.navigate('LocalDetails',{
-                      local: local
+                        local: local
                       });
-                    }}
-                    key={local.id}
+                  }}
+                  key={local.id}
                   />
+                  :
+                  <Text> ================ </Text>
+
+
                )}
 
             </ScrollView>
@@ -94,3 +100,15 @@ export default withNavigation(connect(
   mapStateToProps,
   mapDispatchToProps
 )(ListLocals));
+
+
+
+
+
+
+
+
+
+/*{publicities.map((publicity) =>
+publicity ? <Text>{publicity}</Text> : <Text> ================ </Text>
+)}*/

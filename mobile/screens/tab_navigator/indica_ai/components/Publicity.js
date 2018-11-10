@@ -19,6 +19,7 @@ export default class Publicity extends Component {
 
   const name = this.props.name;
   const address = this.props.address;
+  const publicity = this.props.publicity;
 
     return (
       <TouchableOpacity onPress={() => this.state.onPress()}>
@@ -33,6 +34,7 @@ export default class Publicity extends Component {
               <Body>
                 <Text style={styles.localName}>{name}</Text>
                 <Text note>{address}</Text>
+                <Text note>{publicity}</Text>
               </Body>
             </Left>
           </CardItem>
