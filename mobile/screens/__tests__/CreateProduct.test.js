@@ -155,12 +155,3 @@ describe('Test CreateProduct', () => {
       expect(wrapper.state('description')).toBe('text');
     });
 })
-
-
-
-// it('tests keyboardDidShow function',() => {
-//   const navigation = jest.fn();
-//   const isButtonsHidden = true;
-//   const wrapper = shallow(<CreateProduct navigation = {navigation}/>);
-//   const _keyboardDidShow = wrapper.instance()._keyboardDidShow();
-// });
