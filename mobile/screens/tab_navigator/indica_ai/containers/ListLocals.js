@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import {
   View,
   Text,
-  StyleSheet, 
+  StyleSheet,
   ScrollView,
   TouchableHighlight
 } from "react-native";
@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { searchAction } from '../actions'
 import Local from "../components/Local";
+import Publicity from "../components/Publicity";
 import IconMessage from "../components/IconMessage";
 import { withNavigation } from 'react-navigation';
 
@@ -22,7 +23,7 @@ class ListLocals extends Component {
     // Fucntion responsable to load all places before mount
     // the component by setting the state equal to result from fetch
     componentWillMount(){
-      const url = fetch(`https://indicaai.herokuapp.com/locals/`, {
+      const url = fetch(`https://dev-indicaai.herokuapp.com/locals/`, {
         method: "GET",
         headers: {
           Accept: "application/json",
@@ -32,7 +33,7 @@ class ListLocals extends Component {
       .then(response => response.json())
       .then(responseJson => {
         this.props.searchAction(responseJson)
-      }) 
+      })
       .catch(error => {
         console.log(error);
       });
@@ -60,12 +61,12 @@ class ListLocals extends Component {
         } else {
 
           return (
-            <ScrollView>
+            <ScrollView showsVerticalScrollIndicator={false}>
 
               {locals.map( local =>
-                  <Local
+                  <Publicity
                     name={local.name}
-                    description={local.description}
+                    address={local.address}
                     onPress={() => {
                       this.props.navigation.navigate('LocalDetails',{
                       local: local
@@ -90,6 +91,6 @@ const mapDispatchToProps = dispatch => (
 )
 
 export default withNavigation(connect(
-  mapStateToProps, 
+  mapStateToProps,
   mapDispatchToProps
 )(ListLocals));

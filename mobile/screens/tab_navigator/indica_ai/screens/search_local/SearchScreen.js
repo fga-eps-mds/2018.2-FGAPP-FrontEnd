@@ -10,7 +10,7 @@ import ListLocals from '../../containers/ListLocals'
 
 
 class SearchScreen extends Component {
-  
+
   render() {
       return (
           <View style={styles.container}>
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "flex-start",
     backgroundColor: "#FFF",
-    paddingHorizontal: 10,
+    paddingHorizontal: 5,
   }
 
 });
