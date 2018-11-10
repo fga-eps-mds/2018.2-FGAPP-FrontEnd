@@ -10,7 +10,6 @@ import {
 	RefreshControl
 } from 'react-native';
 import ProductCard from '../../components/ProductCard';
-import axios from 'axios';
 
 class Offers extends Component {
 	// productImage initialize with an image cause of asynchronous request
@@ -31,25 +30,27 @@ class Offers extends Component {
 		var token = state.params ? state.params.token : undefined;
 		var products_path = `${process.env.VENDAS_API}/api/all_products/`;
 
-		var self = this;
-        axios.post(products_path,{
-            'token': token,
-        })
-        .then (function (response) {
-            console.log('response.data', response.data);
-						console.log('response.status', response.status);
-			if(response.status == 200){
-				if(response.data.length > 1) {
-					response.data.sort((product1, product2) => {
+		fetch(products_path, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				'token': token,
+			}),
+		})
+			.then((response) => { return response.json() })
+			.then((responseJson) => {
+				if (responseJson.length > 1) {
+					responseJson.sort((product1, product2) => {
 						return (product1.price - product2.price);
 					});
 				}
-				self.setState({ products: response.data });
-			}
-        })
-        .catch(function (error) {
-            console.log('error', error);
-		})
+				this.setState({ products: responseJson });
+			})
+			.catch((error) => {
+				console.error(error);
+			});
 	}
 
 	componentDidMount() {
@@ -65,7 +66,7 @@ class Offers extends Component {
 
 	render() {
 		const { state } = this.props.navigation;
-		var token = this.state.params ? state.params.token : undefined;
+		var token = state.params ? state.params.token : undefined;
 		return (
 			<View style={styles.container}>
 				<ScrollView
