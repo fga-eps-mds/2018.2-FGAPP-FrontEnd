@@ -3,10 +3,14 @@ import { StyleSheet, View} from 'react-native';
 import getDirections from 'react-native-google-maps-directions'
 import { Container, Header, Content, Button, Text } from 'native-base';
 import Icon from 'react-native-vector-icons/Entypo';
+import DirectionModal from '../components/DirectionModal.js'
 
 export default class gmapsDirections extends React.Component {
-
-  handleGetDirections = () => {
+ state = {
+   modalVisible: false
+ }
+  handleGetDirections = (navigation) => {
+    this.setState({modalVisible: false})
     const data = {
       destination: {
         latitude: this.props.latitude,
@@ -15,7 +19,7 @@ export default class gmapsDirections extends React.Component {
       params: [
         {
           key: "travelmode",
-          value: "driving"        // may be "walking", "bicycling" or "transit" as well
+          value: navigation       // may be "walking", "bicycling" or "transit" as well
         },
         {
           key: "dir_action",
@@ -30,7 +34,7 @@ export default class gmapsDirections extends React.Component {
   render() {
     return (
       <View>
-      <Button style ={{padding: 10}} bordered info onPress={this.handleGetDirections}>
+      <Button style ={{padding: 10}} bordered info onPress={()=>this.setState({modalVisible: true})}>
       <Icon
         name='direction'
         color='#0AACCC'
@@ -38,6 +42,10 @@ export default class gmapsDirections extends React.Component {
       />
       <Text style = {{color: "#0AACCC"}}>Rota</Text>
       </Button>
+      <DirectionModal
+      handleGetDirections={this.handleGetDirections}
+      visible={this.state.modalVisible}
+      />
       </View>
     );
   }

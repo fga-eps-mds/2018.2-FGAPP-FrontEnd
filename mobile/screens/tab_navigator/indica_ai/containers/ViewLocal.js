@@ -29,7 +29,7 @@ class ViewLocal extends Component {
     showMessage({
       message: fav ? "Removido dos favoritos" : "Adicionado aos favoritos",
       type: fav ? "warning" : "success",
-      position: "center",
+      position: "top",
       icon: fav ? "info" : "success",
       duration: 900
     });
