@@ -8,10 +8,21 @@ import {
 import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right, Row } from 'native-base';
 
 export default class Publicity extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      onPress: props.onPress,
+    }
+  }
+
   render() {
+
+  const name = this.props.name;
+  const address = this.props.address;
+
     return (
-      <TouchableOpacity>
-        <Card style={{marginLeft: 5, marginRight: 5}}>
+      <TouchableOpacity onPress={() => this.state.onPress()}>
+        <Card>
           <CardItem cardBody style={{paddingHorizontal: 5, paddingTop: 5}}>
             <ImageBackground source={require('../assets/fga.jpg')} style={{height: 200, width: null, flex: 1}}>
             </ImageBackground>
@@ -20,8 +31,8 @@ export default class Publicity extends Component {
             <Left>
               <Thumbnail source={require('../assets/fga-logo.png')} />
               <Body>
-                <Text style={styles.localName}>Faculdade do Gama [FGA]</Text>
-                <Text note>St. Leste Projeção A - Gama Leste, Brasília - DF, 72444-240</Text>
+                <Text style={styles.localName}>{name}</Text>
+                <Text note>{address}</Text>
               </Body>
             </Left>
           </CardItem>
@@ -31,9 +42,9 @@ export default class Publicity extends Component {
                 <Icon
                   style={styles.iconRating}
                   active
-                  name="star"
+                  name="ios-star-outline"
                 />
-                <Text>3.0</Text>
+                <Text style={{color: '#0AACCC'}}>3.0</Text>
               </Row>
             </Left>
             <Right>
@@ -61,9 +72,9 @@ const styles = StyleSheet.create({
     fontSize: 20
   },
   iconRating: {
-    bottom: 3,
+    bottom: 2,
     left: 5,
-    alignContent: 'space-around'
+    color:'#0AACCC'
   }
 
 });
