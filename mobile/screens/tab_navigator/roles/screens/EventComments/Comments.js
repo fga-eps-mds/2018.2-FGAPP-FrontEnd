@@ -19,7 +19,7 @@ class Comments extends Component {
 
 	_getComments = () => {
         this.setState({refreshing: true})
-		fetch("https://5bc7da788bfe5a00131b6e6d.mockapi.io/eventComments/")
+		fetch("http://roles-comments.herokuapp.com/comment/")
 			.then(res => res.json())
 			.then(resJson => {
 				this.setState({ loading: false, comment: resJson })
@@ -70,9 +70,9 @@ class Comments extends Component {
 							key={index}
 							idComment={comment.id}
 							author={comment.author}
-							comment={comment.comment}
-							postDate={comment.postDateTime}
-							modifyDate={comment.modifyDateTime}
+							comment={comment.text}
+							postDate={comment.created}
+							modifyDate={comment.edited}
 
 							like={comment.like}
 						/>

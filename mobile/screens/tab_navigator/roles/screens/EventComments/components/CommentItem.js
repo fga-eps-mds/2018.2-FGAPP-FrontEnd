@@ -33,19 +33,19 @@ class CommentItem extends Component {
 							<View>
 								<Text style={{ fontWeight: "bold" }}>{this.props.author}</Text>
 
-								{this.props.comment.length > 200 ? (
+								{/*this.props.text.length > 200 ? (
 									<View>
 										<Text>
-											{this.props.comment.slice(200)}
+											{this.props.text.slice(200)}
 											... -{" "}
 										</Text>
 										<TouchableOpacity>
 											<Text>Ver Mais</Text>
 										</TouchableOpacity>
 									</View>
-								) : (
-									<Text>{this.props.comment}</Text>
-								)}
+								) : (*/
+									<Text>{this.props.text}</Text>
+								/*)*/}
 								<Text style={{ color: "grey", fontSize: 12 }}>
 									Postado em: {this.props.postDate}
 								</Text>
