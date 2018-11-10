@@ -8,7 +8,8 @@ import {
 	DatePickerAndroid,
 	Image,
 	TouchableOpacity,
-	Switch
+	Switch,
+	ActivityIndicator
 } from "react-native";
 import { ImagePicker } from "expo";
 import { Icon, TextInput, Button, H2, Item, Input } from "native-base";
@@ -17,8 +18,12 @@ import CadastroInput from "./CadastroInput/index.js";
 import MapsModal from "./MapsModal/index.js";
 import ImageModal from "./ImageModal/index.js";
 
+import config from './Config.js'
+
 const eighteen = require("../../../static/eighteen.png");
 const date = new Date();
+
+const CryptoJS = require("crypto-js");
 
 export default class CadastroEventos1 extends Component {
 	state = {
@@ -41,7 +46,63 @@ export default class CadastroEventos1 extends Component {
 		stage: 0,
 		blocked: true,
 		mapsModalVisibility: false,
-		imgModalVisibility: false
+		imgModalVisibility: false,
+
+		uploading: false,
+    err: false,
+    
+    responseStatus: 0,
+    responseOk: false,
+	};
+
+	_uploadImage = uri => {
+		let formdata = new FormData();
+		let timestamp = ((Date.now() / 1000) | 0).toString();
+		let api_key = config.api_key;
+		let api_secret = config.api_secret;
+		let cloud = config.cloud;
+		let hash_string = "timestamp=" + timestamp + api_secret;
+		let signature = CryptoJS.SHA1(hash_string).toString();
+		let upload_url =
+			"https://api.cloudinary.com/v1_1/" + cloud + "/image/upload";
+
+		formdata.append("file", {
+			uri: uri,
+			type: "image/png",
+			name: "upload.png"
+		});
+		formdata.append("timestamp", timestamp);
+		formdata.append("api_key", api_key);
+		formdata.append("signature", signature);
+
+		let xhr = new XMLHttpRequest();
+		xhr.open("POST", upload_url);
+
+		this.setState({ uploading: true });
+		console.log("Uploading photo...");
+
+		xhr.onreadystatechange = () => {
+			// console.log(xhr);
+
+			if (xhr.readyState === 4) {
+				if (xhr.status == 200) {
+					const res = JSON.parse(xhr.response);
+					console.log(
+						"Request Status:",
+						xhr.status,
+						"//",
+						"Image URL: ",
+						res.url
+					);
+					this._cadastraRole(res.url);
+				} else {
+					this.setState({ uploading: false });
+					Alert.alert("Erro!", "Ocorreu um erro ao enviar a imagem!");
+					return;
+				}
+			}
+		};
+		xhr.send(formdata);
 	};
 
 	_resetStates() {
@@ -62,22 +123,66 @@ export default class CadastroEventos1 extends Component {
 			foods: "",
 			photo: null,
 
-			blocked: true,
-			errorMessage: ""
+      errorMessage: "",
+      responseOk:false,
+      responseStatus:0,
 		});
 		console.log("States resetados");
-		console.log(this.state);
 	}
 
 	componentDidMount() {
 		this._resetStates();
 	}
 
-	_cadastraRole() {
-		console.log("DEBUG - Tentando cadastrar rolê!");
-		this._fetch();
-		this._resetStates();
-		this.setState({ stage: 0 });
+	_cadastraRole(photoURL) {
+		fetch("http://roles-events.herokuapp.com/events/", {
+			method: "POST",
+			headers: {
+				Accept: "application/json",
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify({
+				owner: this.state.organizer, // Verificar Front-End e Back para decisão sobre este campo
+				eventName: this.state.eventName,
+				linkReference: "https://" + this.state.linkReference + ".com", // Verificar Front-End e Back para decisão sobre este campo
+				organizer: this.state.organizer,
+				value: this.state.value,
+				address: this.state.address,
+				linkAddress: "https://www.google.com/", // Verificar Front-End e Back para decisão sobre este campo
+				eventDate: this.state.eventDate,
+				eventHour: this.state.eventHour,
+				adultOnly: this.state.adultOnly,
+				eventDescription: this.state.eventDescription,
+				// photo: photoURL,
+				foods: this.state.foods,
+				drinks: this.state.drinks
+			})
+		})
+			.then(response => {
+        this.setState({responseStatus: response.status, responseOk: response.ok})
+        console.log(JSON.stringify(response))
+				response.json();
+			})
+			.then(responseJson => {
+        console.log("ResponseOk:",this.state.responseOk,'//',"Status:", this.state.responseStatus);
+        if((this.state.responseStatus >= 200 && this.state.responseStatus <= 202) && this.state.responseOk){
+          console.log("Rolê cadastrado com sucesso!");
+          Alert.alert("Parabéns!", "O Rolê foi cadastrado com sucesso!");
+          this.setState({ uploading: false, stage: 0 });
+          this._resetStates();
+          console.log(this.state);
+        }else{
+          return Promise.reject()
+        }
+			})
+			.catch(error => {
+				Alert.alert(
+					"Erro "+this.state.responseStatus,
+					"Houveram problemas na conexão. Tente novamente mais tarde."
+        );
+        this.setState({ uploading: false, stage: 0 });
+        this._resetStates();
+			});
 	}
 
 	_stageValidation() {
@@ -93,6 +198,8 @@ export default class CadastroEventos1 extends Component {
 			date.getMinutes() < 10
 				? "0" + date.getMinutes()
 				: date.getMinutes();
+
+		let blocked = true;
 
 		switch (this.state.stage) {
 			case 1:
@@ -128,9 +235,9 @@ export default class CadastroEventos1 extends Component {
 				} else if (this.state.drinks == "") {
 					Alert.alert("Erro", "Campo de drinks do evento inválido!");
 				} else if (this.state.foods == "") {
-          Alert.alert("Erro", "Campo de comidas do evento inválido!");
-        }else if(this.state.photo == null){
-          Alert.alert("Erro", "Envie uma foto!")
+					Alert.alert("Erro", "Campo de comidas do evento inválido!");
+				} else if (this.state.photo == null) {
+					Alert.alert("Erro", "Envie uma foto!");
 				} else {
 					this.setState({ stage: 3 });
 				}
@@ -150,18 +257,18 @@ export default class CadastroEventos1 extends Component {
 						"Campo de telefone da organização inválido!"
 					);
 				} else {
-					this.setState({ blocked: false });
+					blocked = false;
 				}
 				break;
 		}
 
-		if (this.state.blocked === true) {
+		if (blocked === true) {
 			Alert.alert(
 				"Erro",
 				"Seu evento ainda não está pronto para ser criado. Verifique se as informações estão corretas."
 			);
 		} else {
-			this._cadastraRole();
+			this._uploadImage(this.state.photo);
 		}
 	}
 
@@ -224,7 +331,7 @@ export default class CadastroEventos1 extends Component {
 
 		if (!result.cancelled) {
 			this.setState({ photo: result.uri });
-			// console.log(this.state.photo);
+			console.log(this.state.photo);
 		}
 	};
 
@@ -236,57 +343,6 @@ export default class CadastroEventos1 extends Component {
 		modal == "image" &&
 			this.setState({
 				imgModalVisibility: !this.state.imgModalVisibility
-			});
-	}
-
-	_fetch() {
-		fetch("http://roles-events.herokuapp.com/events/", {
-			method: "POST",
-			headers: {
-				Accept: "application/json",
-				"Content-Type": "application/json"
-			},
-			body: JSON.stringify({
-				owner: this.state.organizer, // Verificar Front-End e Back para decisão sobre este campo
-				eventName: this.state.eventName,
-				linkReference: "https://" + this.state.linkReference + ".com", // Verificar Front-End e Back para decisão sobre este campo
-				organizer: this.state.organizer,
-				value: this.state.value,
-				address: this.state.address,
-				linkAddress: "https://www.google.com/", // Verificar Front-End e Back para decisão sobre este campo
-				eventDate: this.state.eventDate,
-				eventHour: this.state.eventHour,
-				adultOnly: this.state.adultOnly,
-				eventDescription: this.state.eventDescription,
-				// photo: null,
-				foods: this.state.foods,
-				drinks: this.state.drinks
-			})
-		})
-			.then(response => response.json())
-			.then(responseJson => {
-				//console.log("Sucesso?");
-				//console.log(responseJson);
-				//return responseJson;
-				if (responseJson.length) {
-					const error = JSON.parse(responseJson[0]);
-					this.setState({ errorMessage: error["error"] });
-					Alert.alert("Erro", this.state.errorMessage);
-				} else {
-					console.log(responseJson);
-					console.log("Rolê cadastrado com sucesso!");
-					Alert.alert(
-						"Parabéns!",
-						"O Rolê foi cadastrado com sucesso!"
-					);
-				}
-			})
-			.catch(error => {
-				console.error(error);
-				Alert.alert(
-					"Problemas na conexão!",
-					"Verifique sua conexão e tente novamente mais tarde."
-				);
 			});
 	}
 
@@ -456,8 +512,8 @@ export default class CadastroEventos1 extends Component {
 					<ImageModal
 						visible={this.state.imgModalVisibility}
 						closeModal={() => this._toggleModal("image")}
-            photoSrc={photo}
-            editBtn={()=>this._imagePicker()}
+						photoSrc={photo}
+						editBtn={() => this._imagePicker()}
 					/>
 					<View style={styles.stageIndicator}>
 						<Text>2/3</Text>
@@ -569,7 +625,14 @@ export default class CadastroEventos1 extends Component {
 				</View>
 			);
 		} else if (this.state.stage === 3) {
-			return (
+			return this.state.uploading === true ? (
+				<View flex={1} justifyContent="center" alignContent="center">
+					<Text style={{ textAlign: "center" }}>
+						Cadastrando rolê... {"\n"}
+					</Text>
+					<ActivityIndicator alignSelf="center" size="large" />
+				</View>
+			) : (
 				<View flex={1} backgroundColor="white">
 					<MapsModal
 						visible={this.state.mapsModalVisibility}
@@ -677,7 +740,7 @@ export default class CadastroEventos1 extends Component {
 									width: "50%",
 									backgroundColor: "#1CBD24"
 								}}
-								onPress={() => this._fetch()}
+								onPress={() => this._stageValidation()}
 							>
 								<Text style={{ color: "white" }}>Concluir</Text>
 							</Button>

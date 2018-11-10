@@ -1,6 +1,7 @@
 .env
 .env*
 *.env
+Config.js
 
 # Xcode
 !**/*.xcodeproj
