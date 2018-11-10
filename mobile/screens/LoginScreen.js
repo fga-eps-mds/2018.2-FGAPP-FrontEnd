@@ -16,6 +16,39 @@ import {
 import {Button} from 'native-base';
 import Field from './components/Field';
 import Login from './components/Login';
+import jwt_decode from 'jwt-decode'
+
+async function getExpoToken(loginToken) {
+  const { status } = await Expo.Permissions.askAsync(
+    Expo.Permissions.NOTIFICATIONS
+  );
+  if (status != 'granted') {
+    alert('Você precisa permitir notificações nas configurações.');
+    return;
+  }
+
+  const notificationToken = await Expo.Notifications.getExpoPushTokenAsync();
+  storeToken(loginToken, notificationToken)
+}
+
+async function storeToken(loginToken, notificationToken){
+  var user = jwt_decode(loginToken);
+
+  const notification_path = `${process.env.VENDAS_API}/api/save_user_token/`;
+  fetch(notification_path, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      'user_token': notificationToken,
+      'user_id': user.user_id,
+      'token': loginToken,
+    }),
+  }).catch( err => {
+    console.log(err)
+  });
+}
 
 class LoginScreen extends Component {
 
@@ -57,14 +90,15 @@ class LoginScreen extends Component {
       this.setState({ non_field_alert: ['']})
     }
     //Sucesso
-    if (responseJson.token != undefined|| responseJson.key != undefined){
-      this.props.navigation.navigate('TabHandler', {token:responseJson.token})
-    }
+   if (responseJson.token != undefined || responseJson.key != undefined){
+     getExpoToken(responseJson.token);
+     this.props.navigation.navigate('TabHandler', {token:responseJson.token})
+   }
   }
 
   _onPressButton = async () => {
-    login = await Login(this.state.email, this.state.password)
-    this.checkJson(login);
+   login = await Login(this.state.email, this.state.password)
+   this.checkJson(login);
   }
 
     render() {
