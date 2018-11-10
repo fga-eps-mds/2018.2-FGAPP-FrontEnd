@@ -55,6 +55,9 @@ export default class SuccessModal extends React.Component{
                 />
                   <Text style={styles.buttonText}>Ônibus</Text>
                 </TouchableOpacity>
+                <TouchableOpacity style={[styles.button, styles.cancelButton]} onPress={this.props.onCancel}>
+                  <Text style={styles.buttonText}>Cancelar</Text>
+                </TouchableOpacity>
               </View>
             </View>
           </View>
@@ -69,13 +72,14 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'rgba(225, 225, 225, 0.8)'
   },
   boxContainer: {
     padding: 15,
-    backgroundColor: '#FFF',
+    backgroundColor: '#fff',
     borderRadius: 10,
     alignItems: 'center',
-    width: 300,
+    width: 350,
   },
   boxTitle: {
     fontWeight: 'bold',

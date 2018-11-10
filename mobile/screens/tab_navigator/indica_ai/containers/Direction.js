@@ -44,6 +44,7 @@ export default class gmapsDirections extends React.Component {
       </Button>
       <DirectionModal
       handleGetDirections={this.handleGetDirections}
+      onCancel={() => this.setState({ modalVisible: false })}
       visible={this.state.modalVisible}
       />
       </View>

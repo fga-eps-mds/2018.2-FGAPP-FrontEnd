@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import {
   View,
   Text,
-  StyleSheet, 
+  StyleSheet,
   ScrollView,
   TouchableHighlight
 } from "react-native";
@@ -32,7 +32,7 @@ class ListLocals extends Component {
       .then(response => response.json())
       .then(responseJson => {
         this.props.searchAction(responseJson)
-      }) 
+      })
       .catch(error => {
         console.log(error);
       });
@@ -90,6 +90,6 @@ const mapDispatchToProps = dispatch => (
 )
 
 export default withNavigation(connect(
-  mapStateToProps, 
+  mapStateToProps,
   mapDispatchToProps
 )(ListLocals));
