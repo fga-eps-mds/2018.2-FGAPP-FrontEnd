@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { TouchableOpacity } from 'react-native'
+import { TouchableOpacity, View } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons';
 import { ImagePicker } from 'expo';
-import PropTypes from 'prop-types';
+import ImageModal from "../components/ImageModal";
 
 
 class AddImages extends Component {
@@ -11,6 +11,8 @@ class AddImages extends Component {
     super(props);
     this.state = {
       image: null,
+      ImageModalVisible: false,
+      id: this.props.id
     };
     this.pickImage = this.pickImage.bind(this);
     this.postImage = this.postImage.bind(this);
@@ -24,47 +26,60 @@ class AddImages extends Component {
       aspect: [4, 3],
     });
 
-    if(!result.cancelled) { 
+    if (!result.cancelled) {
       this.setState({
-        image: result.uri,
+        image: result,
+        ImageModalVisible: true
       });
-    console.log(result);
-    } 
-  };  
+
+      //console.log(result);
+    }
+  };
 
   postImage() {
-    const indicaAiUrl = `https://indicaai.herokuapp.com/${id}/images/`;
+    const { id } = this.state.id
+    const indicaAiUrl = `https://dev-indicaai.heroku.com/local/${id}/images/`;
     const uri = this.state.image;
-    const uriParts = uri.split('.');
-    const fileType = uriParts[uriParts.length - 1];
+    this.setState({ ImageModalVisible: false })
+    const porra =  JSON.stringify(this.state.image.base64);
 
-    const  formData = new FormData();
-      formData.append('photo', {
-        uri,
-        name: `photo.${fileType}`,
-        type: `image/${filetype}`,
-      });
-      
-    const options = {
+    
+    const response = fetch(indicaAiUrl, {
       method: 'POST',
-      body: formData,
       headers: {
         Accept: 'application/json',
-        'Content-Type' : 'multipart/form-data',
+        'Content-Type': 'aplication/json',
       },
-    };
-    return fetch(indicaAiUrl, formData)
-  }
+      body: JSON.stringify({
+        image: [this.state.image.base64]
+      })
+    })
+    .then(console.log(response))
+    .catch(error => {
+      console.log(error);
+    });
+    console.log(response)
+  };
+
+
+
 
   render() {
+
     return (
-      <TouchableOpacity onPress={() => this.pickImage()}>
-        <Icon
-          name="ios-add-circle"
-          size={60}
-          color = 'white'
+      <View>
+        <ImageModal
+          onSendImage={() => this.postImage()}
+          visible={this.state.ImageModalVisible}
         />
-      </TouchableOpacity>
+        <TouchableOpacity onPress={() => this.pickImage()}>
+          <Icon
+            name="ios-add-circle"
+            size={60}
+            color='white'
+          />
+        </TouchableOpacity>
+      </View>
     );
   }
 }
