@@ -20,7 +20,7 @@ export default class ImageModal extends React.Component {
             <Text style={styles.boxTitle}>Enviar foto ?</Text>
             <View style={styles.buttonContainer}>
 
-              <TouchableOpacity style={[styles.button, styles.sendButton]} onPress={this.props.onCancel}>
+              <TouchableOpacity style={[styles.button, styles.sendButton]} onPress={this.props.onSendImage}>
                 <Text style={styles.buttonText}>Enviar</Text>
               </TouchableOpacity>
 
@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.5)'
   },
   boxContainer: {
     padding: 20,
