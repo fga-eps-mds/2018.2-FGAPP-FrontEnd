@@ -8,23 +8,48 @@ import {
   Picker
 } from 'native-base'
 
-export default class CategorySelect extends Component{
+export default class CategorySelect extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.state={
-      selected: undefined
+    this.state = {
+      selected: undefined,
+      categories: []
     };
   }
 
-  onValueChange(value: string) {
+  componentWillMount() {
+    const url = fetch(`https://dev-indicaai.herokuapp.com/categories`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "aplication/json"
+      }
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        this.setState({ 
+          categories: responseJson
+        })
+        // this.state.categories = responseJson;
+        console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        console.log(this.state.categories);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
+  onValueChange(value) {
     this.setState({
       selected: value
     });
   }
 
   render() {
-
+    // const { categories } = this.state
+    console.log("//////////////////////////////////////////////////////////")
+    console.log(this.state.categories)
     return (
       <Container style={styles.container}>
         <Item
@@ -38,10 +63,9 @@ export default class CategorySelect extends Component{
             selectedValue={this.state.selected}
             onValueChange={this.onValueChange.bind(this)}
           >
-            <Picker.Item label="Restaurante" value='1'/>
-            <Picker.Item label="Hookah" value='2'/>
-            <Picker.Item label="Bar" value='3'/>
-            <Picker.Item label="Papelaria" value='4'/>
+            {this.state.categories.map(category =>
+              <Picker.Item label={category.name} value={category.id} />
+            )}
           </Picker>
         </Item>
       </Container>
@@ -56,12 +80,12 @@ const styles = StyleSheet.create({
     position: 'absolute',
     backgroundColor: "white",
     padding: 20,
-    top:0,
-    bottom:0,
-    left:0,
-    right:0
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0
   },
-  form:{
+  form: {
     marginBottom: 10
   }
 });
