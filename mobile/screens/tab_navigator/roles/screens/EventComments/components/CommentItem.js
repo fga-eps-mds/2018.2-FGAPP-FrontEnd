@@ -28,24 +28,17 @@ class CommentItem extends Component {
 			<View>
 				<Card transparent>
 					<CardItem>
-						<Icon name="person" />
+						<View
+							style={{ alignSelf: "flex-start", alignContent: "flex-start" }}
+						>
+							<Icon name="person" />
+						</View>
 						<View style={{ width: "100%" }}>
 							<View>
-								<Text style={{ fontWeight: "bold" }}>{this.props.author}</Text>
+								<Text style={{ fontWeight: "bold", marginBottom: 10 }}>{this.props.author}</Text>
 
-								{/*this.props.text.length > 200 ? (
-									<View>
-										<Text>
-											{this.props.text.slice(200)}
-											... -{" "}
-										</Text>
-										<TouchableOpacity>
-											<Text>Ver Mais</Text>
-										</TouchableOpacity>
-									</View>
-								) : (*/
-									<Text>{this.props.text}</Text>
-								/*)*/}
+								<Text>{this.props.text}</Text>
+
 								<Text style={{ color: "grey", fontSize: 12 }}>
 									Postado em: {this.props.postDate}
 								</Text>
