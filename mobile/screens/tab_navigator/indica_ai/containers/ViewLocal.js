@@ -16,7 +16,7 @@ import FavoriteContainer from "./FavoriteContainer";
 import { showMessage, hideMessage } from "react-native-flash-message";
 import FlashMessage from "react-native-flash-message";
 import AddImages from "./AddImages";
-
+import Direction from "./Direction";
 
 width = Dimensions.get('window').width;
 
