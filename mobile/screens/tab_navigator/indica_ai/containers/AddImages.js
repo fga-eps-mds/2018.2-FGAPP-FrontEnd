@@ -38,20 +38,19 @@ class AddImages extends Component {
 
   postImage() {
     const { id } = this.state.id
-    const indicaAiUrl = `https://dev-indicaai.heroku.com/local/${id}/images/`;
+    console.log(id);
+    const indicaAiUrl = `http://192.168.25.3:3000/local/${id}/images/`;
     const uri = this.state.image;
     this.setState({ ImageModalVisible: false })
-    const porra =  JSON.stringify(this.state.image.base64);
-
     
     const response = fetch(indicaAiUrl, {
       method: 'POST',
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'aplication/json',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        image: [this.state.image.base64]
+        'image': [this.state.image.base64]
       })
     })
     .then(console.log(response))
