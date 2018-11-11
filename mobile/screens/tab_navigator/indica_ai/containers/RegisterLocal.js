@@ -3,16 +3,20 @@ import React, { Component } from "react";
 import {Button, Text } from 'native-base';
 import { Constants, Location, Permissions } from 'expo';
 import {
-  View,
-  StyleSheet,
-  Image,
-  ScrollView
+    View,
+    StyleSheet,
+    Image,
+    TouchableOpacity,
+    ScrollView,
+    Alert
 } from "react-native";
 
 import { Dimensions } from "react-native";
 import UserLocationMap from "../components/UserLocationMap";
 import Expo from "expo";
-import LocalDetails from "../components/LocalDetails"
+import LocalDetails from "../components/LocalDetails";
+import SuccessModal from '../components/SuccessModal';
+import ErrorModal from '../components/ErrorModal';
 
 class RegisterLocal extends Component{
 
@@ -25,6 +29,9 @@ constructor(props){
     error: null,
    jsonResponse: null,
    jsonDetails: null,
+   opening_hours: [],
+   successModalVisible: false,
+   errorModalVisible: false,
  };
 }
   async componentWillMount() {
@@ -108,11 +115,27 @@ constructor(props){
         place_id = this.state.jsonResponse['results'][index]['place_id'];
       }
      try{
-       const response = await fetch('https://maps.googleapis.com/maps/api/place/details/json?placeid='+place_id+'&fields=opening_hours,formatted_address,name,rating,formatted_phone_number&key=AIzaSyBM9WYVio--JddgNX3TTF6flEhubkpjJYc')
+       const response = await fetch('https://maps.googleapis.com/maps/api/place/details/json?placeid='+
+                                    place_id+
+                                    '&fields=opening_hours,formatted_address,name,rating,formatted_phone_number,'
+                                     +'photo,rating,geometry,reviews&key=AIzaSyBM9WYVio--JddgNX3TTF6flEhubkpjJYc')
        if(response.ok){
          const jsonDetails = await response.json();
          this.setState({jsonDetails});
-
+         let obj=[];
+         for(let i=0; i<7; i++){
+           if(jsonDetails['result']['opening_hours']['periods'][i]){
+             day = i+1;
+             this.setState({day});
+             opens = jsonDetails['result']['opening_hours']['periods'][i]['open']['time'];
+             this.setState({opens});
+             closes = jsonDetails['result']['opening_hours']['periods'][i]['close']['time'];
+             this.setState({closes});
+             obj = {day, opens, closes};
+             this.state.opening_hours = [ ...this.state.opening_hours, obj];
+           }
+         }
+         this.state.opening_hours = []
        }
        throw new Error('Request failed!');
      } catch(Error){
@@ -124,14 +147,34 @@ constructor(props){
      this.setState({latitude: newLatitude, longitude: newLongitude});
    }
 
-  render() {
+   sendData = async (data) => {
+     try{
+       const response = await fetch(`https://dev-indicaai.herokuapp.com/locals`, {
+         method: 'POST',
+         headers: {
+           Accept: 'application/json',
+           'Content-Type': 'application/json'
+         },
+         body: JSON.stringify(data)
+       })
+       if(response.ok){
+         const jsonResponse = await response.json();
+         this.setState({ successModalVisible: true })
+       }
+     }
+     catch(error){
+       this.setState({ errorModalVisible: true })
+     }
+   };
 
-    let lat;
-    let long;
+  render() {
+    
+    let latitude;
+    let longitude;
 
     if(this.state.latitude && this.state.longitude){
-      lat = this.state.latitude;
-      long = this.state.longitude;
+      latitude= this.state.latitude;
+      longitude = this.state.longitude;
     }
     let markLat = 0;
     let markLong = 0;
@@ -144,28 +187,48 @@ constructor(props){
     if(this.state.jsonDetails){
       name = this.state.jsonDetails['result']['name'];
     }
-    let adress;
+    let address;
     if(this.state.jsonDetails){
-      adress = this.state.jsonDetails['result']['formatted_address'];
+      address = this.state.jsonDetails['result']['formatted_address'];
     }
+    let telephone;
+    let rating;
+    if(this.state.jsonDetails){
+      telephone = this.state.jsonDetails['result']['formatted_phone_number']
+      rating = this.state.jsonDetails['result']['rating']
+    }
+
+    let opening_hours = [];
+    opening_hours = this.state.opening_hours;
+
+    const data = {name, address, telephone, latitude, longitude, opening_hours}
 
     if (this.state.loading) {
       return <Expo.AppLoading />;
     }
+
     return (
       <View style = {styles.container}>
         <UserLocationMap
-          latitude = {lat}
-          longitude = {long}
+          latitude = {latitude}
+          longitude = {longitude}
           markLat = {markLat}
           markLong = {markLong}
           sendNewCoods = {this.takeNewCoords}
          />
          <LocalDetails
+           data = {data}
+           sendData = {this.sendData}
            name = {name}
-           adress = {adress}
-           latitude = {lat}
-           longitude = {long}
+           address = {address}
+        />
+        <SuccessModal
+          onCancel={() => this.setState({ successModalVisible: false })}
+          visible={this.state.successModalVisible}
+        />
+        <ErrorModal
+          onCancel={() => this.setState({ errorModalVisible: false })}
+          visible={this.state.errorModalVisible}
         />
       </View>
     )

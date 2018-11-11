@@ -18,6 +18,11 @@ const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height / 2;
 
 class LocalDetails extends Component {
+
+  dispatchSendData = () =>{
+    this.props.sendData(this.props.data);
+  }
+
     render(){
         return(
             <View style = {styles.container}>
@@ -29,13 +34,20 @@ class LocalDetails extends Component {
                   <Body>
                   <ScrollView>
                     <Text numberOfLines={2} style = {styles.text}>
-                      {'Endereço:'} {this.props.adress}
+                      {'Endereço:'} {this.props.address}
+
                     </Text>
                   </ScrollView>
                   </Body>
                 </CardItem>
                 <CardItem footer style={styles.cardFooter}>
-                     <Button info style={styles.button} ><Text> {"Check-in"} </Text></Button>
+                     <Button
+                        info
+                        style={styles.button}
+                        onPress={this.dispatchSendData}
+                     >
+                        <Text> {"Check-in"} </Text>
+                     </Button>
                      <Button
                         info
                         style={styles.button}
