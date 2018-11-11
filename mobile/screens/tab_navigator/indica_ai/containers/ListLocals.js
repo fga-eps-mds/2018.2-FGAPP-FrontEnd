@@ -60,15 +60,15 @@ class ListLocals extends Component {
             )
         } else {
           return (
+
             <ScrollView showsVerticalScrollIndicator={false}>
 
             {locals.map( local =>
-              local.address ?
-                null
-                :
+              local.publicity == 'true' ?
                 <Publicity
                   name={local.name}
                   address={local.address}
+                  rating={5.0}
                   onPress={() => {
                     this.props.navigation.navigate('LocalDetails',{
                       local: local
@@ -76,10 +76,12 @@ class ListLocals extends Component {
                   }}
                   key={local.id}
                 />
+                :
+                null
              )}
 
              {locals.map( local =>
-               local.address ?
+               local.publicity == 'false' ?
                  <Local
                    name={local.name}
                    address={local.address}
@@ -95,6 +97,7 @@ class ListLocals extends Component {
               )}
 
             </ScrollView>
+
           );
         }
     }
@@ -112,15 +115,3 @@ export default withNavigation(connect(
   mapStateToProps,
   mapDispatchToProps
 )(ListLocals));
-
-
-
-
-
-
-
-
-
-/*{publicities.map((publicity) =>
-publicity ? <Text>{publicity}</Text> : <Text> ================ </Text>
-)}*/

@@ -19,7 +19,7 @@ export default class Publicity extends Component {
 
   const name = this.props.name;
   const address = this.props.address;
-  const publicity = this.props.publicity;
+  const rating = this.props.rating;
 
     return (
       <TouchableOpacity onPress={() => this.state.onPress()}>
@@ -34,7 +34,6 @@ export default class Publicity extends Component {
               <Body>
                 <Text style={styles.localName}>{name}</Text>
                 <Text note>{address}</Text>
-                <Text note>{publicity}</Text>
               </Body>
             </Left>
           </CardItem>
@@ -46,7 +45,7 @@ export default class Publicity extends Component {
                   active
                   name="ios-star-outline"
                 />
-                <Text style={{color: '#0AACCC'}}>3.0</Text>
+                <Text style={{color: '#0AACCC'}}>{rating}</Text>
               </Row>
             </Left>
             <Right>
