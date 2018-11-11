@@ -22,25 +22,6 @@ class RegisterLocalAPI extends Component{
     };
   }
 
-    componentWillMount() {
-        const url = fetch(`https://dev-indicaai.herokuapp.com/categories`, {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "aplication/json"
-        }
-      })
-      .then(response => response.json())
-      .then(responseJson => {
-        this.state.category = responseJson;
-        console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++");
-        console.log(this.state.category);
-       })
-      .catch(error => {
-        console.log(error);
-      });
-  };
-
  _postForm  = async (name,description) => {
        const url  = "https://dev-indicaai.herokuapp.com/locals/";
        const jsonTest = JSON.stringify({
