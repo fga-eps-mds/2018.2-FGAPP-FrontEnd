@@ -227,8 +227,9 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    width: '100%',
-    top: 10
+    width: '80%',
+    top: 10,
+    alignItems: "stretch"
   },
   addImage: {
     margin: 10,
