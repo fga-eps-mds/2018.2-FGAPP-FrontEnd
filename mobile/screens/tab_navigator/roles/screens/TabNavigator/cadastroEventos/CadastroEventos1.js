@@ -18,7 +18,7 @@ import CadastroInput from "./CadastroInput/index.js";
 import MapsModal from "./MapsModal/index.js";
 import ImageModal from "./ImageModal/index.js";
 
-import config from './Config.js'
+import config from "./Config.js";
 
 const eighteen = require("../../../static/eighteen.png");
 const date = new Date();
@@ -41,7 +41,14 @@ export default class CadastroEventos1 extends Component {
 		adultOnly: true,
 		drinks: "",
 		foods: "",
-		photo: null,
+    photo: null,
+    
+		localization: {
+      latitude: 0,
+      longitude: 0,
+      latitudeDelta: 0,
+      longitudeDelta: 0
+    },
 
 		stage: 0,
 		blocked: true,
@@ -49,10 +56,10 @@ export default class CadastroEventos1 extends Component {
 		imgModalVisibility: false,
 
 		uploading: false,
-    err: false,
-    
-    responseStatus: 0,
-    responseOk: false,
+		err: false,
+
+		responseStatus: 0,
+		responseOk: false
 	};
 
 	_uploadImage = uri => {
@@ -122,10 +129,12 @@ export default class CadastroEventos1 extends Component {
 			drinks: "",
 			foods: "",
 			photo: null,
+			localization: {},
 
-      errorMessage: "",
-      responseOk:false,
-      responseStatus:0,
+
+			errorMessage: "",
+			responseOk: false,
+			responseStatus: 0
 		});
 		console.log("States resetados");
 	}
@@ -159,29 +168,45 @@ export default class CadastroEventos1 extends Component {
 			})
 		})
 			.then(response => {
-        this.setState({responseStatus: response.status, responseOk: response.ok})
-        console.log(JSON.stringify(response))
+				this.setState({
+					responseStatus: response.status,
+					responseOk: response.ok
+				});
+				console.log(JSON.stringify(response));
 				response.json();
 			})
 			.then(responseJson => {
-        console.log("ResponseOk:",this.state.responseOk,'//',"Status:", this.state.responseStatus);
-        if((this.state.responseStatus >= 200 && this.state.responseStatus <= 202) && this.state.responseOk){
-          console.log("Rolê cadastrado com sucesso!");
-          Alert.alert("Parabéns!", "O Rolê foi cadastrado com sucesso!");
-          this.setState({ uploading: false, stage: 0 });
-          this._resetStates();
-          console.log(this.state);
-        }else{
-          return Promise.reject()
-        }
+				console.log(
+					"ResponseOk:",
+					this.state.responseOk,
+					"//",
+					"Status:",
+					this.state.responseStatus
+				);
+				if (
+					this.state.responseStatus >= 200 &&
+					this.state.responseStatus <= 202 &&
+					this.state.responseOk
+				) {
+					console.log("Rolê cadastrado com sucesso!");
+					Alert.alert(
+						"Parabéns!",
+						"O Rolê foi cadastrado com sucesso!"
+					);
+					this.setState({ uploading: false, stage: 0 });
+					this._resetStates();
+					console.log(this.state);
+				} else {
+					return Promise.reject();
+				}
 			})
 			.catch(error => {
 				Alert.alert(
-					"Erro "+this.state.responseStatus,
+					"Erro " + this.state.responseStatus,
 					"Houveram problemas na conexão. Tente novamente mais tarde."
-        );
-        this.setState({ uploading: false, stage: 0 });
-        this._resetStates();
+				);
+				this.setState({ uploading: false, stage: 0 });
+				this._resetStates();
 			});
 	}
 
@@ -344,6 +369,12 @@ export default class CadastroEventos1 extends Component {
 			this.setState({
 				imgModalVisibility: !this.state.imgModalVisibility
 			});
+	}
+
+	_handleLocationSelection(region) {
+    this.setState({localization: region})
+		this._toggleModal('maps')
+    // console.log('--------------------------------------\n','DEBUG HANDLE LOCALIZATION:',region,this.state.localization,'\n--------------------------------------');
 	}
 
 	render() {
@@ -630,14 +661,13 @@ export default class CadastroEventos1 extends Component {
 					<Text style={{ textAlign: "center" }}>
 						Cadastrando rolê... {"\n"}
 					</Text>
-					<ActivityIndicator alignSelf="center" size="large" />
+					<ActivityIndicator alignSelf="center" size="large" color='green'/>
 				</View>
 			) : (
 				<View flex={1} backgroundColor="white">
 					<MapsModal
 						visible={this.state.mapsModalVisibility}
-						closeModal={() => this._toggleModal("maps")}
-						// address = {address => this.state.address}
+						onLocationSelection={(region) => this._handleLocationSelection(region)}
 					/>
 					<View style={styles.stageIndicator}>
 						<Text>3/3</Text>
@@ -693,6 +723,15 @@ export default class CadastroEventos1 extends Component {
 								/>
 								<Text>Definir Localização</Text>
 							</Button>
+
+              {(this.state.localization.latitude != undefined && this.state.localization.latitude != undefined) &&
+
+              <Text style={{color:'green', opacity:0.5, alignSelf:'center', fontSize:10, textAlign:'center'}}> 
+                Localização OK <Icon name='check-circle' type='FontAwesome' style={{color:'green', fontSize:10}}/>
+                {`\n${this.state.localization.latitude} / ${this.state.localization.longitude}`}
+              </Text> 
+              }
+
 						</View>
 
 						<View>
