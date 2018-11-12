@@ -3,6 +3,8 @@ import { TouchableOpacity, View } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons';
 import { ImagePicker } from 'expo';
 import ImageModal from "../components/ImageModal";
+import SuccessModal from '../components/SuccessModal';
+import ErrorModal from '../components/ErrorModal';
 
 
 class AddImages extends Component {
@@ -10,6 +12,8 @@ class AddImages extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      successModalVisible: false,
+      errorModalVisible: false,
       image: null,
       ImageModalVisible: false,
       id: this.props.id
@@ -32,36 +36,40 @@ class AddImages extends Component {
         ImageModalVisible: true
       });
 
-      //console.log(result);
     }
   };
 
-  postImage() {
-    const { id } = this.state.id
-    console.log(id);
-    const indicaAiUrl = `http://192.168.0.7:3000/local/1/images/`;
+  postImage = async () => {
+    const id = this.state.id
+    const indicaAiUrl = `http://192.168.0.7:3000/local/5/images/`;
     const uri = this.state.image;
     this.setState({ ImageModalVisible: false })
-    
-    const response = fetch(indicaAiUrl, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        'image': [this.state.image.base64]
+    try {
+      const response = await fetch(indicaAiUrl, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          'image': [this.state.image.base64]
+        })
       })
-    })
-    .then(console.log(response))
-    .catch(error => {
-      console.log(error);
-    });
+      const jsonResponse = await response.json()
+      if (jsonResponse['status'] === "SUCCESS") {
+        this.setState({ successModalVisible: true })
+      } else {
+        this.setState({ errorModalVisible: true })
+      }
+    }
+    catch (error) {
+      this.setState({ errorModalVisible: true })
+    }
   };
 
   cancelPost() {
     this.setState({
-      ImageModalVisible: false 
+      ImageModalVisible: false
     });
   }
 
@@ -83,6 +91,16 @@ class AddImages extends Component {
             color='white'
           />
         </TouchableOpacity>
+        <SuccessModal
+          onCancel={() => this.setState({ successModalVisible: false })}
+          visible={this.state.successModalVisible}
+          message="Imagem Enviada com Sucesso"
+        />
+        <ErrorModal
+          onCancel={() => this.setState({ errorModalVisible: false })}
+          visible={this.state.errorModalVisible}
+          message="Error ao Enviar Imagem"
+        />
       </View>
     );
   }
