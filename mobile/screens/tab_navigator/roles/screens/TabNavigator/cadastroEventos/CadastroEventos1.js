@@ -162,7 +162,7 @@ export default class CadastroEventos1 extends Component {
 				eventHour: this.state.eventHour,
 				adultOnly: this.state.adultOnly,
 				eventDescription: this.state.eventDescription,
-				// photo: photoURL,
+				photo: photoURL,
 				foods: this.state.foods,
 				drinks: this.state.drinks
 			})
@@ -172,7 +172,7 @@ export default class CadastroEventos1 extends Component {
 					responseStatus: response.status,
 					responseOk: response.ok
 				});
-				console.log(JSON.stringify(response));
+				// console.log(JSON.stringify(response));
 				response.json();
 			})
 			.then(responseJson => {
@@ -195,7 +195,6 @@ export default class CadastroEventos1 extends Component {
 					);
 					this.setState({ uploading: false, stage: 0 });
 					this._resetStates();
-					console.log(this.state);
 				} else {
 					return Promise.reject();
 				}
