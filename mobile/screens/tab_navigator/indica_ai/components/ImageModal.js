@@ -24,7 +24,7 @@ export default class ImageModal extends React.Component {
                 <Text style={styles.buttonText}>Enviar</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity>
+              <TouchableOpacity style={[styles.button, styles.cancelButton]} onPress={this.props.onCancel}>
                 <Text style={styles.buttonText}>Cancelar</Text>
               </TouchableOpacity>
 
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
     borderRadius: 10,
     alignItems: 'center',
-    width: 280,
+    width: 240,
   },
   boxTitle: {
     fontWeight: 'bold',
@@ -59,26 +59,28 @@ const styles = StyleSheet.create({
   buttonContainer: {
     marginTop: 10,
     height: 40,
+    width: 130,
     flexDirection: 'row',
   },
   button: {
-    flex: 1,
-    alignItems: 'flex-start',
-    justifyContent: 'flex-start',
-    borderRadius: 3,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 5,
   },
   sendButton: {
     backgroundColor: 'green',
+    width: 65,
   },
   cancelButton: {
     backgroundColor: 'red',
     marginLeft: 10,
-
+    width: 65,
   },
   buttonText: {
+    alignItems: 'center',
     fontWeight: 'bold',
     color: '#FFF',
-    fontSize: 12,
+    fontSize: 15,
   },
 
 });
