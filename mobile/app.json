@@ -9,7 +9,7 @@
   "android": {
     "package": "com.codingmechanic.mapcuny",
     "config": {
-      "googleMaps": {"apiKey": "AIzaSyCEyj2S9UQGJftI4N5xUsqx36GC9umzGHs"}
+      "googleMaps": {"apiKey": "API-KEY-AQUI"}
     }
   }
 }
