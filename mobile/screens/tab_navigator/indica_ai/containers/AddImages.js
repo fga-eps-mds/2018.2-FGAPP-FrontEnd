@@ -39,7 +39,7 @@ class AddImages extends Component {
   postImage() {
     const { id } = this.state.id
     console.log(id);
-    const indicaAiUrl = `http://192.168.25.3:3000/local/${id}/images/`;
+    const indicaAiUrl = `http://192.168.0.7:3000/local/1/images/`;
     const uri = this.state.image;
     this.setState({ ImageModalVisible: false })
     
@@ -57,11 +57,13 @@ class AddImages extends Component {
     .catch(error => {
       console.log(error);
     });
-    console.log(response)
   };
 
-
-
+  cancelPost() {
+    this.setState({
+      ImageModalVisible: false 
+    });
+  }
 
   render() {
 
@@ -69,6 +71,9 @@ class AddImages extends Component {
       <View>
         <ImageModal
           onSendImage={() => this.postImage()}
+          visible={this.state.ImageModalVisible}
+
+          onCancel={() => this.cancelPost()}
           visible={this.state.ImageModalVisible}
         />
         <TouchableOpacity onPress={() => this.pickImage()}>
