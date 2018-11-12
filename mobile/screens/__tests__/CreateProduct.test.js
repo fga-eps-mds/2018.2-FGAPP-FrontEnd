@@ -8,11 +8,30 @@ import fetchMock from 'fetch-mock';
 
 Enzyme.configure({adapter: new Adapter()});
 
-it('renders correctly', () => {
-  const navigation = jest.fn();
-  const tree = renderer.create(<CreateProduct navigation={navigation}/>).toJSON();
-  expect(tree).toMatchSnapshot();
-});
+describe('Testing navigation', () => {
+
+  let wrapper = null
+  const spyNavigate = jest.fn()
+  const props = {
+    navigation: {
+      navigate: spyNavigate,
+      state: {}
+    }
+  }
+  const params = {
+    token: 'randomToken'
+  }
+
+  beforeEach(() => {
+    wrapper = shallow(<CreateProduct {...props} />)
+    wrapper.setState({ params: params })
+  })
+
+  it('should test navigation', async () => {
+    await wrapper.instance()._goBack(params)
+    expect(spyNavigate).toHaveBeenCalled()
+  })
+})
 
 describe('Test CreateProduct', () => {
     const navigation = {
@@ -35,6 +54,12 @@ describe('Test CreateProduct', () => {
     beforeEach(() => {
         fetchMock.restore();
     })
+    
+    it('renders correctly', () => {
+      const navigation = jest.fn();
+      const tree = renderer.create(<CreateProduct navigation={navigation}/>).toJSON();
+      expect(tree).toMatchSnapshot();
+    });
 
     it('Test registerProduct with sucess', async (done) => {
         const wrapper = shallow(<CreateProduct navigation={navigation}/>);
