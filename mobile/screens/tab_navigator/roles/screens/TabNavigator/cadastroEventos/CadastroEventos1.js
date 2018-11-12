@@ -41,14 +41,14 @@ export default class CadastroEventos1 extends Component {
 		adultOnly: true,
 		drinks: "",
 		foods: "",
-    photo: null,
-    
+		photo: null,
+
 		localization: {
-      latitude: 0,
-      longitude: 0,
-      latitudeDelta: 0,
-      longitudeDelta: 0
-    },
+			latitude: 0,
+			longitude: 0,
+			latitudeDelta: 0,
+			longitudeDelta: 0
+		},
 
 		stage: 0,
 		blocked: true,
@@ -131,7 +131,6 @@ export default class CadastroEventos1 extends Component {
 			photo: null,
 			localization: {},
 
-
 			errorMessage: "",
 			responseOk: false,
 			responseStatus: 0
@@ -172,7 +171,7 @@ export default class CadastroEventos1 extends Component {
 					responseStatus: response.status,
 					responseOk: response.ok
 				});
-				// console.log(JSON.stringify(response));
+				console.log(JSON.stringify(response));
 				response.json();
 			})
 			.then(responseJson => {
@@ -280,6 +279,11 @@ export default class CadastroEventos1 extends Component {
 						"Erro",
 						"Campo de telefone da organização inválido!"
 					);
+				} else if (this.state.linkReference == "") {
+					Alert.alert(
+						"Erro",
+						"Campo do link de referência inválido!"
+					);
 				} else {
 					blocked = false;
 				}
@@ -371,9 +375,9 @@ export default class CadastroEventos1 extends Component {
 	}
 
 	_handleLocationSelection(region) {
-    this.setState({localization: region})
-		this._toggleModal('maps')
-    // console.log('--------------------------------------\n','DEBUG HANDLE LOCALIZATION:',region,this.state.localization,'\n--------------------------------------');
+		this.setState({ localization: region });
+		this._toggleModal("maps");
+		// console.log('--------------------------------------\n','DEBUG HANDLE LOCALIZATION:',region,this.state.localization,'\n--------------------------------------');
 	}
 
 	render() {
@@ -660,13 +664,19 @@ export default class CadastroEventos1 extends Component {
 					<Text style={{ textAlign: "center" }}>
 						Cadastrando rolê... {"\n"}
 					</Text>
-					<ActivityIndicator alignSelf="center" size="large" color='green'/>
+					<ActivityIndicator
+						alignSelf="center"
+						size="large"
+						color="green"
+					/>
 				</View>
 			) : (
 				<View flex={1} backgroundColor="white">
 					<MapsModal
 						visible={this.state.mapsModalVisibility}
-						onLocationSelection={(region) => this._handleLocationSelection(region)}
+						onLocationSelection={region =>
+							this._handleLocationSelection(region)
+						}
 					/>
 					<View style={styles.stageIndicator}>
 						<Text>3/3</Text>
@@ -723,14 +733,34 @@ export default class CadastroEventos1 extends Component {
 								<Text>Definir Localização</Text>
 							</Button>
 
-              {(this.state.localization.latitude != undefined && this.state.localization.latitude != undefined) &&
-
-              <Text style={{color:'green', opacity:0.5, alignSelf:'center', fontSize:10, textAlign:'center'}}> 
-                Localização OK <Icon name='check-circle' type='FontAwesome' style={{color:'green', fontSize:10}}/>
-                {`\n${this.state.localization.latitude} / ${this.state.localization.longitude}`}
-              </Text> 
-              }
-
+							{this.state.localization.latitude != undefined &&
+								this.state.localization.latitude !=
+									undefined && (
+									<Text
+										style={{
+											color: "green",
+											opacity: 0.5,
+											alignSelf: "center",
+											fontSize: 10,
+											textAlign: "center"
+										}}
+									>
+										Localização OK{" "}
+										<Icon
+											name="check-circle"
+											type="FontAwesome"
+											style={{
+												color: "green",
+												fontSize: 10
+											}}
+										/>
+										{`\n${
+											this.state.localization.latitude
+										} / ${
+											this.state.localization.longitude
+										}`}
+									</Text>
+								)}
 						</View>
 
 						<View>
