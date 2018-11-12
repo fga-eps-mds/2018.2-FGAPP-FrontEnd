@@ -168,7 +168,7 @@ constructor(props){
    };
 
   render() {
-    
+
     let latitude;
     let longitude;
 
@@ -221,6 +221,9 @@ constructor(props){
            sendData = {this.sendData}
            name = {name}
            address = {address}
+           latitude = {this.state.latitude}
+           longitude = {this.state.longitude}
+
         />
         <SuccessModal
           onCancel={() => this.setState({ successModalVisible: false })}
