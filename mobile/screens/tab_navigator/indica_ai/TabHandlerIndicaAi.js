@@ -30,13 +30,13 @@ const TabHandlerIndicaAI = new TabNavigator({
         showLabel: true,
         showIcon: false,
         labelStyle: {
-            fontSize: 10,
+            fontSize: 12,
         },
         tabStyle: {
             height: 40,
         },
         style: {
-            backgroundColor: '#5A5A5A',
+            backgroundColor: '#0AACCC',
 
         },
     },

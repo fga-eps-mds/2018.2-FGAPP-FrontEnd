@@ -54,21 +54,19 @@ class ViewLocal extends Component {
       categories,
       local_ratings,
     } = this.state.local ? this.state.local : undefined;
-    console.log("----------------------------------------------------------------")
-    console.log(categories)
-    console.log("----------------------------------------------------------------")
+    
     return (
-      <View style={styles.container}>
+    <View style = {styles.container}>
+      <ScrollView>
+      <Content>        
 
-        <ScrollView>
-          <Content>
-
-            <ImageBackground style={styles.imageLocal} source={require('../assets/fga.jpg')}>
-              <FlashMessage position="top" />
-              <View style={styles.addImage}>
-                <AddImages />
-              </View>
-            </ImageBackground>
+        <ImageBackground style={styles.imageLocal} source={require('../assets/fga.jpg')}>
+          <View style={styles.addImage}>
+            <AddImages
+              id={id}
+            />
+          </View>
+        </ImageBackground>
 
             <View style={styles.localContainer}>
 

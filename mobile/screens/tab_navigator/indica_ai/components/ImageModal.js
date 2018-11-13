@@ -8,30 +8,26 @@ import {
   TouchableOpacity
 } from 'react-native';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
-export default class SuccessModal extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      message: props.message
-    }
-  }
+
+export default class ImageModal extends React.Component {
 
   render() {
-    const { message } = this.state
     return (
       <Modal animationType="fade" transparent={true} visible={this.props.visible} onRequestClose={() => null}>
         <View style={styles.modalContainer}>
+
           <View style={styles.boxContainer}>
-            <Icon
-              name='check'
-              color='green'
-              size={50}
-            />
-            <Text style={styles.boxTitle}>{message}!</Text>
+            <Text style={styles.boxTitle}>Enviar foto ?</Text>
             <View style={styles.buttonContainer}>
-              <TouchableOpacity style={[styles.button, styles.cancelButton]} onPress={this.props.onCancel}>
-                <Text style={styles.buttonText}>OK</Text>
+
+              <TouchableOpacity style={[styles.button, styles.sendButton]} onPress={this.props.onSendImage}>
+                <Text style={styles.buttonText}>Enviar</Text>
               </TouchableOpacity>
+
+              <TouchableOpacity style={[styles.button, styles.cancelButton]} onPress={this.props.onCancel}>
+                <Text style={styles.buttonText}>Cancelar</Text>
+              </TouchableOpacity>
+
             </View>
           </View>
         </View>
@@ -46,13 +42,14 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.5)'
   },
   boxContainer: {
     padding: 20,
     backgroundColor: '#FFF',
     borderRadius: 10,
     alignItems: 'center',
-    width: 280,
+    width: 240,
   },
   boxTitle: {
     fontWeight: 'bold',
@@ -62,22 +59,28 @@ const styles = StyleSheet.create({
   buttonContainer: {
     marginTop: 10,
     height: 40,
+    width: 130,
     flexDirection: 'row',
   },
   button: {
-    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 3,
+    borderRadius: 5,
+  },
+  sendButton: {
+    backgroundColor: 'green',
+    width: 65,
   },
   cancelButton: {
-    backgroundColor: 'green',
-    marginHorizontal: 80
+    backgroundColor: 'red',
+    marginLeft: 10,
+    width: 65,
   },
   buttonText: {
+    alignItems: 'center',
     fontWeight: 'bold',
     color: '#FFF',
-    fontSize: 12,
+    fontSize: 15,
   },
 
 });
