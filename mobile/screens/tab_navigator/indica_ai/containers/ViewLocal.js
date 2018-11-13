@@ -56,8 +56,9 @@ class ViewLocal extends Component {
     } = this.state.local ? this.state.local : undefined;
     
     return (
-      <ScrollView style={styles.container}>
-        
+    <View style = {styles.container}>
+      <ScrollView>
+      <Content>        
 
         <ImageBackground style={styles.imageLocal} source={require('../assets/fga.jpg')}>
           <View style={styles.addImage}>
