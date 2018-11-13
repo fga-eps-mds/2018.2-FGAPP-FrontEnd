@@ -26,7 +26,7 @@ class RegisterLocalAPI extends Component{
        const url  = "https://dev-indicaai.herokuapp.com/locals/";
        const jsonTest = JSON.stringify({
                name: name,
-               categories: 1,
+               categories: this.props.selectedItems,
                latitude: this.props.latitude,
                longitude: this.props.longitude,
                description: description,

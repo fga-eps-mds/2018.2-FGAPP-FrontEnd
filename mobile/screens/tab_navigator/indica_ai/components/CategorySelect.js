@@ -25,8 +25,6 @@ export default class CategorySelect extends Component {
 
   onSelectedItemsChange = (selectedItems) => {
     this.setState({ selectedItems });
-    console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-    console.log(selectedItems);
   }
 
   componentWillMount() {

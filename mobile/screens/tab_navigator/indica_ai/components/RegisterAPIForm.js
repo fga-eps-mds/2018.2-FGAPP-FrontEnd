@@ -28,6 +28,7 @@ export default class RegisterAPIForm extends Component{
     super(props);
     this.state={
       selected: undefined,
+      category: [],
       name: null,
       description: null,
     };
@@ -42,6 +43,8 @@ export default class RegisterAPIForm extends Component{
   render() {
     return (
       <Container style={styles.container}>
+        <CategorySelect>
+          category: this.props.selectedItems
         <CategorySelect/>
         <Item
           style={styles.pickerForm}
