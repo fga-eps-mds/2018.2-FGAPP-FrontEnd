@@ -149,7 +149,7 @@ class RegisterLocal extends Component {
 
    sendData = async (data) => {
      try{
-       const response = await fetch(`https:/indicaai.herokuapp.com/locals`, {
+       const response = await fetch(`https://indicaai.herokuapp.com/locals`, {
          method: 'POST',
          headers: {
            'Accept': 'application/json',
