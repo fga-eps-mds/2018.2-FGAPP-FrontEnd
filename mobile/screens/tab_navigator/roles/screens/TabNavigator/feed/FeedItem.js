@@ -10,51 +10,90 @@ import {
 	Right,
 	Row,
 	Item
-} from "native-base"
+} from "native-base";
 
-import React, { Component } from "react"
-import { StyleSheet, Image, View, TouchableOpacity } from "react-native"
-import {withNavigation} from 'react-navigation'
+import React, { Component } from "react";
+import { StyleSheet, Image, View, TouchableOpacity } from "react-native";
+import { withNavigation } from "react-navigation";
 import LikeButton from "./components/LikeButton";
 
-const noPic = require("../../../static/noPic.png")
+const noPic = require("../../../static/noPic.png");
 
 class FeedItem extends Component {
+	goToComments = () => {
+		this.props.navigate.navigation("Comments");
+	};
+
 	render() {
-		const uri = this.props.imgRole
+		const uri = this.props.imgRole;
+		const dataFormatada =
+			this.props.eventDate.slice(-2) +
+			"/" +
+			this.props.eventDate.slice(5, 7) +
+			"/" +
+			this.props.eventDate.slice(0, 4);
 		return (
 			<Card style={styles.mb}>
 				<TouchableOpacity
 					onPress={() => {
-						console.log("Profile -> " + this.props.nomeRole + "/" + this.props.idRole)
-						this.props.navigation.navigate('Profile', {idRole: this.props.idRole})
+						console.log(
+							"Profile -> " + this.props.nomeRole + "/" + this.props.idRole
+						);
+						this.props.navigation.navigate("Profile", {
+							idRole: this.props.idRole
+						});
 					}}
 				>
 					<View pointerEvents="none">
 						<CardItem>
 							<Left>
-								<Icon type="FontAwesome" name="calendar" />
+								<Thumbnail
+									style={{
+										borderWidth: 1,
+										borderColor: "grey",
+										borderRadius: 125,
+										width: 140,
+										height: 140
+									}}
+									large
+									source={
+										this.props.imgRole == null //Se o valor de imgRole for null
+											? noPic //então exibe imagem "noPic.png"
+											: { uri: uri } //caso contrário, exibe a imagem
+									}
+								/>
 								<Body>
-									<Text>{this.props.nomeRole}</Text>
-									<Text note>{this.props.org}</Text>
+									<Text
+										style={{
+											fontWeight: "bold",
+											fontSize: 30,
+											textAlign: "center"
+										}}
+									>
+										{this.props.nomeRole}
+									</Text>
+									<Text style={{ textAlign: "center" }} note>
+										{this.props.org}
+									</Text>
+									<View flexDirection="row" alignSelf="center">
+										<Icon
+											type="MaterialCommunityIcons"
+											name="calendar-blank"
+											color="gray"
+										/>
+										<Text
+											style={{
+												textAlign: "center",
+												marginLeft: 5,
+												textAlignVertical: "center"
+											}}
+											note
+										>
+											{dataFormatada}
+										</Text>
+									</View>
 								</Body>
 							</Left>
-						</CardItem>
-
-						<CardItem cardBody>
-							<Image
-								style={{
-									resizeMode: "cover",
-									width: null,
-									height: 200,
-									flex: 1
-								}}
-								source={
-									this.props.imgRole == null //Se o valor de imgRole for null
-										? noPic //então exibe imagem "noPic.png"
-										: {uri: uri} //caso contrário, exibe a imagem
-								}
-							/>
 						</CardItem>
 					</View>
 				</TouchableOpacity>
@@ -63,28 +102,28 @@ class FeedItem extends Component {
 					<Button
 						transparent
 						onPress={() => {
-							console.log("Likes -> " + this.props.nomeRole)
+							console.log("Likes -> " + this.props.nomeRole);
 						}}
 					>
-						<LikeButton/>
+						<LikeButton />
 						<Text>11 Likes</Text>
 					</Button>
 
 					<Button
 						transparent
 						onPress={() => {
-							console.log("Comentários -> " + this.props.nomeRole)
+							this.props.navigation.navigate("Comments", {
+								idRole: this.props.idRole
+							});
 						}}
 					>
 						<Icon active name="chatbubbles" />
 
-						<Text style={{ textAlign: "center" }}>
-							8 Comentários
-						</Text>
+						<Text style={{ textAlign: "center" }}>8 Comentários</Text>
 					</Button>
 				</CardItem>
 			</Card>
-		)
+		);
 	}
 }
 const styles = StyleSheet.create({
@@ -97,6 +136,6 @@ const styles = StyleSheet.create({
 	cardBtn: {
 		width: 100
 	}
-})
+});
 
-export default withNavigation(FeedItem)
+export default withNavigation(FeedItem);
