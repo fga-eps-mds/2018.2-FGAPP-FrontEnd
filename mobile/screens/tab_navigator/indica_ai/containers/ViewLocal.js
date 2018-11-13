@@ -2,13 +2,18 @@ import React, { Component } from "react";
 import {
   View,
   StyleSheet,
-  Image,
   ImageBackground,
   ScrollView
 } from "react-native";
-import { Container, Header, Content, Card, CardItem, Text, Body } from 'native-base';
+import {
+  Content,
+  Card,
+  CardItem,
+  Text,
+  Label,
+  Icon
+} from 'native-base';
 import LocalMap from "../components/LocalMap.js";
-import Icon from 'react-native-vector-icons/Ionicons';
 import { Dimensions } from "react-native";
 import { withNavigation } from 'react-navigation';
 import OpeningHoursPanel from '../components/OpeningHoursPanel';
@@ -45,10 +50,13 @@ class ViewLocal extends Component {
       latitude,
       longitude,
       telephone,
-      local_ratings,
       opening_hours,
+      categories,
+      local_ratings,
     } = this.state.local ? this.state.local : undefined;
-
+    console.log("----------------------------------------------------------------")
+    console.log(categories)
+    console.log("----------------------------------------------------------------")
     return (
       <View style={styles.container}>
 
@@ -66,7 +74,7 @@ class ViewLocal extends Component {
 
               <View style={styles.localHeader}>
                 <View>
-                  <Text style={styles.localInfoTitle}>{name}</Text>
+                  <Label style={styles.localName}>{name}</Label>
                 </View>
                 <View style={styles.localHeart}>
                   <FavoriteContainer
@@ -76,14 +84,14 @@ class ViewLocal extends Component {
                 </View>
               </View>
 
-
               {this.displayLocalMap(latitude, longitude, name, description)}
 
-              <Card>
+              {this.displayCategories(categories)}
+
+              <Card style={styles.cardInfo}>
                 <CardItem header bordered>
                   <Text style={styles.localInfoTitle}>
                     Informações:
-                    {opening_hours[0]['day'][0]}
                   </Text>
                 </CardItem>
 
@@ -92,6 +100,8 @@ class ViewLocal extends Component {
                 {this.displayJsxInformation(address, icon = 'md-pin')}
 
                 {this.displayJsxOpeningHours(opening_hours, icon = 'md-clock')}
+
+                {this.displayJsxInfoEmpty(telephone, address, opening_hours)}
               </Card>
 
               {this.displayJsxDescription(description)}
@@ -117,6 +127,25 @@ class ViewLocal extends Component {
               description={description}
             />
           </View>
+        </Card>
+      );
+    }
+  }
+
+  displayCategories(categories = {}) {
+    if (!(Object.keys(categories).length === 0)) {
+      return (
+        <Card style={styles.cardCategories}>
+          <ScrollView
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+          >
+            {categories.map(category =>
+              <CardItem style={styles.cardCategory} key={category.id}>
+                <Label style={styles.textCategory}>{category.name}</Label>
+              </CardItem>
+            )}
+          </ScrollView>
         </Card>
       );
     }
@@ -157,10 +186,27 @@ class ViewLocal extends Component {
     }
   }
 
+  displayJsxInfoEmpty(telephone, address, opening_hours = {}) {
+    if (!telephone && !address && (Object.keys(opening_hours).length === 0)) {
+      return (
+        <View style={styles.fieldInfoEmpty}>
+          <Icon style={styles.localInfoIcons}
+            name='sad'
+            color='black'
+            size={25}
+          />
+          <Text style={styles.localInfo}>
+            Não há Informações!
+          </Text>
+        </View>
+      );
+    }
+  }
+
   displayJsxDescription(description) {
     if (description) {
       return (
-        <Card>
+        <Card style={styles.cardInfo}>
           <CardItem header bordered>
             <Text style={styles.localInfoTitle}>
               Descrição:
@@ -184,7 +230,7 @@ class ViewLocal extends Component {
       }
       average = average / local_ratings.length;
       return (
-        <Card>
+        <Card style={styles.cardInfo}>
           <CardItem header bordered>
             <Text style={styles.localInfoTitle}>
               Avaliação:
@@ -221,6 +267,33 @@ const styles = StyleSheet.create({
   localContainer: {
     padding: 10,
   },
+  cardInfo: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    width: '100%',
+    padding: 10
+  },
+  cardCategories: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    width: '100%',
+    padding: 10
+  },
+  cardCategory: {
+    backgroundColor: 'white',
+    borderColor: '#0AACCC',
+    borderWidth: 2,
+    borderRadius: 15,
+    height: 40,
+    margin: 3
+  },
+  textCategory: {
+    textAlign: 'center',
+    fontSize: 10,
+    color: '#0AACCC'
+  },
   imageLocal: {
     alignItems: 'flex-end',
     justifyContent: 'flex-end',
@@ -238,11 +311,11 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   localName: {
-    width: 250,
-    fontSize: 20,
-    marginTop: 10,
-    marginLeft: 15,
-    marginBottom: -25,
+    color: '#333',
+    left: 20,
+    fontSize: 25,
+    fontWeight: 'bold',
+    marginBottom: 7
   },
   localHeart: {
     bottom: 15,
@@ -259,7 +332,7 @@ const styles = StyleSheet.create({
   localInfoTitle: {
     color: '#333',
     left: 20,
-    fontSize: 25,
+    fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 7
   },
@@ -275,6 +348,11 @@ const styles = StyleSheet.create({
   },
   fieldInfo: {
     marginTop: 10,
+    marginRight: 10,
+    width: '80%',
+  },
+  fieldInfoEmpty: {
+    marginTop: 30,
     marginRight: 10,
     width: '80%',
   },
