@@ -1,95 +1,26 @@
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TouchableHighlight,
-  Animated
-} from 'react-native';
-import {
-  Container,
-  Form,
-  Item,
-  Input,
-  Label,
-  Button,
-  Icon
-} from 'native-base';
+import { StyleSheet } from 'react-native';
+import { Content, Accordion, Icon } from "native-base";
 
 class OpeningHoursPanel extends Component {
   constructor(props) {
     super(props);
 
-    this.icons = {
-      up: 'arrow-dropup',
-      down: 'arrow-dropdown'
-    };
-
     this.state = {
-      title: props.title,
+      title: "teste",
       opening_hours: props.opening_hours,
-      expanded: false,
-      animation: new Animated.Value()
     };
   }
 
-  toggle() {
-    let initialValue = this.state.expanded ? this.state.maxHeight
-      + this.state.minHeight : this.state.minHeight,
-      finalValue = this.state.expanded ? this.state.minHeight : this.state.maxHeight
-        + this.state.minHeight;
-
-    this.setState({
-      expanded: !this.state.expanded
-    });
-
-    this.state.animation.setValue(initialValue);
-    Animated.spring(
-      this.state.animation,
-      {
-        toValue: finalValue
-      }
-    ).start();
-  }
-
-
-  render() {
-    let icon = this.icons.down;
-
-    if (this.state.expanded) {
-      icon = this.icons.up;
-    }
-
+  _renderHours(opening_hours) {
     return (
-      <Animated.View style={[styles.container, { height: this.state.animation }]} >
-        <TouchableHighlight
-          style={styles.button}
-          onPress={this.toggle.bind(this)}
-          underlayColor="#f1f1f1">
-
-          <View style={styles.titleContainer} onLayout={this._setMinHeight.bind(this)}>
-            <Text style={styles.title}>{this.state.title}</Text>
-            <Icon
-              style={styles.buttonImage}
-              name={icon}
-            />
-          </View>
-        </TouchableHighlight>
-
-        <View style={styles.body} onLayout={this._setMaxHeight.bind(this)}>
-          {this.state.opening_hours.map(hour =>
-            <Text key={hour['day']}>
-              {this.displayDay(hour['day'])} : {hour['opens']} - {hour['closes']}
-            </Text>
-          )}
-        </View>
-
-      </Animated.View>
-    );
+      opening_hours.map(hour =>
+        `${this._displayDay(hour['day'])} : ${hour['opens']} - ${hour['closes']}\n\n`
+      )
+    )
   }
 
-  displayDay(day_number) {
+  _displayDay(day_number) {
     if (day_number) {
       let day;
       switch (day_number) {
@@ -124,16 +55,22 @@ class OpeningHoursPanel extends Component {
     }
   }
 
-  _setMaxHeight(event) {
-    this.setState({
-      maxHeight: event.nativeEvent.layout.height
-    });
-  }
+  render() {
+    const { opening_hours } = this.state;
+    const dataArray = [
+      { title: "Horários", content: this._renderHours(opening_hours) }
+    ];
 
-  _setMinHeight(event) {
-    this.setState({
-      minHeight: event.nativeEvent.layout.height
-    });
+    return (
+      <Content padder>
+        <Accordion
+          dataArray={dataArray}
+          content={dataArray.content}
+          headerStyle={{ backgroundColor: "#0AACCC"}}
+          contentStyle={{ backgroundColor: "#fff" }}
+        />
+      </Content>
+    );
   }
 }
 export default OpeningHoursPanel;
@@ -145,22 +82,4 @@ const styles = StyleSheet.create({
     margin: 10,
     overflow: 'hidden',
   },
-  titleContainer: {
-    flexDirection: 'row'
-  },
-  title: {
-    flex: 1,
-    padding: 10,
-    color: '#2a2f43',
-    fontWeight: 'bold'
-  },
-  buttonImage: {
-    width: 30,
-    height: 25,
-    marginVertical: 10
-  },
-  body: {
-    padding: 10,
-    paddingTop: 0
-  }
 });
