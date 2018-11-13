@@ -8,8 +8,15 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
 export default class ErrorModal extends React.Component{
+  constructor(props){
+    super(props)
+    this.state = {
+      message: props.message
+    }
+  }
 
     render(){
+      const { message } = this.state
       return (
         <Modal animationType="fade" transparent={true} visible={this.props.visible} onRequestClose={() => null}>
             <View style={styles.modalContainer}>
@@ -19,7 +26,7 @@ export default class ErrorModal extends React.Component{
               color='red'
               size={50}
               />
-              <Text style={styles.boxTitle}>Erro ao cadastrar este local.</Text>
+              <Text style={styles.boxTitle}>{message}.</Text>
               <View style={styles.buttonContainer}>
                 <TouchableOpacity style={[styles.button, styles.cancelButton]} onPress={this.props.onCancel}>
                   <Text style={styles.buttonText}>OK</Text>
