@@ -8,23 +8,10 @@ import {
 	RefreshControl,
 	ActivityIndicator
 } from "react-native";
-import FeedItem from "./FeedItem";
+import FeedItem from "../feed/FeedItem";
 import * as helpers from "../../../utils/helpers";
 
 class Feed extends Component {
-	async componentWillMount() {
-		await Expo.Font.loadAsync({
-			Roboto: require("native-base/Fonts/Roboto.ttf"),
-			Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
-			Ionicons: require("@expo/vector-icons/fonts/Ionicons.ttf")
-		});
-		this.setState({ loading: false });
-	}
-
-	componentDidMount() {
-		// this._refreshFeed()
-	}
-
 	state = {
 		loading: false,
 		roles: [],
@@ -50,17 +37,11 @@ class Feed extends Component {
 					const yearNow = helpers.timeNow().year;
 
 					if (
-						yearNow <= eventYear &&
-						monthNow <= eventMonth &&
-						dayNow < eventDay
+						yearNow >= eventYear &&
+						monthNow >= eventMonth &&
+						dayNow > eventDay
 					) {
 						return role;
-					} else {
-						console.log(
-							role.eventName + ":\t",
-							helpers.formatDate(role.eventDate).formatted,
-							"\tEVENTO PASSADO!"
-						);
 					}
 				});
 
