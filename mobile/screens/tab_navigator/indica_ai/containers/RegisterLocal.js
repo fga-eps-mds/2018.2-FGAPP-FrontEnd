@@ -147,25 +147,25 @@ class RegisterLocal extends Component {
     this.setState({ latitude: newLatitude, longitude: newLongitude });
   }
 
-  sendData = async (data) => {
-    try {
-      const response = await fetch(`https://dev-indicaai.herokuapp.com/locals`, {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      })
-      if (response.ok) {
-        const jsonResponse = await response.json();
-        this.setState({ successModalVisible: true })
-      }
-    }
-    catch (error) {
-      this.setState({ errorModalVisible: true })
-    }
-  };
+   sendData = async (data) => {
+     try{
+       const response = await fetch(`https://indicaai.herokuapp.com/locals`, {
+         method: 'POST',
+         headers: {
+           'Accept': 'application/json',
+           'Content-Type': 'application/json'
+         },
+         body: JSON.stringify(data)
+       })
+       if(response.ok){
+         const jsonResponse = await response.json();
+         this.setState({ successModalVisible: true })
+       }
+     }
+     catch(error){
+       this.setState({ errorModalVisible: true })
+     }
+   };
 
   render() {
 
