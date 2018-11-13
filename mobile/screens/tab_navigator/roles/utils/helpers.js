@@ -17,9 +17,9 @@ export function formatDate (eventDate){
 export function timeNow(){
   const date = new Date()
   return{
-    day: (date.getDate()+1),
+    day: date.getDate(),
     month: date.getMonth()+1,
     year: date.getFullYear(),
-    today: (date.getDate()+1)+' '+(date.getMonth()+1)+' '+date.getFullYear()
+    today: date.getDate()+' '+(date.getMonth()+1)+' '+date.getFullYear()
   }
 }
