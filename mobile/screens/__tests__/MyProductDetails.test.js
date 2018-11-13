@@ -179,3 +179,4 @@ describe('Test MyProductDetails', () => {
     description.simulate('changeText','text');
     expect(wrapper.state('description')).toBe('text');
   });
+})
