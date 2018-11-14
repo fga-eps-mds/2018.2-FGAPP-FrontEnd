@@ -34,13 +34,13 @@ export default class gmapsDirections extends React.Component {
   render() {
     return (
       <View>
-      <Button style ={{padding: 10}} bordered info onPress={()=>this.setState({modalVisible: true})}>
+      <Button style ={{padding: 10}}  info onPress={()=>this.setState({modalVisible: true})}>
       <Icon
         name='direction'
-        color='#0AACCC'
+        color='#fff'
         size={25}
       />
-      <Text style = {{color: "#0AACCC"}}>Rota</Text>
+      <Text style = {{color: "#fff"}}>Rota</Text>
       </Button>
       <DirectionModal
       handleGetDirections={this.handleGetDirections}

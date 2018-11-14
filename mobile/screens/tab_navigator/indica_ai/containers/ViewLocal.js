@@ -55,11 +55,11 @@ class ViewLocal extends Component {
       categories,
       local_ratings,
     } = this.state.local ? this.state.local : undefined;
-    
+
     return (
     <View style = {styles.container}>
       <ScrollView>
-      <Content>        
+      <Content>
 
         <ImageBackground style={styles.imageLocal} source={require('../assets/fga.jpg')}>
           <View style={styles.addImage}>
@@ -125,7 +125,7 @@ class ViewLocal extends Component {
               name={name}
               description={description}
             />
-            <View style = {{flex: 1, justifyContent: "center", alignItems: "center"}}>
+            <View style = {{position: "absolute", left: 0, bottom:0}}>
             <Direction
               latitude = {latitude}
               longitude = {longitude}
