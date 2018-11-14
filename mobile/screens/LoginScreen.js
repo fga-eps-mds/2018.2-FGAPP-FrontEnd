@@ -18,6 +18,7 @@ import Field from './components/Field';
 import Login from './components/Login';
 import jwt_decode from 'jwt-decode'
 
+
 async function getExpoToken(loginToken) {
   const { status } = await Expo.Permissions.askAsync(
     Expo.Permissions.NOTIFICATIONS
@@ -59,6 +60,25 @@ class LoginScreen extends Component {
         email_field_is_bad: false, password_field_is_bad: false,
         email_field_alerts: [''], password_field_alerts: [''], non_field_alert: ['']
       };
+  }
+
+  async componentWillMount() {
+    await Expo.Font.loadAsync({
+            Roboto: require("native-base/Fonts/Roboto.ttf"),
+            Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
+            Ionicons: require("@expo/vector-icons/fonts/Ionicons.ttf"),
+    });
+    this.setState({ loading: false });
+}
+
+  termsOfUse = () => {
+    Linking.canOpenURL('https://github.com/fga-eps-mds/2018.2-FGAPP-FrontEnd/blob/indica-ai-app/195-homologation-environment/mobile/TERMS_OF_USE.md').then(supported => {
+      if (supported) {
+        Linking.openURL('https://github.com/fga-eps-mds/2018.2-FGAPP-FrontEnd/blob/indica-ai-app/195-homologation-environment/mobile/TERMS_OF_USE.md');
+      } else {
+        console.log("Don't know how to open TERMS OF USE");
+      }
+    }); 
   }
 
   checkJson(responseJson){
@@ -164,7 +184,15 @@ class LoginScreen extends Component {
                       </Text>
                     </TouchableOpacity>
                   </View>
-
+                  
+                  <View style={{padding: 20, alignItems: 'center', justifyContent: 'center'}}>
+                    <TouchableOpacity onPress={ this.termsOfUse }>
+                      <Text
+                        style={{color:  'black', textDecorationLine: 'underline'}}>
+                        Termos de Uso
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
                 </View>
               </View>
             </ImageBackground>

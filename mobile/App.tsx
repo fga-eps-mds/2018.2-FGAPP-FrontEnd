@@ -7,8 +7,6 @@ import LoginScreen from './screens/LoginScreen'
 import SignUpScreen from './screens/SignUpScreen'
 import TabHandler from './screens/TabHandler'
 
-
-
 export default class App extends React.Component<{}> {
   componentDidMount() {
       BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
