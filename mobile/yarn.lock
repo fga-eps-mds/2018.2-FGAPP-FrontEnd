@@ -604,10 +604,7 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.10.1.tgz#d5c96ca246a418404914d180b7fdd625ad18eca6"
 
 "@types/prop-types@*", "@types/react-native@*":
-<<<<<<< HEAD
   name "@types/react-native"
-=======
->>>>>>> 69af346fcbaed36089e7dd0be5a0336659940252
   version "0.57.1"
   resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.57.1.tgz#493260b221c3404ef34c697e9cce127006935dd8"
   dependencies:
@@ -6407,6 +6404,10 @@ react-native-scripts-ts@1.15.0:
     qrcode-terminal "^0.11.0"
     rimraf "^2.6.1"
     xdl "48.1.4"
+
+react-native-sectioned-multi-select@^0.6.2:
+  version "0.6.2"
+  resolved "https://registry.yarnpkg.com/react-native-sectioned-multi-select/-/react-native-sectioned-multi-select-0.6.2.tgz#0f9178de461aff3c6384f7194b2b381a83b7ff77"
 
 react-native-svg-web@^1.0.1:
   version "1.0.1"

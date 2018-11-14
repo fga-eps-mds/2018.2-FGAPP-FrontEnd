@@ -1,50 +1,73 @@
 import React, { Component } from "react";
 import {
-  StyleSheet
+  StyleSheet,
+  View
 } from "react-native";
 import {
   Container,
   Item,
   Picker
 } from 'native-base'
+import SectionedMultiSelect from 'react-native-sectioned-multi-select';
 
-export default class CategorySelect extends Component{
 
-  constructor(props){
+
+export default class CategorySelect extends Component {
+
+  constructor(props) {
     super(props);
-    this.state={
-      selected: undefined
+    this.state = {
+      selected: undefined,
+      categories: [],
+      selectedCategories: props.selectedCategories
     };
   }
 
-  onValueChange(value: string) {
+  onSelectedItemsChange = (selectedCategories) => {
+    this.setState({ selectedCategories });
+    this.props.setSelectedCategories(selectedCategories)
+  }
+
+  componentWillMount() {
+    const url = fetch(`https://indicaai.herokuapp.com/categories`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "aplication/json"
+      }
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        this.setState({
+          categories: responseJson
+        })
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
+  onValueChange(value) {
     this.setState({
       selected: value
     });
   }
 
   render() {
-
     return (
-      <Container style={styles.container}>
-        <Item
-          style={styles.form}
-          picker
-          regular
-        >
-          <Picker
-            mode="dropdown"
-            placeholder="Categoria"
-            selectedValue={this.state.selected}
-            onValueChange={this.onValueChange.bind(this)}
-          >
-            <Picker.Item label="Restaurante" value='1'/>
-            <Picker.Item label="Hookah" value='2'/>
-            <Picker.Item label="Bar" value='3'/>
-            <Picker.Item label="Papelaria" value='4'/>
-          </Picker>
-        </Item>
-      </Container>
+      <View>
+
+        <SectionedMultiSelect
+          items={this.state.categories}
+          uniqueKey='id'
+          selectText='Categorias...'
+          confirmText="Confirmar"
+          searchPlaceholderTextColor="red"
+          onSelectedItemsChange={this.onSelectedItemsChange}
+          selectedItems={this.state.selectedCategories}
+        />
+
+      </View>
     );
 
   }
@@ -52,16 +75,13 @@ export default class CategorySelect extends Component{
 }
 
 const styles = StyleSheet.create({
-  container: {
-    position: 'absolute',
-    backgroundColor: "white",
-    padding: 20,
-    top:0,
-    bottom:0,
-    left:0,
-    right:0
-  },
-  form:{
+  form: {
     marginBottom: 10
+  },
+  button: {
+    backgroundColor: "#1E6738"
+  },
+  confirmText: {
+    backgroundColor: "#1E6738"
   }
 });
