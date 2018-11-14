@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import {
   View,
   Text,
-  StyleSheet, 
+  StyleSheet,
   ScrollView,
   TouchableHighlight
 } from "react-native";
@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { searchAction } from '../actions'
 import Local from "../components/Local";
+import Publicity from "../components/Publicity";
 import IconMessage from "../components/IconMessage";
 import { withNavigation } from 'react-navigation';
 
@@ -32,7 +33,7 @@ class ListLocals extends Component {
       .then(response => response.json())
       .then(responseJson => {
         this.props.searchAction(responseJson)
-      }) 
+      })
       .catch(error => {
         console.log(error);
       });
@@ -58,24 +59,45 @@ class ListLocals extends Component {
                  />
             )
         } else {
-
           return (
-            <ScrollView>
 
-              {locals.map( local =>
-                  <Local
-                    name={local.name}
-                    description={local.description}
-                    onPress={() => {
-                      this.props.navigation.navigate('LocalDetails',{
+            <ScrollView showsVerticalScrollIndicator={false}>
+
+            {locals.map( local =>
+              local.publicity == 'true' ?
+                <Publicity
+                  name={local.name}
+                  address={local.address}
+                  rating={5.0}
+                  onPress={() => {
+                    this.props.navigation.navigate('LocalDetails',{
                       local: local
-                      });
-                    }}
-                    key={local.id}
-                  />
-               )}
+                    });
+                  }}
+                  key={local.id}
+                />
+                :
+                null
+             )}
+
+             {locals.map( local =>
+               local.publicity == 'false' ?
+                 <Local
+                   name={local.name}
+                   address={local.address}
+                   onPress={() => {
+                     this.props.navigation.navigate('LocalDetails',{
+                       local: local
+                     });
+                   }}
+                   key={local.id}
+                 />
+                 :
+                 null
+              )}
 
             </ScrollView>
+
           );
         }
     }
@@ -90,6 +112,6 @@ const mapDispatchToProps = dispatch => (
 )
 
 export default withNavigation(connect(
-  mapStateToProps, 
+  mapStateToProps,
   mapDispatchToProps
 )(ListLocals));

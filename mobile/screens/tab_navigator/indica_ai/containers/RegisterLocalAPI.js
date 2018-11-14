@@ -14,11 +14,7 @@ class RegisterLocalAPI extends Component {
     this.state = {
       requestStatus: null,
       selectedCategories: [],
-      local: {
-        name: null,
-        description: null,
-        id: null
-      }
+      local: {}
     };
   }
 
@@ -26,16 +22,18 @@ class RegisterLocalAPI extends Component {
     const { selectedCategories } = this.state
     const categories = Array()
     for (const index in selectedCategories) {
-      categories[index] = {"category_id": selectedCategories[index]};
+      categories[index] = { "category_id": selectedCategories[index] };
     }
     const url = "https://indicaai.herokuapp.com/locals/";
     const jsonTest = JSON.stringify({
-      name: name,
-      categories: categories,
-      latitude: this.props.latitude,
-      longitude: this.props.longitude,
-      description: description,
-      address: this.props.adress
+      "name": name,
+      "categories": categories,
+      "description": description,
+      "address": this.props.address,
+      "latitude": this.props.latitude,
+      "longitude": this.props.longitude,
+      "opening_hours": [],
+      "telephone": undefined,
     });
     try {
       const response = await fetch(url, {
@@ -51,11 +49,7 @@ class RegisterLocalAPI extends Component {
       if (jsonResponse['status'] === "SUCCESS") {
         this.setState({ requestStatus: "SUCCESS" })
         this.setState({
-          local: {
-            name: name,
-            description: description,
-            id: jsonResponse["data"][0]["id"]
-          }
+          local: jsonResponse["data"][0]
         })
       } else {
         this.setState({ requestStatus: "FAILED" })

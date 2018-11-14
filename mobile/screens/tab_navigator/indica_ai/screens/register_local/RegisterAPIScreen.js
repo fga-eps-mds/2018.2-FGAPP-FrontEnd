@@ -13,7 +13,8 @@ constructor(props){
   this.state = {
     //taking data from the page LocalDetails through navigation!!
     latitude: this.props.navigation.state.params.latitude,
-    longitude: this.props.navigation.state.params.longitude
+    longitude: this.props.navigation.state.params.longitude,
+    address: this.props.navigation.state.params.address
   }
 }
   render() {
@@ -22,6 +23,7 @@ constructor(props){
               <RegisterLocalAPI
                 latitude = {this.state.latitude}
                 longitude = {this.state.longitude}
+                address = {this.state.address}
               />
           </View>
       );
