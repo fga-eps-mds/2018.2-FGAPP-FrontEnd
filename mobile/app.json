@@ -5,5 +5,11 @@
       "sourceExts": ["ts", "tsx"],
       "transformer": "node_modules/react-native-typescript-transformer/index.js"
     }
+  },
+  "android": {
+    "package": "com.codingmechanic.mapcuny",
+    "config": {
+      "googleMaps": {"apiKey": "API-KEY-AQUI"}
+    }
   }
 }

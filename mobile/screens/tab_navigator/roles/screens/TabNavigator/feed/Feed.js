@@ -25,12 +25,30 @@ class Feed extends Component {
 		// this._refreshFeed()
 	}
 
+<<<<<<< HEAD
 	state = {
 		loading: false,
 		roles: [],
 		refreshing: false,
 		feedInit: true
 	};
+=======
+  _refreshFeed = () => {
+    this.setState({refreshing: true})
+    fetch('http://roles-events.herokuapp.com/events/')
+    .then(res => res.json())
+    .then(roles =>{
+      this.setState({ loading: false, roles })
+      })
+    .then( () => {this.setState({refreshing: false}) })
+    .catch((error) => {
+      this.setState({
+        loading: false
+      });
+      console.error(error);
+    });
+  }
+>>>>>>> 3c6db072ca38f02d7db71c727516539f1bc7b044
 
 	_refreshFeed = () => {
 		this.state.feedInit == true && this.setState({ feedInit: false });

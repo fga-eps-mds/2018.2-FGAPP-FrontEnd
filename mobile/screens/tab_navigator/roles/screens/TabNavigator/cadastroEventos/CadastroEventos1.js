@@ -1,425 +1,884 @@
 import React, { Component } from "react";
 import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  ScrollView,
-  Switch,
-  Alert,
-  TimePickerAndroid,
-  DatePickerAndroid,
-  Button,
-  Image
+	View,
+	Text,
+	StyleSheet,
+	Alert,
+	TimePickerAndroid,
+	DatePickerAndroid,
+	Image,
+	TouchableOpacity,
+	Switch,
+	ActivityIndicator
 } from "react-native";
 import { ImagePicker } from "expo";
-import {
-  DefaultTheme,
-  TextInput,
-  Provider as PaperProvider
-} from "react-native-paper";
+import { Icon, TextInput, Button, H2, Item, Input } from "native-base";
 
-import { Foundation } from "@expo/vector-icons";
-import Input from "./components/Input";
-import Title from "./components/Title";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import CadastroInput from "./CadastroInput/index.js";
+import MapsModal from "./MapsModal/index.js";
+import ImageModal from "./ImageModal/index.js";
+
+import config from "./Config.js";
+
+const eighteen = require("../../../static/eighteen.png");
+const date = new Date();
+
+const CryptoJS = require("crypto-js");
 
 export default class CadastroEventos1 extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      eventName: "",
-      eventDescription: "",
-      owner: "",
-      linkReference: "",
-      organizer: "",
-      organizerTel: "",
-      value: "",
-      address: "",
-      linkAddress: "",
-      eventDate: "",
-      eventHour: "",
-      adultOnly: false,
-      drinks: "",
-      foods: "",
-      photo: null
-    };
-  }
+	state = {
+		eventName: "",
+		eventDescription: "",
+		owner: "",
+		linkReference: "",
+		organizer: "",
+		organizerTel: "",
+		value: "",
+		address: "",
+		linkAddress: "",
+		eventDate: "",
+		eventHour: "",
+		adultOnly: true,
+		drinks: "",
+		foods: "",
+		photo: null,
 
-  imprimeRole() {
-    this.props.navigation.navigate("Feed");
-  }
+		localization: {
+			latitude: 0,
+			longitude: 0,
+			latitudeDelta: 0,
+			longitudeDelta: 0
+		},
 
-  async datePicker() {
-    try {
-      const { action, year, month, day } = await DatePickerAndroid.open({
-        // Use `new Date()` for current date.
-        // May 25 2020. Month 0 is January.
-        date: new Date()
-      });
-      if (action !== DatePickerAndroid.dismissedAction) {
-        // Selected year, month (0-11), day
-        console.log(year);
-        console.log(month);
-        console.log(day);
-        this.setState({
-          //eventDate: `${day}/${month + 1}/${year}`
-          eventDate: year + "-" + month + "-" + day
-        });
-      }
-    } catch ({ code, message }) {
-      console.warn("Cannot open date picker", message);
-    }
-  }
+		stage: 0,
+		blocked: true,
+		mapsModalVisibility: false,
+		imgModalVisibility: false,
 
-  async timePicker() {
-    try {
-      const { action, hour, minute } = await TimePickerAndroid.open({
-        hour: 14,
-        minute: 0,
-        is24Hour: true
-      });
-      if (action !== TimePickerAndroid.dismissedAction) {
-        // Selected hour (0-23), minute (0-59)
-        console.log(hour);
-        console.log(minute);
-        this.setState({
-          eventHour: `${hour}:${minute}:00`
-        });
-      }
-    } catch ({ code, message }) {
-      console.warn("Cannot open time picker", message);
-    }
-  }
+		uploading: false,
+		err: false,
 
-  _pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      allowsEditing: true,
-      aspect: [1, 1]
-    });
+		responseStatus: 0,
+		responseOk: false
+	};
 
-    console.log(result);
+	_uploadImage = uri => {
+		let formdata = new FormData();
+		let timestamp = ((Date.now() / 1000) | 0).toString();
+		let api_key = config.api_key;
+		let api_secret = config.api_secret;
+		let cloud = config.cloud;
+		let hash_string = "timestamp=" + timestamp + api_secret;
+		let signature = CryptoJS.SHA1(hash_string).toString();
+		let upload_url =
+			"https://api.cloudinary.com/v1_1/" + cloud + "/image/upload";
 
-    if (!result.cancelled) {
-      this.setState({ photo: result.uri });
-      console.log(this.state.photo);
-    }
-  };
+		formdata.append("file", {
+			uri: uri,
+			type: "image/png",
+			name: "upload.png"
+		});
+		formdata.append("timestamp", timestamp);
+		formdata.append("api_key", api_key);
+		formdata.append("signature", signature);
 
-  validacao = async blocked => {
-    if (this.state.eventName == "") {
-      alert("Campo de nome do evento inválido!");
-    } else if (this.state.eventDescription == "") {
-      alert("Campo de descrição do evento inválido!");
-    } else if (this.state.linkReference == "") {
-      alert("Campo de link de referência do evento inválido!");
-    } else if (this.state.organizer == "") {
-      alert("Campo de organizer do evento inválido!");
-    } else if (this.state.organizerTel == "") {
-      alert("Campo de organizerTel do evento inválido!");
-    } else if (this.state.value == "") {
-      alert("Campo de value do evento inválido!");
-    } else if (this.state.address == "") {
-      alert("Campo de address do evento inválido!");
-    } else if (this.state.linkAddres == "") {
-      alert("Campo de linkAddres do evento inválido!");
-    } else if (this.state.eventDate == "") {
-      alert("Campo de eventDate do evento inválido!");
-    } else if (this.state.eventHour == "") {
-      alert("Campo de eventHour do evento inválido!");
-    } else if (this.state.drinks == "") {
-      alert("Campo de drinks do evento inválido!");
-    } else if (this.state.foods == "") {
-      alert("Campo de foods do evento inválido!");
-    } else {
-      Alert.alert(
-        "Rolê criado com sucesso!",
-        "Seu rolê foi cadastrado com sucesso!\n" + "Boa sorte!",
-        [
-          {
-            text: "OK"
-          }
-        ],
-        {
-          cancelable: false
-        }
-      );
-      this.props.navigation.navigate("Feed");
-      blocked = true;
-    }
-  };
+		let xhr = new XMLHttpRequest();
+		xhr.open("POST", upload_url);
 
-  cadastrarRole = async () => {
-    let blocked = false;
-    this.validacao(blocked);
-    console.log(blocked);
+		this.setState({ uploading: true });
+		console.log("Uploading photo...");
 
-    if (blocked) {
-      alert("Cadastro inválido, informações incompletas");
-      return false;
-    }
+		xhr.onreadystatechange = () => {
+			// console.log(xhr);
 
-    console.log(this.state.linkAddres);
-    fetch("http://209.97.153.172:8002/events/", {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        eventName: this.state.eventName,
-        eventDescription: this.state.eventDescription,
-        linkReference: "https://www." + this.state.linkReference + ".com",
-        organizer: this.state.organizer,
-        organizerTel: this.state.organizerTel,
-        owner: this.state.organizer,
-        value: this.state.value,
-        address: this.state.address,
-        linkAddress: "https://www." + this.state.linkAddres + ".com",
-        eventDate: this.state.eventDate,
-        eventHour: this.state.eventHour,
-        adultOnly: this.state.adultOnly,
-        foods: this.state.foods,
-        drinks: this.state.drinks,
-        photo: this.state.photo
-      })
-    })
-      .then(response => response.json())
-      .then(responseJson => {
-        //Verifica se o cadastro foi bem sucedido
-        console.log(responseJson);
+			if (xhr.readyState === 4) {
+				if (xhr.status == 200) {
+					const res = JSON.parse(xhr.response);
+					console.log(
+						"Request Status:",
+						xhr.status,
+						"//",
+						"Image URL: ",
+						res.url
+					);
+					this._cadastraRole(res.url);
+				} else {
+					this.setState({ uploading: false });
+					Alert.alert("Erro!", "Ocorreu um erro ao enviar a imagem!");
+					return;
+				}
+			}
+		};
+		xhr.send(formdata);
+	};
 
-        //Sucesso
-        if ((responseJson = !undefined)) {
-          console.log(responseJson);
-        }
-      })
-      .catch(err => {
-        if (typeof err.text === "function") {
-          err.text().then(errorMessage => {
-            alert(errorMessage);
-            console.log(errorMessage);
-          });
-        } else {
-          Alert.alert("Erro na conexão.");
-          console.log(err);
-        }
-      });
-  };
+	_resetStates() {
+		this.setState({
+			eventName: "",
+			eventDescription: "",
+			owner: "",
+			linkReference: "",
+			organizer: "",
+			organizerTel: "",
+			value: "",
+			address: "",
+			linkAddress: "",
+			eventDate: "",
+			eventHour: "",
+			adultOnly: true,
+			drinks: "",
+			foods: "",
+			photo: null,
+			localization: {},
 
-  render() {
-    let { photo } = this.state;
+			errorMessage: "",
+			responseOk: false,
+			responseStatus: 0
+		});
+		console.log("States resetados");
+	}
 
-    return (
-      <ScrollView style={{ alignContent: "center" }}>
-        <View style={styles.container}>
-          <Title titleText="Cadastro de Novo Role" />
-          <Input
-            label="Nome do Rolê"
-            iconName="title"
-            onChangeText={eventName => this.setState({ eventName })}
-          />
+	componentDidMount() {
+		this._resetStates();
+	}
 
-          <View
-            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
-          >
-            <Button 
-            style={{margin: 20, padding: 20}}
-            title="Adicionar imagem" onPress={this._pickImage} />
-            {photo && (
-              <Image
-                source={{ uri: photo }}
-                style={{ width: 200, height: 200 }}
-              />
-            )}
-          </View>
+	_cadastraRole(photoURL) {
+		fetch("http://roles-events.herokuapp.com/events/", {
+			method: "POST",
+			headers: {
+				Accept: "application/json",
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify({
+				owner: this.state.organizer, // Verificar Front-End e Back para decisão sobre este campo
+				eventName: this.state.eventName,
+				linkReference: "https://" + this.state.linkReference + ".com", // Verificar Front-End e Back para decisão sobre este campo
+				organizer: this.state.organizer,
+				value: this.state.value,
+				address: this.state.address,
+				linkAddress: "https://www.google.com/", // Verificar Front-End e Back para decisão sobre este campo
+				eventDate: this.state.eventDate,
+				eventHour: this.state.eventHour,
+				adultOnly: this.state.adultOnly,
+				eventDescription: this.state.eventDescription,
+				photo: photoURL,
+				foods: this.state.foods,
+				drinks: this.state.drinks
+			})
+		})
+			.then(response => {
+				this.setState({
+					responseStatus: response.status,
+					responseOk: response.ok
+				});
+				console.log(JSON.stringify(response));
+				response.json();
+			})
+			.then(responseJson => {
+				console.log(
+					"ResponseOk:",
+					this.state.responseOk,
+					"//",
+					"Status:",
+					this.state.responseStatus
+				);
+				if (
+					this.state.responseStatus >= 200 &&
+					this.state.responseStatus <= 202 &&
+					this.state.responseOk
+				) {
+					console.log("Rolê cadastrado com sucesso!");
+					Alert.alert(
+						"Parabéns!",
+						"O Rolê foi cadastrado com sucesso!"
+					);
+					this.setState({ uploading: false, stage: 0 });
+					this._resetStates();
+				} else {
+					return Promise.reject();
+				}
+			})
+			.catch(error => {
+				Alert.alert(
+					"Erro " + this.state.responseStatus,
+					"Houveram problemas na conexão. Tente novamente mais tarde."
+				);
+				this.setState({ uploading: false, stage: 0 });
+				this._resetStates();
+			});
+	}
 
-          <Input
-            iconName="description"
-            label="Descrição"
-            returnKeyType=""
-            multiline={true}
-            onChangeText={eventDescription =>
-              this.setState({ eventDescription })
-            }
-          />
+	_stageValidation() {
+		const year = date.getFullYear();
+		const month =
+			date.getMonth() < 10
+				? "0" + (date.getMonth() + 1)
+				: date.getMonth() + 1;
+		const day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+		const hour =
+			date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+		const minute =
+			date.getMinutes() < 10
+				? "0" + date.getMinutes()
+				: date.getMinutes();
 
-          <Input
-            iconName="insert-link"
-            label="Link de Referência"
-            onChangeText={linkReference => this.setState({ linkReference })}
-          />
+		let blocked = true;
 
-          <Input
-            iconName="person"
-            label="Nome para Contato"
-            onChangeText={organizer => this.setState({ organizer })}
-          />
+		switch (this.state.stage) {
+			case 1:
+				if (this.state.eventName == "") {
+					Alert.alert("Erro", "Campo de nome do evento inválido!");
+				} else if (
+					this.state.value == "" ||
+					parseFloat(this.state.value) < 0 ||
+					isNaN(this.state.value)
+				) {
+					Alert.alert("Erro", "Campo de valor do ingresso inválido!");
+				} else if (this.state.eventDate == "") {
+					Alert.alert("Erro", "Campo de data do evento inválido!");
+				} else if (this.state.eventHour == "") {
+					Alert.alert("Erro", "Campo de hora do evento inválido!");
+				} else if (
+					this.state.eventDate == `${year}-${month}-${day}` &&
+					this.state.eventHour.slice(0, 2) <= hour &&
+					this.state.eventHour.slice(3, 5) <= minute
+				) {
+					Alert.alert("Erro", "Campo de hora do evento inválido!");
+				} else {
+					this.setState({ stage: 2 });
+				}
+				return;
 
-          <Input
-            iconName="phone"
-            label="Telefone para Contato"
-            onChangeText={organizerTel => this.setState({ organizerTel })}
-            keyboardType="numeric"
-          />
+			case 2:
+				if (this.state.eventDescription == "") {
+					Alert.alert(
+						"Erro",
+						"Campo de descrição do evento inválido!"
+					);
+				} else if (this.state.drinks == "") {
+					Alert.alert("Erro", "Campo de drinks do evento inválido!");
+				} else if (this.state.foods == "") {
+					Alert.alert("Erro", "Campo de comidas do evento inválido!");
+				} else if (this.state.photo == null) {
+					Alert.alert("Erro", "Envie uma foto!");
+				} else {
+					this.setState({ stage: 3 });
+				}
+				return;
 
-          <Input
-            iconName="attach-money"
-            label="Valor do Ingresso"
-            onChangeText={value => this.setState({ value })}
-            keyboardType="numeric"
-          />
+			case 3:
+				if (this.state.address == "") {
+					Alert.alert("Erro", "Campo de nome do local inválido!");
+				} else if (this.state.organizer == "") {
+					Alert.alert(
+						"Erro",
+						"Campo de nome do organizador inválido!"
+					);
+				} else if (this.state.organizerTel == "") {
+					Alert.alert(
+						"Erro",
+						"Campo de telefone da organização inválido!"
+					);
+				} else if (this.state.linkReference == "") {
+					Alert.alert(
+						"Erro",
+						"Campo do link de referência inválido!"
+					);
+				} else {
+					blocked = false;
+				}
+				break;
+		}
 
-          <Input
-            iconName="place"
-            label="Local"
-            onChangeText={address => this.setState({ address })}
-          />
+		if (blocked === true) {
+			Alert.alert(
+				"Erro",
+				"Seu evento ainda não está pronto para ser criado. Verifique se as informações estão corretas."
+			);
+		} else {
+			this._uploadImage(this.state.photo);
+		}
+	}
 
-          <Input
-            iconType="MaterialCommunityIcons"
-            iconName="google-maps"
-            label="Link Localização Google Maps"
-            onChangeText={linkAddress => this.setState({ linkAddress })}
-          />
+	_handleToggleSwitch() {
+		this.setState({ adultOnly: !this.state.adultOnly });
+	}
 
-          <View style={{ flexDirection: "row", justifyContent: "center" }}>
-            <View>
-              <TouchableOpacity
-                style={styles.time}
-                onPress={() => this.datePicker()}
-              >
-                <MaterialIcons style={styles.icon} name={"today"} size={26} />
-                <Text>{this.state.eventDate || "Data"}</Text>
-              </TouchableOpacity>
-            </View>
+	async datePicker() {
+		try {
+			const { action, year, month, day } = await DatePickerAndroid.open({
+				// Use `new Date()` for current date.
+				date: new Date(),
+				minDate: new Date()
+			});
+			if (action !== DatePickerAndroid.dismissedAction) {
+				// console.log(year);
+				// console.log(month);
+				// console.log(day);
 
-            <View>
-              <TouchableOpacity
-                style={styles.time}
-                onPress={() => this.timePicker()}
-              >
-                <MaterialIcons
-                  style={styles.icon}
-                  name={"access-time"}
-                  size={26}
-                />
-                <Text>{this.state.eventHour || "Horário"}</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
+				month += 1; //Month goes from 0 to 11, 0 is January
+				if (month < 10) month = "0" + month;
+				if (day < 10) day = "0" + day;
+				this.setState({
+					eventDate: year + "-" + month + "-" + day
+				});
+			}
+		} catch ({ code, message }) {
+			console.warn("Cannot open date picker", message);
+		}
+	}
 
-          <Input
-            iconType="Entypo"
-            iconName="drink"
-            label="Bebidas"
-            onChangeText={drinks => this.setState({ drinks })}
-          />
+	async timePicker() {
+		try {
+			const { action, hour, minute } = await TimePickerAndroid.open({
+				hour: 0,
+				minute: 0,
+				is24Hour: true
+			});
+			if (action !== TimePickerAndroid.dismissedAction) {
+				if (hour < 10) hour = "0" + hour;
+				if (minute < 10) minute = "0" + minute;
+				// console.log(hour);
+				// console.log(minute);
+				this.setState({
+					eventHour: `${hour}:${minute}:00`
+				});
+			}
+		} catch ({ code, message }) {
+			console.warn("Cannot open time picker", message);
+		}
+	}
 
-          <Input
-            iconType="MaterialCommunityIcons"
-            iconName="food-fork-drink"
-            label="Comidas"
-            onChangeText={foods => this.setState({ foods })}
-          />
+	_imagePicker = async () => {
+		let result = await ImagePicker.launchImageLibraryAsync({
+			allowsEditing: true,
+			aspect: [1, 1]
+		});
 
-          <View style={styles.inputContainerSwitch}>
-            <Foundation style={styles.icon} name="prohibited" size={30} />
-            <Switch
-              style={styles.switch}
-              value={this.state.adultOnly}
-              onValueChange={adultOnly => {
-                this.setState({ adultOnly });
-              }}
-            />
-          </View>
+		// console.log("Image Picker:" + JSON.stringify(result));
 
-          <View style={styles.submitButton}>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => this.cadastrarRole()}
-            >
-              <Text style={styles.buttonText}>Cadastrar</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </ScrollView>
-    );
+		if (!result.cancelled) {
+			this.setState({ photo: result.uri });
+			console.log(this.state.photo);
+		}
+	};
 
-    console.log(this.state.photo);
-  }
+	_toggleModal(modal) {
+		modal == "maps" &&
+			this.setState({
+				mapsModalVisibility: !this.state.mapsModalVisibility
+			});
+		modal == "image" &&
+			this.setState({
+				imgModalVisibility: !this.state.imgModalVisibility
+			});
+	}
+
+	_handleLocationSelection(region) {
+		this.setState({ localization: region });
+		this._toggleModal("maps");
+		// console.log('--------------------------------------\n','DEBUG HANDLE LOCALIZATION:',region,this.state.localization,'\n--------------------------------------');
+	}
+
+	render() {
+		let { photo } = this.state;
+
+		if (this.state.stage === 0) {
+			return (
+				<View
+					flex={1}
+					backgroundColor="white"
+					justifyContent="space-around"
+				>
+					<H2 style={{ textAlign: "center", marginTop: 30 }}>
+						Crie um novo Rolê!
+					</H2>
+					<Text
+						style={{
+							textAlign: "center",
+							width: "80%",
+							alignSelf: "center",
+							marginTop: 30,
+							fontSize: 15
+						}}
+					>
+						Aconselhamos que você já tenha todos os dados em mãos,
+						para que o processo fique rápido.
+						{`\n\nClique para iniciar!`}
+					</Text>
+					<TouchableOpacity
+						onPress={() => {
+							this.setState({ stage: 1 });
+						}}
+					>
+						<Icon
+							type="FontAwesome"
+							name="plus-circle"
+							style={{
+								alignSelf: "center",
+								fontSize: 150,
+								color: "#1CBD24"
+							}}
+						/>
+					</TouchableOpacity>
+				</View>
+			);
+		} else if (this.state.stage === 1) {
+			return (
+				<View flex={1} backgroundColor="white">
+					<View style={styles.stageIndicator}>
+						<Text>1/3</Text>
+					</View>
+					<View style={styles.container}>
+						<View>
+							<Text style={styles.questionText}>
+								Qual o nome do seu Rolê?
+							</Text>
+							<CadastroInput
+								placeholder="Nome do rolê"
+								iconType="MaterialIcons"
+								iconName="text-format"
+								onChangeText={eventName =>
+									this.setState({ eventName })
+								}
+								value={this.state.eventName}
+							/>
+						</View>
+
+						<View>
+							<Text style={styles.questionText}>
+								Quanto Custam os ingressos?
+							</Text>
+							<CadastroInput
+								placeholder="Valor"
+								iconType="Foundation"
+								iconName="ticket"
+								onChangeText={value => this.setState({ value })}
+								keyboardType="numeric"
+								value={this.state.value}
+							/>
+						</View>
+
+						<View>
+							<Text style={styles.questionText}>
+								Que dia e que horas vai começar?
+							</Text>
+							<View style={styles.inputContainer}>
+								<View
+									flexDirection="row"
+									justifyContent="center"
+								>
+									<TouchableOpacity
+										style={styles.dateTimePicker}
+										onPress={() => this.datePicker()}
+									>
+										<Icon
+											type="FontAwesome"
+											name="calendar-check-o"
+											style={{
+												fontSize: 25,
+												marginTop: 15
+											}}
+										/>
+										<Text>
+											{this.state.eventDate || "Data"}
+										</Text>
+									</TouchableOpacity>
+								</View>
+
+								<View>
+									<TouchableOpacity
+										style={styles.dateTimePicker}
+										onPress={() => this.timePicker()}
+									>
+										<Icon
+											type="Feather"
+											name="clock"
+											style={{
+												fontSize: 25,
+												marginTop: 15
+											}}
+										/>
+										<Text>
+											{this.state.eventHour || "Horário"}
+										</Text>
+									</TouchableOpacity>
+								</View>
+							</View>
+						</View>
+
+						<View>
+							<Text style={styles.questionText}>
+								É permitido para menores de 18 anos?
+							</Text>
+							<View
+								flexDirection="row"
+								justifyContent="space-around"
+								alignSelf="center"
+								width={100}
+								marginTop={10}
+							>
+								<Image
+									source={eighteen}
+									style={{ height: 30, width: 30 }}
+								/>
+								<Switch
+									onValueChange={() =>
+										this._handleToggleSwitch()
+									}
+									value={this.state.adultOnly}
+								/>
+							</View>
+						</View>
+						<Button
+							block
+							style={styles.pageBtn}
+							onPress={() => this._stageValidation()}
+						>
+							<Text style={{ color: "white" }}>Próximo</Text>
+						</Button>
+					</View>
+				</View>
+			);
+		} else if (this.state.stage === 2) {
+			return (
+				<View flex={1} backgroundColor="white">
+					<ImageModal
+						visible={this.state.imgModalVisibility}
+						closeModal={() => this._toggleModal("image")}
+						photoSrc={photo}
+						editBtn={() => this._imagePicker()}
+					/>
+					<View style={styles.stageIndicator}>
+						<Text>2/3</Text>
+					</View>
+					<View style={styles.container}>
+						<View>
+							<Text style={styles.questionText}>
+								Dê uma descrição detalhada do seu rolê
+							</Text>
+							<CadastroInput
+								placeholder="Descrição"
+								iconType="Feather"
+								iconName="file-text"
+								onChangeText={eventDescription =>
+									this.setState({ eventDescription })
+								}
+								value={this.state.eventDescription}
+							/>
+						</View>
+
+						<View>
+							<Text style={styles.questionText}>
+								O que vai ter pra comer e beber?
+							</Text>
+							<View>
+								<CadastroInput
+									placeholder="Drinks"
+									iconType="Entypo"
+									iconName="drink"
+									onChangeText={drinks =>
+										this.setState({ drinks })
+									}
+									value={this.state.drinks}
+								/>
+								<CadastroInput
+									placeholder="Comidas"
+									iconType="MaterialCommunityIcons"
+									iconName="food"
+									onChangeText={foods =>
+										this.setState({ foods })
+									}
+									value={this.state.foods}
+								/>
+							</View>
+						</View>
+
+						<View>
+							<Text style={styles.questionText}>
+								Qual imagem será usada para divulgação do
+								evento?
+							</Text>
+
+							{photo == null ? (
+								<Button
+									bordered
+									dark
+									block
+									style={styles.imageUploadBtn}
+									onPress={() => this._imagePicker()}
+								>
+									<Icon
+										type="Feather"
+										name="upload"
+										style={{ color: "black" }}
+									/>
+									<Text>Enviar foto do evento</Text>
+								</Button>
+							) : (
+								<Button
+									block
+									style={styles.imageModalBtn}
+									onPress={() => this._toggleModal("image")}
+								>
+									<Icon
+										type="FontAwesome"
+										name="image"
+										style={{ color: "white" }}
+									/>
+									<Text style={{ color: "white" }}>
+										Visualizar/Editar imagem enviada
+									</Text>
+								</Button>
+							)}
+						</View>
+
+						<View style={styles.doublePageBtn}>
+							<Button
+								block
+								style={{
+									width: "50%",
+									backgroundColor: "#08700D"
+								}}
+								onPress={() => this.setState({ stage: 1 })}
+							>
+								<Text style={{ color: "white" }}>Voltar</Text>
+							</Button>
+							<Button
+								block
+								style={{
+									width: "50%",
+									backgroundColor: "#1CBD24"
+								}}
+								onPress={() => this._stageValidation()}
+							>
+								<Text style={{ color: "white" }}>Próximo</Text>
+							</Button>
+						</View>
+					</View>
+				</View>
+			);
+		} else if (this.state.stage === 3) {
+			return this.state.uploading === true ? (
+				<View flex={1} justifyContent="center" alignContent="center">
+					<Text style={{ textAlign: "center" }}>
+						Cadastrando rolê... {"\n"}
+					</Text>
+					<ActivityIndicator
+						alignSelf="center"
+						size="large"
+						color="green"
+					/>
+				</View>
+			) : (
+				<View flex={1} backgroundColor="white">
+					<MapsModal
+						visible={this.state.mapsModalVisibility}
+						onLocationSelection={region =>
+							this._handleLocationSelection(region)
+						}
+					/>
+					<View style={styles.stageIndicator}>
+						<Text>3/3</Text>
+					</View>
+					<View style={styles.container}>
+						<View>
+							<Text style={styles.questionText}>
+								Existe algum link nas redes sociais?
+							</Text>
+							<CadastroInput
+								placeholder="Link de referência"
+								iconType="Feather"
+								iconName="link"
+								onChangeText={linkReference =>
+									this.setState({ linkReference })
+								}
+								value={this.state.linkReference}
+							/>
+						</View>
+
+						<View>
+							<Text style={styles.questionText}>
+								Onde vai ser o seu evento?
+							</Text>
+							<CadastroInput
+								placeholder="Nome do Local"
+								iconType="MaterialIcons"
+								iconName="place"
+								onChangeText={address =>
+									this.setState({ address })
+								}
+								value={this.state.address}
+							/>
+							{/* Espaçamento */}
+							<View style={{ height: 10 }} />
+							{/* ----------- */}
+							<Button
+								block
+								bordered
+								dark
+								style={{
+									width: "80%",
+									marginTop: 10,
+									alignSelf: "center",
+									borderRadius: 10
+								}}
+								onPress={() => this._toggleModal("maps")}
+							>
+								<Icon
+									type="MaterialIcons"
+									style={{ color: "black" }}
+									name="gps-fixed"
+								/>
+								<Text>Definir Localização</Text>
+							</Button>
+
+							{this.state.localization.latitude != undefined &&
+								this.state.localization.latitude !=
+									undefined && (
+									<Text
+										style={{
+											color: "green",
+											opacity: 0.5,
+											alignSelf: "center",
+											fontSize: 10,
+											textAlign: "center"
+										}}
+									>
+										Localização OK{" "}
+										<Icon
+											name="check-circle"
+											type="FontAwesome"
+											style={{
+												color: "green",
+												fontSize: 10
+											}}
+										/>
+										{`\n${
+											this.state.localization.latitude
+										} / ${
+											this.state.localization.longitude
+										}`}
+									</Text>
+								)}
+						</View>
+
+						<View>
+							<Text style={styles.questionText}>
+								Com quem seu público fala pra tirar dúvidas?
+							</Text>
+							<CadastroInput
+								placeholder="Nome para Contato"
+								iconType="MaterialIcons"
+								iconName="person"
+								onChangeText={organizer =>
+									this.setState({ organizer })
+								}
+								value={this.state.organizer}
+							/>
+							{/* Espaçamento */}
+							<View style={{ height: 10 }} />
+							{/* ----------- */}
+							<CadastroInput
+								placeholder="Telefone para Contato"
+								iconType="FontAwesome"
+								iconName="phone"
+								onChangeText={organizerTel =>
+									this.setState({ organizerTel })
+								}
+								value={this.state.organizerTel}
+								keyboardType="phone-pad"
+							/>
+						</View>
+
+						<View style={styles.doublePageBtn}>
+							<Button
+								block
+								style={{
+									width: "50%",
+									backgroundColor: "#08700D"
+								}}
+								onPress={() => this.setState({ stage: 2 })}
+							>
+								<Text style={{ color: "white" }}>Voltar</Text>
+							</Button>
+							<Button
+								block
+								style={{
+									width: "50%",
+									backgroundColor: "#1CBD24"
+								}}
+								onPress={() => this._stageValidation()}
+							>
+								<Text style={{ color: "white" }}>Concluir</Text>
+							</Button>
+						</View>
+					</View>
+				</View>
+			);
+		}
+	}
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: "#fff"
-  },
-  button: {
-    height: 45,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 20,
-    width: 350,
-    borderRadius: 30,
-    backgroundColor: "limegreen"
-  },
-  submitButton: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#fff"
-  },
-  buttonText: {
-    color: "white",
-    fontSize: 20
-  },
-  inputTime: {
-    height: 45,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "limegreen",
-    width: 150,
-    marginBottom: 10
-  },
-  image: {
-    flex: 1,
-    padding: 5,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "limegreen"
-  },
-  switch: {
-    flex: 1,
-    paddingTop: 10,
-    paddingRight: 10,
-    paddingBottom: 10,
-    paddingLeft: 0,
-    backgroundColor: "#fff"
-  },
-  inputContainerSwitch: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#fff",
-    paddingRight: 150,
-    paddingLeft: 140
-  },
-  icon: {
-    padding: 5,
-    alignContent: "center",
-    alignItems: "center"
-  },
-  time: {
-    borderBottomWidth: 1,
-    //marginLeft: 10,
-    //marginRight: 10,
-    minWidth: "40%",
-    justifyContent: "center",
-    alignItems: "center"
-  }
+	container: {
+		flex: 1,
+		alignContent: "center",
+		backgroundColor: "white",
+		justifyContent: "space-between"
+	},
+	inputContainer: {
+		width: "80%",
+		alignSelf: "center",
+		justifyContent: "space-around",
+		alignItems: "center",
+		flexDirection: "row",
+		marginTop: 10
+	},
+	pageBtn: {
+		width: "100%",
+		backgroundColor: "#1CBD24",
+		alignSelf: "center",
+		borderRadius: 0
+	},
+	doublePageBtn: {
+		flexDirection: "row",
+		width: "100%",
+		alignSelf: "center",
+		backgroundColor: "green"
+	},
+	stageIndicator: {
+		alignSelf: "center",
+		width: 50,
+		backgroundColor: "rgba(0,0,0,0.07)",
+		alignItems: "center",
+		borderRadius: 10,
+		margin: 5
+	},
+	questionText: {
+		textAlign: "center",
+		fontWeight: "bold",
+		width: "70%",
+		alignSelf: "center"
+	},
+	dateTimePicker: {
+		borderBottomWidth: 1,
+		borderColor: "lightgrey",
+		minWidth: "40%",
+		justifyContent: "center",
+		alignItems: "center"
+	},
+	imageUploadBtn: {
+		width: "80%",
+		borderRadius: 10,
+		alignSelf: "center",
+		marginTop: 10
+	},
+	imageModalBtn: {
+		width: "80%",
+		borderRadius: 10,
+		alignSelf: "center",
+		marginTop: 10,
+		backgroundColor: "#08700D"
+	}
 });
