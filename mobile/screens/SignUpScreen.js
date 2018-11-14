@@ -117,7 +117,6 @@ export default class App extends Component {
     );
   }
 }
-export default SignUpScreen;
 
 const styles = StyleSheet.create({
     container: {
