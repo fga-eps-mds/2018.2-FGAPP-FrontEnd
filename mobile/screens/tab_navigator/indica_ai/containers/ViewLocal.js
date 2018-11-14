@@ -124,15 +124,15 @@ class ViewLocal extends Component {
               longitude={longitude}
               name={name}
               description={description}
-            />
-            <View style = {{position: "absolute", left: 0, bottom:0}}>
-            <Direction
-              latitude = {latitude}
-              longitude = {longitude}
-                    />
+                />
+                <View style = {{position: "absolute", left: 0, bottom:0}}>
+              <Direction
+                latitude = {latitude}
+                longitude = {longitude}
+                      />
           </View>
+            <FlashMessage position="top" />
           </View>
-          <FlashMessage position="top" />
         </Card>
       );
     }
