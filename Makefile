@@ -1,4 +1,5 @@
 default:
+	python get-ip-address.py $(IP)
 	make build
 	make run $(IP)
 
