@@ -91,6 +91,22 @@ class FormPicker extends Component {
       };
     }
 
+    sendNotification = async (product, token) => {
+      const path = `${process.env.VENDAS_API}/api/send_push_message/`
+      fetch( path, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          'user_id': product.fk_vendor,
+          'title': 'Novo pedido',
+          'message': 'Existe(m) pedido(s) para '+product.name,
+          'token': token,
+        }),
+      })
+    }
+
     openDialog = async () => {
       this.setState({ buyer_message: '' })
       this.setState({ isDialogVisible: true })
@@ -126,6 +142,7 @@ class FormPicker extends Component {
     })
     .then((response) => response.json())
     .then((responseJson) => {
+      this.sendNotification(product, token);
       console.log(responseJson);
       if(responseJson.error != undefined)
         Alert.alert(responseJson.error);

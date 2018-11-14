@@ -15,6 +15,41 @@ import {
 } from "react-native";
 import {Button} from 'native-base';
 import Field from './components/Field';
+import Login from './components/Login';
+import jwt_decode from 'jwt-decode'
+
+
+async function getExpoToken(loginToken) {
+  const { status } = await Expo.Permissions.askAsync(
+    Expo.Permissions.NOTIFICATIONS
+  );
+  if (status != 'granted') {
+    alert('Você precisa permitir notificações nas configurações.');
+    return;
+  }
+
+  const notificationToken = await Expo.Notifications.getExpoPushTokenAsync();
+  storeToken(loginToken, notificationToken)
+}
+
+async function storeToken(loginToken, notificationToken){
+  var user = jwt_decode(loginToken);
+
+  const notification_path = `${process.env.VENDAS_API}/api/save_user_token/`;
+  fetch(notification_path, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      'user_token': notificationToken,
+      'user_id': user.user_id,
+      'token': loginToken,
+    }),
+  }).catch( err => {
+    console.log(err)
+  });
+}
 
 class LoginScreen extends Component {
 
@@ -27,22 +62,26 @@ class LoginScreen extends Component {
       };
   }
 
-  _onPressButton = async () => {
-      const login_path = `${process.env.INTEGRA_LOGIN_AUTH}/api/login/`;
+  async componentWillMount() {
+    await Expo.Font.loadAsync({
+            Roboto: require("native-base/Fonts/Roboto.ttf"),
+            Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
+            Ionicons: require("@expo/vector-icons/fonts/Ionicons.ttf"),
+    });
+    this.setState({ loading: false });
+}
 
-      fetch(login_path, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-        'username': this.state.email, //UsernameField foi definido como email
-        'password': this.state.password,
-      }),
-  })
-  .then((response) => response.json())
-  .then((responseJson) => {
-    console.log(JSON.stringify(responseJson));
+  termsOfUse = () => {
+    Linking.canOpenURL('https://github.com/fga-eps-mds/2018.2-FGAPP-FrontEnd/blob/indica-ai-app/195-homologation-environment/mobile/TERMS_OF_USE.md').then(supported => {
+      if (supported) {
+        Linking.openURL('https://github.com/fga-eps-mds/2018.2-FGAPP-FrontEnd/blob/indica-ai-app/195-homologation-environment/mobile/TERMS_OF_USE.md');
+      } else {
+        console.log("Don't know how to open TERMS OF USE");
+      }
+    }); 
+  }
+
+  checkJson(responseJson){
     //Campo de email
    if (responseJson.username != undefined){
      this.setState({ email_field_alerts: responseJson.username})
@@ -71,21 +110,15 @@ class LoginScreen extends Component {
       this.setState({ non_field_alert: ['']})
     }
     //Sucesso
-   if (responseJson.token != undefined||
-         responseJson.key != undefined){
+   if (responseJson.token != undefined || responseJson.key != undefined){
+     getExpoToken(responseJson.token);
      this.props.navigation.navigate('TabHandler', {token:responseJson.token})
-      }
-   })
-   .catch( err => {
-     if (typeof err.text === 'function') {
-       err.text().then(errorMessage => {
-         this.props.dispatch(displayTheError(errorMessage))
-       });
-     } else {
-       Alert.alert("Erro na conexão.");
-       console.log(err)
-     }
-   });
+   }
+  }
+
+  _onPressButton = async () => {
+   login = await Login(this.state.email, this.state.password)
+   this.checkJson(login);
   }
 
     render() {
@@ -151,7 +184,15 @@ class LoginScreen extends Component {
                       </Text>
                     </TouchableOpacity>
                   </View>
-
+                  
+                  <View style={{padding: 20, alignItems: 'center', justifyContent: 'center'}}>
+                    <TouchableOpacity onPress={ this.termsOfUse }>
+                      <Text
+                        style={{color:  'black', textDecorationLine: 'underline'}}>
+                        Termos de Uso
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
                 </View>
               </View>
             </ImageBackground>

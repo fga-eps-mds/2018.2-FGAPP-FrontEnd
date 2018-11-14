@@ -8,8 +8,6 @@ import SignUpScreen from './screens/SignUpScreen'
 import TabHandler from './screens/TabHandler'
 import { Notifications, Permissions, Constants } from 'expo';
 
-
-
 export default class App extends React.Component<{}> {
 
   async componentDidMount() {
