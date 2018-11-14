@@ -23,10 +23,15 @@ class RegisterLocalAPI extends Component {
   }
 
   _postForm = async (name, description) => {
-    const url = "https://dev-indicaai.herokuapp.com/locals/";
+    const { selectedCategories } = this.state
+    const categories = Array()
+    for (const index in selectedCategories) {
+      categories[index] = {"category_id": selectedCategories[index]};
+    }
+    const url = "https://indicaai.herokuapp.com/locals/";
     const jsonTest = JSON.stringify({
       name: name,
-      categories: this.props.selectedItems,
+      categories: categories,
       latitude: this.props.latitude,
       longitude: this.props.longitude,
       description: description,
