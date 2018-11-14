@@ -18,11 +18,6 @@ import Field from './components/Field';
 import Login from './components/Login';
 import jwt_decode from 'jwt-decode'
 
-process.env.INDICA_AI_API='https://indicaai.herokuapp.com'
-
-process.env.INTEGRA_LOGIN_AUTH='https://integra-vendas-login.herokuapp.com'
-
-process.env.VENDAS_API='https://integra-vendas-api-gateway.herokuapp.com'
 
 async function getExpoToken(loginToken) {
   const { status } = await Expo.Permissions.askAsync(
