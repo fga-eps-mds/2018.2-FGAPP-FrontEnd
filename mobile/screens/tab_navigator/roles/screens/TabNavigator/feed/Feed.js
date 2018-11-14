@@ -12,6 +12,14 @@ import FeedItem from "./FeedItem";
 import * as helpers from "../../../utils/helpers";
 
 class Feed extends Component {
+
+	state = {
+		loading: false,
+		roles: [],
+		refreshing: false,
+		feedInit: true
+	};
+
 	async componentWillMount() {
 		await Expo.Font.loadAsync({
 			Roboto: require("native-base/Fonts/Roboto.ttf"),
