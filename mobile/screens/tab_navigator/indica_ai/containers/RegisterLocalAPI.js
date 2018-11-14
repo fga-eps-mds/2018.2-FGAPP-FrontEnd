@@ -16,22 +16,26 @@ class RegisterLocalAPI extends Component{
       local: {
         name: null,
         description: null,
-        id: null
+        id: null,
+        address: null,
+        latitude:null,
+        longitude: null
       }
    };
   }
 
  _postForm  = async (name,description) => {
-       const url  = "https://dev-indicaai.herokuapp.com/locals/";
+       const url  = "https://indicaai.herokuapp.com/locals/";
        const jsonTest = JSON.stringify({
-               name: name,
-               category_id: 1,
-               latitude: this.props.latitude,
-               longitude: this.props.longitude,
-               description: description,
-               address: this.props.adress
-             });
-          try{
+        "description": description,
+        "address": this.props.address,
+        "latitude": this.props.latitude,
+        "longitude": this.props.longitude,
+        "name": name,
+        "opening_hours": [],
+        "telephone": undefined,
+      });
+      try{
          const response = await fetch(url, {
                    method: 'POST',
                    headers: {
@@ -48,7 +52,10 @@ class RegisterLocalAPI extends Component{
                 local: {
                   name: name,
                   description: description,
-                  id: jsonResponse["data"][0]["id"]
+                  id: jsonResponse["data"][0]["id"],
+                  address: this.props.address,
+                  latitude:this.props.latitude,
+                  longitude:this.props.longitude
                 }
               })
             }else{

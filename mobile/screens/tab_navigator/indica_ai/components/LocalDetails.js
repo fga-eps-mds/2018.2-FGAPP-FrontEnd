@@ -56,7 +56,7 @@ class LocalDetails extends Component {
                           //sending data to the page Register api screen through navigation
                           this.props.navigation.navigate("RegisterAPI",
                           {latitude:this.props.latitude, longitude:this.props.longitude,
-                           adress:this.props.adress })
+                           address:this.props.address})
 
                         }}
                      >

@@ -21,6 +21,7 @@ import FavoriteContainer from "./FavoriteContainer";
 import { showMessage, hideMessage } from "react-native-flash-message";
 import FlashMessage from "react-native-flash-message";
 import AddImages from "./AddImages";
+import Direction from "./Direction";
 
 width = Dimensions.get('window').width;
 
@@ -54,11 +55,11 @@ class ViewLocal extends Component {
       categories,
       local_ratings,
     } = this.state.local ? this.state.local : undefined;
-    
+
     return (
     <View style = {styles.container}>
       <ScrollView>
-      <Content>        
+      <Content>
 
         <ImageBackground style={styles.imageLocal} source={require('../assets/fga.jpg')}>
           <View style={styles.addImage}>
@@ -124,7 +125,14 @@ class ViewLocal extends Component {
               name={name}
               description={description}
             />
+            <View style = {{position: "absolute", left: 0, bottom:0}}>
+            <Direction
+              latitude = {latitude}
+              longitude = {longitude}
+                    />
           </View>
+          </View>
+          <FlashMessage position="top" />
         </Card>
       );
     }
@@ -302,8 +310,9 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    width: '100%',
-    top: 10
+    width: '80%',
+    top: 10,
+    alignItems: "stretch"
   },
   addImage: {
     margin: 10,
