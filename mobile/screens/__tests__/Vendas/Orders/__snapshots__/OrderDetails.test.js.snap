@@ -1,0 +1,232 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test attendedOrder renders correctly 1`] = `
+<RCTScrollView>
+  <View>
+    <View
+      style={
+        Object {
+          "backgroundColor": "white",
+          "flex": 1,
+          "flexDirection": "column",
+          "margin": 0,
+          "padding": 0,
+          "width": "100%",
+        }
+      }
+    >
+      <Image
+        source={
+          Object {
+            "uri": "http://www.piniswiss.com/wp-content/uploads/2013/05/image-not-found-4a963b95bf081c3ea02923dceaeb3f8085e1a654fc54840aac61a57a60903fef-300x199.png",
+          }
+        }
+        style={
+          Object {
+            "height": 210,
+            "width": "100%",
+          }
+        }
+      />
+      <View
+        style={
+          Object {
+            "flexDirection": "row",
+            "paddingBottom": 2,
+            "paddingLeft": 10,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "flexDirection": "column",
+              "width": "70%",
+            }
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "fontSize": 25,
+              }
+            }
+          >
+            This is a product name
+          </Text>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "fontSize": 20,
+              }
+            }
+          >
+            R$ 
+            127.99
+          </Text>
+        </View>
+        <View
+          style={
+            Object {
+              "flexDirection": "column",
+              "width": "30%",
+            }
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "fontSize": 12,
+              }
+            }
+          >
+            Quantidade
+          </Text>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "fontSize": 16,
+              }
+            }
+          >
+            1
+          </Text>
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "flexDirection": "column",
+            "paddingLeft": 10,
+          }
+        }
+      >
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={
+            Object {
+              "fontSize": 20,
+            }
+          }
+        >
+          Cliente: 
+          Usuário sem nome
+        </Text>
+        <View
+          style={
+            Object {
+              "height": 10,
+            }
+          }
+        />
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={
+            Object {
+              "color": "#5A5A5A",
+              "fontSize": 16,
+            }
+          }
+        >
+          This is a buyer message
+        </Text>
+        <View
+          style={
+            Object {
+              "height": 50,
+            }
+          }
+        />
+      </View>
+      <View
+        style={
+          Object {
+            "flexDirection": "row",
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "width": "60%",
+            }
+          }
+        />
+        <View
+          accessibilityComponentType={undefined}
+          accessibilityLabel={undefined}
+          accessibilityTraits={undefined}
+          accessible={true}
+          collapsable={undefined}
+          hasTVPreferredFocus={undefined}
+          hitSlop={undefined}
+          isTVSelectable={true}
+          nativeID={undefined}
+          onLayout={undefined}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "alignItems": "center",
+              "alignSelf": "center",
+              "backgroundColor": "#0EAC6F",
+              "flex": 0,
+              "height": 50,
+              "justifyContent": "center",
+              "opacity": 1,
+              "width": 100,
+            }
+          }
+          testID={undefined}
+          tvParallaxProperties={undefined}
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "white",
+                "fontSize": 16,
+                "fontWeight": "300",
+              }
+            }
+          >
+             
+            Atendido
+             
+          </Text>
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "padding": 20,
+          }
+        }
+      />
+    </View>
+  </View>
+</RCTScrollView>
+`;
