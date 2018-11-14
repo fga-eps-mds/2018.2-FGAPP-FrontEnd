@@ -168,7 +168,7 @@ constructor(props){
    };
 
   render() {
-    
+
     let latitude;
     let longitude;
 
@@ -228,10 +228,12 @@ constructor(props){
         <SuccessModal
           onCancel={() => this.setState({ successModalVisible: false })}
           visible={this.state.successModalVisible}
+          message = {"Local cadastrado com sucesso"}
         />
         <ErrorModal
           onCancel={() => this.setState({ errorModalVisible: false })}
           visible={this.state.errorModalVisible}
+          message = {"Erro ao cadastrar o local"}
         />
       </View>
     )
