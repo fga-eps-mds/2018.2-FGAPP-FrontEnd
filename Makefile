@@ -1,12 +1,13 @@
 default:
-	make build $(IP)
-	make run
+	make build
+	make run $(IP)
 
 build:
-	python get-ip-address.py $(IP)
-	docker-compose up -d
+	docker-compose build
 
 run:
+	python get-ip-address.py $(IP)
+	docker-compose up -d
 	docker-compose exec front bash -c "yarn; bash"
 
 down:
