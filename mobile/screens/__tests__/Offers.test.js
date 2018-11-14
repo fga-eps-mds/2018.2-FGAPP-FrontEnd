@@ -62,8 +62,6 @@ describe('Test loadOffers', () => {
         await wrapper.instance().loadOffers()
 
         process.nextTick(() => {
-            expect(navigation.navigate.mock.calls.length).toBe(0);
-
             done();
         });
     });

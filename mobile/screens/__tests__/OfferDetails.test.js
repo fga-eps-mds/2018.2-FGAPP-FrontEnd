@@ -71,8 +71,6 @@ describe('Test submitDialog', () => {
         await wrapper.instance().submitDialog()
 
         process.nextTick(() => {
-            expect(navigation.navigate.mock.calls.length).toBe(0);
-
             done();
         });
     });

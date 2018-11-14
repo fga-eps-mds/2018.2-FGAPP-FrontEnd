@@ -141,9 +141,8 @@ describe('Testing navigation', () => {
   })
 
   it('test fab navigation', async () => {
-    console.log(wrapper.debug());
     const something_else = wrapper.find('Styled(Fab)');
-    console.log(wrapper.debug());
+    //console.log(wrapper.debug());
     something_else.simulate('press');
     await wrapper.instance();
     expect(spyNavigate).toBeCalled();

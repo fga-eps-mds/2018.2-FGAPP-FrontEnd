@@ -8,7 +8,7 @@ import fetchMock from 'fetch-mock';
 
 Enzyme.configure({adapter: new Adapter()});
 
-describe('Test MyProductDetails', () => {
+describe('Test MyProductDetails requisitions', () => {
   const navigation = {
       state: {
           params: {
@@ -85,7 +85,7 @@ describe('Test MyProductDetails', () => {
           "This field is required."
       ]
     };
-  
+
     fetchMock.post(edit_product_path, {error});
 
     wrapper.setState(state);
@@ -122,6 +122,7 @@ describe('Test MyProductDetails', () => {
 
         done();
     });
+
   });
 
   it('tests openDialog to be true',() => {
@@ -153,20 +154,15 @@ describe('Test MyProductDetails', () => {
     expect(wrapper.instance().state.isButtonsHidden).toBeFalsy();
   });
 
-
-
   test('change text area name ', () => {
     const wrapper = shallow(<MyProductDetails navigation={navigation}/>);
-    //console.log(wrapper.debug());
     const name = wrapper.find('InputLab').at(0);
     name.simulate('changeText','New Name');
     expect(wrapper.state('name')).toBe('New Name');
   });
-  
 
   test('change text area price ', () => {
     const wrapper = shallow(<MyProductDetails navigation={navigation}/>);
-    //console.log(wrapper.debug());
     const price = wrapper.find('InputLab').at(1);
     price.simulate('changeText','20');
     expect(wrapper.state('price')).toBe('20');
@@ -179,28 +175,4 @@ describe('Test MyProductDetails', () => {
     description.simulate('changeText','text');
     expect(wrapper.state('description')).toBe('text');
   });
-
-
 })
-/* test('change input title ', () => {
-  const wrapper = shallow(<MyProductDetails />);
-  const title = wrapper.find('InputLab').at(0);
-  title.simulate('changeText','text');
-  expect(wrapper.state('title')).toBe('text');
-});
-
-test('change input price ', () => {
-  const wrapper = shallow(<MyProductDetails />);
-  const price = wrapper.find('InputLab').at(1);
-  price.simulate('changeText','text');
-  expect(wrapper.state('price')).toBe('text');
-});
-
-test('change text area description ', () => {
-  const wrapper = shallow(<MyProductDetails />);
-  //console.log(wrapper.debug());
-  const description = wrapper.find('Styled(Textarea)').at(0);
-  description.simulate('changeText','text');
-  expect(wrapper.state('description')).toBe('text');
-});
-*/
