@@ -62,8 +62,6 @@ describe('Test loadUserProducts', () => {
         await wrapper.instance().loadUserProducts()
 
         process.nextTick(() => {
-            expect(navigation.navigate.mock.calls.length).toBe(0);
-
             done();
         });
     });
@@ -116,19 +114,39 @@ describe('Test loadUserProducts', () => {
     });
 })
 
+describe('Testing navigation', () => {
 
-// it('Testing onPress in ProductCard', () => {
-//   const onPressMock = jest.fn();
-//   const wrapper = shallow(<MyProducts onPress = {onPressMock}/>);
-//   const button = wrapper.find('ProductCard').at(0);
-//   button.simulate('press');
-//   expect(onPressMock).toBeCalled();
-// })
+  let wrapper = null
+  const spyNavigate = jest.fn()
+  const props = {
+    navigation: {
+      navigate: spyNavigate,
+      state: {}
+    }
+  }
+  const params = {
+    token: 'randomToken'
+  }
 
-// it('Testing onPress in ProductCard', () => {
-//   const onPressMock = jest.fn();
-//   const wrapper = shallow(<MyProducts onPress = {onPressMock}/>);
-//   const something = wrapper.find('Fab').at(0);
-//   something.simulate('press');
-//   expect(onPressMock).toBeCalled();
-// })
+  beforeEach(() => {
+    wrapper = shallow(<MyProducts {...props} />)
+    wrapper.setState({ params: params })
+  })
+
+  it('test product card navigation', async () => {
+    const something = wrapper.find('ProductCard').at(0);
+    something.simulate('press');
+    await wrapper.instance();
+    expect(spyNavigate).toBeCalled();
+  })
+
+  it('test fab navigation', async () => {
+    console.log(wrapper.debug());
+    const something_else = wrapper.find('Styled(Fab)');
+    console.log(wrapper.debug());
+    something_else.simulate('press');
+    await wrapper.instance();
+    expect(spyNavigate).toBeCalled();
+  })
+
+})
