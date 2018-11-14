@@ -36,7 +36,7 @@ class ViewLocal extends Component {
     showMessage({
       message: fav ? "Removido dos favoritos" : "Adicionado aos favoritos",
       type: fav ? "warning" : "success",
-      position: "top",
+      position: "center",
       icon: fav ? "info" : "success",
       duration: 900
     });
@@ -132,6 +132,7 @@ class ViewLocal extends Component {
                     />
           </View>
           </View>
+          <FlashMessage position="top" />
         </Card>
       );
     }
