@@ -55,7 +55,7 @@ const TabHandler = new TabNavigator({
             headerLeft: null,
             tabBarIcon: ({ focused }) => (
                 <Icon
-                    name="md-locate"
+                    name="md-pin"
                     style={{ color: focused ? '#0AACCC' : '#5A5A5A' }}
                 />
             ),
