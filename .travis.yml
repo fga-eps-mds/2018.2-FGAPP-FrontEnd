@@ -2,6 +2,7 @@
 
 stages:
   - test
+  - gh-pages
   - deploy
 
 jobs:
@@ -42,8 +43,7 @@ jobs:
 
     - stage: deploy
       name: "Deploying to production"
-      on:
-        - master
+      if: branch = master
       node_js:
         - '9.3'
       script:
