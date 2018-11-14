@@ -29,7 +29,7 @@ export default class CategorySelect extends Component {
   }
 
   componentWillMount() {
-    const url = fetch(`https://dev-indicaai.herokuapp.com/categories`, {
+    const url = fetch(`https://indicaai.herokuapp.com/categories`, {
       method: "GET",
       headers: {
         Accept: "application/json",
