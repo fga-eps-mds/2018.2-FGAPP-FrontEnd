@@ -19,8 +19,7 @@ export default class Publicity extends Component {
 
   const name = this.props.name;
   const address = this.props.address;
-  const rating = this.props.rating;
-
+  
     return (
       <TouchableOpacity onPress={() => this.state.onPress()}>
         <Card>
@@ -38,16 +37,6 @@ export default class Publicity extends Component {
             </Left>
           </CardItem>
           <CardItem>
-            <Left>
-              <Row>
-                <Icon
-                  style={styles.iconRating}
-                  active
-                  name="ios-star-outline"
-                />
-                <Text style={{color: '#0AACCC'}}>{rating}</Text>
-              </Row>
-            </Left>
             <Right>
               <Text style={styles.localAnuncio}>Anúncio</Text>
             </Right>
@@ -71,11 +60,5 @@ const styles = StyleSheet.create({
   localName: {
     fontWeight: 'bold',
     fontSize: 20
-  },
-  iconRating: {
-    bottom: 2,
-    left: 5,
-    color:'#0AACCC'
   }
-
 });

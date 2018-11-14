@@ -58,7 +58,7 @@ class ViewLocal extends Component {
 
     return (
     <View style = {styles.container}>
-      <ScrollView>
+     <ScrollView showsVerticalScrollIndicator={false}>
       <Content>
 
         <ImageBackground style={styles.imageLocal} source={require('../assets/fga.jpg')}>
