@@ -16,7 +16,7 @@ export default class SuccessModal extends React.Component{
             <View style={styles.boxContainer}>
               <Icon
               name='ios-navigate'
-              color='blue'
+              color='#0AACCC'
               size={50}
               />
               <Text style={styles.boxTitle}>Qual o meio de locomoção?</Text>
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 2
   },
   cancelButton: {
-    backgroundColor: 'blue',
+    backgroundColor: '#0AACCC',
   },
   buttonText: {
     fontWeight: 'bold',
