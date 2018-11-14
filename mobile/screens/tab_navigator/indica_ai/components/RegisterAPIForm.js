@@ -22,19 +22,18 @@ import CategorySelect from './CategorySelect.js';
 import { withNavigation } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation';
 
-export default class RegisterAPIForm extends Component{
+export default class RegisterAPIForm extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.state={
+    this.state = {
       selected: undefined,
-      category: [],
       name: null,
       description: null,
     };
   }
 
-  onValueChange(value: string) {
+  onValueChange(value) {
     this.setState({
       selected: value,
     });
@@ -43,41 +42,41 @@ export default class RegisterAPIForm extends Component{
   render() {
     return (
       <Container style={styles.container}>
-        <CategorySelect>
-          category: this.props.selectedItems
-        <CategorySelect/>
+        <CategorySelect
+          setSelectedCategories={this.props.setSelectedCategories}
+        />
         <Item
           style={styles.pickerForm}
           regular
         >
-        <Input placeholder='Nome'
-        onChangeText = {(name) => this.setState({name})}
-        />
+          <Input placeholder='Nome'
+            onChangeText={(name) => this.setState({ name })}
+          />
         </Item>
-       <Textarea
-       rowSpan={5}
-       bordered
-       placeholder="Descrição"
-       onChangeText = {(description) => this.setState({description})} />
-        <View style = {styles.button }>
-        <Button block info onPress = {
-          ()=>{
-          if(!(this.state.name && this.state.description)){
-            Alert.alert(
-                        'Atenção!',
-                        "Os campos 'Nome' ou 'Descrição' não podem estar vazios",
-                        [
-                          {text: 'OK', onPress: () => console.log('OK Pressed')}
-                        ],
-                        { cancelable: false }
-                      )
-          }else {
-           this.props.sendDataToTheForm(this.state.name, this.state.description)
-               }
-          }
+        <Textarea
+          rowSpan={5}
+          bordered
+          placeholder="Descrição"
+          onChangeText={(description) => this.setState({ description })} />
+        <View style={styles.button}>
+          <Button block info onPress={
+            () => {
+              if (!(this.state.name && this.state.description)) {
+                Alert.alert(
+                  'Atenção!',
+                  "Os campos 'Nome' ou 'Descrição' não podem estar vazios",
+                  [
+                    { text: 'OK', onPress: () => console.log('OK Pressed') }
+                  ],
+                  { cancelable: false }
+                )
+              } else {
+                this.props.sendDataToTheForm(this.state.name, this.state.description)
+              }
+            }
 
-        }>
-            <Text style = {{color: "white"}}>Confirmar</Text>
+          }>
+            <Text style={{ color: "white" }}>Confirmar</Text>
           </Button>
         </View>
       </Container>
@@ -92,12 +91,12 @@ const styles = StyleSheet.create({
     position: 'absolute',
     backgroundColor: "white",
     padding: 20,
-    top:0,
-    bottom:0,
-    left:0,
-    right:0,
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
   },
-  pickerForm:{
+  pickerForm: {
     top: 65,
     marginBottom: 74
   },

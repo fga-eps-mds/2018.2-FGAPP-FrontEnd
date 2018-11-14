@@ -4,16 +4,16 @@ import {
   ScrollView,
   Alert
 } from "react-native";
-import { withNavigation,createStackNavigator } from 'react-navigation';
+import { withNavigation, createStackNavigator } from 'react-navigation';
 import RegisterAPIForm from '../components/RegisterAPIForm.js'
 
-class RegisterLocalAPI extends Component{
+class RegisterLocalAPI extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       requestStatus: null,
-      category: [],
+      selectedCategories: [],
       local: {
         name: null,
         description: null,
@@ -22,73 +22,83 @@ class RegisterLocalAPI extends Component{
     };
   }
 
- _postForm  = async (name,description) => {
-       const url  = "https://dev-indicaai.herokuapp.com/locals/";
-       const jsonTest = JSON.stringify({
-               name: name,
-               categories: this.props.selectedItems,
-               latitude: this.props.latitude,
-               longitude: this.props.longitude,
-               description: description,
-               address: this.props.adress
-             });
-          try{
-         const response = await fetch(url, {
-                   method: 'POST',
-                   headers: {
-                     Accept: 'application/json',
-                     'Content-Type': 'application/json',
-                   },
-                   body: jsonTest,
-                 })
-          const jsonResponse = await response.json()
-           console.log(jsonResponse);
-           if(jsonResponse['status'] === "SUCCESS"){
-              this.setState({requestStatus: "SUCCESS"})
-              this.setState({
-                local: {
-                  name: name,
-                  description: description,
-                  id: jsonResponse["data"][0]["id"]
-                }
-              })
-            }else{
-              this.setState({requestStatus: "FAILED"})
-            }
-         }catch(error){
-            console.error(error);
+  _postForm = async (name, description) => {
+    const url = "https://dev-indicaai.herokuapp.com/locals/";
+    const jsonTest = JSON.stringify({
+      name: name,
+      categories: this.props.selectedItems,
+      latitude: this.props.latitude,
+      longitude: this.props.longitude,
+      description: description,
+      address: this.props.adress
+    });
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: jsonTest,
+      })
+      const jsonResponse = await response.json()
+      console.log(jsonResponse);
+      if (jsonResponse['status'] === "SUCCESS") {
+        this.setState({ requestStatus: "SUCCESS" })
+        this.setState({
+          local: {
+            name: name,
+            description: description,
+            id: jsonResponse["data"][0]["id"]
           }
+        })
+      } else {
+        this.setState({ requestStatus: "FAILED" })
       }
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   takeDataFromTheForm = (name, description) => {
-     this._postForm (name, description);
+    this._postForm(name, description);
+  }
+
+  setSelectedCategories = (selectedCategories) => {
+    this.setState({
+      selectedCategories: selectedCategories
+    })
   }
 
   render() {
-    if(this.state.requestStatus === "SUCCESS"){
+    if (this.state.requestStatus === "SUCCESS") {
       Alert.alert(
-                  'Local cadastrado com sucesso!',
-                  "",
-                  [
-                    {text: 'OK', onPress : ()=> this.props.navigation.navigate('LocalDetails',{
-                      local: this.state.local})}
-                  ],
-                  { cancelable: false }
-                )
+        'Local cadastrado com sucesso!',
+        "",
+        [
+          {
+            text: 'OK', onPress: () => this.props.navigation.navigate('LocalDetails', {
+              local: this.state.local
+            })
+          }
+        ],
+        { cancelable: false }
+      )
 
-      }else if (this.state.requestStatus === "FAILED"){
-        Alert.alert(
-                    'Ooops!',
-                    "Houve um erro ao cadastrar esse local, tente novamente mais tarde",
-                    [
-                      {text: 'OK', onPress : () => this.props.navigation.navigate("Register")}
-                    ],
-                    { cancelable: false }
-                  )
-      }
+    } else if (this.state.requestStatus === "FAILED") {
+      Alert.alert(
+        'Ooops!',
+        "Houve um erro ao cadastrar esse local, tente novamente mais tarde",
+        [
+          { text: 'OK', onPress: () => this.props.navigation.navigate("Register") }
+        ],
+        { cancelable: false }
+      )
+    }
     return (
       <RegisterAPIForm
-      sendDataToTheForm = {this.takeDataFromTheForm}
+        sendDataToTheForm={this.takeDataFromTheForm}
+        setSelectedCategories={this.setSelectedCategories}
       />
     );
   }

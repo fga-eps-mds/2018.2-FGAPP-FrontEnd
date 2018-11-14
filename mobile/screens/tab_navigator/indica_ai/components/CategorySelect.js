@@ -19,12 +19,13 @@ export default class CategorySelect extends Component {
     this.state = {
       selected: undefined,
       categories: [],
-      selectedItems: [],
+      selectedCategories: props.selectedCategories
     };
   }
 
-  onSelectedItemsChange = (selectedItems) => {
-    this.setState({ selectedItems });
+  onSelectedItemsChange = (selectedCategories) => {
+    this.setState({ selectedCategories });
+    this.props.setSelectedCategories(selectedCategories)
   }
 
   componentWillMount() {
@@ -63,7 +64,7 @@ export default class CategorySelect extends Component {
           confirmText="Confirmar"
           searchPlaceholderTextColor="red"
           onSelectedItemsChange={this.onSelectedItemsChange}
-          selectedItems={this.state.selectedItems}
+          selectedItems={this.state.selectedCategories}
         />
 
       </View>
