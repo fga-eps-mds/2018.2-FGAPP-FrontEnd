@@ -149,7 +149,7 @@ constructor(props){
 
    sendData = async (data) => {
      try{
-       const response = await fetch(`https://indicaai.herokuapp.com/locals`, {
+       const response = await fetch(`https://dev-indicaai.herokuapp.com/locals`, {
          method: 'POST',
          headers: {
            Accept: 'application/json',
@@ -168,7 +168,7 @@ constructor(props){
    };
 
   render() {
-
+    
     let latitude;
     let longitude;
 

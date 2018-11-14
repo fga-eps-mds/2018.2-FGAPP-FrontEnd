@@ -4,7 +4,7 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
-import { Card, CardItem } from 'native-base' 
+import { Card, CardItem } from 'native-base'
 
 
 export default class Local extends Component {
@@ -17,11 +17,11 @@ export default class Local extends Component {
   render() {
 
     const name = this.props.name;
-    const description = this.props.description;
+    const address = this.props.address;
 
     return(
       <TouchableOpacity onPress={() => this.state.onPress()}>
-        <Card style={styles.localCard}> 
+        <Card style={styles.localCard}>
 
          <CardItem header bordered>
             <Text style={styles.localName}>
@@ -31,7 +31,7 @@ export default class Local extends Component {
 
          <CardItem>
             <Text style={styles.localDescription}>
-              {description}
+              {address}
            </Text>
          </CardItem>
 
