@@ -7,16 +7,22 @@ const SearchTab = StackNavigator({
 
     Home :{
       screen: SearchScreen,
+      navigationOptions: {
+        tabBarLabel: 'Buscar local',
+        headerLeft: null,
+      },
     },
     LocalDetails : {
       screen: LocalDetails,
+      navigationOptions: {
+        tabBarLabel: '',
+        headerLeft: null,
+      },
     },
   },
   {
-    initialRouteName: 'Home',
-    navigationOptions: {
-      header: null,
-    }
+    headerMode: 'none',
+    initialRouteName: 'Home'
   }
 );
 
