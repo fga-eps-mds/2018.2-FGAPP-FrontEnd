@@ -79,7 +79,7 @@ describe('Test Settings', () => {
         }
 
         const error = {
-            "error": "This field is required."
+            "error": "Usuário inválido."
         };
 
         fetchMock.post(profileInfoPath, { error });
@@ -91,4 +91,30 @@ describe('Test Settings', () => {
             done();
         });
     });
+});
+
+describe('Testing Settings navigation', () => {
+    let wrapper = null
+    const spyNavigate = jest.fn()
+    const props = {
+        navigation: {
+            navigate: spyNavigate,
+            state: {}
+        }
+    }
+    const params = {
+        token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InJvZ2VybGVua2VAZ21haWwuY29tIiwidXNlcl9pZCI6MSwib3JpZ19pYXQiOjE1NDE3MTk3NDksImV4cCI6MTU0MTcyMDA0OSwidXNlcm5hbWUiOiJyb2dlcmxlbmtlQGdtYWlsLmNvbSJ9.eCEGRB9yYAkP5iBIybeDsAoWk4HyusPUTX3LBiP0I64'
+    }
+
+    beforeEach(() => {
+        wrapper = shallow(<Settings {...props} />)
+        wrapper.setState({ params: params })
+    })
+
+    it('test user card navigation', async () => {
+        const something = wrapper.find('Styled(ListItem)').at(0);
+        something.simulate('press');
+        await wrapper.instance();
+        expect(spyNavigate).toBeCalled();
+    })
 });
