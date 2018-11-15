@@ -8,7 +8,7 @@ import {
   View,
 } from 'react-native';
 import PropTypes from 'prop-types';
-
+import { Container, Header, Content, Form, Item, Input, Label } from 'native-base';
 
 export default class Field extends Component{
   constructor(props) {
@@ -27,37 +27,35 @@ export default class Field extends Component{
 
     if (this.props.badInput){
       field_style = {
-        paddingLeft: 20,
-        height: 50,
-        backgroundColor: '#F78181',
-        borderColor: 'red',
-        borderWidth: 2,
+        //backgroundColor: '#F78181',
+        color: 'red',
       }
     }
     else{ // default button style
       field_style = {
-        paddingLeft: 20,
-        height: 50,
-        borderWidth: 2,
+        color: 'white',
+        //borderWidth: 2,
       }
     }
   return(
-    <View>
-    <View style={{height: 10}} />
-    <TextInput
-      style={field_style}
-      placeholder={this.props.placeholder}
-      secureTextEntry={this.props.secureTextEntry}
-      onChangeText={this.props.onChangeText}
-
-     />
+    <View style={this.props.style}>
+    <Form>
+      <Item floatingLabel>
+        <Label style={field_style}>{this.props.placeholder}</Label>
+        <Input
+          style={{color: 'white'}}
+          secureTextEntry={this.props.secureTextEntry}
+          onChangeText={this.props.onChangeText}
+          underlineColorAndroid={'white'}
+        />
+      </Item>
+    </Form>
      <FlatList
       data={this.props.fieldAlert}
       renderItem={({item}) => <Text style ={{color: 'red'}}>{item}</Text>}
       keyExtractor={item => this.props.keyExtractor}
 
       />
-      <View style={{height: 10}} />
      </View>
   )
   }
