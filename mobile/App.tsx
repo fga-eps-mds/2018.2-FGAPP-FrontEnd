@@ -21,7 +21,7 @@ export default class App extends React.Component<{}> {
       },
       android:{
       sound: true,
-      icon: 'https://i.imgur.com/xlEYSex.png',
+      icon: 'https://res.cloudinary.com/integraappfga/image/upload/v1542241278/IntegraApps_icon.png',
       color: '#1CBD24',
       priority: 'low', // (optional) (min | low | high | max) — android may present notifications according to the priority, for example a high priority notification will likely to be shown as a heads-up notification.
       sticky: false, // (optional) (boolean) — if true, the notification will be sticky and not dismissable by user. The notification must be programmatically dismissed. Default: false.
