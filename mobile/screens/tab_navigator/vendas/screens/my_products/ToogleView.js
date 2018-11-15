@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {ViewPropTypes} from 'react-native'
 import {
   View,
 } from 'react-native';
@@ -27,7 +28,7 @@ ToogleView.propTypes = {
       PropTypes.element,
     ])),
   ]).isRequired,
-  style: View.propTypes.style,
+  style: ViewPropTypes.style,
   hide: PropTypes.bool,
 };
 
