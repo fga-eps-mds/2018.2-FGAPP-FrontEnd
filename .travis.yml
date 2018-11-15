@@ -50,6 +50,7 @@ jobs:
         - cd mobile
         - bash setup-config.sh production
         - cp config/app-production.json app.json
+        - bash setup-config.sh
         - yarn add expo-cli
         - yarn expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD
         - yarn expo publish --non-interactive
@@ -63,6 +64,7 @@ jobs:
         - cd mobile
         - bash setup-config.sh staging
         - cp config/app-development.json app.json
+        - bash setup-config.sh
         - yarn add expo-cli
         - yarn expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD
         - yarn expo publish --non-interactive
