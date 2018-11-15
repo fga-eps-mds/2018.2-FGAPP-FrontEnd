@@ -30,6 +30,9 @@ export default class App extends React.Component<{}> {
       }
     };
     let t = (new Date());
+    if(t.getHours() >= 12){
+      t.setDate(t.getDate()+1) // If it's past lunch time, wait a day
+    }
     t.setHours(12);
     t.setMinutes(30);
     t.setSeconds(1);
