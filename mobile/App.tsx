@@ -29,13 +29,13 @@ export default class App extends React.Component<{}> {
       // link (optional) (string) — external link to open when notification is selected.
       }
     };
-    let t = (new Date());
-    if(t.getHours() >= 12){
-      t.setDate(t.getDate()+1) // If it's past lunch time, wait a day
+
+    let t = new Date();
+    if(t.getHours() >= 12 && t.getMinutes() > 30){
+      t.setDate(t.getDate()+1); // If it's past lunch time, wait a day
     }
-    t.setHours(12);
-    t.setMinutes(30);
-    t.setSeconds(1);
+    t.setHours(12, 30, 0, 0);
+
     const schedulingOptions = {
       time: t, // (date or number) — A Date object representing when to fire the notification or a number in Unix epoch time. Example: (new Date()).getTime() + 1000 is one second from now.
       repeat: 'day',
