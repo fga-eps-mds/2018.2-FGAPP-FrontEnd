@@ -1,10 +1,13 @@
 {
   "expo": {
-    "name": "Integra",
+    "name": "Integra BETA",
     "icon": "assets/icon.png",
     "splash": {
       "image": "assets/splash.png",
       "backgroundColor": "#BD1C5F"
+    },
+    "notification": {
+      "icon": "./assets/icon.png"
     },
     "slug": "integra-app",
     "sdkVersion": "27.0.0",

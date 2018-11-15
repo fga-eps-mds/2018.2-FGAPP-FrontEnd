@@ -1,8 +1,14 @@
 # .travis.yml
 
+stages:
+  - test
+  - gh-pages
+  - deploy
+
 jobs:
   include:
     - stage: test
+      name: "Running Tests"
       language: node_js
       node_js:
         - '9.3'
@@ -14,7 +20,8 @@ jobs:
         directories:
         - ./mobile/node_modules
 
-    - stage: deploy gh-pages
+    - stage: gh-pages
+      name: "Deploying github pages"
       if: branch = master
       sudo: required
       language: node_js
@@ -34,23 +41,27 @@ jobs:
         - echo "GH_TOKEN=${GH_TOKEN}" >> docs/.env
         - docker run -v `pwd`:"/app" -w "/app" --env-file docs/.env lucascst/gh-pages-docker-travis bash -c "cd docs; sh publish.sh"
 
-    - stage: production deploy
+    - stage: deploy
+      name: "Deploying to production"
       if: branch = master
       node_js:
         - '9.3'
       script:
         - cd mobile
+        - bash setup-config.sh production
         - cp config/app-production.json app.json
         - yarn add expo-cli
         - yarn expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD
         - yarn expo publish --non-interactive
 
-    - stage: homologation deploy
+    - stage: deploy
+      name: "Deploying to staging"
       if: branch = dev
       node_js:
         - '9.3'
       script:
         - cd mobile
+        - bash setup-config.sh staging
         - cp config/app-development.json app.json
         - yarn add expo-cli
         - yarn expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD
