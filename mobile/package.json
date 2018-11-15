@@ -21,7 +21,7 @@
   },
   "main": "./node_modules/react-native-scripts-ts/build/bin/crna-entry.js",
   "scripts": {
-    "start": "react-native-scripts-ts start",
+    "start": "sh setup-config.sh && react-native-scripts-ts start",
     "start:android": "concurrently -r 'react-native start' 'yarn start:android:no-packager'",
     "start:android:no-packager": "react-native run-android --no-packager",
     "eject": "react-native-scripts-ts eject",
