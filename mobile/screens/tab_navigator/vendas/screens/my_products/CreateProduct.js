@@ -9,7 +9,8 @@ import {
   Text,
   Keyboard,
   Animated,
-  TouchableOpacity
+  TouchableOpacity,
+  ImageBackground
 } from 'react-native';
 import {
   Textarea,
@@ -154,6 +155,7 @@ class CreateProduct extends Component {
   render() {
     const { state } = this.props.navigation;
     var token = state.params ? state.params.token : undefined;
+    var editableIcon = require('../../assets/editableIcon.png');
     var defaultPhoto = 'https://res.cloudinary.com/integraappfga/image/upload/v1541634743/SEM_IMAGEM.jpg';
     var photo = (this.state.photo == null) ? defaultPhoto : this.state.photo;
 
@@ -166,12 +168,18 @@ class CreateProduct extends Component {
           isDialogVisible={this.state.isDialogVisible}
           backButton={this.closeDialog}
         />
-        <TouchableOpacity onPress={this._clickPhoto}>
-          <Animated.Image
+        <TouchableOpacity onPress={this._clickPhoto} style={{width: '100%', height: '45%'}}>
+          <ImageBackground
             source={{ uri: photo }}
-            style={[styles.logo, { height: this.imageHeight, width: '100%' }]}
-          />
+            style={{ width: '100%', height: '100%' }}
+          >
+            <Animated.Image
+              source = {editableIcon}
+              style={{ left: '90%', top: '5%' }}
+            />
+          </ImageBackground>
         </TouchableOpacity>
+        
         <Form style={styles.description}>
           <Item floatingLabel>
             <Label>Título</Label>
