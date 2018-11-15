@@ -1,6 +1,10 @@
 # Integra APP
 An application developed by university students, for university students.
 
+[Download the application here!](https://play.google.com/store/apps/details?id=com.unbgama.integra)
+
+You can also test the beta of the application by registering for this link: [https://play.google.com/apps/testing/com.unbgama.integra](https://play.google.com/apps/testing/com.unbgama.integra)
+
 ## Requirements
 This projects needs some requirements that need to be downloaded.
 

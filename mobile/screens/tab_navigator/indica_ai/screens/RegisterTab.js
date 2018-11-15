@@ -7,15 +7,22 @@ const RegisterTab = StackNavigator({
 
     Register :{
       screen: RegisterScreen,
+      navigationOptions: {
+        tabBarLabel: 'Cadastrar',
+        headerLeft: null,
+      },
     },
     RegisterAPI :{
       screen: RegisterAPIScreen,
+      navigationOptions: {
+        tabBarLabel: 'Novo Local',
+        headerLeft: null,
+      },
     }
   },
   {
-    navigationOptions: {
-      header: null,
-    }
+    initialRouteName: 'Register',
+    headerMode: 'none',
   }
 )
 

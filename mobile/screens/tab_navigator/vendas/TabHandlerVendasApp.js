@@ -3,28 +3,32 @@
 */
 
 import React, { Component } from 'react';
-import { TabNavigator } from 'react-navigation';
-import MyProducts from './screens/MyProducts';
-import Offers from './screens/Offers';
-import OrderedProducts from './screens/OrderedProducts';
+import { TabNavigator, StackNavigator } from 'react-navigation';
+import MyProductsScreen from './screens/MyProductsScreen';
+import OfferScreen from './screens/OfferScreen';
+import OrderScreen from './screens/OrderScreen';
 
 const TabHandlerVendasApp = new TabNavigator({
-    Offers: {
-        screen: Offers,
+    OfferScreen: {
+        screen: OfferScreen,
         navigationOptions: {
             tabBarLabel: 'Ofertas',
+            title: 'Ofertas',
         }
     },
-    MyProducts: {
-        screen: MyProducts,
-        navigationOptions: {
-            tabBarLabel: 'Meus produtos',
-        }
+    MyProductsScreen: {
+      screen: MyProductsScreen,
+      navigationOptions: {
+          tabBarLabel: 'Meus Produtos',
+          title: 'Meus Produtos'
+      }
+
     },
-    OrderedProducts: {
-        screen: OrderedProducts,
+    OrderScreen: {
+        screen: OrderScreen,
         navigationOptions: {
             tabBarLabel: 'Pedidos',
+            title: 'Pedidos',
         }
     }
 },
@@ -32,6 +36,8 @@ const TabHandlerVendasApp = new TabNavigator({
     tabBarOptions: {
         showLabel: true,
         showIcon: false,
+        activeTintColor: 'black',
+        inactiveTintColor: '#5A5A5A',
         labelStyle: {
             fontSize: 10,
         },
@@ -39,7 +45,7 @@ const TabHandlerVendasApp = new TabNavigator({
             height: 40,
         },
         style: {
-            backgroundColor: '#5A5A5A',
+            backgroundColor: 'white',
         },
     },
 });
