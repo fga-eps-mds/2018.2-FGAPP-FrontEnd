@@ -27,7 +27,7 @@
     "eject": "react-native-scripts-ts eject",
     "android": "react-native-scripts-ts android",
     "ios": "react-native-scripts-ts ios",
-    "test": "jest"
+    "test": "bash setup-config.sh testing && jest"
   },
   "jest": {
     "globals": {

@@ -28,6 +28,12 @@ elif [ "$1" = 'staging' ]; then
     INTEGRA_LOGIN_AUTH=$STG_INTEGRA_LOGIN_AUTH
     INDICA_AI_API=$STG_INDICA_AI_API
 
+elif [ "$1" = 'testing' ]; then
+    echo '• testing env...'
+    VENDAS_API='http://test'
+    INTEGRA_LOGIN_AUTH='http://test'
+    INDICA_AI_API='http://test'
+
 else
     echo '• default env...'
 fi
