@@ -130,9 +130,9 @@ class ViewLocal extends Component {
                 latitude = {latitude}
                 longitude = {longitude}
                       />
+              </View>
           </View>
-            <FlashMessage position="top" />
-          </View>
+          <FlashMessage position="top" />
         </Card>
       );
     }
