@@ -8,13 +8,7 @@ import SignUpScreen from './screens/SignUpScreen'
 import TabHandler from './screens/TabHandler'
 
 // Importing config variables
-try {
-  require('./env-config');
-
-  console.log(`login: ${process.env.INTEGRA_LOGIN_AUTH}`)
-  console.log(`vendas: ${process.env.VENDAS_API}`)
-  console.log(`indica ai: ${process.env.INDICA_AI_API}`)
-} catch (error) {}
+require('./env-config');
 
 export default class App extends React.Component<{}> {
   componentDidMount() {
