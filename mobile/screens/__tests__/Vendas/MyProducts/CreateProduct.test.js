@@ -1,5 +1,5 @@
 import React from 'react';
-import CreateProduct from '../tab_navigator/vendas/screens/my_products/CreateProduct';
+import CreateProduct from '../../../tab_navigator/vendas/screens/my_products/CreateProduct';
 import Adapter from 'enzyme-adapter-react-16';
 import {shallow} from 'enzyme';
 import Enzyme from 'enzyme';
@@ -54,7 +54,7 @@ describe('Test CreateProduct', () => {
     beforeEach(() => {
         fetchMock.restore();
     })
-    
+
     it('renders correctly', () => {
       const navigation = jest.fn();
       const tree = renderer.create(<CreateProduct navigation={navigation}/>).toJSON();

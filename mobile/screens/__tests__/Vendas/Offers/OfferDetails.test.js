@@ -1,5 +1,5 @@
 import React from 'react';
-import OfferDetails from '../tab_navigator/vendas/screens/offers/OfferDetails';
+import OfferDetails from '../../../tab_navigator/vendas/screens/offers/OfferDetails';
 import Adapter from 'enzyme-adapter-react-16';
 import {shallow} from 'enzyme';
 import Enzyme from 'enzyme';

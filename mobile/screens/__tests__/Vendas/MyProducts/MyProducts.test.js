@@ -1,5 +1,5 @@
 import React from 'react';
-import MyProducts from '../tab_navigator/vendas/screens/my_products/MyProducts';
+import MyProducts from '../../../tab_navigator/vendas/screens/my_products/MyProducts';
 import Adapter from 'enzyme-adapter-react-16';
 import {shallow} from 'enzyme';
 import Enzyme from 'enzyme';
