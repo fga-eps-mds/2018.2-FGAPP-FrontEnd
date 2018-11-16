@@ -41,7 +41,7 @@ class AddImages extends Component {
 
   postImage = async () => {
     const id = this.state.id
-    const indicaAiUrl = `http://indicaai.herokuapp.com/local/${id}/images/`;
+    const indicaAiUrl = `http://dev-indicaai.herokuapp.com/local/${id}/images/`;
     const uri = this.state.image;
     this.setState({ ImageModalVisible: false })
     try {
