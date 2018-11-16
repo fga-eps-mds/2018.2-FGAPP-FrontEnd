@@ -58,7 +58,7 @@ class ViewLocal extends Component {
 
     return (
     <View style = {styles.container}>
-      <ScrollView>
+     <ScrollView showsVerticalScrollIndicator={false}>
       <Content>
 
         <ImageBackground style={styles.imageLocal} source={require('../assets/fga.jpg')}>
@@ -124,13 +124,13 @@ class ViewLocal extends Component {
               longitude={longitude}
               name={name}
               description={description}
-            />
-            <View style = {{position: "absolute", left: 0, bottom:0}}>
-            <Direction
-              latitude = {latitude}
-              longitude = {longitude}
-                    />
-          </View>
+                />
+                <View style = {{position: "absolute", left: 0, bottom:0}}>
+              <Direction
+                latitude = {latitude}
+                longitude = {longitude}
+                      />
+              </View>
           </View>
           <FlashMessage position="top" />
         </Card>

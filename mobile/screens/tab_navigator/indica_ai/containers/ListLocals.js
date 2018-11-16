@@ -68,7 +68,6 @@ class ListLocals extends Component {
                 <Publicity
                   name={local.name}
                   address={local.address}
-                  rating={5.0}
                   onPress={() => {
                     this.props.navigation.navigate('LocalDetails',{
                       local: local
