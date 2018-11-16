@@ -19,7 +19,6 @@ export default class Publicity extends Component {
 
   const name = this.props.name;
   const address = this.props.address;
-  
     return (
       <TouchableOpacity onPress={() => this.state.onPress()}>
         <Card>
@@ -61,4 +60,5 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 20
   }
+
 });
