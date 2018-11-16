@@ -3,6 +3,7 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
+  ImageBackground
 } from 'react-native';
 import { Card, CardItem } from 'native-base'
 
@@ -18,6 +19,8 @@ export default class Local extends Component {
 
     const name = this.props.name;
     const address = this.props.address;
+    console.log("________________________________________________________________");
+    console.log(this.props.image);
 
     return(
       <TouchableOpacity onPress={() => this.state.onPress()}>
@@ -29,12 +32,16 @@ export default class Local extends Component {
            </Text>
          </CardItem>
 
-         <CardItem>
-            <Text style={styles.localDescription}>
-              {address}
-           </Text>
+         <CardItem cardBody style={{paddingHorizontal: 5, paddingTop: 5}}>
+           <ImageBackground source={require('../assets/IntegraApps_icon.png')} style={{height: 200, width: null, flex: 1, padding: 0}}>
+           </ImageBackground>
          </CardItem>
 
+         <CardItem footer bordered>
+           <Text style={styles.localDescription}>
+           {address}
+           </Text>
+         </CardItem>
         </Card>
       </TouchableOpacity>
     );

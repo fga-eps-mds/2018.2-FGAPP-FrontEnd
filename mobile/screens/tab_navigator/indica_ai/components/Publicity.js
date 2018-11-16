@@ -21,7 +21,6 @@ export default class Publicity extends Component {
   const address = this.props.address;
   const rating = this.props.rating;
   const image = "data:image/jpg;base64," + this.props.image[0]['image'];
-  console.log(image);
 
     return (
       <TouchableOpacity onPress={() => this.state.onPress()}>
