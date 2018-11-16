@@ -8,13 +8,15 @@ const TabHandlerIndicaAI = new TabNavigator({
   SearchTab : {
     screen: SearchTab,
     navigationOptions: {
-      tabBarLabel: 'Buscar Local',
+        tabBarLabel: 'Buscar Local',
+        title: 'Buscar Local'
     }
   },
   RegisterTab : {
     screen: RegisterTab,
     navigationOptions: {
       tabBarLabel: 'Cadastrar',
+      title: 'Cadastrar'
     }
   },
   FavoritesTab : {
@@ -22,6 +24,7 @@ const TabHandlerIndicaAI = new TabNavigator({
     screen: FavoritesTab,
     navigationOptions: {
       tabBarLabel: 'Favoritos',
+      title: 'Favoritos'
     }
   }
 },
@@ -29,6 +32,8 @@ const TabHandlerIndicaAI = new TabNavigator({
     tabBarOptions: {
         showLabel: true,
         showIcon: false,
+        activeTintColor: 'black',
+        inactiveTintColor: '#5A5A5A',
         labelStyle: {
             fontSize: 12,
         },
@@ -36,8 +41,7 @@ const TabHandlerIndicaAI = new TabNavigator({
             height: 40,
         },
         style: {
-            backgroundColor: '#0AACCC',
-
+            backgroundColor: 'white',
         },
     },
 });
