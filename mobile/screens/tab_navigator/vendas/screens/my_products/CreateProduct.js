@@ -155,8 +155,9 @@ class CreateProduct extends Component {
   render() {
     const { state } = this.props.navigation;
     var token = state.params ? state.params.token : undefined;
-    var editableIcon = require('../../assets/editableIcon.png');
-    var defaultPhoto = 'https://res.cloudinary.com/integraappfga/image/upload/v1541634743/SEM_IMAGEM.jpg';
+
+    const editableIcon = require('../../assets/editableIcon.png');
+    const defaultPhoto = 'https://res.cloudinary.com/integraappfga/image/upload/v1541634743/SEM_IMAGEM.jpg';
     var photo = (this.state.photo == null) ? defaultPhoto : this.state.photo;
 
     return (
@@ -168,16 +169,15 @@ class CreateProduct extends Component {
           isDialogVisible={this.state.isDialogVisible}
           backButton={this.closeDialog}
         />
-        <TouchableOpacity onPress={this._clickPhoto} style={{width: '100%', height: '45%'}}>
-          <ImageBackground
+        <TouchableOpacity onPress={this._clickPhoto}>
+          <Animated.Image
             source={{ uri: photo }}
-            style={{ width: '100%', height: '100%' }}
-          >
-            <Animated.Image
-              source = {editableIcon}
-              style={{ left: '90%', top: '5%' }}
-            />
-          </ImageBackground>
+            style={{ height: this.imageHeight, width: '100%' }}
+          />
+          <Animated.Image
+            source={editableIcon}
+            style={{ position: 'absolute', left: '90%', top: '5%' }}
+          />
         </TouchableOpacity>
         
         <Form style={styles.description}>

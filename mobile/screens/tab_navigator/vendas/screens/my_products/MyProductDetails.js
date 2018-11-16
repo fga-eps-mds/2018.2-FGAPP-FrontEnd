@@ -9,7 +9,9 @@ import {
     Text,
     Keyboard,
     TouchableOpacity,
-    Animated
+    Animated,
+    ImageBackground,
+    Image
 } from 'react-native';
 import ProductImage from '../../components/ProductImage';
 import { Textarea, Form, Item, Input, Label, Button } from 'native-base';
@@ -146,6 +148,8 @@ class MyProductDetails extends Component {
         const {state} = this.props.navigation;
         var token = state.params ? state.params.token : undefined;
         var product = state.params ? state.params.product : undefined;
+
+        const editableIcon = require('../../assets/editableIcon.png');
         var photo = (this.state.photo == null) ? product.photo : this.state.photo;
 
         return (
@@ -156,7 +160,14 @@ class MyProductDetails extends Component {
                   backButton = {this.closeDialog}
               />
               <TouchableOpacity onPress={this._clickPhoto}>
-                <Animated.Image source={{ uri: photo }} style={[styles.logo, { height: this.imageHeight, width: '100%' }]} />
+                <Animated.Image
+                  source={{ uri: photo }}
+                  style={{ height: this.imageHeight, width: '100%' }}
+                />
+                <Animated.Image
+                  source={editableIcon}
+                  style={{ position: 'absolute', left: '90%', top: '5%' }}
+                />
               </TouchableOpacity>
               <Form style={styles.description}>
                 <Item floatingLabel>
