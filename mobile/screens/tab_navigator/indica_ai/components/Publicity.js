@@ -20,12 +20,13 @@ export default class Publicity extends Component {
   const name = this.props.name;
   const address = this.props.address;
   const rating = this.props.rating;
+  const image = this.props.image;
 
     return (
       <TouchableOpacity onPress={() => this.state.onPress()}>
         <Card>
           <CardItem cardBody style={{paddingHorizontal: 5, paddingTop: 5}}>
-            <ImageBackground source={require('../assets/fga.jpg')} style={{height: 200, width: null, flex: 1}}>
+            <ImageBackground source={{uri: image}} style={{height: 200, width: null, flex: 1}}>
             </ImageBackground>
           </CardItem>
           <CardItem>
