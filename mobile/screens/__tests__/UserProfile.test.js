@@ -1,10 +1,10 @@
 import React from 'react';
 import UserProfile from '../tab_navigator/settings/settings/UserProfile';
 import Adapter from 'enzyme-adapter-react-16';
-//import {shallow} from 'enzyme';
+import {shallow} from 'enzyme';
 import Enzyme from 'enzyme';
 import renderer from 'react-test-renderer';
-//import fetchMock from 'fetch-mock';
+import fetchMock from 'fetch-mock';
 
 Enzyme.configure({adapter: new Adapter()});
 

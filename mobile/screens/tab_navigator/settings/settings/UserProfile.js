@@ -104,6 +104,9 @@ class UserProfile extends Component {
       return response.json();
     })
     .then((responseJson) => {
+      console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+      console.log(responseJson);
+      console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
       if (responseJson.error != undefined) {
         Alert.alert(responseJson.error);
       }
