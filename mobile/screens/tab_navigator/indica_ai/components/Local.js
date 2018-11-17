@@ -19,8 +19,10 @@ export default class Local extends Component {
 
     const name = this.props.name;
     const address = this.props.address;
-    console.log("________________________________________________________________");
-    console.log(this.props.image);
+    const image  = (this.props.image.length !== 0) ?
+      {uri: "data:image/jpg;base64," + this.props.image[0]["image"]}
+      :require('../assets/IntegraApps_icon.png')
+
 
     return(
       <TouchableOpacity onPress={() => this.state.onPress()}>
@@ -33,7 +35,7 @@ export default class Local extends Component {
          </CardItem>
 
          <CardItem cardBody style={{paddingHorizontal: 5, paddingTop: 5}}>
-           <ImageBackground source={require('../assets/IntegraApps_icon.png')} style={{height: 200, width: null, flex: 1, padding: 0}}>
+           <ImageBackground source={image} style={{height: 200, width: null, flex: 1, padding: 0}}>
            </ImageBackground>
          </CardItem>
 
