@@ -8,6 +8,11 @@ import fetchMock from 'fetch-mock';
 
 Enzyme.configure({adapter: new Adapter()});
 
+function FormDataMock(){
+    this.append = jest.fn();
+}
+global.FormData = FormDataMock;
+
 describe('Test UserProfile', () => {
     const navigation = {
         state: {
@@ -23,8 +28,60 @@ describe('Test UserProfile', () => {
         navigate: jest.fn(),
     }
 
+    let logoutPath = '';
+    let updateProfilePath = '';
+
+    beforeAll(() => {
+        process.env.INTEGRA_LOGIN_AUTH = 'http://test.ip';
+        logoutPath = `${process.env.INTEGRA_LOGIN_AUTH}/api/logout/`;
+        updateProfilePath = `${process.env.INTEGRA_LOGIN_AUTH}/api/users/update_profile/`;
+    })
+
+    beforeEach(() => {
+        fetchMock.restore();
+    })
+
     it('renders correctly', () => {
         const tree = renderer.create(<UserProfile navigation = {navigation}/>).toJSON();
         expect(tree).toMatchSnapshot();
+    });
+
+    it('Test logout with sucess', async(done) => {
+        const wrapper = shallow(<UserProfile navigation={navigation}/>);
+
+        fetchMock.post(logoutPath, {
+        });
+        
+        await wrapper.instance()._logout();
+        process.nextTick(() => {
+            done();
+        });
+    });
+
+    it('Test edit Profile with sucess', async(done) => {
+        const wrapper = shallow(<UserProfile navigation = {navigation}/>);
+
+        fetchMock.post(updateProfilePath, {
+            "token": null,
+            "userInfo": {
+              "email": "email@teste.com",
+               "name": "New Name",
+               "photo": "http://res.cloudinary.com/integraappfga/image/upload/v1542241982/wzkuyetsbnkna2jrux22.jpg",
+           },
+        });
+
+
+        const state = {
+            name: 'New Name',
+            email: 'email@teste.com',
+            photo: 'http://res.cloudinary.com/integraappfga/image/upload/v1542241982/wzkuyetsbnkna2jrux22.jpg',
+        };
+
+        wrapper.setState(state);
+        await wrapper.instance()._editProfile();
+
+        process.nextTick(() => { 
+            done();
+        });
     });
 })

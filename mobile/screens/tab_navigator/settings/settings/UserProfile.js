@@ -22,6 +22,14 @@ class UserProfile extends Component {
     };
   }
 
+  _goBack() = async () => {
+    const { state } = this.props.navigation;
+    var token = state.params ? state.params.token : undefined;
+
+    Alert.alert('Informações atualizadas com sucesso.');
+    this.props.navigation.navigate('Settings', { token: token });
+  }
+
   _clickPhoto = async () => {
     const {
       cancelled,
@@ -104,9 +112,6 @@ class UserProfile extends Component {
       return response.json();
     })
     .then((responseJson) => {
-      console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
-      console.log(responseJson);
-      console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
       if (responseJson.error != undefined) {
         Alert.alert(responseJson.error);
       }
@@ -116,8 +121,7 @@ class UserProfile extends Component {
           this._logout();
         }
         else{
-          Alert.alert('Informações atualizadas com sucesso.');
-          this.props.navigation.navigate('Settings', { token: token });
+          this._goBack();
         }
       }
     })
