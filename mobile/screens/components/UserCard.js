@@ -40,7 +40,7 @@ export default class UserCard extends Component{
                       />
                     </Item>
                     <Item stackedLabel>
-                      <Label style={{fontSize: 12}}>Email</Label>
+                      <Label style={{fontSize: 12}}>Email:</Label>
                       <Input
                         style={{fontSize: 12}}
                         placeholder={this.props.emailPlaceholder}

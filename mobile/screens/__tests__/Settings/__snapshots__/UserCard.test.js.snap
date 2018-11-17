@@ -291,7 +291,7 @@ exports[`renders correctly 1`] = `
               }
               virtual={undefined}
             >
-              Email
+              Email:
             </Text>
             <TextInput
               allowFontScaling={true}

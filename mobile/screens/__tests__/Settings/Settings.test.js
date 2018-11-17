@@ -1,5 +1,5 @@
 import React from 'react';
-import Settings from '../tab_navigator/settings/settings/Settings';
+import Settings from '../../tab_navigator/settings/settings/Settings';
 import Adapter from 'enzyme-adapter-react-16';
 import { shallow } from 'enzyme';
 import Enzyme from 'enzyme';

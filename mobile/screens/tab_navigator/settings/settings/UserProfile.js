@@ -26,7 +26,6 @@ class UserProfile extends Component {
     const { state } = this.props.navigation;
     var token = state.params ? state.params.token : undefined;
 
-    Alert.alert('Informações atualizadas com sucesso.');
     this.props.navigation.navigate('Settings', { token: token });
   }
 
@@ -55,16 +54,6 @@ class UserProfile extends Component {
       if (responseJson.detail == 'Successfully logged out.') {
         this.props.navigation.state.params.token = null;
         this.props.navigation.navigate('LoginScreen');
-      }
-    })
-    .catch(err => {
-      if (typeof err.text === 'function') {
-        err.text().then(errorMessage => {
-          this.props.dispatch(displayTheError(errorMessage));
-        });
-      } else {
-        Alert.alert('Erro na conexão.');
-        console.log(err);
       }
     });
   }
@@ -121,18 +110,9 @@ class UserProfile extends Component {
           this._logout();
         }
         else{
+          Alert.alert('Informações atualizadas com sucesso.');
           this._goBack();
         }
-      }
-    })
-    .catch(err => {
-      if (typeof err.text === 'function') {
-        err.text().then(errorMessage => {
-          this.props.dispatch(displayTheError(errorMessage));
-        });
-      } else {
-        Alert.alert("Erro na conexão.");
-        console.log(err);
       }
     });
   }

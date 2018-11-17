@@ -1,5 +1,5 @@
 import React from 'react';
-import UserProfile from '../tab_navigator/settings/settings/UserProfile';
+import UserProfile from '../../tab_navigator/settings/settings/UserProfile';
 import Adapter from 'enzyme-adapter-react-16';
 import {shallow} from 'enzyme';
 import Enzyme from 'enzyme';
@@ -14,7 +14,9 @@ function FormDataMock(){
 global.FormData = FormDataMock;
 
 describe('Test UserProfile', () => {
+    const spyNavigate = jest.fn();
     const navigation = {
+        navigate: spyNavigate,
         state: {
             params: {
                 token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InJvZ2VybGVua2VAZ21haWwuY29tIiwidXNlcl9pZCI6MSwib3JpZ19pYXQiOjE1NDE3MTk3NDksImV4cCI6MTU0MTcyMDA0OSwidXNlcm5hbWUiOiJyb2dlcmxlbmtlQGdtYWlsLmNvbSJ9.eCEGRB9yYAkP5iBIybeDsAoWk4HyusPUTX3LBiP0I64',
@@ -25,7 +27,6 @@ describe('Test UserProfile', () => {
                 }
             }
         },
-        navigate: jest.fn(),
     }
 
     let logoutPath = '';
@@ -84,4 +85,42 @@ describe('Test UserProfile', () => {
             done();
         });
     });
+
+    it('Should test navigation', async() => {
+        const wrapper = shallow(<UserProfile navigation = {navigation}/>); 
+        await wrapper.instance()._goBack();
+        expect(spyNavigate).toHaveBeenCalled();
+    });
+
+    it('Test clickPhoto', () => {
+        const wrapper = shallow(<UserProfile navigation = {navigation}/>); 
+        const clickPhoto = wrapper.instance()._clickPhoto();
+    });
+
+    it('Test _editProfile fetch with error response', async (done) => {
+        const wrapper = shallow(<UserProfile navigation={navigation} />);
+
+        const state = {
+            name: 'SomeName',
+            email: '',
+            photo: 'https://res-console.cloudinary.com/integraappfga/thumbnails/v1/image/upload/v1541537829/c2VuazJvZG54YW1vcHdsa215b3E=/grid'
+        }
+
+        const error = {
+            "error": "Email inválido."
+        };
+
+        fetchMock.post(updateProfilePath, { error });
+
+        wrapper.setState(state);
+        await wrapper.instance()._editProfile();
+
+        process.nextTick(() => {
+            done();
+        });
+    });
+
+    
+    
 })
+
