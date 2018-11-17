@@ -55,8 +55,6 @@ class ViewLocal extends Component {
       categories,
       local_ratings,
     } = this.state.local ? this.state.local : undefined;
-    console.log("***************************************************")
-    console.log(this.state.local)
     const image  = (this.state.local.local_images.length !== 0) ?
       {uri: "data:image/jpg;base64," + this.state.local.local_images[this.state.local.local_images.length - 1]["image"]}
       :require('../assets/IntegraApps_icon.png')
