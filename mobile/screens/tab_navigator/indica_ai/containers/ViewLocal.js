@@ -22,6 +22,7 @@ import { showMessage, hideMessage } from "react-native-flash-message";
 import FlashMessage from "react-native-flash-message";
 import AddImages from "./AddImages";
 import Direction from "./Direction";
+import Swiper from "react-native-swiper"
 
 width = Dimensions.get('window').width;
 
@@ -57,37 +58,42 @@ class ViewLocal extends Component {
       local_images
     } = this.state.local ? this.state.local : undefined;
 
-    return (
-    <View style = {styles.container}>
-     <ScrollView showsVerticalScrollIndicator={false}>
-      <Content>
-
-        {
-          local_images.length !== 0 ?
-          local_images.map( image => {
-          let uriImage = {uri: "data:image/jpg;base64," + image["image"]};
-          <Swiper showsButtons={true}>
-            <ImageBackground style={styles.imageLocal} source={uriImage}>
-              <View style={styles.addImage}>
+    const images = local_images.length !== 0 ? local_images.map(
+      image => {
+        return (
+          <ImageBackground style={styles.imageLocal} source={{uri: `data:image/jpg;base64,${image.image}`}} >
+            <View style={styles.addImage}>
               <AddImages
                 id={id}
-                      />
-              </View>
-            </ImageBackground>
-          </Swiper>
-      })
-        :
+              />
+            </View>
+          </ImageBackground>
 
-        <ImageBackground style={styles.imageLocal} source={require('../assets/IntegraApps_icon.png')}>
-          <View style={styles.addImage}>
-          <AddImages
-            id={id}
-                  />
-          </View>
-        </ImageBackground>
-
+        )
       }
+    ) 
+    
+    :
 
+    (<ImageBackground style={styles.imageLocal} source={require("../assets/IntegraApps_icon.png")}>
+      <View style={styles.addImage}>
+        <AddImages
+          id={id}
+          />
+      </View>
+    </ImageBackground>);
+
+    return (
+
+      <View style={styles.container}>
+
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <Content>
+
+            <Swiper showsButtons={true}>
+              { images }
+            </Swiper>
+      
             <View style={styles.localContainer}>
 
               <View style={styles.localHeader}>
@@ -143,13 +149,13 @@ class ViewLocal extends Component {
               longitude={longitude}
               name={name}
               description={description}
-                />
-                <View style = {{position: "absolute", left: 0, bottom:0}}>
+            />
+            <View style={{ position: "absolute", left: 0, bottom: 0 }}>
               <Direction
-                latitude = {latitude}
-                longitude = {longitude}
-                      />
-              </View>
+                latitude={latitude}
+                longitude={longitude}
+              />
+            </View>
           </View>
           <FlashMessage position="top" />
         </Card>
