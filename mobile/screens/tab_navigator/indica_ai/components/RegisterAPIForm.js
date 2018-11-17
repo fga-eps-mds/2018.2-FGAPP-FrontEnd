@@ -19,6 +19,7 @@ import {
   Button
 } from 'native-base'
 import CategorySelect from './CategorySelect.js';
+import HoursSelect from './HoursSelect.js';
 import { withNavigation } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation';
 
@@ -42,6 +43,9 @@ export default class RegisterAPIForm extends Component {
   render() {
     return (
       <Container style={styles.container}>
+        <HoursSelect
+          takeOpeningHours={this.props.takeOpeningHours}
+        />
         <CategorySelect
           setSelectedCategories={this.props.setSelectedCategories}
         />

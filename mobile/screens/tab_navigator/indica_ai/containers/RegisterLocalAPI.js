@@ -59,6 +59,12 @@ class RegisterLocalAPI extends Component {
     }
   }
 
+  takeOpeningHours = (hours, minutes) => {
+    console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++");
+    console.log(hours, minutes);
+    //this.setState({ opening_hours: hours })
+  }
+
   takeDataFromTheForm = (name, description) => {
     this._postForm(name, description);
   }
@@ -98,6 +104,7 @@ class RegisterLocalAPI extends Component {
       <RegisterAPIForm
         sendDataToTheForm={this.takeDataFromTheForm}
         setSelectedCategories={this.setSelectedCategories}
+        takeOpeningHours={this.takeOpeningHours}
       />
     );
   }
