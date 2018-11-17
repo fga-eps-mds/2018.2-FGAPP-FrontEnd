@@ -54,23 +54,39 @@ class ViewLocal extends Component {
       opening_hours,
       categories,
       local_ratings,
+      local_images
     } = this.state.local ? this.state.local : undefined;
-    const image  = (this.state.local.local_images.length !== 0) ?
-      {uri: "data:image/jpg;base64," + this.state.local.local_images[this.state.local.local_images.length - 1]["image"]}
-      :require('../assets/IntegraApps_icon.png')
 
     return (
     <View style = {styles.container}>
      <ScrollView showsVerticalScrollIndicator={false}>
       <Content>
 
-        <ImageBackground style={styles.imageLocal} source={image}>
+        {
+          local_images.length !== 0 ?
+          local_images.map( image => {
+          let uriImage = {uri: "data:image/jpg;base64," + image["image"]};
+          <Swiper showsButtons={true}>
+            <ImageBackground style={styles.imageLocal} source={uriImage}>
+              <View style={styles.addImage}>
+              <AddImages
+                id={id}
+                      />
+              </View>
+            </ImageBackground>
+          </Swiper>
+      })
+        :
+
+        <ImageBackground style={styles.imageLocal} source={require('../assets/IntegraApps_icon.png')}>
           <View style={styles.addImage}>
-            <AddImages
-              id={id}
-            />
+          <AddImages
+            id={id}
+                  />
           </View>
         </ImageBackground>
+
+      }
 
             <View style={styles.localContainer}>
 
