@@ -66,10 +66,14 @@ class ListLocals extends Component {
             {locals.map( local =>
               local.publicity == 'true' ?
                 <Publicity
+
                   name = {local.name}
                   address = {local.address}
                   image = {local.local_images}
                   onPress = {() => {
+                  name={local.name}
+                  address={local.address}
+                  onPress={() => {
                     this.props.navigation.navigate('LocalDetails',{
                       local: local
                     });
