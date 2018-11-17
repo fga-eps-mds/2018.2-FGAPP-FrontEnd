@@ -64,11 +64,6 @@ const styles = StyleSheet.create({
   localName: {
     fontWeight: 'bold',
     fontSize: 20
-  },
-  iconRating: {
-    bottom: 2,
-    left: 5,
-    color:'#0AACCC'
   }
 
 });
