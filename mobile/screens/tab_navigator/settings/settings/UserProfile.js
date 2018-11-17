@@ -22,7 +22,7 @@ class UserProfile extends Component {
     };
   }
 
-  _goBack() = async () => {
+  _goBack = async () => {
     const { state } = this.props.navigation;
     var token = state.params ? state.params.token : undefined;
 
