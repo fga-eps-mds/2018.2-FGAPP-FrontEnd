@@ -16,7 +16,6 @@ const RegisterTab = StackNavigator({
       screen: RegisterAPIScreen,
       navigationOptions: {
         tabBarLabel: 'Novo Local',
-        headerLeft: null,
       },
     }
   },
