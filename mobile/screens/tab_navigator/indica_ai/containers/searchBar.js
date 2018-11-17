@@ -26,7 +26,7 @@ export class SearchBar extends Component {
   // and set the state equal to the result
   search = name => {
     if(name.length !== 0) {
-      const url = `https://dev-indicaai.herokuapp.com/locals/name/${name}`
+      const url = `${process.env.INDICA_AI_API}/locals/name/${name}`
       fetch( url, {
         method: "GET",
         headers: {

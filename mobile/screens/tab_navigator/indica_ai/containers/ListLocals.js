@@ -23,7 +23,7 @@ class ListLocals extends Component {
     // Fucntion responsable to load all places before mount
     // the component by setting the state equal to result from fetch
     componentWillMount(){
-      const url = fetch(`https://dev-indicaai.herokuapp.com/locals/`, {
+      const url = fetch(`${process.env.INDICA_AI_API}/locals/`, {
         method: "GET",
         headers: {
           Accept: "application/json",
