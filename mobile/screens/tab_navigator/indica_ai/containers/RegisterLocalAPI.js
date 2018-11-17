@@ -5,7 +5,8 @@ import {
   Alert
 } from "react-native";
 import { withNavigation, createStackNavigator } from 'react-navigation';
-import RegisterAPIForm from '../components/RegisterAPIForm.js'
+import RegisterAPIForm from '../components/RegisterAPIForm'
+import SuccessModal from '../components/SuccessModal'
 
 class RegisterLocalAPI extends Component {
 
@@ -14,7 +15,8 @@ class RegisterLocalAPI extends Component {
     this.state = {
       requestStatus: null,
       selectedCategories: [],
-      local: {}
+      local: {},
+      successModalVisible: false,
     };
   }
 
@@ -71,19 +73,7 @@ class RegisterLocalAPI extends Component {
 
   render() {
     if (this.state.requestStatus === "SUCCESS") {
-      Alert.alert(
-        'Local cadastrado com sucesso!',
-        "",
-        [
-          {
-            text: 'OK', onPress: () => this.props.navigation.navigate('LocalDetails', {
-              local: this.state.local
-            })
-          }
-        ],
-        { cancelable: false }
-      )
-
+      this.setState({ successModalVisible: true })
     } else if (this.state.requestStatus === "FAILED") {
       Alert.alert(
         'Ooops!',
@@ -96,8 +86,13 @@ class RegisterLocalAPI extends Component {
     }
     return (
       <RegisterAPIForm
-        sendDataToTheForm={this.takeDataFromTheForm}
-        setSelectedCategories={this.setSelectedCategories}
+        sendDataToTheForm  = { this.takeDataFromTheForm }
+        setSelectedCategories = { this.setSelectedCategories }
+      />
+      <SuccessModal
+        onCancel={() => this.setState({ successModalVisible: false })}
+        visible={this.state.successModalVisible}
+        message = {"Local cadastrado com sucesso"}
       />
     );
   }
