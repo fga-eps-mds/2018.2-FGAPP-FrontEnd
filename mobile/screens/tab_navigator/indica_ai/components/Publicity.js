@@ -20,13 +20,15 @@ export default class Publicity extends Component {
   const name = this.props.name;
   const address = this.props.address;
   const rating = this.props.rating;
-  const image = "data:image/jpg;base64," + this.props.image[this.props.image.length-1]['image'];
+  const image  = (this.props.image.length !== 0) ?
+    {uri: "data:image/jpg;base64," + this.props.image[this.props.image.length - 1]["image"]}
+    :require('../assets/IntegraApps_icon.png')
 
     return (
       <TouchableOpacity onPress={() => this.state.onPress()}>
         <Card>
           <CardItem cardBody style={{paddingHorizontal: 5, paddingTop: 5}}>
-            <ImageBackground source={{uri: image}} style={{height: 200, width: null, flex: 1}}>
+            <ImageBackground source={image} style={{height: 200, width: null, flex: 1}}>
             </ImageBackground>
           </CardItem>
           <CardItem>

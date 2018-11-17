@@ -20,7 +20,7 @@ export default class Local extends Component {
     const name = this.props.name;
     const address = this.props.address;
     const image  = (this.props.image.length !== 0) ?
-      {uri: "data:image/jpg;base64," + this.props.image[0]["image"]}
+      {uri: "data:image/jpg;base64," + this.props.image[this.props.image.length - 1]["image"]}
       :require('../assets/IntegraApps_icon.png')
 
 
