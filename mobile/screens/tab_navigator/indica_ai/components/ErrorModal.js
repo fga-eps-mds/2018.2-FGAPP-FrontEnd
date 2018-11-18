@@ -7,6 +7,7 @@ import {
   TouchableOpacity
 } from 'react-native';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
+
 export default class ErrorModal extends React.Component{
   constructor(props){
     super(props)
@@ -45,6 +46,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.5)'
   },
   boxContainer: {
     padding: 20,

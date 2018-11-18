@@ -55,10 +55,12 @@ export default class RegisterAPIForm extends Component {
             onChangeText={(name) => this.setState({ name })}
           />
         </Item>
-        <Textarea
-          rowSpan={5}
-          bordered
-          placeholder="Descrição"
+        <TextInput
+          editable = {true}
+          maxLength = {150}
+          numberOfLines = {5}
+          placeholder="Adicione uma descrição do local"
+          placeholderTextColor='black'
           onChangeText={(description) => this.setState({ description })} />
         <View style={styles.button}>
           <Button block info onPress={

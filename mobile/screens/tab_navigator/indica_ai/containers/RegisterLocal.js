@@ -167,6 +167,11 @@ constructor(props){
      }
    };
 
+   afterRegister() {
+     this.setState({ successModalVisible: false })
+     this.props.navigation.navigate('LocalDetails', {local: this.state.local})
+   }
+
   render() {
 
     let latitude;
@@ -226,7 +231,7 @@ constructor(props){
 
         />
         <SuccessModal
-          onCancel={() => this.setState({ successModalVisible: false })}
+          onCancel={() => this.afterRegister}
           visible={this.state.successModalVisible}
           message = {"Local cadastrado com sucesso"}
         />

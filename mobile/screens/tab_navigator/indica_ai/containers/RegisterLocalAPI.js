@@ -75,9 +75,15 @@ class RegisterLocalAPI extends Component {
     })
   }
 
+  afterRegister(){
+    this.props.navigation.navigate('LocalDetails', {local: this.state.local})
+    this.setState({ successModalVisible: false })
+  }
+
   render() {
     if (this.state.requestStatus === "SUCCESS") {
-      this.setState({ successModalVisible: true })
+      alert(this.state.successModalVisible)
+      //this.setState({ successModalVisible: true })
     } else if (this.state.requestStatus === "FAILED") {
       this.setState({ errorModalVisible: true })
     }
@@ -88,7 +94,7 @@ class RegisterLocalAPI extends Component {
           setSelectedCategories={this.setSelectedCategories}
         />
         <SuccessModal
-          onCancel={() => this.setState({ successModalVisible: false })}
+          onCancel={() => this.afterRegister}
           visible={this.state.successModalVisible}
           message = {"Local cadastrado com sucesso"}
         />
@@ -106,7 +112,13 @@ export default withNavigation(RegisterLocalAPI);
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff'
-  },
+    justifyContent: 'center',
+    alignItems: 'center',
+    position:"absolute",
+    backgroundColor: "white",
+    top:0,
+    bottom:0,
+    left:0,
+    right:0
+  }
 });
