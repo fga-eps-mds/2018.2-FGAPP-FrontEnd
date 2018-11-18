@@ -1,45 +1,33 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
-import TimePicker from 'react-native-simple-time-picker';
+import DatePicker from 'react-native-datepicker'
 
 export default class HoursSelect extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      selectedHours: 0,
-      selectedMinutes: 0,
       takeOpeningHours: props.takeOpeningHours
     };
   }
 
-  selectOpeningHours = (hours, minutes) => {
-    /*console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++");
-    console.log(hours, minutes);*/
+  selectOpeningHours = (time) => {
+    console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++");
+    console.log(time);
     //this.setState.takeOpeningHours({ takeOpeningHours })
-    this.props.takeOpeningHours(hours, minutes)
+    this.props.takeOpeningHours(time)
   }
 
   render() {
-    const { selectedHours, selectedMinutes } = this.state;
     return (
-      <View style={styles.container}>
-        <Text>{selectedHours}:{selectedMinutes}</Text>
-        <TimePicker
-          selectedHours={selectedHours}
-          selectedMinutes={selectedMinutes}
-          onChange={(hours, minutes) => this.selectOpeningHours(hours, minutes)}
-        />
-      </View>
+      <DatePicker
+        style={{top: 100, width: 200}}
+        mode="time"
+        showIcon={false}
+        placeholder="select date"
+        confirmBtnText="Confirm"
+        cancelBtnText="Cancel"
+        onDateChange={(date) => this.selectOpeningHours(date)}
+      />
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

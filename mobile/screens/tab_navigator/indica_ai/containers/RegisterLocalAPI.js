@@ -59,9 +59,9 @@ class RegisterLocalAPI extends Component {
     }
   }
 
-  takeOpeningHours = (hours, minutes) => {
+  takeOpeningHours = (time) => {
     console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++");
-    console.log(hours, minutes);
+    console.log(time);
     //this.setState({ opening_hours: hours })
   }
 
