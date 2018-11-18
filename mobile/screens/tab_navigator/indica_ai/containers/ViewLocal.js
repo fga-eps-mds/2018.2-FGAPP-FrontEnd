@@ -57,32 +57,6 @@ class ViewLocal extends Component {
       local_ratings,
       local_images
     } = this.state.local ? this.state.local : undefined;
-
-    const images = local_images.length !== 0 ? local_images.map(
-      image => {
-        return (
-          <ImageBackground style={styles.imageLocal} source={{uri: `data:image/jpg;base64,${image.image}`}} >
-            <View style={styles.addImage}>
-              <AddImages
-                id={id}
-              />
-            </View>
-          </ImageBackground>
-
-        )
-      }
-    ) 
-    
-    :
-
-    (<ImageBackground style={styles.imageLocal} source={require("../assets/IntegraApps_icon.png")}>
-      <View style={styles.addImage}>
-        <AddImages
-          id={id}
-          />
-      </View>
-    </ImageBackground>);
-
     return (
 
       <View style={styles.container}>
@@ -90,10 +64,13 @@ class ViewLocal extends Component {
         <ScrollView showsVerticalScrollIndicator={false}>
           <Content>
 
-            <Swiper showsButtons={true}>
-              { images }
-            </Swiper>
-      
+          <Swiper 
+            style={styles.wrapper} 
+            activeDot = {<View style={styles.activeDot} />}
+          >
+            {this.displayLocalImage(local_images, id)}
+           </Swiper>
+
             <View style={styles.localContainer}>
 
               <View style={styles.localHeader}>
@@ -280,6 +257,39 @@ class ViewLocal extends Component {
     }
   }
 
+  displayLocalImage(local_images = [], id){
+    if(local_images.length !== 0){
+      let key = 0;
+      return(local_images.map(
+        image => {
+          key ++;
+          return (
+            <View style={styles.swiper} key = {key}>
+              <ImageBackground style={styles.imageLocal} source={{uri: `data:image/jpg;base64,${image.image}`}} >
+                <View style={styles.addImage}>
+                  <AddImages
+                    id={id}
+                  />
+                </View>
+              </ImageBackground>
+            </View>
+          )
+        }
+      ))
+    } else {
+      return(
+        <View style={styles.swiper}>
+        <ImageBackground style={styles.imageLocal} source={require("../assets/IntegraApps_icon.png")}>
+          <View style={styles.addImage}>
+            <AddImages
+              id={id}
+              />
+          </View>
+        </ImageBackground>
+      </View>);
+    }
+  }
+
 }
 
 export default withNavigation(ViewLocal);
@@ -404,5 +414,23 @@ const styles = StyleSheet.create({
     top: -22,
     marginTop: 20,
     marginBottom: 10,
-  }
+  },
+  wrapper: {
+    height: 200
+  },
+  swiper: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: '#9DD6EB'},
+  activeDot: {
+    backgroundColor: '#fff',
+    width: 8, 
+    height: 8, 
+    borderRadius: 4, 
+    marginLeft: 3, 
+    marginRight: 3, 
+    marginTop: 3, 
+    marginBottom: 3}
+  
 });
