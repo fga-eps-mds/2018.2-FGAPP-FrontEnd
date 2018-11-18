@@ -21,6 +21,7 @@ import {
 import CategorySelect from './CategorySelect.js';
 import { withNavigation } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation';
+import WarningModal from '../components/WarningModal';
 
 export default class RegisterAPIForm extends Component {
 
@@ -30,6 +31,7 @@ export default class RegisterAPIForm extends Component {
       selected: undefined,
       name: null,
       description: null,
+      errorModalVisible: false
     };
   }
 
@@ -62,14 +64,7 @@ export default class RegisterAPIForm extends Component {
           <Button block info onPress={
             () => {
               if (!(this.state.name && this.state.description)) {
-                Alert.alert(
-                  'Atenção!',
-                  "Os campos 'Nome' ou 'Descrição' não podem estar vazios",
-                  [
-                    { text: 'OK', onPress: () => console.log('OK Pressed') }
-                  ],
-                  { cancelable: false }
-                )
+                this.setState({ errorModalVisible: true })
               } else {
                 this.props.sendDataToTheForm(this.state.name, this.state.description)
               }
@@ -79,6 +74,11 @@ export default class RegisterAPIForm extends Component {
             <Text style={{ color: "white" }}>Confirmar</Text>
           </Button>
         </View>
+        <WarningModal
+          onCancel={() => this.setState({ errorModalVisible: false })}
+          visible={this.state.errorModalVisible}
+          message = {"Erro no nome ou descrição"}
+        />
       </Container>
     );
 
