@@ -17,22 +17,24 @@ import Expo from "expo";
 import LocalDetails from "../components/LocalDetails";
 import SuccessModal from '../components/SuccessModal';
 import ErrorModal from '../components/ErrorModal';
+import { withNavigation, createStackNavigator } from 'react-navigation';
 
 class RegisterLocal extends Component{
 
 constructor(props){
-  super(props);
-  this.state = {
-    loading: true,
-    latitude: null,
-    longitude: null,
-    error: null,
-   jsonResponse: null,
-   jsonDetails: null,
-   opening_hours: [],
-   successModalVisible: false,
-   errorModalVisible: false,
- };
+    super(props);
+    this.state = {
+      loading: true,
+      latitude: null,
+      longitude: null,
+      error: null,
+      jsonResponse: null,
+      jsonDetails: null,
+      opening_hours: [],
+      local: {},
+      successModalVisible: false,
+      errorModalVisible: false,
+    };
 }
   async componentWillMount() {
     await Expo.Font.loadAsync({
@@ -160,6 +162,9 @@ constructor(props){
        if(response.ok){
          const jsonResponse = await response.json();
          this.setState({ successModalVisible: true })
+         this.setState({
+           local: jsonResponse.data[0]
+         })
        }
      }
      catch(error){
@@ -168,8 +173,8 @@ constructor(props){
    };
 
    afterRegister() {
-     this.setState({ successModalVisible: false })
-     this.props.navigation.navigate('LocalDetails', {local: this.state.local})
+     this.setState({ successModalVisible: false });
+     this.props.navigation.navigate('LocalDetails', {local: this.state.local});
    }
 
   render() {
@@ -231,7 +236,7 @@ constructor(props){
 
         />
         <SuccessModal
-          onCancel={() => this.afterRegister}
+          onCancel={() => this.afterRegister()}
           visible={this.state.successModalVisible}
           message = {"Local cadastrado com sucesso"}
         />
@@ -245,7 +250,7 @@ constructor(props){
   }
 }
 
-export default RegisterLocal;
+export default withNavigation(RegisterLocal);
 
 const styles = StyleSheet.create({
   container: {
