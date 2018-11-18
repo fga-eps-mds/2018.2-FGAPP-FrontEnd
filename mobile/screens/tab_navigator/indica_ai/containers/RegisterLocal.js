@@ -244,14 +244,8 @@ export default RegisterLocal;
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    position:"absolute",
     backgroundColor: "white",
-    top:0,
-    bottom:0,
-    left:0,
-    right:0
+    flex: 1
   },
   titleName : {
     alignItems: 'center',

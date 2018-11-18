@@ -2,11 +2,14 @@ import React, { Component } from "react";
 import {
   Text,
   ScrollView,
-  Alert
+  Alert,
+  View,
+  StyleSheet
 } from "react-native";
 import { withNavigation, createStackNavigator } from 'react-navigation';
-import RegisterAPIForm from '../components/RegisterAPIForm'
-import SuccessModal from '../components/SuccessModal'
+import RegisterAPIForm from '../components/RegisterAPIForm';
+import SuccessModal from '../components/SuccessModal';
+import ErrorModal from '../components/ErrorModal';
 
 class RegisterLocalAPI extends Component {
 
@@ -17,6 +20,7 @@ class RegisterLocalAPI extends Component {
       selectedCategories: [],
       local: {},
       successModalVisible: false,
+      errorModalVisible: false,
     };
   }
 
@@ -75,26 +79,34 @@ class RegisterLocalAPI extends Component {
     if (this.state.requestStatus === "SUCCESS") {
       this.setState({ successModalVisible: true })
     } else if (this.state.requestStatus === "FAILED") {
-      Alert.alert(
-        'Ooops!',
-        "Houve um erro ao cadastrar esse local, tente novamente mais tarde",
-        [
-          { text: 'OK', onPress: () => this.props.navigation.navigate("Register") }
-        ],
-        { cancelable: false }
-      )
+      this.setState({ errorModalVisible: true })
     }
     return (
-      <RegisterAPIForm
-        sendDataToTheForm  = { this.takeDataFromTheForm }
-        setSelectedCategories = { this.setSelectedCategories }
-      />
-      <SuccessModal
-        onCancel={() => this.setState({ successModalVisible: false })}
-        visible={this.state.successModalVisible}
-        message = {"Local cadastrado com sucesso"}
-      />
+      <View style={styles.container}>
+        <RegisterAPIForm
+          sendDataToTheForm={this.takeDataFromTheForm}
+          setSelectedCategories={this.setSelectedCategories}
+        />
+        <SuccessModal
+          onCancel={() => this.setState({ successModalVisible: false })}
+          visible={this.state.successModalVisible}
+          message = {"Local cadastrado com sucesso"}
+        />
+        <ErrorModal
+          onCancel={() => this.setState({ errorModalVisible: false })}
+          visible={this.state.errorModalVisible}
+          message = {"Erro ao cadastrar o local"}
+        />
+      </View>
     );
   }
 }
+
 export default withNavigation(RegisterLocalAPI);
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff'
+  },
+});
