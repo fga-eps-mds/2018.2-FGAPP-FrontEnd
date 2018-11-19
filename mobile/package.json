@@ -21,13 +21,13 @@
   },
   "main": "./node_modules/react-native-scripts-ts/build/bin/crna-entry.js",
   "scripts": {
-    "start": "react-native-scripts-ts start",
+    "start": "bash setup-config.sh && react-native-scripts-ts start",
     "start:android": "concurrently -r 'react-native start' 'yarn start:android:no-packager'",
     "start:android:no-packager": "react-native run-android --no-packager",
     "eject": "react-native-scripts-ts eject",
     "android": "react-native-scripts-ts android",
     "ios": "react-native-scripts-ts ios",
-    "test": "jest"
+    "test": "bash setup-config.sh testing && jest"
   },
   "jest": {
     "globals": {
@@ -61,7 +61,6 @@
     "antd": "^3.10.0",
     "babel-plugin-inline-dotenv": "^1.1.2",
     "expo": "^27.1.1",
-    "expo-cli": "^2.3.6",
     "jwt-decode": "^2.2.0",
     "native-base": "^2.8.0",
     "react": "16.3.1",

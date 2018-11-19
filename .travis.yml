@@ -48,6 +48,7 @@ jobs:
         - '9.3'
       script:
         - cd mobile
+        - bash setup-config.sh production
         - cp config/app-production.json app.json
         - yarn add expo-cli
         - yarn expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD
@@ -60,6 +61,7 @@ jobs:
         - '9.3'
       script:
         - cd mobile
+        - bash setup-config.sh staging
         - cp config/app-development.json app.json
         - yarn add expo-cli
         - yarn expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD
