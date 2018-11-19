@@ -1,6 +1,10 @@
 # Integra APP
 An application developed by university students, for university students.
 
+[Download the application here!](https://play.google.com/store/apps/details?id=com.unbgama.integra)
+
+You can also test the beta of the application by registering for this link: [https://play.google.com/apps/testing/com.unbgama.integra](https://play.google.com/apps/testing/com.unbgama.integra)
+
 ## Requirements
 This projects needs some requirements that need to be downloaded.
 
@@ -25,6 +29,7 @@ Inside docker's container, execute ***yarn start*** to run the react-native app.
 yarn start
 ```
 ## Development Environment
+
 Inside ***mobile*** directory, has a .env file. In order to maintain correct domains for external api paths.
 
 #### Using environment variables on JS
@@ -42,8 +47,9 @@ fetch(process.env.USERS_API + 'users/1', {
 #### .env
 ```
 USERS_API=https://www.users.com/
+
 ```
 
 ## Mocked development
-In order to easier the development conflicts about external APIs, it is introduced a mocked backend. [More info](https://github.com/micromata/http-fake-backend.git)
+In order to easier the development conflicts about external APIs, it is introduced a external mocked backend. [More info](https://www.mockapi.io/)
 

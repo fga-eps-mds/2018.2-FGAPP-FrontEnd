@@ -1,42 +1,57 @@
 import * as React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, StatusBar, Platform, BackHandler } from 'react-native';
 
 import {StackNavigator} from 'react-navigation'
 
-import WelcomeScreen from './screens/WelcomeScreen'
 import LoginScreen from './screens/LoginScreen'
 import SignUpScreen from './screens/SignUpScreen'
 import TabHandler from './screens/TabHandler'
 
-
+// Importing config variables
+require('./env-config');
 
 export default class App extends React.Component<{}> {
+  componentDidMount() {
+      BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+  }
+
+  componentWillUnmount() {
+      BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+  }
+
+  handleBackButton() {
+      return true;
+  }
+
   render() {
     return (
-      < AppStackNavigator />
+      < AppStackNavigator/>
     );
   }
 }
 
 const AppStackNavigator = new StackNavigator({
-
-  WelcomeScreen:{
-    screen:WelcomeScreen,
+  LoginScreen:{
+    screen:LoginScreen,
     navigationOptions: ({ navigation }) => ({
       header: null,
+
     }),
-  },
-  LoginScreen:{
-    screen:LoginScreen
   },
   SignUpScreen:{
-    screen:SignUpScreen
+    screen:SignUpScreen,
+    navigationOptions: {
+        headerStyle:{ position: 'absolute', backgroundColor: 'transparent', zIndex: 100, top: 0, left: 0, right: 0 },
+        headerTintColor: 'white',
+    }
   },
   TabHandler:{
-    screen:TabHandler,
-    navigationOptions: ({ navigation }) => ({
-      headerLeft: null,
-    }),
+    screen:TabHandler
+  },
+},
+{
+  cardStyle: {
+    paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight
   }
 })
 

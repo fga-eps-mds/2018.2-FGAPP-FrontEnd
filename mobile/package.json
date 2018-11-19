@@ -1,27 +1,33 @@
 {
-  "name": "mobile",
-  "version": "0.1.0",
+  "name": "integra",
+  "version": "0.0.2",
   "private": true,
   "devDependencies": {
     "@types/jest": "^22.2.3",
     "@types/react": "^16.3.14",
     "@types/react-native": "^0.55.14",
     "@types/react-test-renderer": "^16.0.1",
+    "concurrently": "^4.0.1",
     "jest-expo": "~27.0.0",
     "react-native-scripts-ts": "1.15.0",
     "react-native-typescript-transformer": "^1.2.3",
     "react-test-renderer": "16.3.1",
     "ts-jest": "^22.4.6",
     "tslib": "^1.9.1",
-    "typescript": "^2.8.3"
+    "typescript": "^2.8.3",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "json-loader": "^0.5.7"
   },
   "main": "./node_modules/react-native-scripts-ts/build/bin/crna-entry.js",
   "scripts": {
-    "start": "react-native-scripts-ts start",
+    "start": "bash setup-config.sh && react-native-scripts-ts start",
+    "start:android": "concurrently -r 'react-native start' 'yarn start:android:no-packager'",
+    "start:android:no-packager": "react-native run-android --no-packager",
     "eject": "react-native-scripts-ts eject",
     "android": "react-native-scripts-ts android",
     "ios": "react-native-scripts-ts ios",
-    "test": "jest"
+    "test": "bash setup-config.sh testing && jest"
   },
   "jest": {
     "globals": {
@@ -29,6 +35,9 @@
         "useBabelrc": true
       }
     },
+    "transformIgnorePatterns": [
+      "node_modules/(?!react-native|react-navigation)/"
+    ],
     "moduleFileExtensions": [
       "ts",
       "tsx",
@@ -53,18 +62,28 @@
     "expo": "^27.0.1",
     "firebase": "^5.5.1",
     "http-server": "^0.11.1",
+    "@types/react-navigation": "^2.0.23",
+    "antd": "^3.10.0",
+    "jwt-decode": "^2.2.0",
     "native-base": "^2.8.0",
     "react": "16.3.1",
+    "react-dom": "^16.6.0",
     "react-native": "~0.55.2",
     "react-native-animatable": "^1.3.0",
     "react-native-elements": "^0.19.1",
     "react-native-image-picker": "^0.27.1",
     "react-native-image-view": "^2.0.12",
-    "react-native-maps": "^0.21.0",
     "react-native-modal": "^7.0.0",
     "react-native-paper": "^2.1.3",
+    "react-native-cookie": "^0.2.0",
+    "react-native-dialog": "^5.3.0",
+    "react-native-dialog-input": "^1.0.4",
+    "react-native-maps": "^0.21.0",
+    "react-native-vector-icons": "^6.0.1",
     "react-navigation": "1.0.0-beta.11",
     "react-redux": "5.0.7",
-    "redux": "4.0.0"
+    "redux": "4.0.0",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0"
   }
 }

@@ -1,25 +1,21 @@
 import React, { Component } from "react";
-import { 
-    View,
-    Text,
-    StyleSheet
-} from "react-native";
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
+import rootReducers from './reducers'
+import SearchScreen from './screens/SearchScreen.js'
+import TabHandlerIndicaAI from './TabHandlerIndicaAi'
+const store = createStore(rootReducers)
 
-class FirstScreen extends Component {
-    render() {
-        return (
-            <View style={styles.container}>
-                <Text>Indica ai</Text>
-            </View>
-        );
-    }
+class IndicaAiApp extends Component {
+
+  render() {
+
+    return (
+        <Provider store={store}>
+            <TabHandlerIndicaAI />
+       </Provider>
+    );
+  }
 }
-export default FirstScreen;
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
-    }
-});
+export default IndicaAiApp;
