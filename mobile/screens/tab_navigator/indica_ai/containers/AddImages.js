@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { TouchableOpacity, View } from 'react-native'
-import Icon from 'react-native-vector-icons/Ionicons';
+import { TouchableOpacity, View,Text } from 'react-native'
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import { ImagePicker } from 'expo';
 import ImageModal from "../components/ImageModal";
 import SuccessModal from '../components/SuccessModal';
@@ -84,12 +84,14 @@ class AddImages extends Component {
           onCancel={() => this.cancelPost()}
           visible={this.state.ImageModalVisible}
         />
-        <TouchableOpacity onPress={() => this.pickImage()}>
-          <Icon
-            name="ios-add-circle"
-            size={60}
-            color='white'
-          />
+        <TouchableOpacity style = {{flex:1, justifyContent: "center", alignItems: "center"}} 
+        onPress={() => this.pickImage()}>
+            <Icon
+                name="add-a-photo"
+                size={60}
+                color='white'
+            />
+            <Text style = {{fontSize: 16, color: "#fff"}}>Enviar uma nova imagem</Text>
         </TouchableOpacity>
         <SuccessModal
           onCancel={() => this.setState({ successModalVisible: false })}

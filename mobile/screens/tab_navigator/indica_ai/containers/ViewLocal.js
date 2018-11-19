@@ -64,8 +64,8 @@ class ViewLocal extends Component {
         <ScrollView showsVerticalScrollIndicator={false}>
           <Content>
 
-          <Swiper 
-            style={styles.wrapper} 
+          <Swiper
+            style={styles.wrapper}
             activeDot = {<View style={styles.activeDot} />}
           >
             {this.displayLocalImage(local_images, id)}
@@ -259,34 +259,32 @@ class ViewLocal extends Component {
 
   displayLocalImage(local_images = [], id){
     if(local_images.length !== 0){
-      let key = 0;
+      local_images.reverse();
+      local_images = [...local_images, {addSpace: "Adding a new space"}]
       return(local_images.map(
-        image => {
+        (image,key) => {
           key ++;
           return (
+            key === local_images.length ?
+            <View style={styles.addImage} key = {key}>
+              <AddImages
+                id={id}
+              />
+            </View>
+            :
             <View style={styles.swiper} key = {key}>
-              <ImageBackground style={styles.imageLocal} source={{uri: `data:image/jpg;base64,${image.image}`}} >
-                <View style={styles.addImage}>
-                  <AddImages
-                    id={id}
-                  />
-                </View>
-              </ImageBackground>
+              <ImageBackground style={styles.imageLocal} source={{uri: `data:image/jpg;base64,${image.image}`}} />
             </View>
           )
         }
       ))
     } else {
       return(
-        <View style={styles.swiper}>
-        <ImageBackground style={styles.imageLocal} source={require("../assets/IntegraApps_icon.png")}>
-          <View style={styles.addImage}>
+        <View style={styles.addImage}>
             <AddImages
               id={id}
               />
-          </View>
-        </ImageBackground>
-      </View>);
+          </View>);
     }
   }
 
@@ -350,7 +348,10 @@ const styles = StyleSheet.create({
     alignItems: "stretch"
   },
   addImage: {
-    margin: 10,
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#0AACCC"
   },
   localName: {
     color: '#333',
@@ -416,7 +417,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   wrapper: {
-    height: 200
+    height: 220
   },
   swiper: {
       flex: 1,
@@ -425,12 +426,12 @@ const styles = StyleSheet.create({
       backgroundColor: '#9DD6EB'},
   activeDot: {
     backgroundColor: '#fff',
-    width: 8, 
-    height: 8, 
-    borderRadius: 4, 
-    marginLeft: 3, 
-    marginRight: 3, 
-    marginTop: 3, 
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    marginLeft: 3,
+    marginRight: 3,
+    marginTop: 3,
     marginBottom: 3}
-  
+
 });
