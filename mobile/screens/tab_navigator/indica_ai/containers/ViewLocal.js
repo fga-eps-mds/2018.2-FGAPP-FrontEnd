@@ -267,9 +267,11 @@ class ViewLocal extends Component {
           return (
             key === local_images.length ?
             <View style={styles.addImage} key = {key}>
-              <AddImages
-                id={id}
-              />
+            <ImageBackground style={styles.imageLocal} source={require("../assets/Integra.png")}>
+                <AddImages
+                  id={id}
+                  />
+            </ImageBackground>
             </View>
             :
             <View style={styles.swiper} key = {key}>
@@ -281,9 +283,11 @@ class ViewLocal extends Component {
     } else {
       return(
         <View style={styles.addImage}>
+        <ImageBackground style={styles.imageLocal} source={require("../assets/Integra.png")}>
             <AddImages
               id={id}
               />
+        </ImageBackground>
           </View>);
     }
   }
@@ -334,8 +338,8 @@ const styles = StyleSheet.create({
     color: '#0AACCC'
   },
   imageLocal: {
-    alignItems: 'flex-end',
-    justifyContent: 'flex-end',
+    alignItems: 'center',
+    justifyContent: 'center',
     height: 230,
     width: width
   },
