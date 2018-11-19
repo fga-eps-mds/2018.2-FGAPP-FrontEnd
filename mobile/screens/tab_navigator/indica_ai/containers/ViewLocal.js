@@ -22,6 +22,7 @@ import { showMessage, hideMessage } from "react-native-flash-message";
 import FlashMessage from "react-native-flash-message";
 import AddImages from "./AddImages";
 import Direction from "./Direction";
+import Swiper from "react-native-swiper"
 
 width = Dimensions.get('window').width;
 
@@ -54,23 +55,21 @@ class ViewLocal extends Component {
       opening_hours,
       categories,
       local_ratings,
+      local_images
     } = this.state.local ? this.state.local : undefined;
-    const image  = (this.state.local.local_images.length !== 0) ?
-      {uri: "data:image/jpg;base64," + this.state.local.local_images[this.state.local.local_images.length - 1]["image"]}
-      :require('../assets/IntegraApps_icon.png')
-
     return (
-    <View style = {styles.container}>
-     <ScrollView showsVerticalScrollIndicator={false}>
-      <Content>
 
-        <ImageBackground style={styles.imageLocal} source={image}>
-          <View style={styles.addImage}>
-            <AddImages
-              id={id}
-            />
-          </View>
-        </ImageBackground>
+      <View style={styles.container}>
+
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <Content>
+
+          <Swiper
+            style={styles.wrapper}
+            activeDot = {<View style={styles.activeDot} />}
+          >
+            {this.displayLocalImage(local_images, id)}
+           </Swiper>
 
             <View style={styles.localContainer}>
 
@@ -127,13 +126,13 @@ class ViewLocal extends Component {
               longitude={longitude}
               name={name}
               description={description}
-                />
-                <View style = {{position: "absolute", left: 0, bottom:0}}>
+            />
+            <View style={{ position: "absolute", left: 0, bottom: 0 }}>
               <Direction
-                latitude = {latitude}
-                longitude = {longitude}
-                      />
-              </View>
+                latitude={latitude}
+                longitude={longitude}
+              />
+            </View>
           </View>
           <FlashMessage position="top" />
         </Card>
@@ -258,6 +257,41 @@ class ViewLocal extends Component {
     }
   }
 
+  displayLocalImage(local_images = [], id){
+    if(local_images.length !== 0){
+      local_images.reverse();
+      local_images = [...local_images, {addSpace: "Adding a new space"}]
+      return(local_images.map(
+        (image,key) => {
+          key ++;
+          return (
+            key === local_images.length ?
+            <View style={styles.addImage} key = {key}>
+            <ImageBackground style={styles.imageLocal} source={require("../assets/Integra.png")}>
+                <AddImages
+                  id={id}
+                  />
+            </ImageBackground>
+            </View>
+            :
+            <View style={styles.swiper} key = {key}>
+              <ImageBackground style={styles.imageLocal} source={{uri: `data:image/jpg;base64,${image.image}`}} />
+            </View>
+          )
+        }
+      ))
+    } else {
+      return(
+        <View style={styles.addImage}>
+        <ImageBackground style={styles.imageLocal} source={require("../assets/Integra.png")}>
+            <AddImages
+              id={id}
+              />
+        </ImageBackground>
+          </View>);
+    }
+  }
+
 }
 
 export default withNavigation(ViewLocal);
@@ -304,8 +338,8 @@ const styles = StyleSheet.create({
     color: '#0AACCC'
   },
   imageLocal: {
-    alignItems: 'flex-end',
-    justifyContent: 'flex-end',
+    alignItems: 'center',
+    justifyContent: 'center',
     height: 230,
     width: width
   },
@@ -318,7 +352,10 @@ const styles = StyleSheet.create({
     alignItems: "stretch"
   },
   addImage: {
-    margin: 10,
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#0AACCC"
   },
   localName: {
     color: '#333',
@@ -382,5 +419,23 @@ const styles = StyleSheet.create({
     top: -22,
     marginTop: 20,
     marginBottom: 10,
-  }
+  },
+  wrapper: {
+    height: 220
+  },
+  swiper: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: '#9DD6EB'},
+  activeDot: {
+    backgroundColor: '#fff',
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    marginLeft: 3,
+    marginRight: 3,
+    marginTop: 3,
+    marginBottom: 3}
+
 });
