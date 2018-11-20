@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 //Função que separa uma data no formato yyyy-mm-dd, transforma em int ou então exibe a mesma data, só que no formato dd-mm-yyyy
 export function formatDate (eventDate){
   const day = eventDate.slice(-2)
@@ -14,12 +16,9 @@ export function formatDate (eventDate){
   };
 };
 
-export function timeNow(){
-  const date = new Date()
-  return{
-    day: date.getDate(),
-    month: date.getMonth()+1,
-    year: date.getFullYear(),
-    today: date.getDate()+' '+(date.getMonth()+1)+' '+date.getFullYear()
-  }
-}
+export function hasPassed(data){
+  let today = moment();
+  let date = moment(data, "DD/MM/YYYY");
+  let diff = date.diff(today, "days");
+  return diff < 0;
+};
