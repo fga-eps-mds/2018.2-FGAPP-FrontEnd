@@ -11,19 +11,16 @@ export default class HoursSelect extends Component {
   }
 
   selectOpeningHours = (time) => {
-    console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++");
-    console.log(time);
-    //this.setState.takeOpeningHours({ takeOpeningHours })
     this.props.takeOpeningHours(time)
   }
 
   render() {
     return (
       <DatePicker
-        style={{top: 100, width: 200}}
+        style={{width: 50}}
         mode="time"
         showIcon={false}
-        placeholder="select date"
+        placeholder={this.props.option}
         confirmBtnText="Confirm"
         cancelBtnText="Cancel"
         onDateChange={(date) => this.selectOpeningHours(date)}

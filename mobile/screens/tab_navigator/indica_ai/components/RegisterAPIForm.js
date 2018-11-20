@@ -41,11 +41,25 @@ export default class RegisterAPIForm extends Component {
   }
 
   render() {
+
+    const days = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'];
+
     return (
       <Container style={styles.container}>
-        <HoursSelect
-          takeOpeningHours={this.props.takeOpeningHours}
-        />
+          {days.map( day =>
+            <View style={styles.hours}>
+              <HoursSelect
+                option='Abre'
+                takeOpeningHours={this.props.takeOpeningHours}
+                key={day}
+              />
+              <HoursSelect
+                option='Fecha'
+                takeOpeningHours={this.props.takeOpeningHours}
+                key={day}
+              />
+            </View>
+          )}
         <CategorySelect
           setSelectedCategories={this.props.setSelectedCategories}
         />
@@ -106,5 +120,8 @@ const styles = StyleSheet.create({
   },
   button: {
     padding: 10,
+  },
+  hours: {
+    flexDirection: 'column'
   }
 });
