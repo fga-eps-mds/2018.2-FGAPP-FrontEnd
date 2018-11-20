@@ -149,7 +149,7 @@ constructor(props){
 
    sendData = async (data) => {
      try{
-       const response = await fetch(`https://indicaai.herokuapp.com/locals`, {
+       const response = await fetch(`${process.env.INDICA_AI_API}/locals/`, {
          method: 'POST',
          headers: {
            Accept: 'application/json',

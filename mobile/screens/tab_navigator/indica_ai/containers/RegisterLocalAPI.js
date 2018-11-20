@@ -24,7 +24,7 @@ class RegisterLocalAPI extends Component {
     for (const index in selectedCategories) {
       categories[index] = { "category_id": selectedCategories[index] };
     }
-    const url = "https://indicaai.herokuapp.com/locals/";
+    const url = `${process.env.INDICA_AI_API}/locals/`;
     const jsonTest = JSON.stringify({
       "name": name,
       "categories": categories,
@@ -45,7 +45,6 @@ class RegisterLocalAPI extends Component {
         body: jsonTest,
       })
       const jsonResponse = await response.json()
-      console.log(jsonResponse);
       if (jsonResponse['status'] === "SUCCESS") {
         this.setState({ requestStatus: "SUCCESS" })
         this.setState({
@@ -102,4 +101,5 @@ class RegisterLocalAPI extends Component {
     );
   }
 }
+
 export default withNavigation(RegisterLocalAPI);
