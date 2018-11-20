@@ -15,7 +15,6 @@ import { Text, StyleSheet } from "react-native"
 import Divider from './Divider'
 import CardHeader from './CardHeader'
 
-const adultOnly = require("../../../static/adultOnly.png")
 const noPic = require("../../../static/noPic.png")
 
 class Geral extends Component {

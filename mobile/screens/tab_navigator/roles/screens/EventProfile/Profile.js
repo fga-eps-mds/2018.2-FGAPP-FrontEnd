@@ -29,7 +29,7 @@ import Localizacao from "./components/Localizacao"
 import Contato from "./components/Contato"
 import Comments from '../EventComments/Comments'
 
-// const noPic = require("../../static/noPic.png")
+const noPic = require("../../static/noPic.png")
 
 class Profile extends Component {
 	state = {

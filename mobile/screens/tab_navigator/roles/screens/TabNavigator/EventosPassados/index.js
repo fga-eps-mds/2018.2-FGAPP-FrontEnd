@@ -8,12 +8,8 @@ import {
     RefreshControl,
     ActivityIndicator
 } from 'react-native';
-import FeedItem from './FeedItem';
+import FeedItem from '../feed/FeedItem';
 import * as helpers from '../../../utils/helpers';
-
-const Roboto = require('native-base/Fonts/Roboto.ttf');
-const Roboto_medium = require('native-base/Fonts/Roboto_medium.ttf');
-const Ionicons = require('@expo/vector-icons/fonts/Ionicons.ttf');
 
 class Feed extends Component {
     state = {
@@ -24,19 +20,6 @@ class Feed extends Component {
         zeroRoles: false
     };
 
-    async componentWillMount() {
-      Expo.Font.loadAsync({
-            Roboto,
-            Roboto_medium,
-            Ionicons,
-      })
-        .then( () => {
-          this.setState({ loading: false });
-        })
-
-        .catch( () => {});
-    }
-
     _refreshFeed = () => {
         this.state.feedInit == true && this.setState({ feedInit: false });
         this.setState({ refreshing: true, loading: true, zeroRoles: false });
@@ -44,7 +27,7 @@ class Feed extends Component {
             .then(res => res.json())
             .then(resJson => {
                 // RETIRANDO EVENTOS PASSADOS
-                resJson = resJson.filter(role => {
+                resJson = resJson.filter((role, index, array) => {
                     const { hasPassed, formatDate } = helpers;
                     if (hasPassed(formatDate(role.eventDate).formatted)) {
                         console.log(
@@ -52,13 +35,13 @@ class Feed extends Component {
                             helpers.formatDate(role.eventDate).formatted,
                             '\tEVENTO PASSADO!'
                         );
+                        return role;
                     } else {
                         console.log(
                             role.eventName + ':\t',
                             helpers.formatDate(role.eventDate).formatted,
                             '\tEVENTO FUTURO!'
                         );
-                        return role;
                     }
                 });
 
@@ -177,14 +160,14 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         alignSelf: 'center',
         borderWidth: 1,
-        margin: '50%'
+        margin: '50%',
     },
     notFoundBoxText: {
         alignSelf: 'center',
         textAlign: 'center',
         margin: 5,
         color: 'black'
-    }
+    },
 });
 
 export default Feed;

@@ -1,17 +1,13 @@
 import React, { Component } from "react";
-import { 
-    View,
-    Text,
-    StyleSheet
-} from "react-native";
 
 import {TabNavigator} from 'react-navigation'
-import RolesConfirmadosNavigator from './screens/TabNavigator/rolesConfirmados/RolesConfirmadosNavigator'
 import CadastroEventos1 from './screens/TabNavigator/cadastroEventos/CadastroEventos1'
 import Events from './Events'
+import EventosPassados from './screens/TabNavigator/EventosPassados/index'
 
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Platform } from 'react-native';
+import { Icon } from "native-base";
 
 const RolesTabStackNavigator = TabNavigator({
     Events:{
@@ -20,6 +16,13 @@ const RolesTabStackNavigator = TabNavigator({
             tabBarLabel:'Feed',
             tabBarIcon: ({ tintColor }) => <MaterialCommunityIcons name='newspaper' size={27} style={{ color: tintColor }} />
         },
+    },
+    EventosPassados:{
+      screen:EventosPassados,
+      navigationOptions:{
+        tabBarLabel:'Eventos Passados',
+        tabBarIcon: ({tintColor}) => <Icon type='MaterialCommunityIcons' name='history' style={{fontSize:27, color: tintColor}} />
+      }
     },
     CadastroEventos1:{
         screen: CadastroEventos1,
