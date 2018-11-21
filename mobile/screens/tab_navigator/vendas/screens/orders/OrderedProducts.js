@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import OrderCard from '../../components/OrderCard'
 import BuyerOrderCard from '../../components/BuyerOrderCard'
+import OrderHeader from '../../components/OrderHeader'
 import jwt_decode from 'jwt-decode'
 
 class OrderedProducts extends Component {
@@ -108,6 +109,9 @@ class OrderedProducts extends Component {
                         />
                     }
                 >
+                <OrderHeader
+                  message = "Meus pedidos"
+                />
                 {this.state.buyer_orders.map((buyer_order, index) => {
                     return (
                       <BuyerOrderCard
@@ -121,7 +125,9 @@ class OrderedProducts extends Component {
                       />
                     );
                 })}
-
+                <OrderHeader
+                  message = "Pedidos recebidos"
+                />
                 {this.state.orders.map((order, index) => {
                     return (
                       <OrderCard

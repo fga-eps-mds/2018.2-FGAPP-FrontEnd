@@ -7,7 +7,7 @@ class BuyerOrderCard extends Component {
   render() {
     var status = this.props.orderStatus;
     var statusValue = (status == 0) ? 'Pendente' : (status == 1 ? 'Atendido' : 'Cancelado');
-    
+
     return (
       <View style={{padding:10}}>
         <TouchableHighlight onPress={this.props.onPress}>
