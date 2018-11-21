@@ -128,7 +128,7 @@ export default class CommentInput extends Component {
                     style={styles.textAreaComment}
                     placeholder="Novo Comentário"
                     underlineColorAndroid="transparent"
-                    multiline={true}
+                    multiline={false}
                     onChangeText={text => this.setState({ text: text })}
                     maxLength={128}
                 />
@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
         padding: 10
     },
     textAreaComment: {
-        height: 100,
+        height: 80,
         width: '80%',
         alignSelf: 'center',
         borderColor: 'grey',

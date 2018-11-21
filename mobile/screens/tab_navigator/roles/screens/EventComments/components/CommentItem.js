@@ -1,110 +1,155 @@
 import {
-	Button,
-	Icon,
-	Card,
-	CardItem,
-	Text,
-	ActionSheet,
-	Root
-} from "native-base";
-import React, { Component } from "react";
-import {
-	View,
-} from "react-native";
-import * as helpers from '../../../utils/helpers'
-import Divider from "../../EventProfile/components/Divider";
-import LikeButton from "./LikeButton";
+    Button,
+    Icon,
+    Card,
+    CardItem,
+    Text,
+    ActionSheet,
+    Root
+} from 'native-base';
+import React, { Component } from 'react';
+import { View } from 'react-native';
+import * as helpers from '../../../utils/helpers';
+import Divider from '../../EventProfile/components/Divider';
+import LikeButton from './LikeButton';
 
 var BUTTONS = [
-	{ text: "Responder", icon: "quote", iconColor: "#2c8ef4" },
-	{ text: "Editar", icon: "hammer", iconColor: "#f42ced" },
-	{ text: "Delete", icon: "trash", iconColor: "#fa213b" },
-	{ text: "Cancel", icon: "close", iconColor: "#25de5b" }
+    { text: 'Responder', icon: 'quote', iconColor: '#2c8ef4' },
+    { text: 'Editar', icon: 'hammer', iconColor: '#f42ced' },
+    { text: 'Deletar', icon: 'trash', iconColor: '#fa213b' },
+    { text: 'Cancelar', icon: 'close', iconColor: 'rgb(0,0,0)' }
 ];
 var DESTRUCTIVE_INDEX = 2;
 var CANCEL_INDEX = 3;
 
 class CommentItem extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {};
-	}
+    state = {};
 
-	render() {
-		return (
-			<Root>
-				<View>
-					<Card transparent>
-						<CardItem>
-							<View
-								style={{
-									alignSelf: "flex-start",
-									alignContent: "flex-start",
-									paddingTop: 15
-								}}
-							>
-								<Icon name="person" />
-							</View>
-							<View style={{ width: "100%" }}>
-								<View flex={1}>
-									<View
-										style={{
-											flexDirection: "row",
-											alignContent: "space-between",
-											width: "80%",
-											justifyContent: "space-between"
-										}}
-									>
-										<Text
-											style={{
-												fontWeight: "bold",
-												textAlignVertical: "center"
-											}}
-										>
-											{this.props.author}
-										</Text>
-										<Button
-											style={{}}
-											transparent
-											onPress={() =>
-												ActionSheet.show(
-													{
-														options: BUTTONS,
-														cancelButtonIndex: CANCEL_INDEX,
-														destructiveButtonIndex: DESTRUCTIVE_INDEX,
-														title: "Comentário de " + this.props.author
-													},
-													buttonIndex => {
-														this.setState({ clicked: BUTTONS[buttonIndex] });
-													}
-												)
-											}
-										>
-											<Icon name="more" />
-										</Button>
-									</View>
+    _menuHandler = option => {
+        switch (option) {
+            case 0:
+                console.log('Apertou botão de resposta.');
+                break;
+        }
+    };
 
-									<Text>{this.props.text}</Text>
+    render() {
+        return (
+            <Root>
+                <View style={{ width: '80%', alignSelf: 'center' }}>
+                    <View
+                        style={{
+                            flexDirection: 'row',
+                            width: '100%',
+                            justifyContent: 'space-between',
+                            alignItems: 'center'
+                        }}
+                    >
+                        <Icon name="person" />
+                        <Text
+                            style={{
+                                fontWeight: 'bold',
+                                textAlignVertical: 'center'
+                            }}
+                        >
+                            {this.props.author}
+                        </Text>
+                        <Button
+                            transparent
+                            onPress={() =>
+                                ActionSheet.show(
+                                    {
+                                        options: BUTTONS,
+                                        cancelButtonIndex: CANCEL_INDEX,
+                                        destructiveButtonIndex: DESTRUCTIVE_INDEX,
+                                        title:
+                                            'Comentário de ' + this.props.author
+                                    },
+                                    buttonIndex =>
+                                        this._menuHandler(buttonIndex)
+                                )
+                            }
+                        >
+                            <Icon name="more" />
+                        </Button>
+                    </View>
 
-									<Text style={{ color: "grey", fontSize: 12 }}>
-										Postado em: {helpers.datetimeParser(this.props.postDate)}
-									</Text>
-									{this.props.modifyDate != null && (
-										<Text style={{ color: "grey", fontSize: 12 }}>
-											Modificado em: {helpers.datetimeParser(this.props.modifyDate)}
-										</Text>
-									)}
-								</View>
-								<LikeButton />
-							</View>
-						</CardItem>
-					</Card>
+                    <Text>{this.props.text}</Text>
 
-					<Divider size="80%" />
-				</View>
-			</Root>
-		);
-	}
+                    <Text style={{ color: 'grey', fontSize: 12 }}>
+                        Postado em:{' '}
+                        {helpers.datetimeParser(this.props.postDate)}
+                    </Text>
+                    {this.props.modifyDate != null && (
+                        <Text
+                            style={{
+                                color: 'grey',
+                                fontSize: 12
+                            }}
+                        >
+                            Modificado em:{' '}
+                            {helpers.datetimeParser(this.props.modifyDate)}
+                        </Text>
+                    )}
+                    {/* <LikeButton /> */}
+                </View>
+
+                <View
+                    style={{
+                        marginLeft: '20%',
+                        marginTop: 15,
+                        borderLeftWidth: 1,
+                        borderLeftColor: 'grey',
+                        paddingLeft: 5
+                    }}
+                >
+                    <View
+                        style={{
+                            flexDirection: 'row',
+                            width: '100%',
+                            justifyContent: 'space-between',
+                            alignItems: 'center'
+                        }}
+                    >
+                        <Icon name="person" />
+                        <Text
+                            style={{
+                                fontWeight: 'bold'
+                            }}
+                        >
+                            {this.props.author}
+                        </Text>
+                        <Button
+                            transparent
+                            onPress={() =>
+                                ActionSheet.show(
+                                    {
+                                        options: BUTTONS,
+                                        cancelButtonIndex: CANCEL_INDEX,
+                                        destructiveButtonIndex: DESTRUCTIVE_INDEX,
+                                        title:
+                                            'Comentário de ' + this.props.author
+                                    },
+                                    buttonIndex =>
+                                        this._menuHandler(buttonIndex)
+                                )
+                            }
+                        >
+                            <Icon name="more" />
+                        </Button>
+                    </View>
+
+                    <Text>Texto da resposta</Text>
+                    <Text style={{ color: 'grey', fontSize: 12 }}>
+                        Postado em:{' '}
+                        {helpers.datetimeParser(this.props.postDate)}
+                    </Text>
+                </View>
+
+                <Divider size="80%" />
+            </Root>
+        );
+    }
 }
 
 export default CommentItem;
