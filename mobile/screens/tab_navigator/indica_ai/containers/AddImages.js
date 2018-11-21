@@ -5,6 +5,9 @@ import { ImagePicker } from 'expo';
 import ImageModal from "../components/ImageModal";
 import SuccessModal from '../components/SuccessModal';
 import ErrorModal from '../components/ErrorModal';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { searchAction } from '../actions'
 
 
 class AddImages extends Component {
@@ -38,6 +41,25 @@ class AddImages extends Component {
 
     }
   };
+_updateFunction = () => {
+   alert("CHAMA NO UPDATE 2");
+   fetch(`${process.env.INDICA_AI_API}/locals/`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "aplication/json"
+    }
+  })
+  .then(response => response.json())
+  .then(responseJson => {
+    alert("SOU UM JSON =)");
+    this.props.searchAction(responseJson)
+  })
+  .catch(error => {
+    console.log(error);
+  });
+
+}
 
   postImage = async () => {
     const id = this.state.id
@@ -58,12 +80,13 @@ class AddImages extends Component {
       const jsonResponse = await response.json()
       if (jsonResponse['status'] === "SUCCESS") {
         this.setState({ successModalVisible: true })
+        this._updateFunction();
       } else {
         this.setState({ errorModalVisible: true })
       }
     }
     catch (error) {
-      this.setState({ errorModalVisible: true })
+      console.log(error);
     }
   };
 
@@ -84,7 +107,7 @@ class AddImages extends Component {
           onCancel={() => this.cancelPost()}
           visible={this.state.ImageModalVisible}
         />
-        <TouchableOpacity style = {{flex:1, justifyContent: "center", alignItems: "center"}} 
+        <TouchableOpacity style = {{flex:1, justifyContent: "center", alignItems: "center"}}
         onPress={() => this.pickImage()}>
             <Icon
                 name="add-a-photo"
@@ -108,4 +131,10 @@ class AddImages extends Component {
   }
 }
 
-export default AddImages
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({ searchAction }, dispatch)
+)
+export default connect(
+  null,
+  mapDispatchToProps
+)(AddImages);

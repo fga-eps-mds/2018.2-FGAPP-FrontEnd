@@ -6,6 +6,9 @@ import {
 } from "react-native";
 import { withNavigation, createStackNavigator } from 'react-navigation';
 import RegisterAPIForm from '../components/RegisterAPIForm.js'
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { searchAction } from '../actions'
 
 class RegisterLocalAPI extends Component {
 
@@ -24,7 +27,7 @@ class RegisterLocalAPI extends Component {
     for (const index in selectedCategories) {
       categories[index] = { "category_id": selectedCategories[index] };
     }
-    const url = "https://indicaai.herokuapp.com/locals/";
+    const url = `${process.env.INDICA_AI_API}/locals/`;
     const jsonTest = JSON.stringify({
       "name": name,
       "categories": categories,
@@ -51,6 +54,7 @@ class RegisterLocalAPI extends Component {
         this.setState({
           local: jsonResponse["data"][0]
         })
+        this._updateFunction();
       } else {
         this.setState({ requestStatus: "FAILED" })
       }
@@ -68,7 +72,25 @@ class RegisterLocalAPI extends Component {
       selectedCategories: selectedCategories
     })
   }
-
+  _updateFunction = () => {
+    alert("CHAMA NO UPDATE 2");
+    fetch(`${process.env.INDICA_AI_API}/locals/`, {
+     method: "GET",
+     headers: {
+       Accept: "application/json",
+       "Content-Type": "aplication/json"
+     }
+   })
+   .then(response => response.json())
+   .then(responseJson => {
+     alert("SOU UM JSON =)");
+     this.props.searchAction(responseJson)
+   })
+   .catch(error => {
+     console.log(error);
+   });
+ 
+ }
   render() {
     if (this.state.requestStatus === "SUCCESS") {
       Alert.alert(
@@ -102,4 +124,10 @@ class RegisterLocalAPI extends Component {
     );
   }
 }
-export default withNavigation(RegisterLocalAPI);
+const mapDispatchToProps = dispatch => (
+  bindActionCreators({ searchAction }, dispatch)
+)
+export default connect(
+null,
+mapDispatchToProps
+)(RegisterLocalAPI);

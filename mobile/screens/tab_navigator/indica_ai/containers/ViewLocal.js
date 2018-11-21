@@ -22,7 +22,7 @@ import { showMessage, hideMessage } from "react-native-flash-message";
 import FlashMessage from "react-native-flash-message";
 import AddImages from "./AddImages";
 import Direction from "./Direction";
-import Swiper from "react-native-swiper"
+import Swiper from "react-native-swiper";
 
 width = Dimensions.get('window').width;
 
@@ -42,7 +42,6 @@ class ViewLocal extends Component {
       duration: 900
     });
   }
-
   render() {
     const {
       id,
@@ -270,6 +269,7 @@ class ViewLocal extends Component {
             <ImageBackground style={styles.imageLocal} source={require("../assets/Integra.png")}>
                 <AddImages
                   id={id}
+                  updateFunction = {this.updateFunction}
                   />
             </ImageBackground>
             </View>
