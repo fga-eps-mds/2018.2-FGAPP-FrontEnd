@@ -25,7 +25,9 @@ class Comments extends Component {
 
 	_getComments = () => {
 		this.setState({ refreshing: true });
-		fetch("http://roles-comments.herokuapp.com/comment/")
+
+		const commentPath = `${process.env.ROLES_COMMENTS_API}/comment/`;
+		fetch(commentPath)
 			.then(res => res.json())
 			.then(resJson => {
 				this.setState({ loading: false, comment: resJson });

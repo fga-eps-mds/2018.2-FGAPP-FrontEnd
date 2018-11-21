@@ -19,7 +19,7 @@ _getDateTime = () => {
 	let minuto = date.getMinutes();
 
 	//return dia + "/" + mes + "/" + ano + " " + hora + ":" + minuto;
-	return ano + "-" + mes + "-" + dia //Novo formato de data da API
+	return ano + "-" + mes + "-" + dia; //Novo formato de data da API
 };
 
 export default class CommentInput extends Component {
@@ -48,16 +48,16 @@ export default class CommentInput extends Component {
 	}
 
 	_postComment = async () => {
+		const commentPath = `${process.env.ROLES_COMMENTS_API}/comment/`;
 		if (this._commentValidate() == false)
 			ToastAndroid.show("Erro ao postar o comentário.", ToastAndroid.LONG);
 		else {
-			fetch("http://roles-comments.herokuapp.com/comment/", {
+			fetch(commentPath, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json"
 				},
 				body: JSON.stringify({
-
 					author: this.state.author,
 					text: this.state.text,
 					answerId: 0,
@@ -68,16 +68,16 @@ export default class CommentInput extends Component {
 				.then(response => response.json())
 				.then(responseJson => {
 					//Sucesso
-					console.log(responseJson)
+					console.log(responseJson);
 					if ((responseJson = !undefined)) {
-						console.log(responseJson)
+						console.log(responseJson);
 						console.log("Comentário postado com sucesso!");
 						ToastAndroid.show(
 							"Comentário Postado com sucesso!",
 							ToastAndroid.LONG
 						);
 						this._textArea.clear();
-					}else {
+					} else {
 						console.log("teste");
 					}
 				})

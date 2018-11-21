@@ -141,7 +141,8 @@ export default class CadastroEventos1 extends Component {
 	}
 
 	_cadastraRole(photoURL) {
-		fetch("http://roles-events.herokuapp.com/events/", {
+		const eventPath = `${process.env.ROLES_EVENTS_API}/events/`;
+		fetch(eventPath, {
 			method: "POST",
 			headers: {
 				Accept: "application/json",
