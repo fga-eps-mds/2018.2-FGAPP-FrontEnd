@@ -17,7 +17,6 @@ exports[`renders correctly 1`] = `
       Array [
         Object {},
         Object {
-          "backgroundColor": "gray",
           "borderRadius": 5,
           "flex": 1,
           "flexDirection": "row",
@@ -54,7 +53,7 @@ exports[`renders correctly 1`] = `
               "fontSize": 16,
             },
             Object {
-              "color": "white",
+              "color": "gray",
               "fontSize": 25,
               "textAlign": "center",
             },
