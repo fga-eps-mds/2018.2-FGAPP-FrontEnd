@@ -18,8 +18,6 @@ import CadastroInput from "./CadastroInput/index.js";
 import MapsModal from "./MapsModal/index.js";
 import ImageModal from "./ImageModal/index.js";
 
-import config from "./Config.js";
-
 const eighteen = require("../../../static/eighteen.png");
 const date = new Date();
 
@@ -65,9 +63,9 @@ export default class CadastroEventos1 extends Component {
 	_uploadImage = uri => {
 		let formdata = new FormData();
 		let timestamp = ((Date.now() / 1000) | 0).toString();
-		let api_key = config.api_key;
-		let api_secret = config.api_secret;
-		let cloud = config.cloud;
+		let api_key = `${process.env.ROLES_CLOUDNARY_KEY}`;
+		let api_secret = `${process.env.ROLES_CLOUDNARY_SECRET}`;
+		let cloud = `${process.env.ROLES_CLOUDNARY_CLOUD}`;
 		let hash_string = "timestamp=" + timestamp + api_secret;
 		let signature = CryptoJS.SHA1(hash_string).toString();
 		let upload_url =
@@ -188,10 +186,7 @@ export default class CadastroEventos1 extends Component {
 					this.state.responseOk
 				) {
 					console.log("Rolê cadastrado com sucesso!");
-					Alert.alert(
-						"Parabéns!",
-						"O Rolê foi cadastrado com sucesso!"
-					);
+					Alert.alert("Parabéns!", "O Rolê foi cadastrado com sucesso!");
 					this.setState({ uploading: false, stage: 0 });
 					this._resetStates();
 				} else {
@@ -211,16 +206,11 @@ export default class CadastroEventos1 extends Component {
 	_stageValidation() {
 		const year = date.getFullYear();
 		const month =
-			date.getMonth() < 10
-				? "0" + (date.getMonth() + 1)
-				: date.getMonth() + 1;
+			date.getMonth() < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
 		const day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
-		const hour =
-			date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+		const hour = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
 		const minute =
-			date.getMinutes() < 10
-				? "0" + date.getMinutes()
-				: date.getMinutes();
+			date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
 
 		let blocked = true;
 
@@ -251,10 +241,7 @@ export default class CadastroEventos1 extends Component {
 
 			case 2:
 				if (this.state.eventDescription == "") {
-					Alert.alert(
-						"Erro",
-						"Campo de descrição do evento inválido!"
-					);
+					Alert.alert("Erro", "Campo de descrição do evento inválido!");
 				} else if (this.state.drinks == "") {
 					Alert.alert("Erro", "Campo de drinks do evento inválido!");
 				} else if (this.state.foods == "") {
@@ -270,20 +257,11 @@ export default class CadastroEventos1 extends Component {
 				if (this.state.address == "") {
 					Alert.alert("Erro", "Campo de nome do local inválido!");
 				} else if (this.state.organizer == "") {
-					Alert.alert(
-						"Erro",
-						"Campo de nome do organizador inválido!"
-					);
+					Alert.alert("Erro", "Campo de nome do organizador inválido!");
 				} else if (this.state.organizerTel == "") {
-					Alert.alert(
-						"Erro",
-						"Campo de telefone da organização inválido!"
-					);
+					Alert.alert("Erro", "Campo de telefone da organização inválido!");
 				} else if (this.state.linkReference == "") {
-					Alert.alert(
-						"Erro",
-						"Campo do link de referência inválido!"
-					);
+					Alert.alert("Erro", "Campo do link de referência inválido!");
 				} else {
 					blocked = false;
 				}
@@ -385,11 +363,7 @@ export default class CadastroEventos1 extends Component {
 
 		if (this.state.stage === 0) {
 			return (
-				<View
-					flex={1}
-					backgroundColor="white"
-					justifyContent="space-around"
-				>
+				<View flex={1} backgroundColor="white" justifyContent="space-around">
 					<H2 style={{ textAlign: "center", marginTop: 30 }}>
 						Crie um novo Rolê!
 					</H2>
@@ -402,8 +376,8 @@ export default class CadastroEventos1 extends Component {
 							fontSize: 15
 						}}
 					>
-						Aconselhamos que você já tenha todos os dados em mãos,
-						para que o processo fique rápido.
+						Aconselhamos que você já tenha todos os dados em mãos, para que o
+						processo fique rápido.
 						{`\n\nClique para iniciar!`}
 					</Text>
 					<TouchableOpacity
@@ -431,16 +405,12 @@ export default class CadastroEventos1 extends Component {
 					</View>
 					<View style={styles.container}>
 						<View>
-							<Text style={styles.questionText}>
-								Qual o nome do seu Rolê?
-							</Text>
+							<Text style={styles.questionText}>Qual o nome do seu Rolê?</Text>
 							<CadastroInput
 								placeholder="Nome do rolê"
 								iconType="MaterialIcons"
 								iconName="text-format"
-								onChangeText={eventName =>
-									this.setState({ eventName })
-								}
+								onChangeText={eventName => this.setState({ eventName })}
 								value={this.state.eventName}
 							/>
 						</View>
@@ -464,10 +434,7 @@ export default class CadastroEventos1 extends Component {
 								Que dia e que horas vai começar?
 							</Text>
 							<View style={styles.inputContainer}>
-								<View
-									flexDirection="row"
-									justifyContent="center"
-								>
+								<View flexDirection="row" justifyContent="center">
 									<TouchableOpacity
 										style={styles.dateTimePicker}
 										onPress={() => this.datePicker()}
@@ -480,9 +447,7 @@ export default class CadastroEventos1 extends Component {
 												marginTop: 15
 											}}
 										/>
-										<Text>
-											{this.state.eventDate || "Data"}
-										</Text>
+										<Text>{this.state.eventDate || "Data"}</Text>
 									</TouchableOpacity>
 								</View>
 
@@ -499,9 +464,7 @@ export default class CadastroEventos1 extends Component {
 												marginTop: 15
 											}}
 										/>
-										<Text>
-											{this.state.eventHour || "Horário"}
-										</Text>
+										<Text>{this.state.eventHour || "Horário"}</Text>
 									</TouchableOpacity>
 								</View>
 							</View>
@@ -518,14 +481,9 @@ export default class CadastroEventos1 extends Component {
 								width={100}
 								marginTop={10}
 							>
-								<Image
-									source={eighteen}
-									style={{ height: 30, width: 30 }}
-								/>
+								<Image source={eighteen} style={{ height: 30, width: 30 }} />
 								<Switch
-									onValueChange={() =>
-										this._handleToggleSwitch()
-									}
+									onValueChange={() => this._handleToggleSwitch()}
 									value={this.state.adultOnly}
 								/>
 							</View>
@@ -577,18 +535,14 @@ export default class CadastroEventos1 extends Component {
 									placeholder="Drinks"
 									iconType="Entypo"
 									iconName="drink"
-									onChangeText={drinks =>
-										this.setState({ drinks })
-									}
+									onChangeText={drinks => this.setState({ drinks })}
 									value={this.state.drinks}
 								/>
 								<CadastroInput
 									placeholder="Comidas"
 									iconType="MaterialCommunityIcons"
 									iconName="food"
-									onChangeText={foods =>
-										this.setState({ foods })
-									}
+									onChangeText={foods => this.setState({ foods })}
 									value={this.state.foods}
 								/>
 							</View>
@@ -596,8 +550,7 @@ export default class CadastroEventos1 extends Component {
 
 						<View>
 							<Text style={styles.questionText}>
-								Qual imagem será usada para divulgação do
-								evento?
+								Qual imagem será usada para divulgação do evento?
 							</Text>
 
 							{photo == null ? (
@@ -664,11 +617,7 @@ export default class CadastroEventos1 extends Component {
 					<Text style={{ textAlign: "center" }}>
 						Cadastrando rolê... {"\n"}
 					</Text>
-					<ActivityIndicator
-						alignSelf="center"
-						size="large"
-						color="green"
-					/>
+					<ActivityIndicator alignSelf="center" size="large" color="green" />
 				</View>
 			) : (
 				<View flex={1} backgroundColor="white">
@@ -690,9 +639,7 @@ export default class CadastroEventos1 extends Component {
 								placeholder="Link de referência"
 								iconType="Feather"
 								iconName="link"
-								onChangeText={linkReference =>
-									this.setState({ linkReference })
-								}
+								onChangeText={linkReference => this.setState({ linkReference })}
 								value={this.state.linkReference}
 							/>
 						</View>
@@ -705,9 +652,7 @@ export default class CadastroEventos1 extends Component {
 								placeholder="Nome do Local"
 								iconType="MaterialIcons"
 								iconName="place"
-								onChangeText={address =>
-									this.setState({ address })
-								}
+								onChangeText={address => this.setState({ address })}
 								value={this.state.address}
 							/>
 							{/* Espaçamento */}
@@ -734,8 +679,7 @@ export default class CadastroEventos1 extends Component {
 							</Button>
 
 							{this.state.localization.latitude != undefined &&
-								this.state.localization.latitude !=
-									undefined && (
+								this.state.localization.latitude != undefined && (
 									<Text
 										style={{
 											color: "green",
@@ -754,9 +698,7 @@ export default class CadastroEventos1 extends Component {
 												fontSize: 10
 											}}
 										/>
-										{`\n${
-											this.state.localization.latitude
-										} / ${
+										{`\n${this.state.localization.latitude} / ${
 											this.state.localization.longitude
 										}`}
 									</Text>
@@ -771,9 +713,7 @@ export default class CadastroEventos1 extends Component {
 								placeholder="Nome para Contato"
 								iconType="MaterialIcons"
 								iconName="person"
-								onChangeText={organizer =>
-									this.setState({ organizer })
-								}
+								onChangeText={organizer => this.setState({ organizer })}
 								value={this.state.organizer}
 							/>
 							{/* Espaçamento */}
@@ -783,9 +723,7 @@ export default class CadastroEventos1 extends Component {
 								placeholder="Telefone para Contato"
 								iconType="FontAwesome"
 								iconName="phone"
-								onChangeText={organizerTel =>
-									this.setState({ organizerTel })
-								}
+								onChangeText={organizerTel => this.setState({ organizerTel })}
 								value={this.state.organizerTel}
 								keyboardType="phone-pad"
 							/>
