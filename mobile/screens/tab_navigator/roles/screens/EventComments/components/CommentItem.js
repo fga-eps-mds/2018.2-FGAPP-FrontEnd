@@ -1,26 +1,17 @@
 import {
-	Body,
 	Button,
 	Icon,
 	Card,
 	CardItem,
 	Text,
-	Thumbnail,
-	Left,
-	Right,
-	Row,
-	Item,
 	ActionSheet,
 	Root
 } from "native-base";
 import React, { Component } from "react";
 import {
-	StyleSheet,
-	Image,
 	View,
-	TouchableOpacity,
-	ScrollView
 } from "react-native";
+import * as helpers from '../../../utils/helpers'
 import Divider from "../../EventProfile/components/Divider";
 import LikeButton from "./LikeButton";
 
@@ -96,11 +87,11 @@ class CommentItem extends Component {
 									<Text>{this.props.text}</Text>
 
 									<Text style={{ color: "grey", fontSize: 12 }}>
-										Postado em: {this.props.postDate}
+										Postado em: {helpers.datetimeParser(this.props.postDate)}
 									</Text>
 									{this.props.modifyDate != null && (
 										<Text style={{ color: "grey", fontSize: 12 }}>
-											Modificado em: {this.props.modifyDate}
+											Modificado em: {helpers.datetimeParser(this.props.modifyDate)}
 										</Text>
 									)}
 								</View>

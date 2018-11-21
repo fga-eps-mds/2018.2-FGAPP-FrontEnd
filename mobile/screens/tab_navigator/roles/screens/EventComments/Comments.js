@@ -24,10 +24,17 @@ class Comments extends Component {
     };
 
     _getComments = () => {
+        const { params } = this.props.navigation.state
         this.setState({ refreshing: true });
         fetch('http://roles-comments.herokuapp.com/comment/')
             .then(res => res.json())
             .then(resJson => {
+                resJson = resJson.filter( comment => {
+                  if(comment.eventId === params.idRole){
+                    return comment
+                  }
+                })
+
                 this.setState({ loading: false, comment: resJson });
             })
             .then(() => {
@@ -46,6 +53,7 @@ class Comments extends Component {
     }
 
     render() {
+      const { params } = this.props.navigation.state
         if (this.state.loading) {
             return (
                 <View
@@ -71,10 +79,10 @@ class Comments extends Component {
             >
                 <Card style={{ backgroundColor: 'white' }}>
                     <Text style={{ color: 'grey', marginBottom: 10 }}>
-                        Comentários
+                        Comentários - {params.eventName}
                     </Text>
 
-                    <CommentInput />
+                    <CommentInput eventId={params.idRole} onSubmit={this._getComments} />
 
                     {this.state.comment.map((comment, index) => (
                         <CommentItem
@@ -84,7 +92,6 @@ class Comments extends Component {
                             text={comment.text}
                             postDate={comment.created}
                             modifyDate={comment.edited}
-                            like={comment.like}
                         />
                     ))}
                 </Card>
