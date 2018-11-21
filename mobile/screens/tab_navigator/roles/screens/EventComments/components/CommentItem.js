@@ -1,8 +1,6 @@
 import {
     Button,
     Icon,
-    Card,
-    CardItem,
     Text,
     ActionSheet,
     Root
@@ -10,7 +8,6 @@ import {
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import * as helpers from '../../../utils/helpers';
-import Divider from '../../EventProfile/components/Divider';
 import LikeButton from './LikeButton';
 
 var BUTTONS = [
@@ -93,60 +90,6 @@ class CommentItem extends Component {
                     )}
                     {/* <LikeButton /> */}
                 </View>
-
-                <View
-                    style={{
-                        marginLeft: '20%',
-                        marginTop: 15,
-                        borderLeftWidth: 1,
-                        borderLeftColor: 'grey',
-                        paddingLeft: 5
-                    }}
-                >
-                    <View
-                        style={{
-                            flexDirection: 'row',
-                            width: '100%',
-                            justifyContent: 'space-between',
-                            alignItems: 'center'
-                        }}
-                    >
-                        <Icon name="person" />
-                        <Text
-                            style={{
-                                fontWeight: 'bold'
-                            }}
-                        >
-                            {this.props.author}
-                        </Text>
-                        <Button
-                            transparent
-                            onPress={() =>
-                                ActionSheet.show(
-                                    {
-                                        options: BUTTONS,
-                                        cancelButtonIndex: CANCEL_INDEX,
-                                        destructiveButtonIndex: DESTRUCTIVE_INDEX,
-                                        title:
-                                            'Comentário de ' + this.props.author
-                                    },
-                                    buttonIndex =>
-                                        this._menuHandler(buttonIndex)
-                                )
-                            }
-                        >
-                            <Icon name="more" />
-                        </Button>
-                    </View>
-
-                    <Text>Texto da resposta</Text>
-                    <Text style={{ color: 'grey', fontSize: 12 }}>
-                        Postado em:{' '}
-                        {helpers.datetimeParser(this.props.postDate)}
-                    </Text>
-                </View>
-
-                <Divider size="80%" />
             </Root>
         );
     }
