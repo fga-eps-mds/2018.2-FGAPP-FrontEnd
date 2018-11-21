@@ -8,6 +8,7 @@ import {
   Image,
   KeyboardAvoidingView,
 } from 'react-native';
+import jwt_decode from 'jwt-decode';
 import { Button } from 'native-base';
 import Field from './components/Field';
 import SignUp from './components/SignUp';
@@ -17,10 +18,33 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      name: '',
       email: '', password: '', cookie: '',
       email_field_is_bad: false, password_field_is_bad: false,
       email_field_alerts: [''], password_field_alerts: [''], non_field_alerts: []
     };
+  }
+
+  _updateUserName = async (userID) => {
+    const updateProfilePath = `${process.env.INTEGRA_LOGIN_AUTH}/api/users/update_profile/`;
+    if (this.state.name == '') {
+      this.setState({name: 'Usuário sem nome' });
+    }
+
+    fetch(updateProfilePath, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        'name': this.state.name,
+        'user_id': userID
+      }),
+    })
+    .catch((err) => {
+      this.setState({ messageError: "Erro interno, não foi possível se comunicar com o servidor." })
+      this.setState({ isDialogVisible: true })
+    })
   }
 
   checkJson(responseJson) {
@@ -51,10 +75,13 @@ export default class App extends Component {
     }
     //Sucesso
     if (responseJson.token != undefined || responseJson.key != undefined) {
+      const user = jwt_decode(responseJson.token);
+      const userID = user.user_id;
+      this._updateUserName(userID);
+      
       Alert.alert("Conta criada com sucesso!");
       this.props.navigation.navigate('LoginScreen') //mudei aqui de WelcomeScreen pra LoginScreen
     }
-
   }
 
   _onPressButton = async () => {
@@ -77,6 +104,11 @@ export default class App extends Component {
               <Image source={{ uri: 'https://i.imgur.com/F7PTwBg.png' }} style={{ width: 1000 / 4, height: 561 / 4 }} />
             </View>
             <View style={{ paddingLeft: '5%', paddingRight: '5%' }}>
+              <Field
+                placeholder={"Nome"}
+                keyExtractor={null}
+                onChangeText={(name) => this.setState({ name })}
+              />
 
               <Field
                 placeholder={"Email"}
@@ -94,6 +126,7 @@ export default class App extends Component {
                 onChangeText={(password) => this.setState({ password })}
                 secureTextEntry
               />
+
               <FlatList
                 data={this.state.non_field_alert}
                 renderItem={({ item }) => <Text style={{ color: 'red' }}>{item}</Text>}
