@@ -41,7 +41,7 @@ export default {
     flex: 1,
     flexDirection: 'row',
     //width: '100%',
-    backgroundColor: 'gray',
+    // backgroundColor: 'gray',
     paddingTop: 10,
     paddingBottom: 20,
     paddingLeft: 20,
@@ -71,7 +71,7 @@ export default {
   },
   order_header_title: {
     textAlign: 'center',
-    color: 'white',
+    color: 'gray',
     fontSize: 25,
   },
   order_subtitle: {
