@@ -33,6 +33,7 @@ class ViewLocal extends Component {
       local: props.navigation.state.params ? props.navigation.state.params.local : undefined,
     };
   }
+
   favMessage = (fav) => {
     showMessage({
       message: fav ? "Removido dos favoritos" : "Adicionado aos favoritos",
@@ -63,12 +64,12 @@ class ViewLocal extends Component {
         <ScrollView showsVerticalScrollIndicator={false}>
           <Content>
 
-          <Swiper
-            style={styles.wrapper}
-            activeDot = {<View style={styles.activeDot} />}
-          >
-            {this.displayLocalImage(local_images, id)}
-           </Swiper>
+            <Swiper
+              style={styles.wrapper}
+              activeDot={<View style={styles.activeDot} />}
+            >
+              {this.displayLocalImage(local_images, id)}
+            </Swiper>
 
             <View style={styles.localContainer}>
 
@@ -256,39 +257,38 @@ class ViewLocal extends Component {
     }
   }
 
-  displayLocalImage(local_images = [], id){
-    if(local_images.length !== 0){
+  displayLocalImage(local_images = [], id) {
+    if (local_images.length !== 0) {
       local_images.reverse();
-      local_images = [...local_images, {addSpace: "Adding a new space"}]
-      return(local_images.map(
-        (image,key) => {
-          key ++;
+      local_images = [...local_images, { addSpace: "Adding a new space" }]
+      return (local_images.map(
+        (image, key) => {
+          key++;
           return (
             key === local_images.length ?
-            <View style={styles.addImage} key = {key}>
-            <ImageBackground style={styles.imageLocal} source={require("../assets/Integra.png")}>
-                <AddImages
-                  id={id}
-                  updateFunction = {this.updateFunction}
+              <View style={styles.addImage} key={key}>
+                <ImageBackground style={styles.imageLocal} source={require("../assets/Integra.png")}>
+                  <AddImages
+                    id={id}
                   />
-            </ImageBackground>
-            </View>
-            :
-            <View style={styles.swiper} key = {key}>
-              <ImageBackground style={styles.imageLocal} source={{uri: `data:image/jpg;base64,${image.image}`}} />
-            </View>
+                </ImageBackground>
+              </View>
+              :
+              <View style={styles.swiper} key={key}>
+                <ImageBackground style={styles.imageLocal} source={{ uri: `data:image/jpg;base64,${image.image}` }} />
+              </View>
           )
         }
       ))
     } else {
-      return(
+      return (
         <View style={styles.addImage}>
-        <ImageBackground style={styles.imageLocal} source={require("../assets/Integra.png")}>
+          <ImageBackground style={styles.imageLocal} source={require("../assets/Integra.png")}>
             <AddImages
               id={id}
-              />
-        </ImageBackground>
-          </View>);
+            />
+          </ImageBackground>
+        </View>);
     }
   }
 
@@ -424,10 +424,11 @@ const styles = StyleSheet.create({
     height: 220
   },
   swiper: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: '#9DD6EB'},
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#9DD6EB'
+  },
   activeDot: {
     backgroundColor: '#fff',
     width: 8,
@@ -436,6 +437,7 @@ const styles = StyleSheet.create({
     marginLeft: 3,
     marginRight: 3,
     marginTop: 3,
-    marginBottom: 3}
+    marginBottom: 3
+  }
 
 });
