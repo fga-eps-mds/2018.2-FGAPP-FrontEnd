@@ -10,9 +10,12 @@ import {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import jwt_decode from 'jwt-decode';
+import ErrorModal from "../components/ErrorModal"
 
 class FavoriteContainer extends React.Component {
-
+state  = {
+  errorModalVisible: false
+}
   saveFav = async(user_id, local_id) => {
     const url = `${process.env.INDICA_AI_API}/favorites/`;
     try{
@@ -24,13 +27,15 @@ class FavoriteContainer extends React.Component {
         },
         body: JSON.stringify({
           user_identifier: user_id,
-          local_id: local_id
+          local_id: null
 
         })
       })
       const responseJson = await response.json();
       if(responseJson['status']==="SUCCESS"){
         this.props.favMessageView(false)
+      }else{
+        this.setState({errorModalVisible: true})
       }
       console.log("responseJson");
       console.log(responseJson);
@@ -46,8 +51,6 @@ class FavoriteContainer extends React.Component {
     if(!fav){
       this.saveFav(user.user_id, local_id)
     }
-     // this funcion has to be called iniside the resquest to show the user that
-    //the request went right by the showMessage method
   }
   render(){
     return(
@@ -55,6 +58,11 @@ class FavoriteContainer extends React.Component {
         <FavoriteIcon
         favMessageIcon = {this.favMessageIcon}
         />
+        <ErrorModal
+        onCancel={() => this.setState({ errorModalVisible: false })}
+        visible={this.state.errorModalVisible}
+        message="Houve um erro ao favoritar local"
+      />
       </View>
     )
   }
