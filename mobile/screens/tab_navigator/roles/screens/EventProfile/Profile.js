@@ -96,9 +96,6 @@ class Profile extends Component {
 					organizerTel={role.organizerTel}
 				/>
 
-				<Comments
-
-				/>
 			</ScrollView>
 		)
 	}

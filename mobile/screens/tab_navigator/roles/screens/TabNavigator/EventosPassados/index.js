@@ -31,18 +31,18 @@ class Feed extends Component {
 				resJson = resJson.filter((role, index, array) => {
 					const { hasPassed, formatDate } = helpers;
 					if (hasPassed(formatDate(role.eventDate).formatted)) {
-						console.log(
-							role.eventName + ":\t",
-							helpers.formatDate(role.eventDate).formatted,
-							"\tEVENTO PASSADO!"
-						);
+						// console.log(
+						// 	role.eventName + ":\t",
+						// 	helpers.formatDate(role.eventDate).formatted,
+						// 	"\tEVENTO PASSADO!"
+						// );
 						return role;
 					} else {
-						console.log(
-							role.eventName + ":\t",
-							helpers.formatDate(role.eventDate).formatted,
-							"\tEVENTO FUTURO!"
-						);
+						// console.log(
+						// 	role.eventName + ":\t",
+						// 	helpers.formatDate(role.eventDate).formatted,
+						// 	"\tEVENTO FUTURO!"
+						// );
 					}
 				});
 
