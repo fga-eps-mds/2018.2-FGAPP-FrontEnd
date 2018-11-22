@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React, { Component } from "react";
 import {
 	Card,
 	CardItem,
@@ -10,25 +10,31 @@ import {
 	H2,
 	List,
 	ListItem
-} from "native-base"
-import { Text, StyleSheet } from "react-native"
-import Divider from './Divider'
-import CardHeader from './CardHeader'
+} from "native-base";
+import { Text, StyleSheet } from "react-native";
+import Divider from "./Divider";
+import CardHeader from "./CardHeader";
 
-const noPic = require("../../../static/noPic.png")
+const noPic = require("../../../static/noPic.png");
+const adultOnly = require("../../../static/adultOnly.png");
 
 class Geral extends Component {
 	render() {
-		const uri = this.props.photo
-		const dataFormatada = this.props.eventDate.slice(-2) + '/' + this.props.eventDate.slice(5,7) + '/' + this.props.eventDate.slice(0,4)
+		const uri = this.props.photo;
+		const dataFormatada =
+			this.props.eventDate.slice(-2) +
+			"/" +
+			this.props.eventDate.slice(5, 7) +
+			"/" +
+			this.props.eventDate.slice(0, 4);
 		return (
 			<Card>
-				<CardHeader text="Geral"/>
+				<CardHeader text="Geral" />
 				<CardItem>
 					<Left>
 						<Thumbnail
 							style={styles.thumbnailGeral}
-							source={this.props.photo == null ? noPic : {uri: uri}}
+							source={this.props.photo == null ? noPic : { uri: uri }}
 						/>
 					</Left>
 
@@ -42,14 +48,14 @@ class Geral extends Component {
 							{this.props.eventName}
 						</H2>
 
-						<Divider/>
+						<Divider />
 
 						<Card style={styles.descCards}>
 							<Left>
 								<Icon name="time" />
 							</Left>
 							<Right>
-								<Text>{this.props.eventHour.slice(0,5)}h</Text>
+								<Text>{this.props.eventHour.slice(0, 5)}h</Text>
 							</Right>
 						</Card>
 
@@ -89,7 +95,7 @@ class Geral extends Component {
 					</Card>
 				)}
 			</Card>
-		)
+		);
 	}
 }
 
@@ -104,6 +110,6 @@ const styles = StyleSheet.create({
 		width: 140,
 		height: 140
 	}
-})
+});
 
-export default Geral
+export default Geral;

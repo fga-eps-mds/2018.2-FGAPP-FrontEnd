@@ -39,13 +39,11 @@ const RolesTabStackNavigator = TabNavigator(
 		tabBarOptions: {
 			activeTintColor: "#1CBD24", // Color of tab when pressed
 			inactiveTintColor: "gray", // Color of tab when not pressed
-			//showIcon: 'true',                         // Shows an icon for both iOS and Android
-			//showLabel: (Platform.OS !== 'android'),   // No label for Android
 			labelStyle: {
 				fontSize: 11
 			},
 			style: {
-				backgroundColor: "white" // Makes Android tab bar white instead of standard blue
+				backgroundColor: "white"
 			}
 		}
 	}
