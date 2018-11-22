@@ -106,7 +106,7 @@ class FeedItem extends Component {
 						}}
 					>
 						<LikeButton />
-						<Text>11 Likes</Text>
+						<Text>Likes</Text>
 					</Button>
 
 					<Button
@@ -119,7 +119,7 @@ class FeedItem extends Component {
 					>
 						<Icon active name="chatbubbles" />
 
-						<Text style={{ textAlign: "center" }}>8 Comentários</Text>
+						<Text style={{ textAlign: "center" }}>Comentários</Text>
 					</Button>
 				</CardItem>
 			</Card>

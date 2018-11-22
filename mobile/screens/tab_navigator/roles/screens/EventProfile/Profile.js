@@ -38,7 +38,8 @@ class Profile extends Component {
 	}
 
 	_getDadosRole = id => {
-		fetch("http://209.97.153.172:8002/events/" + id)
+		const eventPath = `${process.env.ROLES_EVENTS_API}/events/`;
+		fetch(eventPath + id)
 			.then(res => res.json())
 			.then(resJson => {
 				this.setState({ loading: false, role: resJson })
