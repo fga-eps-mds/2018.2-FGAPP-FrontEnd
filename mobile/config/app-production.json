@@ -19,7 +19,12 @@
     },
     "android": {
       "package": "com.unbgama.integra",
-      "versionCode": 2
+      "versionCode": 2,
+      "config": {
+        "googleMaps": {
+            "apiKey": "AIzaSyBtDGKIxbngjRePVN93YgE176CMKBKUgzI"
+        }
+      }
     }
   }
 }
