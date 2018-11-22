@@ -7,8 +7,10 @@ import RegisterLocal from '../../containers/RegisterLocal';
 
 
 class FavoritesScreen extends Component {
-  
+
   render() {
+    const { state } = this.props.navigation;
+    var token = state.params ? state.params.token : undefined;
       return (
           <View style={styles.container}>
           </View>
