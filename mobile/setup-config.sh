@@ -15,11 +15,6 @@ if [ -f .env ]; then
     . .env
 fi
 
-# Env without difference bettween production and staging
-ROLES_CLOUDNARY_KEY=$ROLES_CLOUDNARY_KEY
-ROLES_CLOUDNARY_SECRET=$ROLES_CLOUDNARY_SECRET
-ROLES_CLOUDNARY_CLOUD=$ROLES_CLOUDNARY_CLOUD
-
 # Checking different envs
 if [ "$1" = 'production' ]; then
     echo '• production env...'
@@ -28,6 +23,9 @@ if [ "$1" = 'production' ]; then
     INDICA_AI_API=$PROD_INDICA_AI_API
     ROLES_EVENTS_API=$PROD_ROLES_EVENTS_API
     ROLES_COMMENTS_API=$PROD_ROLES_COMMENTS_API
+    ROLES_CLOUDNARY_KEY=$PROD_ROLES_CLOUDNARY_KEY
+    ROLES_CLOUDNARY_SECRET=$PROD_ROLES_CLOUDNARY_SECRET
+    ROLES_CLOUDNARY_CLOUD=$PROD_ROLES_CLOUDNARY_CLOUD
 
 elif [ "$1" = 'staging' ]; then
     echo '• staging env...'
@@ -36,6 +34,9 @@ elif [ "$1" = 'staging' ]; then
     INDICA_AI_API=$STG_INDICA_AI_API
     ROLES_EVENTS_API=$STG_ROLES_EVENTS_API
     ROLES_COMMENTS_API=$STG_ROLES_COMMENTS_API
+    ROLES_CLOUDNARY_KEY=$STG_ROLES_CLOUDNARY_KEY
+    ROLES_CLOUDNARY_SECRET=$STG_ROLES_CLOUDNARY_SECRET
+    ROLES_CLOUDNARY_CLOUD=$STG_ROLES_CLOUDNARY_CLOUD
 
 elif [ "$1" = 'testing' ]; then
     echo '• testing env...'
