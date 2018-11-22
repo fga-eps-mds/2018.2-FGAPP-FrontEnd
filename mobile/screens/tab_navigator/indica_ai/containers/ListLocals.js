@@ -2,14 +2,17 @@ import React, { Component } from "react";
 import {
   View,
   Text,
-  StyleSheet, 
-  ScrollView
+  StyleSheet,
+  ScrollView,
+  TouchableHighlight
 } from "react-native";
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { searchAction } from '../actions'
 import Local from "../components/Local";
+import Publicity from "../components/Publicity";
 import IconMessage from "../components/IconMessage";
+import { withNavigation } from 'react-navigation';
 
 class ListLocals extends Component {
 
@@ -20,7 +23,7 @@ class ListLocals extends Component {
     // Fucntion responsable to load all places before mount
     // the component by setting the state equal to result from fetch
     componentWillMount(){
-      const url = fetch(`https://indicaai.herokuapp.com/locals/`, {
+      const url = fetch(`${process.env.INDICA_AI_API}/locals/`, {
         method: "GET",
         headers: {
           Accept: "application/json",
@@ -30,7 +33,7 @@ class ListLocals extends Component {
       .then(response => response.json())
       .then(responseJson => {
         this.props.searchAction(responseJson)
-      }) 
+      })
       .catch(error => {
         console.log(error);
       });
@@ -56,17 +59,47 @@ class ListLocals extends Component {
                  />
             )
         } else {
-
           return (
-            <ScrollView>
-              {locals.map( local =>
-                  <Local
-                    name={local.name}
-                    description={local.description}
-                    key={local.id}
-                  />
-               )} 
+
+            <ScrollView showsVerticalScrollIndicator={false}>
+
+            {locals.map( local =>
+              local.publicity == 'true' ?
+                <Publicity
+
+                  name = {local.name}
+                  address = {local.address}
+                  image = {local.local_images}
+                  onPress={() => {
+                    this.props.navigation.navigate('LocalDetails',{
+                      local: local
+                    });
+                  }}
+                  key={local.id}
+                />
+                :
+                null
+             )}
+
+             {locals.map( local =>
+               local.publicity == 'false' ?
+                 <Local
+                   name={local.name}
+                   address={local.address}
+                   image = {local.local_images}
+                   onPress={() => {
+                     this.props.navigation.navigate('LocalDetails',{
+                       local: local
+                     });
+                   }}
+                   key={local.id}
+                 />
+                 :
+                 null
+              )}
+
             </ScrollView>
+
           );
         }
     }
@@ -77,7 +110,10 @@ const mapStateToProps = store => ({
 })
 
 const mapDispatchToProps = dispatch => (
-    bindActionCreators({ searchAction }, dispatch))
+    bindActionCreators({ searchAction }, dispatch)
+)
 
-export default connect(mapStateToProps, mapDispatchToProps)(ListLocals);
-
+export default withNavigation(connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ListLocals));

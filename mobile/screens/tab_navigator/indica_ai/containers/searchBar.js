@@ -23,10 +23,10 @@ export class SearchBar extends Component {
   }
 
   // Fucntion responsable to search user's input in the APi
-  // and set the state equal to the result 
+  // and set the state equal to the result
   search = name => {
     if(name.length !== 0) {
-      const url = `https://indicaai.herokuapp.com/locals/name/${name}`
+      const url = `${process.env.INDICA_AI_API}/locals/name/${name}`
       fetch( url, {
         method: "GET",
         headers: {
@@ -41,6 +41,21 @@ export class SearchBar extends Component {
         .catch(error => {
           console.log(error);
         });
+    } else {
+      const url = fetch(`https://dev-indicaai.herokuapp.com/locals/`, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "aplication/json"
+        }
+      })
+      .then(response => response.json())
+      .then(responseJson => {
+        this.props.searchAction(responseJson)
+      })
+      .catch(error => {
+        console.log(error);
+      });
     }
   };
 

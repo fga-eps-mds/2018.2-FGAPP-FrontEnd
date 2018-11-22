@@ -7,6 +7,12 @@ import LoginScreen from './screens/LoginScreen'
 import SignUpScreen from './screens/SignUpScreen'
 import TabHandler from './screens/TabHandler'
 
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import rootReducers from './screens/tab_navigator/indica_ai/reducers';
+
+const store = createStore(rootReducers)
+
 // Importing config variables
 require('./env-config');
 
@@ -25,7 +31,9 @@ export default class App extends React.Component<{}> {
 
   render() {
     return (
-      < AppStackNavigator/>
+        <Provider store={store}>
+            < AppStackNavigator/>
+       </Provider>
     );
   }
 }
