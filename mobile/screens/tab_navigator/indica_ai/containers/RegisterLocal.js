@@ -171,7 +171,6 @@ constructor(props){
      }
    };
    _updateFunction = () => {
-    alert("CHAMA NO UPDATE 2");
     fetch(`${process.env.INDICA_AI_API}/locals/`, {
      method: "GET",
      headers: {
@@ -181,7 +180,6 @@ constructor(props){
    })
    .then(response => response.json())
    .then(responseJson => {
-     alert("SOU UM JSON =)");
      this.props.searchAction(responseJson)
    })
    .catch(error => {

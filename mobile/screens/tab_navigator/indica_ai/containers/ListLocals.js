@@ -48,6 +48,8 @@ class ListLocals extends Component {
     }
 
     render() {
+        console.log("OLHA O PROPSSS!!")
+        console.log(this.props)
         const { locals } = this.state
 
         if(locals.length == 0) {
@@ -65,15 +67,7 @@ class ListLocals extends Component {
             {locals.map( local =>
               local.publicity == 'true' ?
                 <Publicity
-
-                  name = {local.name}
-                  address = {local.address}
-                  image = {local.local_images}
-                  onPress={() => {
-                    this.props.navigation.navigate('LocalDetails',{
-                      local: local
-                    });
-                  }}
+                  local = {local}
                   key={local.id}
                 />
                 :
