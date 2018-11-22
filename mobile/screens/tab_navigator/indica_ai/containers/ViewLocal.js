@@ -23,7 +23,6 @@ import FlashMessage from "react-native-flash-message";
 import AddImages from "./AddImages";
 import Direction from "./Direction";
 import Swiper from "react-native-swiper";
-import jwt_decode from 'jwt-decode';
 
 width = Dimensions.get('window').width;
 
