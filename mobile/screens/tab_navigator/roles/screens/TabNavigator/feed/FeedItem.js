@@ -16,14 +16,13 @@ import React, { Component } from "react";
 import { StyleSheet, Image, View, TouchableOpacity } from "react-native";
 import { withNavigation } from "react-navigation";
 import LikeButton from "./components/LikeButton";
-import * as helpers from '../../../utils/helpers'
+import * as helpers from "../../../utils/helpers";
 
 const noPic = require("../../../static/noPic.png");
 
 class FeedItem extends Component {
-
 	render() {
-    const uri = this.props.imgRole;
+		const uri = this.props.imgRole;
 		return (
 			<Card style={styles.mb}>
 				<TouchableOpacity
@@ -32,7 +31,7 @@ class FeedItem extends Component {
 							"Profile -> " + this.props.nomeRole + "/" + this.props.idRole
 						);
 						this.props.navigation.navigate("Profile", {
-              idRole: this.props.idRole,
+							idRole: this.props.idRole
 						});
 					}}
 				>
@@ -97,22 +96,25 @@ class FeedItem extends Component {
 							console.log("Likes -> " + this.props.nomeRole);
 						}}
 					>
-						<LikeButton />
-						<Text>Likes</Text>
+						<LikeButton likeText="LIKE" />
 					</Button>
 
 					<Button
+						style={{ paddingLeft: "20%" }}
 						transparent
 						onPress={() => {
 							this.props.navigation.navigate("Comments", {
-                idRole: this.props.idRole,
-                eventName: this.props.nomeRole
+								idRole: this.props.idRole,
+								eventName: this.props.nomeRole
 							});
 						}}
 					>
-						<Icon active name="chatbubbles" />
-
-						<Text style={{ textAlign: "center" }}>Comentários</Text>
+						<Icon active name="chatbubbles" style={{ color: "gray" }} />
+						<Text
+							style={{ textAlign: "center", color: "gray", fontWeight: "bold" }}
+						>
+							Comentários
+						</Text>
 					</Button>
 				</CardItem>
 			</Card>
