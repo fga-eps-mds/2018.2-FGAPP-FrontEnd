@@ -46,20 +46,6 @@ export default class RegisterAPIForm extends Component {
 
     return (
       <Container style={styles.container}>
-          {days.map( day =>
-            <View style={styles.hours}>
-              <HoursSelect
-                option='Abre'
-                takeOpeningHours={this.props.takeOpeningHours}
-                key={day}
-              />
-              <HoursSelect
-                option='Fecha'
-                takeOpeningHours={this.props.takeOpeningHours}
-                key={day}
-              />
-            </View>
-          )}
         <CategorySelect
           setSelectedCategories={this.props.setSelectedCategories}
         />
@@ -76,6 +62,15 @@ export default class RegisterAPIForm extends Component {
           bordered
           placeholder="Descrição"
           onChangeText={(description) => this.setState({ description })} />
+        <View style={styles.hours}>
+        {days.map( day =>
+          <HoursSelect
+          option='Abre'
+          takeOpeningHours={this.props.takeOpeningHours}
+          key={day}
+          />
+        )}
+        </View>
         <View style={styles.button}>
           <Button block info onPress={
             () => {
@@ -109,10 +104,9 @@ const styles = StyleSheet.create({
     position: 'absolute',
     backgroundColor: "white",
     padding: 20,
-    top: 0,
-    bottom: 0,
     left: 0,
     right: 0,
+    flex: 1
   },
   pickerForm: {
     top: 65,
@@ -122,6 +116,6 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   hours: {
-    flexDirection: 'column'
+    flexDirection: 'row'
   }
 });
