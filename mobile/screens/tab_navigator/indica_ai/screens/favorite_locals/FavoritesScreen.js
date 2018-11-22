@@ -11,7 +11,6 @@ class FavoritesScreen extends Component {
   render() {
     const { state } = this.props.navigation;
     var token = state.params ? state.params.token : undefined;
-    alert(token)
       return (
           <View style={styles.container}>
           </View>

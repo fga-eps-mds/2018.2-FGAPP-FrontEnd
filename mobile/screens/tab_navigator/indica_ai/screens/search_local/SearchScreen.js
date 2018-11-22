@@ -4,7 +4,6 @@ import {
   StyleSheet
 } from "react-native";
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { authAction } from '../../actions';
 import SearchBar from "../../containers/searchBar";
 import ListLocals from '../../containers/ListLocals';
