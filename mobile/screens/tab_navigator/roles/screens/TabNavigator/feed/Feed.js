@@ -47,17 +47,17 @@ class Feed extends Component {
                 resJson = resJson.filter(role => {
                     const { hasPassed, formatDate } = helpers;
                     if (hasPassed(formatDate(role.eventDate).formatted)) {
-                        console.log(
-                            role.eventName + ':\t',
-                            helpers.formatDate(role.eventDate).formatted,
-                            '\tEVENTO PASSADO!'
-                        );
+                        // console.log(
+                        //     role.eventName + ':\t',
+                        //     helpers.formatDate(role.eventDate).formatted,
+                        //     '\tEVENTO PASSADO!'
+                        // );
                     } else {
-                        console.log(
-                            role.eventName + ':\t',
-                            helpers.formatDate(role.eventDate).formatted,
-                            '\tEVENTO FUTURO!'
-                        );
+                        // console.log(
+                        //     role.eventName + ':\t',
+                        //     helpers.formatDate(role.eventDate).formatted,
+                        //     '\tEVENTO FUTURO!'
+                        // );
                         return role;
                     }
                 });

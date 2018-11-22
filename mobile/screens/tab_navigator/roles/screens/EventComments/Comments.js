@@ -5,7 +5,8 @@ import {
     Text,
     ScrollView,
     RefreshControl,
-    ActivityIndicator
+    ActivityIndicator,
+    ToastAndroid
 } from 'react-native';
 
 import CommentItem from './components/CommentItem';
@@ -45,17 +46,36 @@ class Comments extends Component {
             });
     };
 
-    _teste = (comment) => {
-      console.log('DEBUG',comment)
-    }
-
     componentDidMount() {
         this._getComments();
     }
 
+    _deleteComment(id) {
+        return fetch(
+            'http://roles-comments.herokuapp.com/comment/' + id + '/',
+            {
+                method: 'delete'
+            }
+        )
+            .then(res => {
+                if (res.ok) {
+                    ToastAndroid.show(
+                        'Comentário apagado!',
+                        ToastAndroid.SHORT
+                    );
+                    this._getComments();
+                    return res;
+                } else {
+                    Promise.reject();
+                }
+            })
+            .catch(() => {
+                Alert.alert('ERRO', 'Houve um erro ao deletar comentário!');
+            });
+    }
+
     render() {
         const { params } = this.props.navigation.state;
-        let answers
         if (this.state.loading) {
             return (
                 <View
@@ -94,23 +114,29 @@ class Comments extends Component {
                             {comment.answerId === 0 && (
                                 <View>
                                     <CommentItem
-                                        idComment={comment.id}
+                                        id={comment.id}
                                         author={comment.author}
                                         text={comment.text}
                                         postDate={comment.created}
                                         modifyDate={comment.edited}
+                                        onDelete={id => this._deleteComment(id)}
                                     />
-                                    {this.state.comments.map( (answer, indexAnswer) => (
-                                      comment.id == answer.answerId && (
-                                        <CommentAnswer 
-                                          key={indexAnswer}
-                                          author={answer.author}
-                                          text={answer.text}
-                                          postDate={answer.created}
-                                          modifyDate={answer.edited}
-                                        />
-                                      )
-                                    ))}
+                                    {this.state.comments.map(
+                                        (answer, indexAnswer) =>
+                                            comment.id == answer.answerId && (
+                                                <CommentAnswer
+                                                    key={indexAnswer}
+                                                    id={answer.id}
+                                                    author={answer.author}
+                                                    text={answer.text}
+                                                    postDate={answer.created}
+                                                    modifyDate={answer.edited}
+                                                    onDelete={id =>
+                                                        this._deleteComment(id)
+                                                    }
+                                                />
+                                            )
+                                    )}
                                     <Divider size="80%" />
                                 </View>
                             )}

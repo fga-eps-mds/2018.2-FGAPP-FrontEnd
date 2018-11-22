@@ -52,8 +52,6 @@ export default class CommentInput extends Component {
                 author,
                 text,
                 edited,
-                responseStatus,
-                responseOk
             } = this.state;
 
             fetch('http://roles-comments.herokuapp.com/comment/', {
@@ -78,21 +76,21 @@ export default class CommentInput extends Component {
                     response.json();
                 })
                 .then(responseJson => {
-                    console.log(
-                        `ResponseOk: ${responseOk}  //  Status: ${responseStatus}`
-                    );
+                    // console.log(
+                    //     `ResponseOk: ${responseOk}  //  Status: ${responseStatus}`
+                    // );
                     if (
                         this.state.responseStatus >= 200 &&
                         this.state.responseStatus <= 202 &&
                         this.state.responseOk
                     ) {
-                        console.log(
-                            'Comentário postado com sucesso!\n',
-                            responseJson
-                        );
+                        // console.log(
+                        //     'Comentário postado com sucesso!\n',
+                        //     responseJson
+                        // );
                         ToastAndroid.show(
                             'Comentário postado com sucesso!',
-                            ToastAndroid.LONG
+                            ToastAndroid.SHORT
                         );
                         this._textArea.clear();
                         this.props.onSubmit();
