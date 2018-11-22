@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import OrderCard from '../../components/OrderCard'
 import BuyerOrderCard from '../../components/BuyerOrderCard'
+import OrderHeader from '../../components/OrderHeader'
 import jwt_decode from 'jwt-decode'
 
 class OrderedProducts extends Component {
@@ -21,6 +22,8 @@ class OrderedProducts extends Component {
           orders: [''],
           buyer_orders: [''],
           refreshing: false,
+          my_order_message: 'Meus pedidos',
+          received_order_message: 'Pedidos recebidos',
       };
     }
     componentDidMount(){
@@ -47,6 +50,12 @@ class OrderedProducts extends Component {
       .then((response) => response.json())
       .then((responseJson) => {
           console.log(responseJson);
+          if (responseJson.length == 0) {
+            this.setState({ received_order_message: 'Você não recebeu pedidos' });
+          }
+          else {
+            this.setState({ received_order_message: 'Pedidos recebidos' });
+          }
           if (responseJson.length > 1) {
             responseJson.sort((order1, order2) => {
               return (order1.date - order2.date);
@@ -73,6 +82,12 @@ class OrderedProducts extends Component {
       .then((response) => response.json())
       .then((responseJson) => {
           console.log(responseJson);
+          if (responseJson.length == 0) {
+            this.setState({ my_order_message: 'Você não fez pedidos' });
+          }
+          else {
+            this.setState({ my_order_message: 'Meus pedidos' });
+          }
           if (responseJson.length > 1) {
             responseJson.sort((order1, order2) => {
               return (order1.date - order2.date);
@@ -108,6 +123,9 @@ class OrderedProducts extends Component {
                         />
                     }
                 >
+                <OrderHeader
+                  message = {this.state.my_order_message}
+                />
                 {this.state.buyer_orders.map((buyer_order, index) => {
                     return (
                       <BuyerOrderCard
@@ -121,7 +139,9 @@ class OrderedProducts extends Component {
                       />
                     );
                 })}
-
+                <OrderHeader
+                  message = {this.state.received_order_message}
+                />
                 {this.state.orders.map((order, index) => {
                     return (
                       <OrderCard

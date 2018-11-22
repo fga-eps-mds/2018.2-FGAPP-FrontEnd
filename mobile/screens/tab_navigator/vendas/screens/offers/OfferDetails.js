@@ -148,6 +148,7 @@ class FormPicker extends Component {
         Alert.alert(responseJson.error);
       else
         Alert.alert('Compra realizada com sucesso');
+        this.props.navigation.navigate('Offers', {token:token})
      })
 
      .catch( err => {
