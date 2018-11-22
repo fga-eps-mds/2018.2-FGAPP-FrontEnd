@@ -5,12 +5,18 @@ import {
 } from "react-native";
 import { Spinner } from 'native-base';
 import { connect } from 'react-redux';
+import { authAction } from '../../actions'
 import SearchBar from "../../containers/searchBar";
-import ListLocals from '../../containers/ListLocals'
+import ListLocals from '../../containers/ListLocals';
+import { bindActionCreators } from 'redux';
 
 
 class SearchScreen extends Component {
-
+ componentDidMount(){
+   const { state } = this.props.navigation;
+   var token = state.params ? state.params.token : undefined;
+   this.props.authAction(token)
+ }
   render() {
       return (
           <View style={styles.container}>
@@ -21,7 +27,16 @@ class SearchScreen extends Component {
   }
 }
 
-export default SearchScreen;
+const mapStateToProps = store => ({
+    locals: store.authReducer.token
+})
+
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({ authAction }, dispatch)
+)
+
+export default connect(mapStateToProps,
+  mapDispatchToProps)(SearchScreen);
 
 const styles = StyleSheet.create({
 
