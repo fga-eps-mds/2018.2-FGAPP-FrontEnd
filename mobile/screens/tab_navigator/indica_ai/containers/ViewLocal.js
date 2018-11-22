@@ -16,7 +16,6 @@ import {
 import LocalMap from "../components/LocalMap.js";
 import { Dimensions } from "react-native";
 import { withNavigation } from 'react-navigation';
-import { connect } from 'react-redux';
 import OpeningHoursPanel from '../components/OpeningHoursPanel';
 import FavoriteContainer from "./FavoriteContainer";
 import { showMessage, hideMessage } from "react-native-flash-message";
@@ -297,16 +296,7 @@ class ViewLocal extends Component {
 
 }
 
-const mapStateToProps = store => ({
-  token: store.authReducer.token
-})
-
-const mapDispatchToProps = dispatch => ({})
-
-export default withNavigation(connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ViewLocal));
+export default withNavigation(ViewLocal);
 
 const styles = StyleSheet.create({
   container: {
