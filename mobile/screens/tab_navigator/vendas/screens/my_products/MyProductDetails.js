@@ -8,7 +8,10 @@ import {
     StyleSheet,
     Text,
     Keyboard,
-    Animated
+    TouchableOpacity,
+    Animated,
+    ImageBackground,
+    Image
 } from 'react-native';
 import ProductImage from '../../components/ProductImage';
 import { Textarea, Form, Item, Input, Label, Button } from 'native-base';
@@ -38,29 +41,54 @@ class MyProductDetails extends Component {
       this.setState({ isDialogVisible: false })
     }
 
+    _clickPhoto = async () => {
+      const {
+        cancelled,
+        uri,
+      } = await Expo.ImagePicker.launchImageLibraryAsync({
+        allowsEditing: true,
+        mediaTypes: 'Images',
+        quality: 0.7,
+        base64: true
+      });
+  
+      if (!cancelled) {
+        this.setState({ photo: uri });
+      }
+    }
+
     editProduct = async () => {
       const {state} = this.props.navigation;
       var token = state.params ? state.params.token : undefined;
       var product = state.params ? state.params.product : undefined;
 
-      var name = this.state.name ? this.state.name : product.name;
-      var price = this.state.price ? this.state.price : product.price;
-      var description = this.state.description ? this.state.name : product.description;
+      const formData = new FormData();
+      formData.append('product_id', product.id);
+      formData.append('name', (this.state.name ? this.state.name : product.name));
+      formData.append('price', (this.state.price ? this.state.price : product.price));
+      formData.append('description', (this.state.description ? this.state.description : product.description));
+      formData.append('token', token);
 
+      var uri = this.state.photo;
+      if (uri != null) {
+        const uriParts = uri.split('.');
+        const fileType = uriParts[uriParts.length - 1];
+
+        formData.append('photo', {
+          uri: uri,
+          name: `photo.${fileType}`,
+          type: `application/${fileType}`,
+        });
+      }
       const edit_product_path = `${process.env.VENDAS_API}/api/edit_product/`;
+
       fetch(edit_product_path, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Content-Type': 'multipart/form-data',
         },
-        body: JSON.stringify({
-            'product_id': product.id,
-            'price': price,
-            'name': name,
-            'description': description,
-            'photo': product.photo, // <- Need atention later
-            'token':token,
-        }),
+        body: formData,
       })
       .then((response) => {
         return response.json();
@@ -121,6 +149,9 @@ class MyProductDetails extends Component {
         var token = state.params ? state.params.token : undefined;
         var product = state.params ? state.params.product : undefined;
 
+        const editableIcon = require('../../assets/editableIcon.png');
+        var photo = (this.state.photo == null) ? product.photo : this.state.photo;
+
         return (
             <Animated.View style={[styles.container, { paddingBottom: this.keyboardHeight }]}>
               <ErrorDialog
@@ -128,7 +159,16 @@ class MyProductDetails extends Component {
                   isDialogVisible={this.state.isDialogVisible}
                   backButton = {this.closeDialog}
               />
-              <Animated.Image source={{ uri: 'http://www.piniswiss.com/wp-content/uploads/2013/05/image-not-found-4a963b95bf081c3ea02923dceaeb3f8085e1a654fc54840aac61a57a60903fef-300x199.png' }} style={[styles.logo, { height: this.imageHeight, width: '100%' }]} />
+              <TouchableOpacity onPress={this._clickPhoto}>
+                <Animated.Image
+                  source={{ uri: photo }}
+                  style={{ height: this.imageHeight, width: '100%' }}
+                />
+                <Animated.Image
+                  source={editableIcon}
+                  style={{ position: 'absolute', left: '90%', top: '5%' }}
+                />
+              </TouchableOpacity>
               <Form style={styles.description}>
                 <Item floatingLabel>
                   <Label>Nome atual: {product.name}</Label>
