@@ -48,7 +48,6 @@ class RegisterLocalAPI extends Component {
         body: jsonTest,
       })
       const jsonResponse = await response.json()
-      console.log(jsonResponse);
       if (jsonResponse['status'] === "SUCCESS") {
         this.setState({ requestStatus: "SUCCESS" })
         this.setState({
@@ -122,6 +121,7 @@ class RegisterLocalAPI extends Component {
     );
   }
 }
+
 const mapDispatchToProps = dispatch => (
   bindActionCreators({ searchAction }, dispatch)
 )
