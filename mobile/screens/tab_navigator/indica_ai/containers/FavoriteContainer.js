@@ -27,7 +27,7 @@ state  = {
         },
         body: JSON.stringify({
           user_identifier: user_id,
-          local_id: null
+          local_id: local_id
 
         })
       })
