@@ -6,7 +6,8 @@ import {
   Image,
   ScrollView,
   TextInput,
-  Alert
+  Alert,
+  TouchableOpacity
 } from "react-native";
 import {
   Container,
@@ -31,6 +32,7 @@ export default class RegisterAPIForm extends Component {
       selected: undefined,
       name: null,
       description: null,
+      eachDay: false,
     };
   }
 
@@ -41,9 +43,6 @@ export default class RegisterAPIForm extends Component {
   }
 
   render() {
-
-    const days = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'];
-
     return (
       <Container style={styles.container}>
         <CategorySelect
@@ -62,15 +61,15 @@ export default class RegisterAPIForm extends Component {
           bordered
           placeholder="Descrição"
           onChangeText={(description) => this.setState({ description })} />
-        <View style={styles.hours}>
-        {days.map( day =>
-          <HoursSelect
-          option='Abre'
-          takeOpeningHours={this.props.takeOpeningHours}
-          key={day}
-          />
-        )}
+
+        <View style={styles.hoursForm}>
+          <TouchableOpacity onPress={() => {this.setState({eachDay: true})}}>
+            <Text style={{borderWidth: 1}}>Para cada dia</Text>
+          </TouchableOpacity>
         </View>
+
+        {this.state.eachDay ? this.displayHoursEachDay() : null}
+
         <View style={styles.button}>
           <Button block info onPress={
             () => {
@@ -89,12 +88,53 @@ export default class RegisterAPIForm extends Component {
             }
 
           }>
-            <Text style={{ color: "white" }}>Confirmar</Text>
+          <Text style={{ color: "white" }}>Confirmar</Text>
           </Button>
         </View>
       </Container>
     );
 
+  }
+
+  displayHoursEachDay() {
+
+    const days = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'];
+    const day = [0, 1, 2, 3, 4, 5, 6];
+
+    return(
+      <View style={{top: 20}}>
+        <View style={styles.hoursForm}>
+          {days.map( day =>
+            <View style={styles.dayBorder}>
+              <Text
+                style={styles.day}
+                key={day}
+              >
+                {day}
+              </Text>
+            </View>
+          )}
+        </View>
+        <View style={styles.hoursForm}>
+          {day.map( day =>
+            <HoursSelect
+              option='Abre'
+              takeOpeningHours={this.props.takeOpeningHours}
+              key={day}
+            />
+          )}
+        </View>
+        <View style={styles.hoursForm}>
+          {day.map( day =>
+            <HoursSelect
+              option='Fecha'
+              takeOpeningHours={this.props.takeOpeningHours}
+              key={day}
+            />
+          )}
+        </View>
+      </View>
+    );
   }
 
 }
@@ -113,9 +153,20 @@ const styles = StyleSheet.create({
     marginBottom: 74
   },
   button: {
+    top: 20,
     padding: 10,
   },
-  hours: {
+  hoursForm: {
+    top: 20,
     flexDirection: 'row'
+  },
+  dayBorder: {
+    borderWidth: 1,
+    flex: 1
+  },
+  day: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    textAlign: 'center'
   }
 });

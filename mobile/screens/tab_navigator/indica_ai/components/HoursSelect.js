@@ -23,6 +23,15 @@ export default class HoursSelect extends Component {
         mode="time"
         showIcon={false}
         placeholder={this.state.sla}
+        customStyles={{
+          placeholderText: {
+            color: 'black'
+          },
+          dateInput:{
+            borderWidth: 0.2,
+            borderColor: 'black'
+          }
+        }}
         confirmBtnText="Confirm"
         cancelBtnText="Cancel"
         onDateChange={(date) => this.selectOpeningHours(date)}
