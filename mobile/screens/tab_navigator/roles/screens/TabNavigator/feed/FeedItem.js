@@ -16,22 +16,14 @@ import React, { Component } from "react";
 import { StyleSheet, Image, View, TouchableOpacity } from "react-native";
 import { withNavigation } from "react-navigation";
 import LikeButton from "./components/LikeButton";
+import * as helpers from '../../../utils/helpers'
 
 const noPic = require("../../../static/noPic.png");
 
 class FeedItem extends Component {
-	goToComments = () => {
-		this.props.navigate.navigation("Comments");
-	};
 
 	render() {
-		const uri = this.props.imgRole;
-		const dataFormatada =
-			this.props.eventDate.slice(-2) +
-			"/" +
-			this.props.eventDate.slice(5, 7) +
-			"/" +
-			this.props.eventDate.slice(0, 4);
+    const uri = this.props.imgRole;
 		return (
 			<Card style={styles.mb}>
 				<TouchableOpacity
@@ -40,7 +32,7 @@ class FeedItem extends Component {
 							"Profile -> " + this.props.nomeRole + "/" + this.props.idRole
 						);
 						this.props.navigation.navigate("Profile", {
-							idRole: this.props.idRole
+              idRole: this.props.idRole,
 						});
 					}}
 				>
@@ -89,7 +81,7 @@ class FeedItem extends Component {
 											}}
 											note
 										>
-											{dataFormatada}
+											{helpers.formatDate(this.props.eventDate).formatted}
 										</Text>
 									</View>
 								</Body>
@@ -113,7 +105,8 @@ class FeedItem extends Component {
 						transparent
 						onPress={() => {
 							this.props.navigation.navigate("Comments", {
-								idRole: this.props.idRole
+                idRole: this.props.idRole,
+                eventName: this.props.nomeRole
 							});
 						}}
 					>

@@ -16,6 +16,14 @@ export function formatDate (eventDate){
   };
 };
 
+export function datetimeParser (datetime){
+  let year = formatDate(datetime).year
+  let month = formatDate(datetime).month
+  let day = datetime.slice(8,10)
+  let time = datetime.slice(11,16)
+  return `${day}/${month}/${year} às ${time}`;
+}
+
 export function hasPassed(data){
   let today = moment();
   let date = moment(data, "DD/MM/YYYY");
