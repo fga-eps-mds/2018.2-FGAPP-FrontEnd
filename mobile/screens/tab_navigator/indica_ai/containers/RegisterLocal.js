@@ -73,7 +73,7 @@ constructor(props){
      try{
        const response = await fetch('https://maps.googleapis.com/maps/api/geocode/json?latlng='
                             + String(latitude) + ',' + String(longitude)
-                            + '&key=AIzaSyBM9WYVio--JddgNX3TTF6flEhubkpjJYc');
+                            + `&key=${process.env.GOOGLE_MAPS_KEY}`);
        if(response.ok){
          const jsonResponse = await response.json();
          this.setState({ jsonResponse });
@@ -88,7 +88,9 @@ constructor(props){
 
    _getNewDataAsync = async (latitude, longitude) => {
     try{
-      const response = await fetch('https://maps.googleapis.com/maps/api/geocode/json?latlng='+String(latitude)+','+String(longitude)+'&key=AIzaSyBM9WYVio--JddgNX3TTF6flEhubkpjJYc');
+      const response = await fetch('https://maps.googleapis.com/maps/api/geocode/json?latlng='
+                           + String(latitude) + ',' + String(longitude)
+                           + `&key=${process.env.GOOGLE_MAPS_KEY}`);
       if(response.ok){
         const jsonResponse = await response.json();
         this.setState({ jsonResponse });
@@ -118,7 +120,7 @@ constructor(props){
        const response = await fetch('https://maps.googleapis.com/maps/api/place/details/json?placeid='+
                                     place_id+
                                     '&fields=opening_hours,formatted_address,name,rating,formatted_phone_number,'
-                                     +'photo,rating,geometry,reviews&key=AIzaSyBM9WYVio--JddgNX3TTF6flEhubkpjJYc')
+                                     +'photo,rating,geometry,reviews' + `&key=${process.env.GOOGLE_MAPS_KEY}`);
        if(response.ok){
          const jsonDetails = await response.json();
          this.setState({jsonDetails});
