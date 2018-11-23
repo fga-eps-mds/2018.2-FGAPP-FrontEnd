@@ -6,14 +6,17 @@ export default class HoursSelect extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      sla: this.props.option,
-      takeOpeningHours: props.takeOpeningHours
+      option: this.props.option
     };
   }
 
   selectOpeningHours = (time) => {
-    this.props.takeOpeningHours(time)
-    this.setState({sla: time})
+    let opens: ''
+    let closes: ''
+
+    this.props.option == 'Abre' ? opens=time : closes=time;
+    this.props.takeOpeningHours(this.props.day, opens, closes)
+    this.setState({option: time})
   }
 
   render() {
@@ -22,7 +25,7 @@ export default class HoursSelect extends Component {
         style={{flex: 1}}
         mode="time"
         showIcon={false}
-        placeholder={this.state.sla}
+        placeholder={this.state.option}
         customStyles={{
           placeholderText: {
             color: 'black'

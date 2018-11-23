@@ -14,7 +14,11 @@ class RegisterLocalAPI extends Component {
     this.state = {
       requestStatus: null,
       selectedCategories: [],
-      local: {}
+      local: {},
+      day: '',
+      opens: '',
+      closes: '',
+      opening_hours: []
     };
   }
 
@@ -59,12 +63,6 @@ class RegisterLocalAPI extends Component {
     }
   }
 
-  takeOpeningHours = (time) => {
-    console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++");
-    console.log(time);
-    //this.setState({ opening_hours: hours })
-  }
-
   takeDataFromTheForm = (name, description) => {
     this._postForm(name, description);
   }
@@ -76,6 +74,28 @@ class RegisterLocalAPI extends Component {
   }
 
   render() {
+
+    let opening_hours = [];
+    let obj = {};
+
+    sla = this.state.opens
+    sla1 = this.state.closes
+
+    takeOpeningHours = (day, opens, closes) => {
+      if(opens) {
+        this.setState({opens})
+      }
+      if(closes) {
+        this.setState({closes})
+      }
+      if(this.state.opens && this.state.closes){
+        obj = {day, sla, sla1}
+        console.log(obj);
+        this.setState({opens: ''})
+        this.setState({closes: ''})
+      }
+    }
+
     if (this.state.requestStatus === "SUCCESS") {
       Alert.alert(
         'Local cadastrado com sucesso!',
@@ -104,7 +124,7 @@ class RegisterLocalAPI extends Component {
       <RegisterAPIForm
         sendDataToTheForm={this.takeDataFromTheForm}
         setSelectedCategories={this.setSelectedCategories}
-        takeOpeningHours={this.takeOpeningHours}
+        takeOpeningHours={takeOpeningHours}
       />
     );
   }

@@ -48,24 +48,14 @@ export default class RegisterAPIForm extends Component {
         <CategorySelect
           setSelectedCategories={this.props.setSelectedCategories}
         />
-        <Item
-          style={styles.pickerForm}
-          regular
-        >
-          <Input placeholder='Nome'
-            onChangeText={(name) => this.setState({ name })}
-          />
-        </Item>
-        <Textarea
-          rowSpan={5}
-          bordered
-          placeholder="Descrição"
-          onChangeText={(description) => this.setState({ description })} />
 
-        <View style={styles.hoursForm}>
+        <View style={styles.hoursOption}>
           <TouchableOpacity onPress={() => {this.setState({eachDay: true})}}>
             <Text style={{borderWidth: 1}}>Para cada dia</Text>
           </TouchableOpacity>
+            <TouchableOpacity>
+              <Text style={{borderWidth: 1}}>Semanal</Text>
+            </TouchableOpacity>
         </View>
 
         {this.state.eachDay ? this.displayHoursEachDay() : null}
@@ -98,38 +88,39 @@ export default class RegisterAPIForm extends Component {
 
   displayHoursEachDay() {
 
-    const days = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'];
-    const day = [0, 1, 2, 3, 4, 5, 6];
+    const days = [{id: 1, day: 'Dom'}, {id: 2, day: 'Seg'}, {id: 3, day: 'Ter'}, {id: 4, day: 'Qua'}, {id: 5, day: 'Qui'}, {id: 6, day: 'Sex'}, {id: 7, day: 'Sab'}];
 
     return(
       <View style={{top: 20}}>
         <View style={styles.hoursForm}>
           {days.map( day =>
-            <View style={styles.dayBorder}>
-              <Text
-                style={styles.day}
-                key={day}
-              >
-                {day}
+            <View
+              style={styles.dayBorder}
+              key={day.id}
+            >
+              <Text style={styles.day}>
+                {day.day}
               </Text>
             </View>
           )}
         </View>
         <View style={styles.hoursForm}>
-          {day.map( day =>
+          {days.map( day =>
             <HoursSelect
               option='Abre'
+              day={day.id}
               takeOpeningHours={this.props.takeOpeningHours}
-              key={day}
+              key={day.id}
             />
           )}
         </View>
         <View style={styles.hoursForm}>
-          {day.map( day =>
+          {days.map( day =>
             <HoursSelect
               option='Fecha'
+              day={day.id}
               takeOpeningHours={this.props.takeOpeningHours}
-              key={day}
+              key={day.id}
             />
           )}
         </View>
@@ -153,8 +144,12 @@ const styles = StyleSheet.create({
     marginBottom: 74
   },
   button: {
-    top: 20,
+    top: 50,
     padding: 10,
+  },
+  hoursOption:{
+    top: 20,
+    flexDirection: 'row'
   },
   hoursForm: {
     top: 20,
