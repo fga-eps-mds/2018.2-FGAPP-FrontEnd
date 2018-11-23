@@ -7,16 +7,12 @@ import {
   StyleSheet
 } from "react-native";
 import { withNavigation, createStackNavigator } from 'react-navigation';
-<<<<<<< HEAD
 import RegisterAPIForm from '../components/RegisterAPIForm';
 import SuccessModal from '../components/SuccessModal';
 import ErrorModal from '../components/ErrorModal';
-=======
-import RegisterAPIForm from '../components/RegisterAPIForm.js'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { searchAction } from '../actions'
->>>>>>> 7048acd38ed6aab3a346ac6284524f6afdaf5c32
 
 class RegisterLocalAPI extends Component {
 
@@ -26,14 +22,11 @@ class RegisterLocalAPI extends Component {
       requestStatus: null,
       selectedCategories: [],
       local: {},
-<<<<<<< HEAD
       successModalVisible: false,
       errorModalVisible: false,
-=======
       open: '',
       close: '',
       opening_hours: []
->>>>>>> 7048acd38ed6aab3a346ac6284524f6afdaf5c32
     };
   }
 
@@ -88,14 +81,12 @@ class RegisterLocalAPI extends Component {
       selectedCategories: selectedCategories
     })
   }
-<<<<<<< HEAD
 
   afterRegister(){
     this.props.navigation.navigate('LocalDetails', {local: this.state.local})
     this.setState({ successModalVisible: false })
   }
 
-=======
   _updateFunction = () => {
     fetch(`${process.env.INDICA_AI_API}/locals/`, {
      method: "GET",
@@ -111,9 +102,8 @@ class RegisterLocalAPI extends Component {
    .catch(error => {
      console.log(error);
    });
- 
+
  }
->>>>>>> 7048acd38ed6aab3a346ac6284524f6afdaf5c32
   render() {
 
     let opening_hours = [];
@@ -162,11 +152,11 @@ class RegisterLocalAPI extends Component {
       this.setState({ errorModalVisible: true })
     }
     return (
-<<<<<<< HEAD
       <View style={styles.container}>
         <RegisterAPIForm
           sendDataToTheForm={this.takeDataFromTheForm}
           setSelectedCategories={this.setSelectedCategories}
+          takeOpeningHours={takeOpeningHours}
         />
         <SuccessModal
           onCancel={() => this.afterRegister}
@@ -179,19 +169,14 @@ class RegisterLocalAPI extends Component {
           message = {"Erro ao cadastrar o local"}
         />
       </View>
-=======
-      <RegisterAPIForm
-        sendDataToTheForm={this.takeDataFromTheForm}
-        setSelectedCategories={this.setSelectedCategories}
-        takeOpeningHours={takeOpeningHours}
-      />
->>>>>>> 7048acd38ed6aab3a346ac6284524f6afdaf5c32
     );
   }
 }
 
-<<<<<<< HEAD
-export default withNavigation(RegisterLocalAPI);
+const mapDispatchToProps = dispatch => (
+  bindActionCreators({ searchAction }, dispatch)
+)
+export default withNavigation(connect( null, mapDispatchToProps )(RegisterLocalAPI));
 
 const styles = StyleSheet.create({
   container: {
@@ -205,12 +190,3 @@ const styles = StyleSheet.create({
     right:0
   }
 });
-=======
-const mapDispatchToProps = dispatch => (
-  bindActionCreators({ searchAction }, dispatch)
-)
-export default withNavigation(connect(
-null,
-mapDispatchToProps
-)(RegisterLocalAPI));
->>>>>>> 7048acd38ed6aab3a346ac6284524f6afdaf5c32

@@ -33,12 +33,9 @@ export default class RegisterAPIForm extends Component {
       selected: undefined,
       name: null,
       description: null,
-<<<<<<< HEAD
-      errorModalVisible: false
-=======
+      errorModalVisible: false,
       eachDay: false,
       week: false
->>>>>>> 7048acd38ed6aab3a346ac6284524f6afdaf5c32
     };
   }
 
