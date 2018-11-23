@@ -20,23 +20,29 @@ import { bindActionCreators } from 'redux';
 import { withNavigation } from 'react-navigation';
 import FavoriteCard from '../components/FavoriteCard';
 import jwt_decode from 'jwt-decode';
-import {favoriteAction} from "../actions"
+import { favoriteAction } from "../actions"
 
 class ListFavorites extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      favorites: props ? props.favorites : [],
+      locals: props ? props.locals : []
+    };
+  }
 
-
-  componentDidMount(){
+  componentWillMount() {
     //fetch na lista de locais favoritos
     this.fetchFavoritesList();
   }
 
 
-  fetchFavoritesList = async() => {
-    const {token} = this.props
+  fetchFavoritesList = async () => {
+    const { token } = this.props
     const user = jwt_decode(token)
     const url = `${process.env.INDICA_AI_API}/users/${user.user_id}/favorites/`
-    
-    try{
+
+    try {
       const response = await fetch(url, {
         method: "GET",
         headers: {
@@ -46,42 +52,58 @@ class ListFavorites extends Component {
       })
       const responseJSON = await response.json();
 
-      if(responseJSON['status'] === "SUCCESS"){
-        //salvando os locais favoritos se o get foi bem sucedido
-        this.props.favoriteAction(responseJSON);
+      if (response.ok) {
+        this.props.favoriteAction(responseJSON["favorites"]);
       }
 
-    }catch(error){
+    } catch (error) {
       console.log(error)
     }
   }
-  render() {
-    return (
-      <ScrollView style={styles.Container}>
-        <FavoriteCard />
-        <FavoriteCard />
-        <FavoriteCard />
-        <FavoriteCard />
-        <FavoriteCard />
-        <FavoriteCard />
-        <FavoriteCard />
-        <FavoriteCard />
-        <FavoriteCard />
-        <FavoriteCard />
-        <FavoriteCard />
-        <FavoriteCard />
-      </ScrollView>
 
-    );
+  componentWillReceiveProps(newProps) {
+    if (newProps.favorites !== undefined) {
+      this.setState({ favorites: newProps.favorites })
+    }
+    if (newProps.locals !== undefined) {
+      this.setState({ locals: newProps.locals })
+    }
+  }
+
+  render() {
+    const { favorites } = this.state
+    const { locals } = this.state
+    // console.log("teste favoritos")
+    // console.log(favorites)
+    // console.log("locais:")
+    // console.log(locals)
+
+    if ((Object.keys(favorites).length === 0)) {
+      return (
+        <Text>Empty</Text>
+      )
+    } else {
+      return (
+        <ScrollView style={styles.Container}>
+          {favorites.map(favorite =>
+            <View key={favorite.id}>
+              <FavoriteCard key={favorite.id} />
+              <Text>{locals[0].id}</Text>
+            </View>
+          )}
+        </ScrollView>
+      );
+    }
   }
 }
 
 const mapStateToProps = store => ({
-  favorites: store.favoriteReducer.favorites
+  favorites: store.favoriteReducer.favorites,
+  locals: store.searchReducer.locals
 })
 
 const mapDispatchToProps = dispatch => (
-  bindActionCreators({favoriteAction}, dispatch)
+  bindActionCreators({ favoriteAction }, dispatch)
 )
 
 export default withNavigation(connect(
