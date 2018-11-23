@@ -26,6 +26,7 @@ class ListFavorites extends Component {
 
 
   componentDidMount(){
+    //fetch na lista de locais favoritos
     this.fetchFavoritesList();
   }
 
@@ -46,6 +47,7 @@ class ListFavorites extends Component {
       const responseJSON = await response.json();
 
       if(responseJSON['status'] === "SUCCESS"){
+        //salvando os locais favoritos se o get foi bem sucedido
         this.props.favoriteAction(responseJSON);
       }
 
