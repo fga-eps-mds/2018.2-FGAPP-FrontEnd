@@ -17,7 +17,13 @@ import Expo from "expo";
 import LocalDetails from "../components/LocalDetails";
 import SuccessModal from '../components/SuccessModal';
 import ErrorModal from '../components/ErrorModal';
+<<<<<<< HEAD
 import { withNavigation, createStackNavigator } from 'react-navigation';
+=======
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { searchAction } from '../actions'
+>>>>>>> 7048acd38ed6aab3a346ac6284524f6afdaf5c32
 
 class RegisterLocal extends Component{
 
@@ -151,7 +157,7 @@ constructor(props){
 
    sendData = async (data) => {
      try{
-       const response = await fetch(`https://indicaai.herokuapp.com/locals`, {
+       const response = await fetch(`${process.env.INDICA_AI_API}/locals/`, {
          method: 'POST',
          headers: {
            Accept: 'application/json',
@@ -162,15 +168,37 @@ constructor(props){
        if(response.ok){
          const jsonResponse = await response.json();
          this.setState({ successModalVisible: true })
+<<<<<<< HEAD
          this.setState({
            local: jsonResponse.data[0]
          })
+=======
+         this._updateFunction();
+>>>>>>> 7048acd38ed6aab3a346ac6284524f6afdaf5c32
        }
      }
      catch(error){
        this.setState({ errorModalVisible: true })
      }
    };
+   _updateFunction = () => {
+    fetch(`${process.env.INDICA_AI_API}/locals/`, {
+     method: "GET",
+     headers: {
+       Accept: "application/json",
+       "Content-Type": "aplication/json"
+     }
+   })
+   .then(response => response.json())
+   .then(responseJson => {
+     this.props.searchAction(responseJson)
+   })
+   .catch(error => {
+     console.log(error);
+   });
+ 
+ }
+ 
 
    afterRegister() {
      this.setState({ successModalVisible: false });
@@ -250,7 +278,17 @@ constructor(props){
   }
 }
 
+<<<<<<< HEAD
 export default withNavigation(RegisterLocal);
+=======
+const mapDispatchToProps = dispatch => (
+  bindActionCreators({ searchAction }, dispatch)
+)
+export default connect(
+null,
+mapDispatchToProps
+)(RegisterLocal);
+>>>>>>> 7048acd38ed6aab3a346ac6284524f6afdaf5c32
 
 const styles = StyleSheet.create({
   container: {

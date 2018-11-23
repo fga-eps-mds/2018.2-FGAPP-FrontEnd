@@ -1,8 +1,12 @@
-const authReducer = (state = '', action) => {
+const INITIAL_STATE = {
+  token: '',
+}
+
+const authReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
       case 'GET_TOKEN':
         return {
-          state,
+          ...state,
           token: action.token
         }
 

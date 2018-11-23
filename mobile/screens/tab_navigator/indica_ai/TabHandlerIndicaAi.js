@@ -9,7 +9,7 @@ const TabHandlerIndicaAI = new TabNavigator({
     screen: SearchTab,
     navigationOptions: {
         tabBarLabel: 'Buscar Local',
-        title: ''
+        title: 'Buscar Local'
     }
   },
   RegisterTab : {

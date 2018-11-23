@@ -5,27 +5,25 @@ import {
   TouchableOpacity,
   ImageBackground
 } from 'react-native';
-import { Card, CardItem } from 'native-base'
+import { Card, CardItem } from 'native-base';
+import { withNavigation } from 'react-navigation';
 
 
-export default class Local extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      onPress: props.onPress,
-    }
-  }
+ class Local extends Component {
+
   render() {
-
-    const name = this.props.name;
-    const address = this.props.address;
-    const image  = (this.props.image.length !== 0) ?
-      {uri: "data:image/jpg;base64," + this.props.image[this.props.image.length - 1]["image"]}
+    const {name, address , local_images} = this.props.local 
+    const image  = (local_images.length !== 0) ?
+      {uri: "data:image/jpg;base64," + local_images[local_images.length - 1]["image"]}
       :require('../assets/IntegraApps_icon.png')
 
 
     return(
-      <TouchableOpacity onPress={() => this.state.onPress()}>
+      <TouchableOpacity onPress={() => {
+        this.props.navigation.navigate('LocalDetails',{
+          local: this.props.local
+        });
+      }}>
         <Card style={styles.localCard}>
 
          <CardItem header bordered>
@@ -50,6 +48,7 @@ export default class Local extends Component {
   }
 }
 
+export default withNavigation(Local);
 
 const styles = StyleSheet.create({
 
