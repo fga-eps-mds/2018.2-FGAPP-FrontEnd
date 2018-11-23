@@ -113,8 +113,6 @@ class FavoriteContainer extends React.Component {
     }
   }
   render(){
-    console.log("FAVS")
-    console.log(this.props.favorites)
     const {favorites, local_id} = this.state
     return(
       <View>
@@ -125,7 +123,7 @@ class FavoriteContainer extends React.Component {
         <ErrorModal
         onCancel={() => this.setState({ errorModalVisible: false })}
         visible={this.state.errorModalVisible}
-        message="Ocorreu um erro"
+        message="Ocorreu um erro, tente novamente mais tarde"
       />
       </View>
     )
