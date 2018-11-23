@@ -88,7 +88,6 @@ class ListFavorites extends Component {
           {favorites.map(favorite =>
             <View key={favorite.id}>
               <FavoriteCard key={favorite.id} />
-              <Text>{locals[0].id}</Text>
             </View>
           )}
         </ScrollView>

@@ -11,7 +11,7 @@ const w = Dimensions.get("window");
 import FavoriteContainer from "../containers/FavoriteContainer"
 export default class App extends React.Component {
   state = {
-    liked: false,
+    liked: this.props.liked,
   };
 
 
