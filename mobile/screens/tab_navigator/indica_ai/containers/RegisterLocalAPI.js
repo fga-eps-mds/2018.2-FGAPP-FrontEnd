@@ -6,6 +6,9 @@ import {
 } from "react-native";
 import { withNavigation, createStackNavigator } from 'react-navigation';
 import RegisterAPIForm from '../components/RegisterAPIForm.js'
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { searchAction } from '../actions'
 
 class RegisterLocalAPI extends Component {
 
@@ -50,6 +53,7 @@ class RegisterLocalAPI extends Component {
         this.setState({
           local: jsonResponse["data"][0]
         })
+        this._updateFunction();
       } else {
         this.setState({ requestStatus: "FAILED" })
       }
@@ -67,7 +71,23 @@ class RegisterLocalAPI extends Component {
       selectedCategories: selectedCategories
     })
   }
-
+  _updateFunction = () => {
+    fetch(`${process.env.INDICA_AI_API}/locals/`, {
+     method: "GET",
+     headers: {
+       Accept: "application/json",
+       "Content-Type": "aplication/json"
+     }
+   })
+   .then(response => response.json())
+   .then(responseJson => {
+     this.props.searchAction(responseJson)
+   })
+   .catch(error => {
+     console.log(error);
+   });
+ 
+ }
   render() {
     if (this.state.requestStatus === "SUCCESS") {
       Alert.alert(
@@ -102,4 +122,10 @@ class RegisterLocalAPI extends Component {
   }
 }
 
-export default withNavigation(RegisterLocalAPI);
+const mapDispatchToProps = dispatch => (
+  bindActionCreators({ searchAction }, dispatch)
+)
+export default withNavigation(connect(
+null,
+mapDispatchToProps
+)(RegisterLocalAPI));

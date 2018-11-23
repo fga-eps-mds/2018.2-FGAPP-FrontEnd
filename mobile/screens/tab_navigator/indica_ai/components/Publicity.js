@@ -6,8 +6,8 @@ import {
   ImageBackground
 } from 'react-native';
 import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right, Row } from 'native-base';
-
-export default class Publicity extends Component {
+import { withNavigation } from 'react-navigation';
+class Publicity extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -17,15 +17,17 @@ export default class Publicity extends Component {
 
   render() {
 
-  const name = this.props.name;
-  const address = this.props.address;
-  const rating = this.props.rating;
-  const image  = (this.props.image.length !== 0) ?
-    {uri: "data:image/jpg;base64," + this.props.image[this.props.image.length - 1]["image"]}
-    :require('../assets/IntegraApps_icon.png')
+    const {name, address , local_images} = this.props.local 
+    const image  = (local_images.length !== 0) ?
+      {uri: "data:image/jpg;base64," + local_images[local_images.length - 1]["image"]}
+      :require('../assets/IntegraApps_icon.png')
 
     return (
-      <TouchableOpacity onPress={() => this.state.onPress()}>
+      <TouchableOpacity onPress={() => {
+        this.props.navigation.navigate('LocalDetails',{
+          local: this.props.local
+        });
+      }}>
         <Card>
           <CardItem cardBody style={{paddingHorizontal: 5, paddingTop: 5}}>
             <ImageBackground source={image} style={{height: 200, width: null, flex: 1}}>
@@ -51,7 +53,7 @@ export default class Publicity extends Component {
   }
 }
 
-
+export default withNavigation(Publicity);
 const styles = StyleSheet.create({
 
   localAnuncio: {

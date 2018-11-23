@@ -17,6 +17,9 @@ import Expo from "expo";
 import LocalDetails from "../components/LocalDetails";
 import SuccessModal from '../components/SuccessModal';
 import ErrorModal from '../components/ErrorModal';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { searchAction } from '../actions'
 
 class RegisterLocal extends Component{
 
@@ -160,12 +163,31 @@ constructor(props){
        if(response.ok){
          const jsonResponse = await response.json();
          this.setState({ successModalVisible: true })
+         this._updateFunction();
        }
      }
      catch(error){
        this.setState({ errorModalVisible: true })
      }
    };
+   _updateFunction = () => {
+    fetch(`${process.env.INDICA_AI_API}/locals/`, {
+     method: "GET",
+     headers: {
+       Accept: "application/json",
+       "Content-Type": "aplication/json"
+     }
+   })
+   .then(response => response.json())
+   .then(responseJson => {
+     this.props.searchAction(responseJson)
+   })
+   .catch(error => {
+     console.log(error);
+   });
+ 
+ }
+ 
 
   render() {
 
@@ -240,7 +262,13 @@ constructor(props){
   }
 }
 
-export default RegisterLocal;
+const mapDispatchToProps = dispatch => (
+  bindActionCreators({ searchAction }, dispatch)
+)
+export default connect(
+null,
+mapDispatchToProps
+)(RegisterLocal);
 
 const styles = StyleSheet.create({
   container: {
