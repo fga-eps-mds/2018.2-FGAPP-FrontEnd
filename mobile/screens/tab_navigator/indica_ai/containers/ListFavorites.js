@@ -19,8 +19,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withNavigation } from 'react-navigation';
 import FavoriteCard from '../components/FavoriteCard';
+import IconMessage from "../components/IconMessage";
 import jwt_decode from 'jwt-decode';
-import { favoriteAction } from "../actions"
+import { favoriteAction } from "../actions";
 
 class ListFavorites extends Component {
   constructor(props) {
@@ -73,33 +74,36 @@ class ListFavorites extends Component {
   render() {
     const { favorites } = this.state
     const { locals } = this.state
-    // console.log("teste favoritos")
+    console.log("teste favoritos")
     // console.log(favorites)
-    // console.log("locais:")
-    // console.log(locals)
 
-    if ((Object.keys(favorites).length === 0)) {
+    if (!favorites || (Object.keys(favorites).length === 0)) {
+
       return (
-        <Text>Empty</Text>
-      )
+        <IconMessage
+          message='Nenhum Favorito Adicionado'
+          icon='sad'
+        />
+      );
+
     } else {
+
       return (
         <ScrollView style={styles.Container}>
           {favorites.map(favorite =>
             <View key={favorite.id}>
               <FavoriteCard key={favorite.id} />
-              <Text>{locals[0].id}</Text>
             </View>
           )}
         </ScrollView>
       );
+
     }
   }
 }
 
 const mapStateToProps = store => ({
   favorites: store.favoriteReducer.favorites,
-  locals: store.searchReducer.locals
 })
 
 const mapDispatchToProps = dispatch => (
