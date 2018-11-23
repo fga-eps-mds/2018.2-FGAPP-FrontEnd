@@ -10,8 +10,7 @@ import {
   Keyboard,
   Animated,
   TouchableOpacity,
-  ImageBackground,
-  BackHandler,
+  ImageBackground
 } from 'react-native';
 import {
   Textarea,
