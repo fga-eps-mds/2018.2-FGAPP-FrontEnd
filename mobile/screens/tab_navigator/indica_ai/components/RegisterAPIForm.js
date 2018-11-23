@@ -33,6 +33,7 @@ export default class RegisterAPIForm extends Component {
       name: null,
       description: null,
       eachDay: false,
+      week: false
     };
   }
 
@@ -50,15 +51,16 @@ export default class RegisterAPIForm extends Component {
         />
 
         <View style={styles.hoursOption}>
-          <TouchableOpacity onPress={() => {this.setState({eachDay: true})}}>
+          <TouchableOpacity onPress={() => {this.setState({eachDay: true, week: false})}}>
             <Text style={{borderWidth: 1}}>Para cada dia</Text>
           </TouchableOpacity>
-            <TouchableOpacity>
-              <Text style={{borderWidth: 1}}>Semanal</Text>
-            </TouchableOpacity>
+          <TouchableOpacity onPress={() => {this.setState({week: true, eachDay: false})}}>
+            <Text style={{borderWidth: 1}}>Semanal</Text>
+          </TouchableOpacity>
         </View>
 
         {this.state.eachDay ? this.displayHoursEachDay() : null}
+        {this.state.week ? this.displayHoursWeek() : null}
 
         <View style={styles.button}>
           <Button block info onPress={
@@ -127,6 +129,49 @@ export default class RegisterAPIForm extends Component {
       </View>
     );
   }
+
+  displayHoursWeek() {
+
+    const days = [{id: 1, day: 'Seg a Sex'}, {id: 2, day: 'Sab e Dom'}];
+
+    return(
+      <View style={{top: 20}}>
+        <View style={styles.hoursForm}>
+          {days.map( day =>
+            <View
+              style={styles.dayBorder}
+              key={day.id}
+            >
+              <Text style={styles.day}>
+                {day.day}
+              </Text>
+            </View>
+          )}
+        </View>
+        <View style={styles.hoursForm}>
+          {days.map( day =>
+            <HoursSelect
+              option='Abre'
+              day={day.id}
+              takeOpeningHours={this.props.takeOpeningHours}
+              key={day.id}
+            />
+          )}
+        </View>
+        <View style={styles.hoursForm}>
+          {days.map( day =>
+            <HoursSelect
+              option='Fecha'
+              day={day.id}
+              takeOpeningHours={this.props.takeOpeningHours}
+              key={day.id}
+            />
+          )}
+        </View>
+      </View>
+    );
+  }
+
 
 }
 
