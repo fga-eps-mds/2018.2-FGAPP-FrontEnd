@@ -14,7 +14,6 @@ require('./env-config');
 export default class App extends React.Component<{}> {
 
   async componentDidMount() {
-    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
 
     const localNotification = {
       title: 'Confira os produtos próximos de você.',
@@ -51,14 +50,6 @@ export default class App extends React.Component<{}> {
     else{
       console.log('Notification permissions not granted.');
     }
-  }
-
-  componentWillUnmount() {
-      BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
-  }
-
-  handleBackButton() {
-      return true;
   }
 
   render() {

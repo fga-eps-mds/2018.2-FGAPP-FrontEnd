@@ -11,7 +11,8 @@ import {
     StatusBar,
     KeyboardAvoidingView,
     TouchableOpacity,
-    Linking
+    Linking,
+    BackHandler
 } from "react-native";
 import {Button} from 'native-base';
 import Field from './components/Field';
@@ -53,6 +54,16 @@ async function storeToken(loginToken, notificationToken){
 
 class LoginScreen extends Component {
 
+  componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+  }
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+  }
+  handleBackButton() {
+    return true;
+  }
+
   constructor(props) {
       super(props);
       this.state = {
@@ -78,7 +89,7 @@ class LoginScreen extends Component {
       } else {
         console.log("Don't know how to open TERMS OF USE");
       }
-    }); 
+    });
   }
 
   checkJson(responseJson){
@@ -184,7 +195,7 @@ class LoginScreen extends Component {
                       </Text>
                     </TouchableOpacity>
                   </View>
-                  
+
                   <View style={{padding: 20, alignItems: 'center', justifyContent: 'center'}}>
                     <TouchableOpacity onPress={ this.termsOfUse }>
                       <Text

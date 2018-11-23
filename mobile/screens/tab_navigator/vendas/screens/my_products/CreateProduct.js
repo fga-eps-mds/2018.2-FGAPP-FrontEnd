@@ -10,7 +10,8 @@ import {
   Keyboard,
   Animated,
   TouchableOpacity,
-  ImageBackground
+  ImageBackground,
+  BackHandler,
 } from 'react-native';
 import {
   Textarea,
@@ -120,7 +121,6 @@ class CreateProduct extends Component {
     this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
     this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
   }
-
   componentWillUnmount() {
     this.keyboardDidShowListener.remove();
     this.keyboardDidHideListener.remove();
@@ -179,7 +179,7 @@ class CreateProduct extends Component {
             style={{ position: 'absolute', left: '90%', top: '5%' }}
           />
         </TouchableOpacity>
-        
+
         <Form style={styles.description}>
           <Item floatingLabel>
             <Label>Título</Label>
