@@ -23,7 +23,6 @@ class RegisterLocalAPI extends Component {
 
   _postForm = async (name, description) => {
     const { opening_hours } = this.state
-    console.log();
     const { selectedCategories } = this.state
     const categories = Array()
     for (const index in selectedCategories) {
@@ -37,7 +36,7 @@ class RegisterLocalAPI extends Component {
       "address": this.props.address,
       "latitude": this.props.latitude,
       "longitude": this.props.longitude,
-      "opening_hours": JSON.stringify(opening_hours),
+      "opening_hours": opening_hours,
       "telephone": undefined,
     });
     try {
@@ -90,13 +89,28 @@ class RegisterLocalAPI extends Component {
         this.setState({close})
       }
       if(this.state.open && this.state.close){
-        obj = {day, opens, closes}
-        console.log(obj);
-        this.state.opening_hours = [ ...this.state.opening_hours, obj];
-        console.log('++++++++++++++++++++++++++++++++++++++++++++++++++');
-        console.log(this.state.opening_hours);
-        this.setState({open: ''})
-        this.setState({close: ''})
+        if(day==8 || day==9){
+          if(day==8){
+            for(var day=2; day<7; day++){
+              obj = {day, opens, closes}
+              this.state.opening_hours = [ ...this.state.opening_hours, obj];
+            }
+            this.setState({open: ''})
+            this.setState({close: ''})
+          }else{
+            for(var day=1; day<8; day=day+6){
+              obj = {day, opens, closes}
+              this.state.opening_hours = [ ...this.state.opening_hours, obj];
+            }
+            this.setState({open: ''})
+            this.setState({close: ''})
+          }
+        }else{
+          obj = {day, opens, closes}
+          this.state.opening_hours = [ ...this.state.opening_hours, obj];
+          this.setState({open: ''})
+          this.setState({close: ''})
+        }
       }
     }
 

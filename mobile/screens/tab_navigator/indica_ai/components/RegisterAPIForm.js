@@ -59,13 +59,22 @@ export default class RegisterAPIForm extends Component {
           />
         </Item>
 
-        <View style={styles.hoursOption}>
-          <TouchableOpacity onPress={() => {this.setState({eachDay: true, week: false})}}>
-            <Text style={{borderWidth: 1}}>Para cada dia</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => {this.setState({week: true, eachDay: false})}}>
-            <Text style={{borderWidth: 1}}>Semanal</Text>
-          </TouchableOpacity>
+        <Textarea
+          rowSpan={5}
+          bordered
+          placeholder="Descrição"
+          onChangeText={(description) => this.setState({ description })} />
+
+        <View style={styles.hoursForm}>
+          <Text style={styles.hoursFormTitle}>Horario de funcionamento:</Text>
+          <View style={styles.hoursOption}>
+            <TouchableOpacity onPress={() => {this.setState({eachDay: true, week: false})}}>
+              <Text style={styles.hoursFormOption}>Diario</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => {this.setState({week: true, eachDay: false})}}>
+              <Text style={styles.hoursFormOption}>Semanal</Text>
+            </TouchableOpacity>
+          </View>
         </View>
 
         {this.state.eachDay ? this.displayHoursEachDay() : null}
@@ -161,6 +170,7 @@ export default class RegisterAPIForm extends Component {
           {days.map( day =>
             <HoursSelect
               option='Abre'
+              week={true}
               day={day.id}
               takeOpeningHours={this.props.takeOpeningHours}
               key={day.id}
@@ -171,6 +181,7 @@ export default class RegisterAPIForm extends Component {
           {days.map( day =>
             <HoursSelect
               option='Fecha'
+              week={true}
               day={day.id}
               takeOpeningHours={this.props.takeOpeningHours}
               key={day.id}
@@ -202,7 +213,6 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   hoursOption:{
-    top: 20,
     flexDirection: 'row'
   },
   hoursForm: {
@@ -213,9 +223,19 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     flex: 1
   },
+  hoursFormOption: {
+    borderWidth: 1,
+    borderRadius: 2,
+    padding: 3,
+    marginLeft: 5
+  },
   day: {
     fontSize: 15,
     fontWeight: 'bold',
     textAlign: 'center'
+  },
+  hoursFormTitle: {
+    fontSize: 15,
+    fontWeight: 'bold'
   }
 });

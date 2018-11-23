@@ -10,14 +10,27 @@ export default class HoursSelect extends Component {
     };
   }
 
+
   selectOpeningHours = (time) => {
+
     let opens: ''
     let closes: ''
-
     this.props.option == 'Abre' ? opens=time : closes=time;
-    this.props.takeOpeningHours(this.props.day, opens, closes)
-    this.setState({option: time})
+
+    if(this.props.week){
+      if(this.props.day==1){
+        this.props.takeOpeningHours(8, opens, closes)
+        this.setState({option: time})
+      }else{
+        this.props.takeOpeningHours(9, opens, closes)
+        this.setState({option: time})
+      }
+    }else{
+      this.props.takeOpeningHours(this.props.day, opens, closes)
+      this.setState({option: time})
+    }
   }
+
 
   render() {
     return (
