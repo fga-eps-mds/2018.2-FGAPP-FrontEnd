@@ -48,8 +48,6 @@ class ListLocals extends Component {
     }
 
     render() {
-        console.log("OLHA O PROPSSS!!")
-        console.log(this.props)
         const { locals } = this.state
 
         if(locals.length == 0) {
