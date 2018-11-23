@@ -15,14 +15,15 @@ class RegisterLocalAPI extends Component {
       requestStatus: null,
       selectedCategories: [],
       local: {},
-      day: '',
-      opens: '',
-      closes: '',
+      open: '',
+      close: '',
       opening_hours: []
     };
   }
 
   _postForm = async (name, description) => {
+    const { opening_hours } = this.state
+    console.log();
     const { selectedCategories } = this.state
     const categories = Array()
     for (const index in selectedCategories) {
@@ -36,7 +37,7 @@ class RegisterLocalAPI extends Component {
       "address": this.props.address,
       "latitude": this.props.latitude,
       "longitude": this.props.longitude,
-      "opening_hours": [],
+      "opening_hours": JSON.stringify(opening_hours),
       "telephone": undefined,
     });
     try {
@@ -78,21 +79,24 @@ class RegisterLocalAPI extends Component {
     let opening_hours = [];
     let obj = {};
 
-    sla = this.state.opens
-    sla1 = this.state.closes
+    opens = this.state.open
+    closes = this.state.close
 
-    takeOpeningHours = (day, opens, closes) => {
-      if(opens) {
-        this.setState({opens})
+    takeOpeningHours = (day, open, close) => {
+      if(open) {
+        this.setState({open})
       }
-      if(closes) {
-        this.setState({closes})
+      if(close) {
+        this.setState({close})
       }
-      if(this.state.opens && this.state.closes){
-        obj = {day, sla, sla1}
+      if(this.state.open && this.state.close){
+        obj = {day, opens, closes}
         console.log(obj);
-        this.setState({opens: ''})
-        this.setState({closes: ''})
+        this.state.opening_hours = [ ...this.state.opening_hours, obj];
+        console.log('++++++++++++++++++++++++++++++++++++++++++++++++++');
+        console.log(this.state.opening_hours);
+        this.setState({open: ''})
+        this.setState({close: ''})
       }
     }
 

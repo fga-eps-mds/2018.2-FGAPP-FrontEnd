@@ -50,6 +50,15 @@ export default class RegisterAPIForm extends Component {
           setSelectedCategories={this.props.setSelectedCategories}
         />
 
+        <Item
+          style={styles.pickerForm}
+          regular
+        >
+          <Input placeholder='Nome'
+            onChangeText={(name) => this.setState({ name })}
+          />
+        </Item>
+
         <View style={styles.hoursOption}>
           <TouchableOpacity onPress={() => {this.setState({eachDay: true, week: false})}}>
             <Text style={{borderWidth: 1}}>Para cada dia</Text>
@@ -65,7 +74,7 @@ export default class RegisterAPIForm extends Component {
         <View style={styles.button}>
           <Button block info onPress={
             () => {
-              if (!(this.state.name && this.state.description)) {
+              if (!(this.state.name)) {
                 Alert.alert(
                   'Atenção!',
                   "Os campos 'Nome' ou 'Descrição' não podem estar vazios",
