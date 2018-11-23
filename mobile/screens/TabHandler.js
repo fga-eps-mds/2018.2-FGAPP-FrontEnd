@@ -10,13 +10,13 @@ import IndicaAiApp from './tab_navigator/indica_ai/IndicaAiApp';
 import RolesApp from './tab_navigator/roles/RolesApp';
 import CarDefenseApp from './tab_navigator/car_defense/CarDefenseApp';
 import SettingScreen from './tab_navigator/settings/SettingScreen';
+import RolesTabHandler from './tab_navigator/roles/RolesTabHandler';
 
 const TabHandler = new TabNavigator({
     Roles: {
-        screen: RolesApp,
+        screen: RolesTabHandler,
         navigationOptions: {
             tabBarLabel: 'Eventos',
-            headerLeft: null,
             tabBarIcon: ({ focused }) => (
                 <Icon
                     name="md-star"
@@ -25,7 +25,12 @@ const TabHandler = new TabNavigator({
             ),
             headerStyle: {
                backgroundColor:'#1CBD24'
-            }
+            },
+            headerTintColor: 'white',
+            headerTitleStyle: {
+              color: 'white',
+              alignSelf: 'center'
+            },
         }
     },
     Vendas: {
