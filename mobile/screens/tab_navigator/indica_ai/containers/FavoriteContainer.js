@@ -7,15 +7,50 @@ import {
   Image,
   ScrollView
 } from "react-native";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import jwt_decode from 'jwt-decode';
+import ErrorModal from "../components/ErrorModal"
 
-export default class FavoriteContainer extends React.Component {
+class FavoriteContainer extends React.Component {
+state  = {
+  errorModalVisible: false
+}
+  saveFav = async(user_id, local_id) => {
+    const url = `${process.env.INDICA_AI_API}/favorites/`;
+    try{
+      const response = await fetch(url ,{
+        method: "POST",
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          user_identifier: user_id,
+          local_id: local_id
+
+        })
+      })
+      const responseJson = await response.json();
+      if(responseJson['status']==="SUCCESS"){
+        this.props.favMessageView(false)
+      }else{
+        this.setState({errorModalVisible: true})
+      }
+      console.log("responseJson");
+      console.log(responseJson);
+    }catch(error){
+      console.log(errors)
+    }
+  }
   favMessageIcon = (fav)=>{
-    /*inside this function you'll call requestions to either save a local as a favorite or
-    delete it, that's all depends on the fav value (true or false)
-    warning: fav = false is set to be the request to save the local,therefore true is to delete it
-    */
-    this.props.favMessageView(fav) // this funcion has to be called iniside the resquest to show the user that
-    //the request went right by the showMessage method
+    const token = this.props.token
+    const local_id = this.props.id
+    const user = jwt_decode(token)
+
+    if(!fav){
+      this.saveFav(user.user_id, local_id)
+    }
   }
   render(){
     return(
@@ -23,7 +58,17 @@ export default class FavoriteContainer extends React.Component {
         <FavoriteIcon
         favMessageIcon = {this.favMessageIcon}
         />
+        <ErrorModal
+        onCancel={() => this.setState({ errorModalVisible: false })}
+        visible={this.state.errorModalVisible}
+        message="Houve um erro ao favoritar local"
+      />
       </View>
     )
   }
 }
+const mapStateToProps = store => ({
+    token: store.authReducer.token
+})
+export default connect(mapStateToProps,
+  null)(FavoriteContainer);

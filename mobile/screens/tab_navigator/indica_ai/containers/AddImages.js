@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
-import { TouchableOpacity, View } from 'react-native'
-import Icon from 'react-native-vector-icons/Ionicons';
+import { TouchableOpacity, View,Text } from 'react-native'
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import { ImagePicker } from 'expo';
 import ImageModal from "../components/ImageModal";
 import SuccessModal from '../components/SuccessModal';
 import ErrorModal from '../components/ErrorModal';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { searchAction } from '../actions'
 
 
 class AddImages extends Component {
@@ -38,6 +41,23 @@ class AddImages extends Component {
 
     }
   };
+_updateFunction = () => {
+   fetch(`${process.env.INDICA_AI_API}/locals/`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "aplication/json"
+    }
+  })
+  .then(response => response.json())
+  .then(responseJson => {
+    this.props.searchAction(responseJson)
+  })
+  .catch(error => {
+    console.log(error);
+  });
+
+}
 
   postImage = async () => {
     const id = this.state.id
@@ -58,12 +78,13 @@ class AddImages extends Component {
       const jsonResponse = await response.json()
       if (jsonResponse['status'] === "SUCCESS") {
         this.setState({ successModalVisible: true })
+        this._updateFunction();
       } else {
         this.setState({ errorModalVisible: true })
       }
     }
     catch (error) {
-      this.setState({ errorModalVisible: true })
+      console.log(error);
     }
   };
 
@@ -84,12 +105,14 @@ class AddImages extends Component {
           onCancel={() => this.cancelPost()}
           visible={this.state.ImageModalVisible}
         />
-        <TouchableOpacity onPress={() => this.pickImage()}>
-          <Icon
-            name="ios-add-circle"
-            size={60}
-            color='white'
-          />
+        <TouchableOpacity style = {{flex:1, justifyContent: "center", alignItems: "center"}}
+        onPress={() => this.pickImage()}>
+            <Icon
+                name="add-a-photo"
+                size={60}
+                color='white'
+            />
+            <Text style = {{fontSize: 16, color: "#fff"}}>Enviar uma nova imagem</Text>
         </TouchableOpacity>
         <SuccessModal
           onCancel={() => this.setState({ successModalVisible: false })}
@@ -106,4 +129,10 @@ class AddImages extends Component {
   }
 }
 
-export default AddImages
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({ searchAction }, dispatch)
+)
+export default connect(
+  null,
+  mapDispatchToProps
+)(AddImages);

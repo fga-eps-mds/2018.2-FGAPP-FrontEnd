@@ -14,9 +14,9 @@ const SearchTab = StackNavigator({
     },
     LocalDetails : {
       screen: LocalDetails,
+      tabBarLabel: '',
       navigationOptions: {
         tabBarLabel: '',
-        headerLeft: null,
       },
     },
   },

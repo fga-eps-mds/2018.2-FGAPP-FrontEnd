@@ -3,16 +3,17 @@ import {
   View,
   StyleSheet
 } from "react-native";
-import RegisterLocal from '../../containers/RegisterLocal';
+import ListFavorites from '../../containers/ListFavorites';
 
 
 class FavoritesScreen extends Component {
-  
+
   render() {
-      return (
-          <View style={styles.container}>
-          </View>
-      );
+    return (
+      <View style={styles.container}>
+        <ListFavorites />
+      </View>
+    );
   }
 }
 
@@ -24,8 +25,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     justifyContent: "flex-start",
-    backgroundColor: "#FFF",
-    paddingHorizontal: 10,
   }
 
 });

@@ -6,6 +6,9 @@ import {
 } from "react-native";
 import { withNavigation, createStackNavigator } from 'react-navigation';
 import RegisterAPIForm from '../components/RegisterAPIForm.js'
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { searchAction } from '../actions'
 
 class RegisterLocalAPI extends Component {
 
@@ -28,7 +31,7 @@ class RegisterLocalAPI extends Component {
     for (const index in selectedCategories) {
       categories[index] = { "category_id": selectedCategories[index] };
     }
-    const url = "https://indicaai.herokuapp.com/locals/";
+    const url = `${process.env.INDICA_AI_API}/locals/`;
     const jsonTest = JSON.stringify({
       "name": name,
       "categories": categories,
@@ -49,12 +52,12 @@ class RegisterLocalAPI extends Component {
         body: jsonTest,
       })
       const jsonResponse = await response.json()
-      console.log(jsonResponse);
       if (jsonResponse['status'] === "SUCCESS") {
         this.setState({ requestStatus: "SUCCESS" })
         this.setState({
           local: jsonResponse["data"][0]
         })
+        this._updateFunction();
       } else {
         this.setState({ requestStatus: "FAILED" })
       }
@@ -72,7 +75,23 @@ class RegisterLocalAPI extends Component {
       selectedCategories: selectedCategories
     })
   }
-
+  _updateFunction = () => {
+    fetch(`${process.env.INDICA_AI_API}/locals/`, {
+     method: "GET",
+     headers: {
+       Accept: "application/json",
+       "Content-Type": "aplication/json"
+     }
+   })
+   .then(response => response.json())
+   .then(responseJson => {
+     this.props.searchAction(responseJson)
+   })
+   .catch(error => {
+     console.log(error);
+   });
+ 
+ }
   render() {
 
     let opening_hours = [];
@@ -147,4 +166,11 @@ class RegisterLocalAPI extends Component {
     );
   }
 }
-export default withNavigation(RegisterLocalAPI);
+
+const mapDispatchToProps = dispatch => (
+  bindActionCreators({ searchAction }, dispatch)
+)
+export default withNavigation(connect(
+null,
+mapDispatchToProps
+)(RegisterLocalAPI));
