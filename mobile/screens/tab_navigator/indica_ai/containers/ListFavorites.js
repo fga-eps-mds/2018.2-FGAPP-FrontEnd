@@ -19,8 +19,40 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withNavigation } from 'react-navigation';
 import FavoriteCard from '../components/FavoriteCard';
+import jwt_decode from 'jwt-decode';
+import {favoriteAction} from "../actions"
 
 class ListFavorites extends Component {
+
+
+  componentDidMount(){
+    this.fetchFavoritesList();
+  }
+
+
+  fetchFavoritesList = async() => {
+    const {token} = this.props
+    const user = jwt_decode(token)
+    const url = `${process.env.INDICA_AI_API}/users/${user.user_id}/favorites/`
+    
+    try{
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "aplication/json"
+        }
+      })
+      const responseJSON = await response.json();
+
+      if(responseJSON['status'] === "SUCCESS"){
+        this.props.favoriteAction(responseJSON);
+      }
+
+    }catch(error){
+      console.log(error)
+    }
+  }
   render() {
     return (
       <ScrollView style={styles.Container}>
@@ -42,10 +74,12 @@ class ListFavorites extends Component {
   }
 }
 
-const mapStateToProps = store => ({})
+const mapStateToProps = store => ({
+  favorites: store.favoriteReducer.favorites
+})
 
 const mapDispatchToProps = dispatch => (
-  bindActionCreators({}, dispatch)
+  bindActionCreators({favoriteAction}, dispatch)
 )
 
 export default withNavigation(connect(
