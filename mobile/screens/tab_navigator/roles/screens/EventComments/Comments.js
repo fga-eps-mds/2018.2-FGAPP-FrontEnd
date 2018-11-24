@@ -6,9 +6,10 @@ import {
     ScrollView,
     RefreshControl,
     ActivityIndicator,
-    ToastAndroid
+    ToastAndroid,
+    Alert
 } from 'react-native';
-
+import jwt_decode from 'jwt-decode';
 import CommentItem from './components/CommentItem';
 import CommentAnswer from './components/CommentAnswer';
 import Divider from '../EventProfile/components/Divider';
@@ -21,6 +22,32 @@ class Comments extends Component {
         comments: [],
         like: false
     };
+    
+    _loadProfile = async () => {
+        const { state } = this.props.navigation;
+        const token = state.params ? state.params.token : undefined;
+        const user = jwt_decode(token);
+
+        const profileInfoPath = `${process.env.INTEGRA_LOGIN_AUTH}/api/users/get_profile/`;
+        fetch(profileInfoPath, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            'user_id': user.user_id,
+          }),
+        })
+        .then((response) => { return response.json() })
+        .then((responseJson) => {
+          if (!responseJson.error) {
+            this.setState({ profileInfo: responseJson });
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
 
     _getComments = () => {
         const { params } = this.props.navigation.state;
@@ -48,6 +75,7 @@ class Comments extends Component {
 
     componentDidMount() {
         this._getComments();
+        this._loadProfile();
     }
 
     _deleteComment(id) {
@@ -107,6 +135,7 @@ class Comments extends Component {
                     <CommentInput
                         eventId={params.idRole}
                         onSubmit={this._getComments}
+                        username={this.state.profileInfo.name ? this.state.profileInfo.name : 'Nome de Usuário'}
                     />
 
                     {this.state.comments.map((comment, index) => (
