@@ -65,7 +65,7 @@ describe('Test CreateProduct', () => {
       const tree = renderer.create(<CreateProduct navigation={navigation}/>).toJSON();
       expect(tree).toMatchSnapshot();
     });
-    
+
     it('Test registerProduct with sucess', async (done) => {
         const wrapper = shallow(<CreateProduct navigation={navigation}/>);
 
@@ -81,8 +81,6 @@ describe('Test CreateProduct', () => {
         await wrapper.instance().registerProduct()
 
         process.nextTick(() => {
-            //expect(navigation.navigate.mock.calls.length).toBe(1);
-
             done();
         });
     });
@@ -105,8 +103,6 @@ describe('Test CreateProduct', () => {
 
         process.nextTick(() => {
             wrapper.update();
-            //expect(wrapper.instance().state.messageError).toBe(error);
-
             done();
         });
     })
@@ -127,8 +123,6 @@ describe('Test CreateProduct', () => {
 
         process.nextTick(() => {
             wrapper.update();
-            //expect(wrapper.instance().state.isDialogVisible).toBeTruthy();
-
             done();
         });
     });
@@ -179,7 +173,6 @@ describe('Test CreateProduct', () => {
 
     test('change text area description ', () => {
       const wrapper = shallow(<CreateProduct />);
-      //console.log(wrapper.debug());
       const description = wrapper.find('Styled(Textarea)').at(0);
       description.simulate('changeText','text');
       expect(wrapper.state('description')).toBe('text');

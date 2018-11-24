@@ -84,9 +84,4 @@ describe('Testing Login', () => {
         wrapper.instance().checkJson(responseJson)
         expect(spyNavigate).toHaveBeenCalled()
     })
-
-    // it('should go to SignUpScreen', () => {
-    //     wrapper.instance().goToSignUpScreen()
-    //     expect(spyNavigate).toHaveBeenCalled()
-    // })
 })

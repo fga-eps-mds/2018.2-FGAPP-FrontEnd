@@ -43,7 +43,6 @@ describe('Test MyProductDetails requisitions', () => {
   })
 
   it('renders correctly', () => {
-    //const navigation = jest.fn();
     const tree = renderer.create(<MyProductDetails navigation={navigation}/>).toJSON();
     expect(tree).toMatchSnapshot();
   });
@@ -70,7 +69,6 @@ describe('Test MyProductDetails requisitions', () => {
     await wrapper.instance().editProduct()
 
     process.nextTick(() => {
-
         done();
     });
   });
@@ -97,7 +95,6 @@ describe('Test MyProductDetails requisitions', () => {
 
     process.nextTick(() => {
         wrapper.update();
-
         done();
     });
   });
@@ -119,7 +116,6 @@ describe('Test MyProductDetails requisitions', () => {
 
     process.nextTick(() => {
         wrapper.update();
-
         done();
     });
 
@@ -170,7 +166,6 @@ describe('Test MyProductDetails requisitions', () => {
 
   test('change text area description ', () => {
     const wrapper = shallow(<MyProductDetails navigation={navigation}/>);
-    //console.log(wrapper.debug());
     const description = wrapper.find('Styled(Textarea)').at(0);
     description.simulate('changeText','text');
     expect(wrapper.state('description')).toBe('text');
