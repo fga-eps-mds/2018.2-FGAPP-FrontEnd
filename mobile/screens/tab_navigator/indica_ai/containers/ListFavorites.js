@@ -32,7 +32,6 @@ class ListFavorites extends Component {
   }
 
   componentWillMount() {
-    //fetch na lista de locais favoritos
     this.fetchFavoritesList();
   }
 
@@ -73,11 +72,6 @@ class ListFavorites extends Component {
   render() {
     const { favorites } = this.state
     const { locals } = this.state
-    // console.log("teste favoritos")
-    // console.log(favorites)
-    // console.log("locais:")
-    // console.log(locals)
-
     if ((Object.keys(favorites).length === 0)) {
       return (
         <Text>Empty</Text>
