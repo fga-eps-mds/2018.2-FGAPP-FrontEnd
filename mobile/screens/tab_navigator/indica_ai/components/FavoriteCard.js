@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import {
   View,
   StyleSheet,
-  TouchableHighlight,
+  TouchableOpacity,
   ImageBackground,
 } from "react-native";
 import {
@@ -10,37 +10,49 @@ import {
   Text,
   Icon,
 } from 'native-base';
+import { withNavigation } from 'react-navigation';
 
 class FavoriteCard extends Component {
   render() {
+    const { name, description, local_images } = this.props.local
+    const image = (local_images.length !== 0) ?
+      { uri: "data:image/jpg;base64," + local_images[local_images.length - 1]["image"] }
+      : require('../assets/IntegraApps_icon.png')
+
     return (
-      <Card style={styles.cardFavorite}>
-        <View style={styles.fieldImage}>
-          <ImageBackground source={require('../assets/IntegraApps_icon.png')}
-            style={styles.imageLocal}
-          />
-        </View>
-        <View style={styles.cardField}>
-          <View style={styles.cardFieldText}>
-            <View style={styles.fieldName}>
-              <Icon name="heart" color="#333" />
-              <Text style={styles.textFavorite}>Favorito 1</Text>
-            </View>
-            <View style={styles.fieldDescription}>
-              <Text numberOfLines={3} style={styles.textDescription}>
-                Descricao dessa joça, testando oq que ocorre
-                quando o texto es muy grande para la carpeta del card,
-                bla bla bla
-              </Text>
+      <TouchableOpacity
+        onPress={() => {
+          this.props.navigation.navigate('FavoriteDetailsScreen', {
+            local: this.props.local
+          });
+        }}>
+
+        <Card style={styles.cardFavorite}>
+          <View style={styles.fieldImage}>
+            <ImageBackground source={image}
+              style={styles.imageLocal}
+            />
+          </View>
+          <View style={styles.cardField}>
+            <View style={styles.cardFieldText}>
+              <View style={styles.fieldName}>
+                <Icon name="heart" color="#333" />
+                <Text numberOfLines={1} style={styles.textFavorite}> {name}</Text>
+              </View>
+              <View style={styles.fieldDescription}>
+                <Text numberOfLines={3} style={styles.textDescription}>
+                  {description}
+                </Text>
+              </View>
             </View>
           </View>
-        </View>
-      </Card>
+        </Card>
+      </TouchableOpacity>
     );
   }
 }
 
-export default FavoriteCard;
+export default withNavigation(FavoriteCard);
 
 const styles = StyleSheet.create({
   cardFavorite: {
@@ -58,7 +70,7 @@ const styles = StyleSheet.create({
   fieldName: {
     flexDirection: "row",
   },
-  fieldDescription:{
+  fieldDescription: {
     width: "80%",
     marginRight: 10,
     marginBottom: 5,
@@ -76,6 +88,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontWeight: 'bold',
     marginLeft: 10,
+    width: 220,
   },
   textDescription: {
     width: 220,

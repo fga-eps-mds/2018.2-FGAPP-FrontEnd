@@ -33,7 +33,6 @@ class ListFavorites extends Component {
   }
 
   componentWillMount() {
-    //fetch na lista de locais favoritos
     this.fetchFavoritesList();
   }
 
@@ -74,8 +73,6 @@ class ListFavorites extends Component {
   render() {
     const { favorites } = this.state
     const { locals } = this.state
-    console.log("teste favoritos")
-    // console.log(favorites)
 
     if (!favorites || (Object.keys(favorites).length === 0)) {
 
@@ -92,7 +89,9 @@ class ListFavorites extends Component {
         <ScrollView style={styles.Container}>
           {favorites.map(favorite =>
             <View key={favorite.id}>
-              <FavoriteCard key={favorite.id} />
+              <FavoriteCard key={favorite.id}
+                local={favorite.local}
+              />
             </View>
           )}
         </ScrollView>
