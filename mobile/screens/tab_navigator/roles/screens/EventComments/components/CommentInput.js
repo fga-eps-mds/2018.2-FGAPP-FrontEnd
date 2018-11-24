@@ -47,9 +47,8 @@ export default class CommentInput extends Component {
                 ToastAndroid.LONG
             );
         else {
-            const { eventId } = this.props;
+            const { eventId, username } = this.props;
             const {
-                author,
                 text,
                 edited,
             } = this.state;
@@ -60,7 +59,7 @@ export default class CommentInput extends Component {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    author,
+                    author: username,
                     text,
                     answerId: 0,
                     created: moment().format('YYYY-MM-DD HH:mm:ss'),
