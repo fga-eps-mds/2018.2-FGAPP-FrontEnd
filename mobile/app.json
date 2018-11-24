@@ -21,5 +21,11 @@
       "package":"com.unbgama.integra",
       "versionCode": 3
     }
+  },
+  "android": {
+    "package": "com.codingmechanic.mapcuny",
+    "config": {
+      "googleMaps": {"apiKey": "API-KEY-AQUI"}
+    }
   }
 }

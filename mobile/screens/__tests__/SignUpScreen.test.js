@@ -79,7 +79,7 @@ describe('Testing SignUp', () => {
 
     it('should test checkJson non field error', () => {
         const responseJson = {
-            "token": "thisisafaketoken"
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo2LCJ1c2VybmFtZSI6IkFkbWluQGFkbWluLmNvbSIsImVtYWlsIjoiQWRtaW5AYWRtaW4uY29tIiwib3JpZ19pYXQiOjE1NDE1NTAzMjgsImV4cCI6MTU0MTU1MDYyOH0.c6NbqltYdF3bO9OyR2dBQNB9CH8qZxv1aZz79unrMt8"
         }
         wrapper.instance().checkJson(responseJson)
         expect(spyNavigate).toHaveBeenCalled()
