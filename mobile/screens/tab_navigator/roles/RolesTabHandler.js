@@ -9,34 +9,33 @@ import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Platform } from "react-native";
 import { Icon } from "native-base";
 
-const RolesTabStackNavigator = TabNavigator(
+const RolesTabHandler = TabNavigator(
 	{
 		Feed: {
 			screen: Events,
 			navigationOptions: {
-				tabBarLabel: "Próximos Rolês"
-				//tabBarIcon: ({ tintColor }) => <MaterialCommunityIcons name='newspaper' size={27} style={{ color: tintColor }} />
+				tabBarLabel: "Próximos Rolês",
+				title: 'Próximos Rolês',
 			}
 		},
 		EventosPassados: {
 			screen: EventosPassados,
 			navigationOptions: {
-				tabBarLabel: "Rolês passados"
-				//tabBarIcon: ({tintColor}) => <Icon type='MaterialCommunityIcons' name='history' style={{fontSize:27, color: tintColor}} />
+				tabBarLabel: "Rolês passados",
+				title: 'Eventos Passados',
 			}
 		},
 		CadastroEventos1: {
 			screen: CadastroEventos1,
 			navigationOptions: {
-				tabBarLabel: "Cadastrar Rolê"
-				//tabBarIcon: ({ tintColor }) => <MaterialIcons name='playlist-add' size={27} style={{ color: tintColor }} />
+				tabBarLabel: "Cadastrar Rolê",
+				title: 'Cadastrar Rolê',
 			}
 		}
 	},
 	{
-		headerMode: "none", // I don't want a NavBar at top
-		// tabBarPosition: 'bottom',                   // So your Android tabs go bottom
 		tabBarOptions: {
+			showLabel: true,
 			activeTintColor: "#1CBD24", // Color of tab when pressed
 			inactiveTintColor: "gray", // Color of tab when not pressed
 			labelStyle: {
@@ -49,9 +48,5 @@ const RolesTabStackNavigator = TabNavigator(
 	}
 );
 
-class RolesTabHandler extends Component {
-	render() {
-		return <RolesTabStackNavigator />;
-	}
-}
+
 export default RolesTabHandler;
