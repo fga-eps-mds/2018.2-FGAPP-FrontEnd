@@ -1,0 +1,177 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View>
+  <View
+    style={
+      Object {
+        "backgroundColor": "#fff",
+        "borderBottomWidth": 0.5,
+        "borderColor": "#ccc",
+        "borderLeftWidth": 0.5,
+        "borderRadius": 2,
+        "borderRightWidth": 0.5,
+        "borderTopWidth": 0.5,
+        "elevation": 3,
+        "flexWrap": "nowrap",
+        "marginBottom": 5,
+        "marginLeft": 2,
+        "marginRight": 2,
+        "marginTop": 5,
+        "shadowColor": "#000",
+        "shadowOffset": Object {
+          "height": 2,
+          "width": 0,
+        },
+        "shadowOpacity": 0.1,
+        "shadowRadius": 1.5,
+      }
+    }
+    virtual={undefined}
+  >
+    <Text
+      accessible={true}
+      allowFontScaling={true}
+      ellipsizeMode="tail"
+      style={
+        Object {
+          "color": "grey",
+          "marginBottom": 10,
+        }
+      }
+    >
+      Localização
+    </Text>
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#fff",
+          "borderRadius": 2,
+          "flexDirection": "row",
+          "paddingBottom": 10,
+          "paddingLeft": 15,
+          "paddingRight": 15,
+          "paddingTop": 10,
+        }
+      }
+      virtual={undefined}
+    >
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+      />
+      <View
+        style={
+          Object {
+            "marginLeft": 20,
+            "width": "100%",
+          }
+        }
+      >
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={
+            Object {
+              "fontWeight": "bold",
+            }
+          }
+        />
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={
+            Object {
+              "color": "grey",
+            }
+          }
+        />
+      </View>
+    </View>
+    <Text
+      accessible={true}
+      allowFontScaling={true}
+      ellipsizeMode="tail"
+      style={
+        Object {
+          "alignSelf": "center",
+          "color": "grey",
+          "fontSize": 10,
+          "marginBottom": 10,
+          "textAlign": "center",
+        }
+      }
+    >
+      Latitude: 
+      0
+       / Longitude:
+       
+      0
+    </Text>
+    <View
+      accessibilityComponentType={undefined}
+      accessibilityLabel={undefined}
+      accessibilityTraits={undefined}
+      accessible={true}
+      collapsable={undefined}
+      hasTVPreferredFocus={undefined}
+      hitSlop={undefined}
+      isTVSelectable={true}
+      nativeID={undefined}
+      onLayout={undefined}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "alignSelf": "center",
+          "backgroundColor": "white",
+          "borderBottomWidth": null,
+          "borderColor": "black",
+          "borderLeftWidth": null,
+          "borderRadius": 20,
+          "borderRightWidth": null,
+          "borderTopWidth": null,
+          "borderWidth": 1,
+          "elevation": 2,
+          "flexDirection": "row",
+          "height": 45,
+          "justifyContent": "center",
+          "marginBottom": 10,
+          "opacity": 1,
+          "paddingBottom": 6,
+          "paddingTop": 6,
+          "shadowColor": undefined,
+          "shadowOffset": undefined,
+          "shadowOpacity": undefined,
+          "shadowRadius": undefined,
+          "width": "95%",
+        }
+      }
+      testID={undefined}
+      tvParallaxProperties={undefined}
+    >
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+      />
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+      >
+         Realinhar Localização
+      </Text>
+    </View>
+  </View>
+</View>
+`;

@@ -37,9 +37,11 @@ class Profile extends Component {
 		role: ""
 	};
 
-	_getDadosRole = id => {
+	_getDadosRole = () => {
+
+		const { idRole } = this.props.navigation.state.params;
 		const eventPath = `${process.env.ROLES_EVENTS_API}/events/`;
-		fetch(eventPath + id)
+		fetch(eventPath + idRole)
 			.then(res => res.json())
 			.then(resJson => {
 				this.setState({ loading: false, role: resJson });
@@ -53,8 +55,7 @@ class Profile extends Component {
 	};
 
 	componentDidMount() {
-		const { idRole } = this.props.navigation.state.params;
-		this._getDadosRole(idRole);
+		this._getDadosRole();
 	}
 
 	render() {

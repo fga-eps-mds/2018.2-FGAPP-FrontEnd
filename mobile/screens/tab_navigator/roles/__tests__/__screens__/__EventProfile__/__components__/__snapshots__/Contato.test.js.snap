@@ -1,0 +1,324 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "#fff",
+      "borderBottomWidth": 0.5,
+      "borderColor": "#ccc",
+      "borderLeftWidth": 0.5,
+      "borderRadius": 2,
+      "borderRightWidth": 0.5,
+      "borderTopWidth": 0.5,
+      "elevation": 3,
+      "flexWrap": "nowrap",
+      "marginBottom": 5,
+      "marginLeft": 2,
+      "marginRight": 2,
+      "marginTop": 5,
+      "shadowColor": "#000",
+      "shadowOffset": Object {
+        "height": 2,
+        "width": 0,
+      },
+      "shadowOpacity": 0.1,
+      "shadowRadius": 1.5,
+    }
+  }
+  virtual={undefined}
+>
+  <Text
+    accessible={true}
+    allowFontScaling={true}
+    ellipsizeMode="tail"
+    style={
+      Object {
+        "color": "grey",
+        "marginBottom": 10,
+      }
+    }
+  >
+    Suporte
+  </Text>
+  <View
+    accessibilityComponentType={undefined}
+    accessibilityLabel={undefined}
+    accessibilityTraits={undefined}
+    accessible={true}
+    collapsable={undefined}
+    hasTVPreferredFocus={undefined}
+    hitSlop={undefined}
+    isTVSelectable={true}
+    nativeID={undefined}
+    onLayout={undefined}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "marginBottom": 10,
+        "opacity": 1,
+        "width": "100%",
+      }
+    }
+    testID={undefined}
+    tvParallaxProperties={undefined}
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "#fff",
+            "borderBottomWidth": 0.5,
+            "borderColor": "#ccc",
+            "borderLeftWidth": 0.5,
+            "borderRadius": 2,
+            "borderRightWidth": 0.5,
+            "borderTopWidth": 0.5,
+            "elevation": 3,
+            "flexWrap": "nowrap",
+            "marginBottom": 5,
+            "marginLeft": 2,
+            "marginRight": 2,
+            "marginTop": 5,
+            "shadowColor": "#000",
+            "shadowOffset": Object {
+              "height": 2,
+              "width": 0,
+            },
+            "shadowOpacity": 0.1,
+            "shadowRadius": 1.5,
+          },
+          Object {
+            "alignSelf": "center",
+            "width": "90%",
+          },
+        ]
+      }
+      virtual={undefined}
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#fff",
+              "borderRadius": 2,
+              "flexDirection": "row",
+              "paddingBottom": 10,
+              "paddingLeft": 15,
+              "paddingRight": 15,
+              "paddingTop": 10,
+            },
+            Object {
+              "backgroundColor": "#f2f2f2",
+              "height": 100,
+            },
+          ]
+        }
+        virtual={undefined}
+      >
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={
+            Object {
+              "textAlign": "center",
+            }
+          }
+        >
+          TEXTO FAQ
+        </Text>
+      </View>
+      <View
+        bordered={true}
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#fff",
+              "borderBottomWidth": 0.5,
+              "borderColor": "#ccc",
+              "borderRadius": 2,
+              "flexDirection": "row",
+              "paddingBottom": 10,
+              "paddingLeft": 15,
+              "paddingRight": 15,
+              "paddingTop": 10,
+            },
+            Object {
+              "alignSelf": "center",
+            },
+          ]
+        }
+        virtual={undefined}
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "alignSelf": "center",
+              "flex": 1,
+              "flexDirection": "row",
+            }
+          }
+          virtual={undefined}
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+          />
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+          >
+               
+            FAQ
+          </Text>
+        </View>
+      </View>
+    </View>
+  </View>
+  <View
+    style={
+      Object {
+        "alignSelf": "center",
+        "borderWidth": 0.25,
+        "margin": 20,
+        "opacity": 0.25,
+        "width": 100,
+      }
+    }
+  />
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#fff",
+          "borderRadius": 2,
+          "flexDirection": "row",
+          "paddingBottom": 10,
+          "paddingLeft": 15,
+          "paddingRight": 15,
+          "paddingTop": 10,
+        },
+        Object {
+          "alignSelf": "center",
+          "width": "100%",
+        },
+      ]
+    }
+    virtual={undefined}
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "#fff",
+            "borderBottomWidth": 0.5,
+            "borderColor": "#ccc",
+            "borderLeftWidth": 0.5,
+            "borderRadius": 2,
+            "borderRightWidth": 0.5,
+            "borderTopWidth": 0.5,
+            "elevation": 3,
+            "flexWrap": "nowrap",
+            "marginBottom": 5,
+            "marginLeft": 2,
+            "marginRight": 2,
+            "marginTop": 5,
+            "shadowColor": "#000",
+            "shadowOffset": Object {
+              "height": 2,
+              "width": 0,
+            },
+            "shadowOpacity": 0.1,
+            "shadowRadius": 1.5,
+          },
+          Object {
+            "alignSelf": "center",
+            "width": "100%",
+          },
+        ]
+      }
+      virtual={undefined}
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "#fff",
+            "borderRadius": 2,
+            "flexDirection": "row",
+            "paddingBottom": 10,
+            "paddingLeft": 15,
+            "paddingRight": 15,
+            "paddingTop": 10,
+          }
+        }
+        virtual={undefined}
+      >
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+        />
+        <View
+          style={
+            Array [
+              Object {
+                "backgroundColor": "transparent",
+                "borderBottomWidth": 0,
+                "borderColor": "#ccc",
+                "borderLeftWidth": 0,
+                "borderRadius": 2,
+                "borderRightWidth": 0,
+                "borderTopWidth": 0,
+                "elevation": null,
+                "flexWrap": "nowrap",
+                "marginBottom": 5,
+                "marginLeft": 2,
+                "marginRight": 2,
+                "marginTop": 5,
+                "shadowColor": null,
+                "shadowOffset": null,
+                "shadowOpacity": null,
+                "shadowRadius": null,
+              },
+              Object {
+                "marginLeft": 10,
+              },
+            ]
+          }
+          transparent={true}
+          virtual={undefined}
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "fontWeight": "bold",
+              }
+            }
+          />
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+          />
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;
