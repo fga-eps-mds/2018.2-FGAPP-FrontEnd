@@ -27,6 +27,7 @@ class Comments extends Component {
         const { state } = this.props.navigation;
         const token = state.params ? state.params.token : undefined;
         const user = jwt_decode(token);
+        this.setState({userId: user.user_id});
 
         const profileInfoPath = `${process.env.INTEGRA_LOGIN_AUTH}/api/users/get_profile/`;
         fetch(profileInfoPath, {
@@ -135,7 +136,8 @@ class Comments extends Component {
                     <CommentInput
                         eventId={params.idRole}
                         onSubmit={this._getComments}
-                        username={this.state.profileInfo.name ? this.state.profileInfo.name : 'Nome de Usuário'}
+                        userInfo={this.state.profileInfo}
+                        userId={this.state.userId ? this.state.userId : 0}
                     />
 
                     {this.state.comments.map((comment, index) => (
@@ -144,7 +146,7 @@ class Comments extends Component {
                                 <View>
                                     <CommentItem
                                         id={comment.id}
-                                        author={comment.author}
+                                        author={comment.authorName}
                                         text={comment.text}
                                         postDate={comment.created}
                                         modifyDate={comment.edited}
@@ -156,7 +158,7 @@ class Comments extends Component {
                                                 <CommentAnswer
                                                     key={indexAnswer}
                                                     id={answer.id}
-                                                    author={answer.author}
+                                                    author={answer.authorName}
                                                     text={answer.text}
                                                     postDate={answer.created}
                                                     modifyDate={answer.edited}
