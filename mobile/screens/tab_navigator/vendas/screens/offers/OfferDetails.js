@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import ProductImage from '../../components/ProductImage';
 import styles from '../../components/styles';
-import { Card, CardItem, Text, Left, Right, Content, Body} from 'native-base';
+import { CardItem, Text, Content, Body} from 'native-base';
 import OfferDialog from '../../components/OfferDialog';
 import jwt_decode from 'jwt-decode';
 
@@ -84,11 +84,44 @@ class FormPicker extends Component {
     constructor(props){
       super(props);
       this.state = {
+        seller: 'Usuário sem nome',
         quantity: '1',
         isDialogVisible: false,
         buyer_message: '',
         max_characters: '120',
       };
+    }
+
+    componentDidMount() {
+      const {state} = this.props.navigation;
+      const token = state.params ? state.params.token : undefined;
+      var product = state.params ? state.params.product : undefined;
+
+      this.sellerName(product.fk_vendor, token);
+    }
+
+    sellerName = async (fk_vendor, token) => {
+      const getNamePath = `${process.env.VENDAS_API}/api/get_name/`;
+  		fetch(getNamePath, {
+  			method: 'POST',
+  			headers: {
+  			'Content-Type': 'application/json',
+  			},
+  			body: JSON.stringify({
+          'user_id': fk_vendor,
+          'token': token,
+  			}),
+  		})
+  			.then((response) => response.json() )
+  			.then((responseJson) => {
+          if (!responseJson.error) {
+            name = responseJson.name;
+            this.setState({seller: name});
+          }
+        })
+  			.catch((error) => {
+  				console.error(error);
+        });
     }
 
     sendNotification = async (product, token) => {
@@ -143,7 +176,6 @@ class FormPicker extends Component {
     .then((response) => response.json())
     .then((responseJson) => {
       this.sendNotification(product, token);
-      console.log(responseJson);
       if(responseJson.error != undefined)
         Alert.alert(responseJson.error);
       else
@@ -179,7 +211,7 @@ class FormPicker extends Component {
                 photo={product.photo}
                 />
               <CardItem style={styles.info}>
-                <Text style={styles.textVendor}> Fulano da Silva </Text>
+                <Text style={styles.textVendor}> {this.state.seller} </Text>
               </CardItem>
 
               <CardItem style={styles.info}>
@@ -217,7 +249,6 @@ class FormPicker extends Component {
                 onValueChange={(itemValue, itemIndex) => this.setState({ quantity: itemValue })}
               />
             </Content>
-
           </View>
       );
     }

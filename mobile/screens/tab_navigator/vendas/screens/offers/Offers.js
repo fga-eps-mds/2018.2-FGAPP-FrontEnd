@@ -19,7 +19,7 @@ class Offers extends Component {
 			products: [{
 				name: '',
 				price: '',
-				photo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3DELRuKTg7K4gi9v13ELUq3ltLxlNGOsw6BDfsF0jlVKFr4h3',
+				photo: 'https://res.cloudinary.com/integraappfga/image/upload/v1541537829/senk2odnxamopwlkmyoq.png',
 			}],
 			refreshing: false,
 		};
