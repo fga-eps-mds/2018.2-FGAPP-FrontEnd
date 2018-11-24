@@ -43,7 +43,6 @@ class ViewLocal extends Component {
       duration: 900
     });
   }
-
   render() {
     const {
       id,

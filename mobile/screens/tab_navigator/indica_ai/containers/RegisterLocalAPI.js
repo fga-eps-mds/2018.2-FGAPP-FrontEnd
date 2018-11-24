@@ -6,6 +6,9 @@ import {
 } from "react-native";
 import { withNavigation, createStackNavigator } from 'react-navigation';
 import RegisterAPIForm from '../components/RegisterAPIForm.js'
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { searchAction } from '../actions'
 
 class RegisterLocalAPI extends Component {
 
@@ -14,11 +17,15 @@ class RegisterLocalAPI extends Component {
     this.state = {
       requestStatus: null,
       selectedCategories: [],
-      local: {}
+      local: {},
+      open: '',
+      close: '',
+      opening_hours: []
     };
   }
 
   _postForm = async (name, description) => {
+    const { opening_hours } = this.state
     const { selectedCategories } = this.state
     const categories = Array()
     for (const index in selectedCategories) {
@@ -32,7 +39,7 @@ class RegisterLocalAPI extends Component {
       "address": this.props.address,
       "latitude": this.props.latitude,
       "longitude": this.props.longitude,
-      "opening_hours": [],
+      "opening_hours": opening_hours,
       "telephone": undefined,
     });
     try {
@@ -50,6 +57,7 @@ class RegisterLocalAPI extends Component {
         this.setState({
           local: jsonResponse["data"][0]
         })
+        this._updateFunction();
       } else {
         this.setState({ requestStatus: "FAILED" })
       }
@@ -67,8 +75,64 @@ class RegisterLocalAPI extends Component {
       selectedCategories: selectedCategories
     })
   }
-
+  _updateFunction = () => {
+    fetch(`${process.env.INDICA_AI_API}/locals/`, {
+     method: "GET",
+     headers: {
+       Accept: "application/json",
+       "Content-Type": "aplication/json"
+     }
+   })
+   .then(response => response.json())
+   .then(responseJson => {
+     this.props.searchAction(responseJson)
+   })
+   .catch(error => {
+     console.log(error);
+   });
+ 
+ }
   render() {
+
+    let opening_hours = [];
+    let obj = {};
+
+    opens = this.state.open
+    closes = this.state.close
+
+    takeOpeningHours = (day, open, close) => {
+      if(open) {
+        this.setState({open})
+      }
+      if(close) {
+        this.setState({close})
+      }
+      if(this.state.open && this.state.close){
+        if(day==8 || day==9){
+          if(day==8){
+            for(var day=2; day<7; day++){
+              obj = {day, opens, closes}
+              this.state.opening_hours = [ ...this.state.opening_hours, obj];
+            }
+            this.setState({open: ''})
+            this.setState({close: ''})
+          }else{
+            for(var day=1; day<8; day=day+6){
+              obj = {day, opens, closes}
+              this.state.opening_hours = [ ...this.state.opening_hours, obj];
+            }
+            this.setState({open: ''})
+            this.setState({close: ''})
+          }
+        }else{
+          obj = {day, opens, closes}
+          this.state.opening_hours = [ ...this.state.opening_hours, obj];
+          this.setState({open: ''})
+          this.setState({close: ''})
+        }
+      }
+    }
+
     if (this.state.requestStatus === "SUCCESS") {
       Alert.alert(
         'Local cadastrado com sucesso!',
@@ -97,9 +161,16 @@ class RegisterLocalAPI extends Component {
       <RegisterAPIForm
         sendDataToTheForm={this.takeDataFromTheForm}
         setSelectedCategories={this.setSelectedCategories}
+        takeOpeningHours={takeOpeningHours}
       />
     );
   }
 }
 
-export default withNavigation(RegisterLocalAPI);
+const mapDispatchToProps = dispatch => (
+  bindActionCreators({ searchAction }, dispatch)
+)
+export default withNavigation(connect(
+null,
+mapDispatchToProps
+)(RegisterLocalAPI));
