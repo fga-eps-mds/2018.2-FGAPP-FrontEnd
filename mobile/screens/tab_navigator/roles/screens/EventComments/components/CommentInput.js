@@ -11,8 +11,9 @@ import { Button, Toast } from 'native-base';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import Divider from '../../EventProfile/components/Divider';
+import { ACTION_USER_DICTIONARY_INSERT } from 'expo/src/IntentLauncherAndroid';
 
-export default class CommentInput extends Component {
+class CommentInput extends Component {
     state = {
         author: '',
         text: '',
@@ -47,7 +48,7 @@ export default class CommentInput extends Component {
                 ToastAndroid.LONG
             );
         else {
-            const { eventId, username } = this.props;
+            const { eventId, userId} = this.props;
             const {
                 text,
                 edited,
@@ -59,7 +60,8 @@ export default class CommentInput extends Component {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    author: username,
+                    authorName: this.props.userInfo.name,
+                    authorId: userId,
                     text,
                     answerId: 0,
                     created: moment().format('YYYY-MM-DD HH:mm:ss'),
@@ -142,6 +144,7 @@ export default class CommentInput extends Component {
         );
     }
 }
+export default CommentInput;
 
 CommentInput.propTypes = {
     eventId: PropTypes.node.isRequired
@@ -170,3 +173,4 @@ const styles = StyleSheet.create({
         alignSelf: 'center'
     }
 });
+
