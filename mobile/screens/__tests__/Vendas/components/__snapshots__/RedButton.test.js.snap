@@ -20,14 +20,11 @@ exports[`renders correctly 1`] = `
   onStartShouldSetResponder={[Function]}
   style={
     Object {
-      "alignItems": "center",
-      "alignSelf": "center",
       "backgroundColor": "#830037",
       "flex": 0,
-      "height": 50,
-      "justifyContent": "center",
       "opacity": 1,
-      "width": 100,
+      "paddingHorizontal": 15,
+      "paddingVertical": 10,
     }
   }
   testID={undefined}

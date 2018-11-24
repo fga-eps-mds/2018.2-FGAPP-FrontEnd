@@ -1,0 +1,30 @@
+{
+  "expo": {
+    "name": "Integra",
+    "icon": "assets/icon.png",
+    "splash": {
+      "image": "assets/splash.png",
+      "backgroundColor": "#BD1C5F"
+    },
+    "notification": {
+      "icon": "./assets/icon.png"
+    },
+    "slug": "integra-app",
+    "sdkVersion": "27.0.0",
+    "primaryColor": "#BD1C5F",
+    "githubUrl": "https://github.com/fga-eps-mds/2018.2-FGAPP-FrontEnd",
+    "packagerOpts": {
+      "sourceExts": ["ts", "tsx"],
+      "transformer": "node_modules/react-native-typescript-transformer/index.js"
+    },
+    "android": {
+      "package": "com.unbgama.integra",
+      "versionCode": 2,
+      "config": {
+        "googleMaps": {
+            "apiKey": "AIzaSyBtDGKIxbngjRePVN93YgE176CMKBKUgzI"
+        }
+      }
+    }
+  }
+}

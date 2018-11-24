@@ -369,14 +369,11 @@ exports[`Test submitDialog renders correctly 1`] = `
           onStartShouldSetResponder={[Function]}
           style={
             Object {
-              "alignItems": "center",
-              "alignSelf": "center",
               "backgroundColor": "#0EAC6F",
               "flex": 0,
-              "height": 50,
-              "justifyContent": "center",
               "opacity": 1,
-              "width": 100,
+              "paddingHorizontal": 15,
+              "paddingVertical": 10,
             }
           }
           testID={undefined}
@@ -511,7 +508,7 @@ exports[`Test submitDialog renders correctly 1`] = `
                 <View
                   style={
                     Object {
-                      "backgroundColor": "rgba(255,255,255, 0.8)",
+                      "backgroundColor": "rgb(255,255,255)",
                       "bottom": 0,
                       "left": 0,
                       "position": "absolute",
@@ -716,17 +713,6 @@ exports[`Test submitDialog renders correctly 1`] = `
                     </View>
                   </View>
                 </View>
-                <View
-                  style={
-                    Object {
-                      "borderTopColor": "#A9ADAE",
-                      "borderTopWidth": 0.5,
-                      "flexDirection": "row",
-                      "height": 46,
-                      "justifyContent": "space-between",
-                    }
-                  }
-                />
               </View>
             </View>
           </View>

@@ -129,7 +129,7 @@ exports[`Test MyProductDetails requisitions renders correctly 1`] = `
             <View
               style={
                 Object {
-                  "backgroundColor": "rgba(255,255,255, 0.8)",
+                  "backgroundColor": "rgb(255,255,255)",
                   "bottom": 0,
                   "left": 0,
                   "position": "absolute",
@@ -252,20 +252,57 @@ exports[`Test MyProductDetails requisitions renders correctly 1`] = `
       </View>
     </Modal>
   </View>
-  <Image
+  <View
+    accessibilityComponentType={undefined}
+    accessibilityLabel={undefined}
+    accessibilityTraits={undefined}
+    accessible={true}
     collapsable={undefined}
-    source={
-      Object {
-        "uri": "http://www.piniswiss.com/wp-content/uploads/2013/05/image-not-found-4a963b95bf081c3ea02923dceaeb3f8085e1a654fc54840aac61a57a60903fef-300x199.png",
-      }
-    }
+    hasTVPreferredFocus={undefined}
+    hitSlop={undefined}
+    isTVSelectable={true}
+    nativeID={undefined}
+    onLayout={undefined}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
     style={
       Object {
-        "height": 199,
-        "width": "100%",
+        "opacity": 1,
       }
     }
-  />
+    testID={undefined}
+    tvParallaxProperties={undefined}
+  >
+    <Image
+      collapsable={undefined}
+      source={
+        Object {
+          "uri": "https://pbs.twimg.com/profile_images/574235336575844353/PZfjQaVw_400x400.jpeg",
+        }
+      }
+      style={
+        Object {
+          "height": 199,
+          "width": "100%",
+        }
+      }
+    />
+    <Image
+      collapsable={undefined}
+      source={1}
+      style={
+        Object {
+          "left": "90%",
+          "position": "absolute",
+          "top": "5%",
+        }
+      }
+    />
+  </View>
   <View
     style={
       Array [
@@ -340,12 +377,25 @@ exports[`Test MyProductDetails requisitions renders correctly 1`] = `
               "fontSize": 17,
               "left": 0,
               "paddingRight": 5,
+              "paddingTop": 5,
               "top": 6,
             }
           }
           virtual={undefined}
         >
-          Bolinho de chuva
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "fontSize": 17,
+              }
+            }
+            virtual={undefined}
+          >
+            Bolinho de chuva
+          </Text>
         </Text>
       </View>
       <TextInput
@@ -441,12 +491,25 @@ exports[`Test MyProductDetails requisitions renders correctly 1`] = `
               "fontSize": 17,
               "left": 0,
               "paddingRight": 5,
+              "paddingTop": 5,
               "top": 6,
             }
           }
           virtual={undefined}
         >
-          8
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "fontSize": 17,
+              }
+            }
+            virtual={undefined}
+          >
+            8
+          </Text>
         </Text>
       </View>
       <TextInput
@@ -539,14 +602,11 @@ exports[`Test MyProductDetails requisitions renders correctly 1`] = `
         onStartShouldSetResponder={[Function]}
         style={
           Object {
-            "alignItems": "center",
-            "alignSelf": "center",
             "backgroundColor": "#830037",
             "flex": 0,
-            "height": 50,
-            "justifyContent": "center",
             "opacity": 1,
-            "width": 100,
+            "paddingHorizontal": 15,
+            "paddingVertical": 10,
           }
         }
         testID={undefined}
@@ -589,14 +649,11 @@ exports[`Test MyProductDetails requisitions renders correctly 1`] = `
         onStartShouldSetResponder={[Function]}
         style={
           Object {
-            "alignItems": "center",
-            "alignSelf": "center",
             "backgroundColor": "#0EAC6F",
             "flex": 0,
-            "height": 50,
-            "justifyContent": "center",
             "opacity": 1,
-            "width": 100,
+            "paddingHorizontal": 15,
+            "paddingVertical": 10,
           }
         }
         testID={undefined}

@@ -84,7 +84,15 @@ export default {
     paddingBottom: 20,
     paddingLeft: 20,
     paddingRight: 20,
-
+  },
+  order_header: {
+    borderRadius: 5,
+    flex: 1,
+    flexDirection: 'row',
+    paddingTop: 10,
+    paddingBottom: 20,
+    paddingLeft: 20,
+    paddingRight: 20,
   },
   items: {
     backgroundColor: '#171717',
@@ -106,6 +114,11 @@ export default {
   },
   order_title: {
     color: 'white',
+    fontSize: 25,
+  },
+  order_header_title: {
+    textAlign: 'center',
+    color: 'gray',
     fontSize: 25,
   },
   order_subtitle: {
@@ -161,22 +174,12 @@ export default {
     backgroundColor: "#0EAC6F",
     paddingVertical: 10,
     paddingHorizontal: 15,
-    // height: 50,
-    // width: 95,
-    // justifyContent: 'center',
-    // alignItems: 'center',
-    // alignSelf: 'center',
   },
   customBtnBR: {
     flex: 0,
     backgroundColor: "#830037",
     paddingVertical: 10,
     paddingHorizontal: 15,
-    // height: 50,
-    // width: 100,
-    // justifyContent: 'center',
-    // alignItems: 'center',
-    // alignSelf: 'center',
   },
   buttonCard:{
     backgroundColor: 'transparent',
@@ -237,12 +240,11 @@ export default {
     margin: 0,
     padding: 0,
     width: '100%',
-    backgroundColor: 'white',
     },
    buyer_order_main: {
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: '#BD1C5F', // TODO change backgroundColor
+    backgroundColor: '#0EAC6F',
     paddingTop: 10,
     paddingBottom: 20,
     paddingLeft: 20,

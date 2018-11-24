@@ -37,7 +37,7 @@ exports[`renders correctly 1`] = `
         Array [
           Object {},
           Object {
-            "backgroundColor": "#BD1C5F",
+            "backgroundColor": "#0EAC6F",
             "flex": 1,
             "flexDirection": "row",
             "paddingBottom": 20,
