@@ -10,6 +10,10 @@ const FavoritesTab = StackNavigator({
       },
     }
   },
+  {
+    initialRouteName: 'FavoritesScreen',
+    headerMode: 'none',
+  }
 );
 
 export default FavoritesTab;
