@@ -1,10 +1,13 @@
 import React from 'react';
-import { Platform, Text, View, StyleSheet } from 'react-native'
+import { Platform, Text, View, StyleSheet, Dimensions } from 'react-native'
 import { Constants, Location, Permissions } from 'expo'
 import MapView, {Marker} from 'react-native-maps'
 import {mapStyle} from '../assets/mapStyle.js'
 import icon from '../assets/icon4.png'
 import RegisterLocal from '../containers/RegisterLocal'
+
+const width = Dimensions.get('window').width;
+const height = Dimensions.get('window').height / 2;
 
 export default class UserMap extends React.Component {
 
@@ -19,7 +22,7 @@ export default class UserMap extends React.Component {
 
   render(){
     return(
-      <View style = {styles.container}>
+      <View style = {styles.container}  elevation={5}>
       <MapView
         style = {styles.map}
         customMapStyle={mapStyle}
@@ -67,8 +70,18 @@ const styles = StyleSheet.create({
      left: 0,
      bottom: 0,
      right: 0,
-     justifyContent: 'flex-end',
-     alignItems: 'center'
+     justifyContent: 'center',
+     alignItems: 'center',
+     backgroundColor:'#d9d9d9',
+     shadowColor: "#000000",
+     shadowOpacity: 0.8,
+     shadowRadius: 2,
+     shadowOffset: {
+       height: 1,
+       width: 1
+     },
+     width,
+     height: "60%",
  },
  map: {
    position: 'absolute',

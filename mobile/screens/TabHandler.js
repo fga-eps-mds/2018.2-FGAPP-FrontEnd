@@ -6,7 +6,7 @@ import { Icon } from 'native-base';
 
 import { TabNavigator } from 'react-navigation';
 import TabHandlerVendasApp from './tab_navigator/vendas/TabHandlerVendasApp';
-import IndicaAiApp from './tab_navigator/indica_ai/IndicaAiApp';
+import TabHandlerIndicaAi from './tab_navigator/indica_ai/TabHandlerIndicaAi';
 import RolesApp from './tab_navigator/roles/RolesApp';
 import CarDefenseApp from './tab_navigator/car_defense/CarDefenseApp';
 import SettingScreen from './tab_navigator/settings/SettingScreen';
@@ -49,10 +49,9 @@ const TabHandler = new TabNavigator({
         }
     },
     IndicaAi: {
-        screen: IndicaAiApp,
+        screen: TabHandlerIndicaAi,
         navigationOptions: {
             tabBarLabel: 'IndicaAi',
-            headerLeft: null,
             tabBarIcon: ({ focused }) => (
                 <Icon
                     name="md-pin"
@@ -61,23 +60,12 @@ const TabHandler = new TabNavigator({
             ),
             headerStyle: {
                backgroundColor:'#0AACCC'
-            }
-        }
-    },
-    CarDefense: {
-        screen: CarDefenseApp,
-        navigationOptions: {
-            tabBarLabel: 'CarDefense',
-            headerLeft: null,
-            tabBarIcon: ({ focused }) => (
-                <Icon
-                    name="md-car"
-                    style={{ color: focused ? '#5C68C3' : '#5A5A5A' }}
-                />
-            ),
-            headerStyle: {
-               backgroundColor:'#5C68C3'
-            }
+            },
+            headerTintColor: 'white',
+            headerTitleStyle: {
+              color: 'white',
+              alignSelf: 'center'
+            },
         }
     },
     SettingScreen: {
