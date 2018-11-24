@@ -3,22 +3,23 @@ import {
   View,
   StyleSheet,
   TouchableOpacity,
-  ImageBackground,
+  Image
 } from "react-native";
 import {
   Card,
   Text,
-  Icon,
 } from 'native-base';
 import { withNavigation } from 'react-navigation';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 class FavoriteCard extends Component {
   render() {
-    const { name = "", description = "", local_images = [] } = this.props.local
+    const description = this.props.local.description || 'Local sem descrição'
+    const { name = "", local_images = [] } = this.props.local
     const image = (local_images.length !== 0) ?
       { uri: "data:image/jpg;base64," + local_images[local_images.length - 1]["image"] }
       : require('../assets/IntegraApps_icon.png')
-
+ 
     return (
       <TouchableOpacity
         onPress={() => {
@@ -28,24 +29,29 @@ class FavoriteCard extends Component {
         }}>
 
         <Card style={styles.cardFavorite}>
+
           <View style={styles.fieldImage}>
-            <ImageBackground source={image}
-              style={styles.imageLocal}
-            />
+            <Image source={image} style={styles.imageLocal}/>
           </View>
+
           <View style={styles.cardField}>
             <View style={styles.cardFieldText}>
+
               <View style={styles.fieldName}>
-                <Icon name="heart" color="#333" />
-                <Text numberOfLines={1} style={styles.textFavorite}> {name}</Text>
+                <Icon name="ios-heart" 
+                      color="red" 
+                      size = {22}
+                      />
+                <Text numberOfLines={2} style={styles.textFavorite}> {name}</Text>
               </View>
+
               <View style={styles.fieldDescription}>
-                <Text numberOfLines={3} style={styles.textDescription}>
-                  {description}
-                </Text>
+                <Text numberOfLines={3} style={styles.textDescription}> {description} </Text>
               </View>
+
             </View>
           </View>
+
         </Card>
       </TouchableOpacity>
     );
@@ -63,15 +69,21 @@ const styles = StyleSheet.create({
   },
   cardField: {
     margin: 10,
+    width: '80%',
   },
   cardFieldText: {
-    flexDirection: "column",
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: "stretch"
   },
   fieldName: {
     flexDirection: "row",
+    width:'80%'
   },
   fieldDescription: {
     width: "80%",
+    marginTop: 5,
     marginRight: 10,
     marginBottom: 5,
   },
@@ -80,15 +92,15 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   imageLocal: {
-    height: 80,
+    height: 100,
     width: 100,
   },
   textFavorite: {
     color: '#333',
-    fontSize: 25,
+    fontSize: 17,
     fontWeight: 'bold',
     marginLeft: 10,
-    width: 220,
+    width: '80%'
   },
   textDescription: {
     width: 220,
