@@ -3,8 +3,8 @@ import { StyleSheet, Text, View, StatusBar, Platform, BackHandler } from 'react-
 
 import {StackNavigator} from 'react-navigation'
 
-import { RootNavigator } from './src/Routes';
-import { isSignedIn } from "./src/AuthMethods";
+import { RootNavigator } from './Routes';
+import { isSignedIn } from "./AuthMethods";
 
 
 
