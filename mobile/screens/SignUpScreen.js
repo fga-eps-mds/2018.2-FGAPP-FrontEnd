@@ -7,6 +7,7 @@ import {
   ImageBackground,
   Image,
   KeyboardAvoidingView,
+  BackHandler,
 } from 'react-native';
 import jwt_decode from 'jwt-decode';
 import { Button } from 'native-base';
@@ -24,7 +25,17 @@ export default class App extends Component {
       email_field_alerts: [''], password_field_alerts: [''], non_field_alerts: []
     };
   }
-
+  componentWillMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.backPressed);
+  }
+  
+  backPressed = () => {
+      this.props.navigation.goBack();
+      return true;
+  }
+  componentWillUnmount () {
+    BackHandler.removeEventListener('hardwareBackPress', this.backPressed);
+  }    
   _updateUserName = async (userID) => {
     const updateProfilePath = `${process.env.INTEGRA_LOGIN_AUTH}/api/users/update_profile/`;
     if (this.state.name == '') {

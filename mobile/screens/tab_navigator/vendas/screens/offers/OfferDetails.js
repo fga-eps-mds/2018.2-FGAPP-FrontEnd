@@ -5,6 +5,7 @@ import {
     TouchableOpacity,
     Picker,
     Alert,
+    BackHandler,
 } from 'react-native';
 import ProductImage from '../../components/ProductImage';
 import styles from '../../components/styles';
@@ -89,6 +90,18 @@ class FormPicker extends Component {
         buyer_message: '',
         max_characters: '120',
       };
+    }
+    
+    componentWillMount() {
+      BackHandler.addEventListener('hardwareBackPress', this.backPressed);
+    }
+    
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.backPressed);
+    } 
+    backPressed = () => {
+        this.props.navigation.goBack();
+        return true;
     }
 
     sendNotification = async (product, token) => {

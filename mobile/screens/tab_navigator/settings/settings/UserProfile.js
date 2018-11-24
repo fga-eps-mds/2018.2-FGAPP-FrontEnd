@@ -6,6 +6,7 @@ import {
   Image,
   TouchableOpacity,
   Alert,
+  BackHandler,
 } from 'react-native';
 import { Card, CardItem, Body, Item, Label, Input } from 'native-base';
 import jwt_decode from 'jwt-decode'
@@ -20,7 +21,16 @@ class UserProfile extends Component {
       need_logout: false,
     };
   }
-
+  componentWillMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.backPressed);
+  }
+  componentWillUnmount () {
+    BackHandler.removeEventListener('hardwareBackPress', this.backPressed);
+  }
+  backPressed = () => {
+      this.props.navigation.goBack();
+      return true;
+  }
   _clickPhoto = async () => {
     const {
       cancelled,

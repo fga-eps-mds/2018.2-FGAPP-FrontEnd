@@ -8,7 +8,8 @@ import {
     Text,
     StyleSheet,
     ScrollView,
-    RefreshControl
+    RefreshControl,
+    BackHandler,
 } from 'react-native';
 import OrderCard from '../../components/OrderCard'
 import BuyerOrderCard from '../../components/BuyerOrderCard'
@@ -28,6 +29,16 @@ class OrderedProducts extends Component {
     }
     componentDidMount(){
         this.loadOrders();
+    }
+    componentWillMount() {
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
+    }
+	componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+	}
+	handleBackButtonClick() {
+        BackHandler.exitApp();
+        return true;
     }
     loadOrders = async () => {
       const {state} = this.props.navigation;

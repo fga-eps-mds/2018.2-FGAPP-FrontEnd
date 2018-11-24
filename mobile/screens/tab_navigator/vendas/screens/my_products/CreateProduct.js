@@ -10,7 +10,7 @@ import {
   Keyboard,
   Animated,
   TouchableOpacity,
-  ImageBackground
+  BackHandler,
 } from 'react-native';
 import {
   Textarea,
@@ -115,12 +115,19 @@ class CreateProduct extends Component {
       this.setState({ isDialogVisible: true })
     })
   }
-
+  componentWillMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.backPressed);
+  }
+  backPressed = () => {
+      this.props.navigation.goBack();
+      return true;
+  }
   componentDidMount() {
     this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
     this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
   }
   componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.backPressed);
     this.keyboardDidShowListener.remove();
     this.keyboardDidHideListener.remove();
   }

@@ -5,9 +5,8 @@ import {
     StyleSheet,
     Image,
     ScrollView,
-    CardItem,
     Alert,
-    ImageBackground,
+    BackHandler,
 } from 'react-native';
 import styles from '../../components/styles'
 import jwt_decode from 'jwt-decode'
@@ -54,7 +53,16 @@ class OrderDetails extends Component {
         console.error(err)
       })
     }
-
+    componentWillMount() {
+      BackHandler.addEventListener('hardwareBackPress', this.backPressed);
+    }
+    componentWillUnmount () {
+      BackHandler.removeEventListener('hardwareBackPress', this.backPressed);
+    }
+    backPressed = () => {
+        this.props.navigation.goBack();
+        return true;
+    }
     _closeButton = async () => {
       const {state} = this.props.navigation;
       var order = state.params ? state.params.order : undefined;

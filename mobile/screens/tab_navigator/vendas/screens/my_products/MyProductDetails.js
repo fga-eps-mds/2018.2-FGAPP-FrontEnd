@@ -10,8 +10,7 @@ import {
     Keyboard,
     TouchableOpacity,
     Animated,
-    ImageBackground,
-    Image
+    BackHandler,
 } from 'react-native';
 import ProductImage from '../../components/ProductImage';
 import { Textarea, Form, Item, Input, Label, Button } from 'native-base';
@@ -112,8 +111,16 @@ class MyProductDetails extends Component {
       this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
       this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
     }
-
+    componentWillMount() {
+      BackHandler.addEventListener('hardwareBackPress', this.backPressed);
+    }
+    
+    backPressed = () => {
+        this.props.navigation.goBack();
+        return true;
+    }
     componentWillUnmount () {
+      BackHandler.removeEventListener('hardwareBackPress', this.backPressed);
       this.keyboardDidShowListener.remove();
       this.keyboardDidHideListener.remove();
     }

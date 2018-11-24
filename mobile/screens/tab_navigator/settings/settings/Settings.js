@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
   Text,
   StyleSheet,
+  BackHandler,
 } from 'react-native';
 import {
   List,
@@ -32,7 +33,16 @@ class Settings extends Component {
   componentDidMount() {
     this._loadProfile();
   }
-
+  componentWillMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
+  }
+  componentWillUnmount() {
+      BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+  }
+  handleBackButtonClick() {
+      BackHandler.exitApp();
+      return true;
+  }
   _loadProfile = async () => {
     const { state } = this.props.navigation;
     const token = state.params ? state.params.token : undefined;

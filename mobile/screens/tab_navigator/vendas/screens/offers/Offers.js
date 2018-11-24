@@ -7,7 +7,8 @@ import {
 	View,
 	StyleSheet,
 	ScrollView,
-	RefreshControl
+	RefreshControl,
+	BackHandler,
 } from 'react-native';
 import ProductCard from '../../components/ProductCard';
 
@@ -52,7 +53,16 @@ class Offers extends Component {
 				console.error(error);
 			});
 	}
-
+	componentWillMount() {
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
+    }
+	componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+	}
+	handleBackButtonClick() {
+        BackHandler.exitApp();
+        return true;
+    }
 	componentDidMount() {
 		this.loadOffers();
 	}

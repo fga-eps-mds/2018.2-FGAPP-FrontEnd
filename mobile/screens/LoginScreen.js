@@ -2,13 +2,10 @@ import React, { Component } from "react";
 import {
     View,
     Text,
-    TextInput,
     StyleSheet,
     FlatList,
-    Alert,
     ImageBackground,
     Image,
-    StatusBar,
     KeyboardAvoidingView,
     TouchableOpacity,
     Linking,
@@ -54,16 +51,16 @@ async function storeToken(loginToken, notificationToken){
 
 class LoginScreen extends Component {
 
-  componentDidMount() {
-    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+  componentWillMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
+  }
+  handleBackButtonClick() {
+      BackHandler.exitApp();
+      return true;
   }
   componentWillUnmount() {
-    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
   }
-  handleBackButton() {
-    return true;
-  }
-
   constructor(props) {
       super(props);
       this.state = {

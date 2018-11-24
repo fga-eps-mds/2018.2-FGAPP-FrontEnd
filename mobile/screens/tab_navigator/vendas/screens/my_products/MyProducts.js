@@ -9,7 +9,8 @@ import { RefreshControl, Alert } from 'react-native';
 import {
 	View,
 	StyleSheet,
-	ScrollView
+	ScrollView,
+	BackHandler,
 } from 'react-native';
 import { Icon, Fab } from 'native-base';
 import jwt_decode from 'jwt-decode';
@@ -56,6 +57,16 @@ class MyProducts extends Component {
 				console.log(err);
 			})
 	}
+	componentWillMount() {
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
+    }
+	componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+	}
+	handleBackButtonClick() {
+        BackHandler.exitApp();
+        return true;
+    }
 
 	refreshUserProducts = async () => {
 		this.setState({ refreshing: true });
