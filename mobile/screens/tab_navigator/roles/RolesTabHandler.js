@@ -16,7 +16,7 @@ const RolesTabHandler = TabNavigator(
 			navigationOptions: {
 				tabBarLabel: "Próximos Rolês",
 				title: 'Próximos Rolês',
-			}
+			} 
 		},
 		EventosPassados: {
 			screen: EventosPassados,
