@@ -14,7 +14,7 @@ import { withNavigation } from 'react-navigation';
 
 class FavoriteCard extends Component {
   render() {
-    const { name, description, local_images } = this.props.local
+    const { name = "", description = "", local_images = [] } = this.props.local
     const image = (local_images.length !== 0) ?
       { uri: "data:image/jpg;base64," + local_images[local_images.length - 1]["image"] }
       : require('../assets/IntegraApps_icon.png')

@@ -1,6 +1,7 @@
 .env
 .env*
 *.env
+Config.js
 
 # Xcode
 !**/*.xcodeproj
@@ -73,3 +74,4 @@ package-lock.json
 # ReactCommon subdir shouldn't have Xcode project
 /ReactCommon/**/*.xcodeproj
 RNTester/build
+mobile/screens/tab_navigator/roles/screens/TabNavigator/cadastroEventos/Config.js
