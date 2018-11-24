@@ -5,6 +5,7 @@ import {
     TouchableOpacity,
     Picker,
     Alert,
+    Image,
 } from 'react-native';
 import ProductImage from '../../components/ProductImage';
 import styles from '../../components/styles';
@@ -47,7 +48,7 @@ const Quantity = [
   },
   {
     label: '9',
-    value: '9'
+    value: '9',
   },
   {
     label: '10',
@@ -178,9 +179,13 @@ class FormPicker extends Component {
               <ProductImage
                 photo={product.photo}
                 />
-              <CardItem style={styles.info}>
-                <Text style={styles.textVendor}> Fulano da Silva </Text>
-              </CardItem>
+              <View style={styless.user_container}>
+                <Image
+                  source={{ uri: 'https://res.cloudinary.com/integraappfga/image/upload/v1543060378/pg9po2nkmp613tyhyhfl.jpg' }}
+                  style={styless.image_circle}
+                />
+                <Text style={styless.user_name}>Fulano da Silva 29</Text>
+              </View>
 
               <CardItem style={styles.info}>
                 <Text style={styles.textInfo}> {product.name} </Text>
@@ -217,7 +222,6 @@ class FormPicker extends Component {
                 onValueChange={(itemValue, itemIndex) => this.setState({ quantity: itemValue })}
               />
             </Content>
-
           </View>
       );
     }
@@ -229,5 +233,23 @@ const styless = StyleSheet.create({
         flex: 1,
         backgroundColor: 'white',
         //width: '100%',
+    },
+    image_circle: {
+      width: 50,
+      height: 50,
+      borderRadius: 50/2,
+      margin: 10,
+    },
+    user_container:{
+      flexDirection: 'row',
+      //backgroundColor: 'red',
+      height: 70,
+      width: '100%',
+      marginTop:10,
+      alignItems: 'flex-end'
+    },
+    user_name:{
+      paddingBottom:10,
     }
+
 });

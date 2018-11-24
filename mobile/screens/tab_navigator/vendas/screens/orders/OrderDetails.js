@@ -201,7 +201,13 @@ class OrderDetails extends Component {
                 </View>
               </View>
               <View style={{ flexDirection: 'column', paddingLeft: 10 }}>
-                <Text style={{fontSize: 20}}>Cliente: {name}</Text>
+                <View style={local_styles.user_container}>
+                  <Image
+                    source={{ uri: 'https://res.cloudinary.com/integraappfga/image/upload/v1543060378/pg9po2nkmp613tyhyhfl.jpg' }}
+                    style={local_styles.image_circle}
+                  />
+                  <Text style={local_styles.user_name}>{name}</Text>
+                </View>
                 <View style={{height: 10}}/>
                 <Text style={{fontSize: 16, color: '#5A5A5A'}}>{order.buyer_message}</Text>
                 <View style={{height: 50}}/>
@@ -249,5 +255,22 @@ const local_styles = StyleSheet.create({
       flexDirection: 'column',
       height: 40,
       width: 100,
+    },
+    image_circle: {
+      width: 50,
+      height: 50,
+      borderRadius: 50/2,
+      margin: 10,
+    },
+    user_container:{
+      flexDirection: 'row',
+      //backgroundColor: 'red',
+      height: 70,
+      width: '100%',
+      marginTop:10,
+      alignItems: 'flex-end'
+    },
+    user_name:{
+      paddingBottom:10,
     }
 });
