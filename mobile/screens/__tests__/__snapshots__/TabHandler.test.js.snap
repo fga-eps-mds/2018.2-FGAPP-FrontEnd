@@ -71,546 +71,465 @@ exports[`renders correctly 1`] = `
           }
         >
           <View
-            collapsable={false}
+            loaded={
+              Array [
+                0,
+              ]
+            }
+            onLayout={[Function]}
             style={
-              Object {
-                "flex": 1,
-              }
+              Array [
+                Object {
+                  "flex": 1,
+                  "overflow": "hidden",
+                },
+                Object {
+                  "flex": 1,
+                },
+              ]
             }
           >
             <View
-              onLayout={[Function]}
+              collapsable={undefined}
+              onMoveShouldSetResponder={[Function]}
+              onMoveShouldSetResponderCapture={[Function]}
+              onResponderEnd={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderReject={[Function]}
+              onResponderRelease={[Function]}
+              onResponderStart={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              onStartShouldSetResponderCapture={[Function]}
               style={
-                Array [
-                  Object {
-                    "flex": 1,
-                  },
-                  undefined,
-                ]
+                Object {
+                  "alignItems": "stretch",
+                  "flex": 1,
+                  "flexDirection": "row",
+                }
               }
             >
               <View
-                onMoveShouldSetResponder={[Function]}
-                onMoveShouldSetResponderCapture={[Function]}
-                onResponderEnd={[Function]}
-                onResponderGrant={[Function]}
-                onResponderMove={[Function]}
-                onResponderReject={[Function]}
-                onResponderRelease={[Function]}
-                onResponderStart={[Function]}
-                onResponderTerminate={[Function]}
-                onResponderTerminationRequest={[Function]}
-                onStartShouldSetResponder={[Function]}
-                onStartShouldSetResponderCapture={[Function]}
                 style={
                   Object {
-                    "flex": 1,
-                    "flexDirection": "column-reverse",
+                    "bottom": 0,
+                    "left": 0,
+                    "position": "absolute",
+                    "right": 0,
+                    "top": 0,
                   }
                 }
+                testID={undefined}
               >
                 <View
                   style={
                     Object {
                       "flex": 1,
+                      "overflow": "hidden",
                     }
                   }
                 >
                   <View
-                    collapsable={undefined}
-                    pointerEvents="auto"
+                    onLayout={[Function]}
                     style={
-                      Object {
-                        "backgroundColor": "#E9E9EF",
-                        "bottom": 0,
-                        "left": 0,
-                        "opacity": 1,
-                        "position": "absolute",
-                        "right": 0,
-                        "shadowColor": "black",
-                        "shadowOffset": Object {
-                          "height": 0,
-                          "width": 0,
+                      Array [
+                        Object {
+                          "flex": 1,
                         },
-                        "shadowOpacity": 0.4,
-                        "shadowRadius": 10,
-                        "top": 0,
-                        "transform": Array [
-                          Object {
-                            "translateX": 0,
-                          },
-                          Object {
-                            "translateY": 0,
-                          },
-                        ],
-                      }
+                        undefined,
+                      ]
                     }
                   >
                     <View
-                      loaded={
-                        Array [
-                          0,
-                        ]
-                      }
-                      onLayout={[Function]}
+                      onMoveShouldSetResponder={[Function]}
+                      onMoveShouldSetResponderCapture={[Function]}
+                      onResponderEnd={[Function]}
+                      onResponderGrant={[Function]}
+                      onResponderMove={[Function]}
+                      onResponderReject={[Function]}
+                      onResponderRelease={[Function]}
+                      onResponderStart={[Function]}
+                      onResponderTerminate={[Function]}
+                      onResponderTerminationRequest={[Function]}
+                      onStartShouldSetResponder={[Function]}
+                      onStartShouldSetResponderCapture={[Function]}
                       style={
-                        Array [
-                          Object {
-                            "flex": 1,
-                            "overflow": "hidden",
-                          },
-                          Object {
-                            "flex": 1,
-                          },
-                        ]
+                        Object {
+                          "flex": 1,
+                          "flexDirection": "column-reverse",
+                        }
                       }
                     >
                       <View
-                        collapsable={undefined}
-                        onMoveShouldSetResponder={[Function]}
-                        onMoveShouldSetResponderCapture={[Function]}
-                        onResponderEnd={[Function]}
-                        onResponderGrant={[Function]}
-                        onResponderMove={[Function]}
-                        onResponderReject={[Function]}
-                        onResponderRelease={[Function]}
-                        onResponderStart={[Function]}
-                        onResponderTerminate={[Function]}
-                        onResponderTerminationRequest={[Function]}
-                        onStartShouldSetResponder={[Function]}
-                        onStartShouldSetResponderCapture={[Function]}
                         style={
                           Object {
-                            "alignItems": "stretch",
                             "flex": 1,
-                            "flexDirection": "row",
                           }
                         }
                       >
                         <View
+                          collapsable={undefined}
+                          pointerEvents="auto"
                           style={
                             Object {
+                              "backgroundColor": "#E9E9EF",
                               "bottom": 0,
                               "left": 0,
+                              "opacity": 1,
                               "position": "absolute",
                               "right": 0,
+                              "shadowColor": "black",
+                              "shadowOffset": Object {
+                                "height": 0,
+                                "width": 0,
+                              },
+                              "shadowOpacity": 0.4,
+                              "shadowRadius": 10,
                               "top": 0,
+                              "transform": Array [
+                                Object {
+                                  "translateX": 0,
+                                },
+                                Object {
+                                  "translateY": 0,
+                                },
+                              ],
                             }
                           }
-                          testID={undefined}
                         >
-                          <View
-                            style={
-                              Object {
-                                "flex": 1,
-                                "overflow": "hidden",
-                              }
-                            }
-                          >
-                            <View
-                              onLayout={[Function]}
-                              style={
-                                Array [
-                                  Object {
-                                    "flex": 1,
-                                  },
-                                  undefined,
-                                ]
+                          <View>
+                            <RCTScrollView
+                              refreshControl={
+                                <RefreshControlMock
+                                  onRefresh={[Function]}
+                                  refreshing={false}
+                                />
                               }
                             >
-                              <View
-                                onMoveShouldSetResponder={[Function]}
-                                onMoveShouldSetResponderCapture={[Function]}
-                                onResponderEnd={[Function]}
-                                onResponderGrant={[Function]}
-                                onResponderMove={[Function]}
-                                onResponderReject={[Function]}
-                                onResponderRelease={[Function]}
-                                onResponderStart={[Function]}
-                                onResponderTerminate={[Function]}
-                                onResponderTerminationRequest={[Function]}
-                                onStartShouldSetResponder={[Function]}
-                                onStartShouldSetResponderCapture={[Function]}
-                                style={
-                                  Object {
-                                    "flex": 1,
-                                    "flexDirection": "column-reverse",
-                                  }
-                                }
-                              >
+                              <RCTRefreshControl />
+                              <View>
                                 <View
                                   style={
                                     Object {
-                                      "flex": 1,
+                                      "alignSelf": "center",
+                                      "backgroundColor": "white",
+                                      "borderRadius": 20,
+                                      "borderWidth": 1,
+                                      "height": 100,
+                                      "margin": "50%",
+                                      "width": 100,
                                     }
                                   }
                                 >
-                                  <View
-                                    collapsable={undefined}
-                                    pointerEvents="auto"
+                                  <Text
+                                    accessible={true}
+                                    allowFontScaling={true}
+                                    ellipsizeMode="tail"
                                     style={
-                                      Object {
-                                        "backgroundColor": "#E9E9EF",
-                                        "bottom": 0,
-                                        "left": 0,
-                                        "opacity": 1,
-                                        "position": "absolute",
-                                        "right": 0,
-                                        "shadowColor": "black",
-                                        "shadowOffset": Object {
-                                          "height": 0,
-                                          "width": 0,
+                                      Array [
+                                        Object {
+                                          "color": "#000",
+                                          "fontFamily": "System",
+                                          "fontSize": 16,
                                         },
-                                        "shadowOpacity": 0.4,
-                                        "shadowRadius": 10,
-                                        "top": 0,
-                                        "transform": Array [
-                                          Object {
-                                            "translateX": 0,
-                                          },
-                                          Object {
-                                            "translateY": 0,
-                                          },
-                                        ],
-                                      }
+                                        Object {
+                                          "alignSelf": "center",
+                                          "color": "black",
+                                          "margin": 5,
+                                          "textAlign": "center",
+                                        },
+                                      ]
                                     }
+                                    uppercase={false}
+                                    virtual={undefined}
                                   >
-                                    <View>
-                                      <RCTScrollView
-                                        refreshControl={
-                                          <RefreshControlMock
-                                            onRefresh={[Function]}
-                                            refreshing={false}
-                                          />
-                                        }
-                                      >
-                                        <RCTRefreshControl />
-                                        <View>
-                                          <View
-                                            style={
-                                              Object {
-                                                "alignSelf": "center",
-                                                "backgroundColor": "white",
-                                                "borderRadius": 20,
-                                                "borderWidth": 1,
-                                                "height": 100,
-                                                "margin": "50%",
-                                                "width": 100,
-                                              }
-                                            }
-                                          >
-                                            <Text
-                                              accessible={true}
-                                              allowFontScaling={true}
-                                              ellipsizeMode="tail"
-                                              style={
-                                                Array [
-                                                  Object {
-                                                    "color": "#000",
-                                                    "fontFamily": "System",
-                                                    "fontSize": 16,
-                                                  },
-                                                  Object {
-                                                    "alignSelf": "center",
-                                                    "color": "black",
-                                                    "margin": 5,
-                                                    "textAlign": "center",
-                                                  },
-                                                ]
-                                              }
-                                              uppercase={false}
-                                              virtual={undefined}
-                                            >
-                                              <Text
-                                                accessible={true}
-                                                allowFontScaling={true}
-                                                ellipsizeMode="tail"
-                                              />
-                                              
+                                    <Text
+                                      accessible={true}
+                                      allowFontScaling={true}
+                                      ellipsizeMode="tail"
+                                    />
+                                    
 
-                                              Puxe para carregar o feed
-                                            </Text>
-                                          </View>
-                                        </View>
-                                      </RCTScrollView>
-                                    </View>
-                                  </View>
+                                    Puxe para carregar o feed
+                                  </Text>
                                 </View>
                               </View>
-                            </View>
-                          </View>
-                        </View>
-                        <View
-                          style={null}
-                          testID={undefined}
-                        />
-                        <View
-                          style={null}
-                          testID={undefined}
-                        />
-                      </View>
-                      <View
-                        collapsable={false}
-                      >
-                        <View
-                          collapsable={undefined}
-                          style={
-                            Object {
-                              "backgroundColor": "white",
-                              "borderTopColor": "rgba(0, 0, 0, .2)",
-                              "borderTopWidth": 0.5,
-                              "flexDirection": "row",
-                              "height": 49,
-                            }
-                          }
-                        >
-                          <View
-                            accessibilityComponentType={undefined}
-                            accessibilityLabel={undefined}
-                            accessibilityTraits={undefined}
-                            accessible={true}
-                            collapsable={undefined}
-                            hitSlop={undefined}
-                            nativeID={undefined}
-                            onLayout={undefined}
-                            onResponderGrant={[Function]}
-                            onResponderMove={[Function]}
-                            onResponderRelease={[Function]}
-                            onResponderTerminate={[Function]}
-                            onResponderTerminationRequest={[Function]}
-                            onStartShouldSetResponder={[Function]}
-                            style={
-                              Object {
-                                "alignItems": "stretch",
-                                "backgroundColor": "rgba(0, 0, 0, 0)",
-                                "flex": 1,
-                                "justifyContent": "flex-end",
-                              }
-                            }
-                            testID={undefined}
-                          >
-                            <View
-                              style={
-                                Object {
-                                  "flexGrow": 1,
-                                }
-                              }
-                            >
-                              <View
-                                collapsable={undefined}
-                                style={
-                                  Object {
-                                    "alignItems": "center",
-                                    "bottom": 0,
-                                    "justifyContent": "center",
-                                    "left": 0,
-                                    "opacity": 1,
-                                    "position": "absolute",
-                                    "right": 0,
-                                    "top": 0,
-                                  }
-                                }
-                              />
-                              <View
-                                collapsable={undefined}
-                                style={
-                                  Object {
-                                    "alignItems": "center",
-                                    "bottom": 0,
-                                    "justifyContent": "center",
-                                    "left": 0,
-                                    "opacity": 0,
-                                    "position": "absolute",
-                                    "right": 0,
-                                    "top": 0,
-                                  }
-                                }
-                              />
-                            </View>
-                            <Text
-                              accessible={true}
-                              allowFontScaling={true}
-                              collapsable={undefined}
-                              ellipsizeMode="tail"
-                              style={
-                                Object {
-                                  "backgroundColor": "transparent",
-                                  "color": "rgba(28, 189, 36, 1)",
-                                  "fontSize": 11,
-                                  "marginBottom": 1.5,
-                                  "textAlign": "center",
-                                }
-                              }
-                            >
-                              Próximos Rolês
-                            </Text>
-                          </View>
-                          <View
-                            accessibilityComponentType={undefined}
-                            accessibilityLabel={undefined}
-                            accessibilityTraits={undefined}
-                            accessible={true}
-                            collapsable={undefined}
-                            hitSlop={undefined}
-                            nativeID={undefined}
-                            onLayout={undefined}
-                            onResponderGrant={[Function]}
-                            onResponderMove={[Function]}
-                            onResponderRelease={[Function]}
-                            onResponderTerminate={[Function]}
-                            onResponderTerminationRequest={[Function]}
-                            onStartShouldSetResponder={[Function]}
-                            style={
-                              Object {
-                                "alignItems": "stretch",
-                                "backgroundColor": "rgba(0, 0, 0, 0)",
-                                "flex": 1,
-                                "justifyContent": "flex-end",
-                              }
-                            }
-                            testID={undefined}
-                          >
-                            <View
-                              style={
-                                Object {
-                                  "flexGrow": 1,
-                                }
-                              }
-                            >
-                              <View
-                                collapsable={undefined}
-                                style={
-                                  Object {
-                                    "alignItems": "center",
-                                    "bottom": 0,
-                                    "justifyContent": "center",
-                                    "left": 0,
-                                    "opacity": 0,
-                                    "position": "absolute",
-                                    "right": 0,
-                                    "top": 0,
-                                  }
-                                }
-                              />
-                              <View
-                                collapsable={undefined}
-                                style={
-                                  Object {
-                                    "alignItems": "center",
-                                    "bottom": 0,
-                                    "justifyContent": "center",
-                                    "left": 0,
-                                    "opacity": 1,
-                                    "position": "absolute",
-                                    "right": 0,
-                                    "top": 0,
-                                  }
-                                }
-                              />
-                            </View>
-                            <Text
-                              accessible={true}
-                              allowFontScaling={true}
-                              collapsable={undefined}
-                              ellipsizeMode="tail"
-                              style={
-                                Object {
-                                  "backgroundColor": "transparent",
-                                  "color": "rgba(128, 128, 128, 1)",
-                                  "fontSize": 11,
-                                  "marginBottom": 1.5,
-                                  "textAlign": "center",
-                                }
-                              }
-                            >
-                              Rolês passados
-                            </Text>
-                          </View>
-                          <View
-                            accessibilityComponentType={undefined}
-                            accessibilityLabel={undefined}
-                            accessibilityTraits={undefined}
-                            accessible={true}
-                            collapsable={undefined}
-                            hitSlop={undefined}
-                            nativeID={undefined}
-                            onLayout={undefined}
-                            onResponderGrant={[Function]}
-                            onResponderMove={[Function]}
-                            onResponderRelease={[Function]}
-                            onResponderTerminate={[Function]}
-                            onResponderTerminationRequest={[Function]}
-                            onStartShouldSetResponder={[Function]}
-                            style={
-                              Object {
-                                "alignItems": "stretch",
-                                "backgroundColor": "rgba(0, 0, 0, 0)",
-                                "flex": 1,
-                                "justifyContent": "flex-end",
-                              }
-                            }
-                            testID={undefined}
-                          >
-                            <View
-                              style={
-                                Object {
-                                  "flexGrow": 1,
-                                }
-                              }
-                            >
-                              <View
-                                collapsable={undefined}
-                                style={
-                                  Object {
-                                    "alignItems": "center",
-                                    "bottom": 0,
-                                    "justifyContent": "center",
-                                    "left": 0,
-                                    "opacity": 0,
-                                    "position": "absolute",
-                                    "right": 0,
-                                    "top": 0,
-                                  }
-                                }
-                              />
-                              <View
-                                collapsable={undefined}
-                                style={
-                                  Object {
-                                    "alignItems": "center",
-                                    "bottom": 0,
-                                    "justifyContent": "center",
-                                    "left": 0,
-                                    "opacity": 1,
-                                    "position": "absolute",
-                                    "right": 0,
-                                    "top": 0,
-                                  }
-                                }
-                              />
-                            </View>
-                            <Text
-                              accessible={true}
-                              allowFontScaling={true}
-                              collapsable={undefined}
-                              ellipsizeMode="tail"
-                              style={
-                                Object {
-                                  "backgroundColor": "transparent",
-                                  "color": "rgba(128, 128, 128, 1)",
-                                  "fontSize": 11,
-                                  "marginBottom": 1.5,
-                                  "textAlign": "center",
-                                }
-                              }
-                            >
-                              Cadastrar Rolê
-                            </Text>
+                            </RCTScrollView>
                           </View>
                         </View>
                       </View>
                     </View>
                   </View>
+                </View>
+              </View>
+              <View
+                style={null}
+                testID={undefined}
+              />
+              <View
+                style={null}
+                testID={undefined}
+              />
+            </View>
+            <View
+              collapsable={false}
+            >
+              <View
+                collapsable={undefined}
+                style={
+                  Object {
+                    "backgroundColor": "white",
+                    "borderTopColor": "rgba(0, 0, 0, .2)",
+                    "borderTopWidth": 0.5,
+                    "flexDirection": "row",
+                    "height": 49,
+                  }
+                }
+              >
+                <View
+                  accessibilityComponentType={undefined}
+                  accessibilityLabel={undefined}
+                  accessibilityTraits={undefined}
+                  accessible={true}
+                  collapsable={undefined}
+                  hitSlop={undefined}
+                  nativeID={undefined}
+                  onLayout={undefined}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "stretch",
+                      "backgroundColor": "rgba(0, 0, 0, 0)",
+                      "flex": 1,
+                      "justifyContent": "flex-end",
+                    }
+                  }
+                  testID={undefined}
+                >
+                  <View
+                    style={
+                      Object {
+                        "flexGrow": 1,
+                      }
+                    }
+                  >
+                    <View
+                      collapsable={undefined}
+                      style={
+                        Object {
+                          "alignItems": "center",
+                          "bottom": 0,
+                          "justifyContent": "center",
+                          "left": 0,
+                          "opacity": 1,
+                          "position": "absolute",
+                          "right": 0,
+                          "top": 0,
+                        }
+                      }
+                    />
+                    <View
+                      collapsable={undefined}
+                      style={
+                        Object {
+                          "alignItems": "center",
+                          "bottom": 0,
+                          "justifyContent": "center",
+                          "left": 0,
+                          "opacity": 0,
+                          "position": "absolute",
+                          "right": 0,
+                          "top": 0,
+                        }
+                      }
+                    />
+                  </View>
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    collapsable={undefined}
+                    ellipsizeMode="tail"
+                    style={
+                      Object {
+                        "backgroundColor": "transparent",
+                        "color": "rgba(28, 189, 36, 1)",
+                        "fontSize": 11,
+                        "marginBottom": 1.5,
+                        "textAlign": "center",
+                      }
+                    }
+                  >
+                    Próximos Rolês
+                  </Text>
+                </View>
+                <View
+                  accessibilityComponentType={undefined}
+                  accessibilityLabel={undefined}
+                  accessibilityTraits={undefined}
+                  accessible={true}
+                  collapsable={undefined}
+                  hitSlop={undefined}
+                  nativeID={undefined}
+                  onLayout={undefined}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "stretch",
+                      "backgroundColor": "rgba(0, 0, 0, 0)",
+                      "flex": 1,
+                      "justifyContent": "flex-end",
+                    }
+                  }
+                  testID={undefined}
+                >
+                  <View
+                    style={
+                      Object {
+                        "flexGrow": 1,
+                      }
+                    }
+                  >
+                    <View
+                      collapsable={undefined}
+                      style={
+                        Object {
+                          "alignItems": "center",
+                          "bottom": 0,
+                          "justifyContent": "center",
+                          "left": 0,
+                          "opacity": 0,
+                          "position": "absolute",
+                          "right": 0,
+                          "top": 0,
+                        }
+                      }
+                    />
+                    <View
+                      collapsable={undefined}
+                      style={
+                        Object {
+                          "alignItems": "center",
+                          "bottom": 0,
+                          "justifyContent": "center",
+                          "left": 0,
+                          "opacity": 1,
+                          "position": "absolute",
+                          "right": 0,
+                          "top": 0,
+                        }
+                      }
+                    />
+                  </View>
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    collapsable={undefined}
+                    ellipsizeMode="tail"
+                    style={
+                      Object {
+                        "backgroundColor": "transparent",
+                        "color": "rgba(128, 128, 128, 1)",
+                        "fontSize": 11,
+                        "marginBottom": 1.5,
+                        "textAlign": "center",
+                      }
+                    }
+                  >
+                    Rolês passados
+                  </Text>
+                </View>
+                <View
+                  accessibilityComponentType={undefined}
+                  accessibilityLabel={undefined}
+                  accessibilityTraits={undefined}
+                  accessible={true}
+                  collapsable={undefined}
+                  hitSlop={undefined}
+                  nativeID={undefined}
+                  onLayout={undefined}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "stretch",
+                      "backgroundColor": "rgba(0, 0, 0, 0)",
+                      "flex": 1,
+                      "justifyContent": "flex-end",
+                    }
+                  }
+                  testID={undefined}
+                >
+                  <View
+                    style={
+                      Object {
+                        "flexGrow": 1,
+                      }
+                    }
+                  >
+                    <View
+                      collapsable={undefined}
+                      style={
+                        Object {
+                          "alignItems": "center",
+                          "bottom": 0,
+                          "justifyContent": "center",
+                          "left": 0,
+                          "opacity": 0,
+                          "position": "absolute",
+                          "right": 0,
+                          "top": 0,
+                        }
+                      }
+                    />
+                    <View
+                      collapsable={undefined}
+                      style={
+                        Object {
+                          "alignItems": "center",
+                          "bottom": 0,
+                          "justifyContent": "center",
+                          "left": 0,
+                          "opacity": 1,
+                          "position": "absolute",
+                          "right": 0,
+                          "top": 0,
+                        }
+                      }
+                    />
+                  </View>
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    collapsable={undefined}
+                    ellipsizeMode="tail"
+                    style={
+                      Object {
+                        "backgroundColor": "transparent",
+                        "color": "rgba(128, 128, 128, 1)",
+                        "fontSize": 11,
+                        "marginBottom": 1.5,
+                        "textAlign": "center",
+                      }
+                    }
+                  >
+                    Cadastrar Rolê
+                  </Text>
                 </View>
               </View>
             </View>

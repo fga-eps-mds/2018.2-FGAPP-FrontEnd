@@ -11,8 +11,9 @@ import { Button, Toast } from 'native-base';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import Divider from '../../EventProfile/components/Divider';
+import { ACTION_USER_DICTIONARY_INSERT } from 'expo/src/IntentLauncherAndroid';
 
-export default class CommentInput extends Component {
+class CommentInput extends Component {
     state = {
         author: '',
         text: '',
@@ -25,13 +26,7 @@ export default class CommentInput extends Component {
     };
 
     _commentValidate() {
-        if (this.state.author.length <= 1) {
-            Alert.alert(
-                'Erro ao postar o comentário',
-                'Nome do Autor deve ter pelo menos 2 caracteres.'
-            );
-            return false;
-        } else if (this.state.text.length <= 1) {
+        if (this.state.text.length <= 1) {
             Alert.alert(
                 'Erro ao postar o comentário',
                 'O comentário deve ter pelo menos 2 caracteres.'
@@ -47,9 +42,8 @@ export default class CommentInput extends Component {
                 ToastAndroid.LONG
             );
         else {
-            const { eventId } = this.props;
+            const { eventId, userId} = this.props;
             const {
-                author,
                 text,
                 edited,
             } = this.state;
@@ -60,7 +54,8 @@ export default class CommentInput extends Component {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    author,
+                    authorName: this.props.userInfo.name,
+                    authorId: userId,
                     text,
                     answerId: 0,
                     created: moment().format('YYYY-MM-DD HH:mm:ss'),
@@ -111,15 +106,6 @@ export default class CommentInput extends Component {
         return (
             <ScrollView keyboardShouldPersistTaps="always">
                 <TextInput
-                    style={styles.textAreaAuthor}
-                    placeholder="Autor"
-                    underlineColorAndroid="transparent"
-                    multiline={false}
-                    onChangeText={text => this.setState({ author: text })}
-                    maxLength={40}
-                />
-
-                <TextInput
                     ref={input => {
                         this._textArea = input;
                     }}
@@ -143,20 +129,13 @@ export default class CommentInput extends Component {
         );
     }
 }
+export default CommentInput;
 
 CommentInput.propTypes = {
     eventId: PropTypes.node.isRequired
 };
 
 const styles = StyleSheet.create({
-    textAreaAuthor: {
-        width: '80%',
-        alignSelf: 'center',
-        borderColor: 'grey',
-        borderWidth: 1,
-        marginBottom: 5,
-        padding: 10
-    },
     textAreaComment: {
         height: 80,
         width: '80%',
@@ -171,3 +150,4 @@ const styles = StyleSheet.create({
         alignSelf: 'center'
     }
 });
+

@@ -5,35 +5,28 @@ import Feed from './screens/TabNavigator/feed/Feed'
 import Profile from './screens/EventProfile/Profile'
 import Comments from './screens/EventComments/Comments'
 
-export default class Events extends Component{
-	render(){
-		return(
-			<StackEvents/>
-		)
-	}
-}
+const Events = new StackNavigator({
+    Feed:{
+      screen:Feed,
+      navigationOptions: {
+        tabBarLabel: 'Feed de Eventos',
+        headerLeft: null,
+      },
+    },
+    Profile:{
+      screen:Profile,
+      navigationOptions: {
+        tabBarLabel: 'Profile de Eventos',
+      },
+    },
+    Comments:{
+      screen:Comments,
+      navigationOptions: {
+        tabBarLabel: 'Comentários',
+      },
+    },
+  },
+  { headerMode: 'none' }
+);
 
-const StackEvents = StackNavigator({
-	Feed:{
-		screen: Feed,
-		navigationOptions: ({ navigation }) => ({
-			header: null,
-		}),
-	},
-
-	Profile:{
-		screen: Profile,
-		navigationOptions: ({ navigation }) => ({
-			// header: null,
-		}),
-	},
-
-	Comments: {
-		screen: Comments,
-		navigationOptions: ({ navigation }) => ({
-			// header: null,
-		}),
-	},
-
-
-})
+export default Events;
