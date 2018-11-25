@@ -79,7 +79,7 @@ export default class CadastroEventos1 extends Component {
         .then((response) => { return response.json() })
         .then((responseJson) => {
           if (!responseJson.error) {
-            this.setState({ profileInfo: responseJson });
+            this.setState({ profileInfo: responseJson.name });
           }
         })
         .catch((error) => {
@@ -177,8 +177,8 @@ export default class CadastroEventos1 extends Component {
 				"Content-Type": "application/json"
 			},
 			body: JSON.stringify({
-				ownerName: this.state.profileInfo.name,
-				ownerId: this.state.userId, // Verificar Front-End e Back para decisão sobre este campo
+				ownerName: this.state.profileInfo.toString,
+				ownerId: this.state.userId, 
 				eventName: this.state.eventName,
 				linkReference: "https://" + this.state.linkReference + ".com", // Verificar Front-End e Back para decisão sobre este campo
 				organizer: this.state.organizer,
