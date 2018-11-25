@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "alignSelf": "center",
+      "flexDirection": "row",
+      "justifyContent": "space-around",
+      "marginTop": -5,
+      "width": "80%",
+    }
+  }
+>
+  <Text
+    accessible={true}
+    allowFontScaling={true}
+    ellipsizeMode="tail"
+  />
+  <View
+    accessibilityComponentType={undefined}
+    accessibilityLabel={undefined}
+    accessibilityTraits={undefined}
+    accessible={true}
+    collapsable={undefined}
+    hasTVPreferredFocus={undefined}
+    hitSlop={undefined}
+    isTVSelectable={true}
+    nativeID={undefined}
+    onLayout={undefined}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "transparent",
+        "borderBottomWidth": 1,
+        "borderColor": "#D9D5DC",
+        "borderLeftWidth": 0,
+        "borderRadius": undefined,
+        "borderRightWidth": 0,
+        "borderTopWidth": 0,
+        "borderWidth": undefined,
+        "flexDirection": "row",
+        "marginLeft": 2,
+        "opacity": 1,
+        "width": "80%",
+      }
+    }
+    testID={undefined}
+    tvParallaxProperties={undefined}
+  >
+    <TextInput
+      allowFontScaling={true}
+      defaultValue=""
+      editable={true}
+      keyboardType="default"
+      onChangeText={[Function]}
+      placeholder={undefined}
+      placeholderTextColor="#575757"
+      style={
+        Array [
+          Object {
+            "color": "#000",
+            "flex": 1,
+            "fontSize": 17,
+            "height": 50,
+            "paddingLeft": 5,
+            "paddingRight": 5,
+            "top": 1.5,
+          },
+          Object {
+            "textAlign": "center",
+          },
+        ]
+      }
+      underlineColorAndroid="rgba(0,0,0,0)"
+      value={undefined}
+      virtual={undefined}
+    />
+  </View>
+</View>
+`;
