@@ -17,17 +17,17 @@ export class SearchBar extends Component {
 
   constructor(props) {
     super(props)
-    this.state ={
-        searchAction: props.searchAction
+    this.state = {
+      searchAction: props.searchAction
     };
   }
 
   // Fucntion responsable to search user's input in the APi
-  // and set the state equal to the result 
+  // and set the state equal to the result
   search = name => {
-    if(name.length !== 0) {
-      const url = `https://indicaai.herokuapp.com/locals/name/${name}`
-      fetch( url, {
+    if (name.length !== 0) {
+      const url = `${process.env.INDICA_AI_API}/locals/name/${name}`
+      fetch(url, {
         method: "GET",
         headers: {
           Accept: "application/json",
@@ -41,17 +41,32 @@ export class SearchBar extends Component {
         .catch(error => {
           console.log(error);
         });
+    } else {
+      const url = fetch(`https://dev-indicaai.herokuapp.com/locals/`, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "aplication/json"
+        }
+      })
+        .then(response => response.json())
+        .then(responseJson => {
+          this.props.searchAction(responseJson)
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
   };
 
   render() {
 
     return (
-          <InputWithButton
-              label='Buscar Indicação'
-              icon='search'
-              onPress={name => this.search(name)}
-          />
+      <InputWithButton
+        label='Buscar Indicação'
+        icon='search'
+        onPress={name => this.search(name)}
+      />
     );
   };
 };
@@ -59,6 +74,6 @@ export class SearchBar extends Component {
 const mapStateToProps = store => ({})
 
 const mapDispatchToProps = dispatch => (
-    bindActionCreators({ searchAction }, dispatch))
+  bindActionCreators({ searchAction }, dispatch))
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);

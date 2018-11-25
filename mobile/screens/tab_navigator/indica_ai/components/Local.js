@@ -1,22 +1,30 @@
 import React, { Component}   from 'react';
 import {
   Text,
-  StyleSheet
+  StyleSheet,
+  TouchableOpacity,
+  ImageBackground
 } from 'react-native';
-import { Card, CardItem } from 'native-base' 
+import { Card, CardItem } from 'native-base';
+import { withNavigation } from 'react-navigation';
 
 
-export default class Local extends Component {
-  constructor(props) {
-    super(props);
-  }
+ class Local extends Component {
+
   render() {
+    const {name, address , local_images} = this.props.local 
+    const image  = (local_images.length !== 0) ?
+      {uri: "data:image/jpg;base64," + local_images[local_images.length - 1]["image"]}
+      :require('../assets/IntegraApps_icon.png')
 
-    const name = this.props.name;
-    const description = this.props.description;
 
     return(
-        <Card style={styles.localCard}> 
+      <TouchableOpacity onPress={() => {
+        this.props.navigation.navigate('LocalDetails',{
+          local: this.props.local
+        });
+      }}>
+        <Card style={styles.localCard}>
 
          <CardItem header bordered>
             <Text style={styles.localName}>
@@ -24,17 +32,23 @@ export default class Local extends Component {
            </Text>
          </CardItem>
 
-         <CardItem>
-            <Text style={styles.localDescription}>
-              {description}
-           </Text>
+         <CardItem cardBody style={{paddingHorizontal: 5, paddingTop: 5}}>
+           <ImageBackground source={image} style={{height: 200, width: null, flex: 1, padding: 0}}>
+           </ImageBackground>
          </CardItem>
 
+         <CardItem footer bordered>
+           <Text style={styles.localDescription}>
+           {address}
+           </Text>
+         </CardItem>
         </Card>
+      </TouchableOpacity>
     );
   }
 }
 
+export default withNavigation(Local);
 
 const styles = StyleSheet.create({
 

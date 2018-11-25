@@ -141,7 +141,7 @@ class Feed extends Component {
                                     idRole={role.id}
                                     imgRole={role.photo}
                                     nomeRole={role.eventName}
-                                    org={role.owner}
+                                    org={role.ownerName}
                                     eventDate={role.eventDate}
                                     navigation={this.props.navigation}
                                 />
