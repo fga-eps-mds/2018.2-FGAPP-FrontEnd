@@ -31,10 +31,6 @@ class FeedItem extends Component {
 			<Card style={styles.mb}>
 				<TouchableOpacity
 					onPress={() => {
-						console.log(
-							"Profile -> " + this.props.nomeRole + "/" + this.props.idRole
-							+"Token ->"+token
-						);
 						this.props.navigation.navigate("Profile", {
 							idRole: this.props.idRole
 						});
