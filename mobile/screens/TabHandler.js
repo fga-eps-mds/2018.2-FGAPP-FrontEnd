@@ -6,14 +6,15 @@ import { Icon } from 'native-base';
 
 import { TabNavigator } from 'react-navigation';
 import TabHandlerVendasApp from './tab_navigator/vendas/TabHandlerVendasApp';
-import IndicaAiApp from './tab_navigator/indica_ai/IndicaAiApp';
+import TabHandlerIndicaAi from './tab_navigator/indica_ai/TabHandlerIndicaAi';
 import RolesApp from './tab_navigator/roles/RolesApp';
 import CarDefenseApp from './tab_navigator/car_defense/CarDefenseApp';
-import Settings from './tab_navigator/settings/Settings';
+import SettingScreen from './tab_navigator/settings/SettingScreen';
+import RolesTabHandler from './tab_navigator/roles/RolesTabHandler';
 
 const TabHandler = new TabNavigator({
     Roles: {
-        screen: RolesApp,
+        screen: RolesTabHandler,
         navigationOptions: {
             tabBarLabel: 'Eventos',
             tabBarIcon: ({ focused }) => (
@@ -21,7 +22,15 @@ const TabHandler = new TabNavigator({
                     name="md-star"
                     style={{ color: focused ? '#1CBD24' : '#5A5A5A' }}
                 />
-            )
+            ),
+            headerStyle: {
+               backgroundColor:'#1CBD24'
+            },
+            headerTintColor: 'white',
+            headerTitleStyle: {
+              color: 'white',
+              alignSelf: 'center'
+            },
         }
     },
     Vendas: {
@@ -33,11 +42,19 @@ const TabHandler = new TabNavigator({
                     name="md-cart"
                     style={{ color: focused ? '#0EAC6F' : '#5A5A5A' }}
                 />
-            )
+            ),
+            headerStyle: {
+               backgroundColor:'#0EAC6F'
+            },
+            headerTintColor: 'white',
+            headerTitleStyle: {
+              color: 'white',
+              alignSelf: 'center'
+            },
         }
     },
     IndicaAi: {
-        screen: IndicaAiApp,
+        screen: TabHandlerIndicaAi,
         navigationOptions: {
             tabBarLabel: 'IndicaAi',
             tabBarIcon: ({ focused }) => (
@@ -45,31 +62,37 @@ const TabHandler = new TabNavigator({
                     name="md-pin"
                     style={{ color: focused ? '#0AACCC' : '#5A5A5A' }}
                 />
-            )
+            ),
+            headerStyle: {
+               backgroundColor:'#0AACCC'
+            },
+            headerTintColor: 'white',
+            headerTitleStyle: {
+              color: 'white',
+              alignSelf: 'center'
+            },
         }
     },
-    CarDefense: {
-        screen: CarDefenseApp,
-        navigationOptions: {
-            tabBarLabel: 'CarDefense',
-            tabBarIcon: ({ focused }) => (
-                <Icon
-                    name="md-car"
-                    style={{ color: focused ? '#5C68C3' : '#5A5A5A' }}
-                />
-            )
-        }
-    },
-    Settings: {
-        screen: Settings,
+    SettingScreen: {
+        screen: SettingScreen,
         navigationOptions: {
             tabBarLabel: 'Configurações',
+            title: 'Perfil',
             tabBarIcon: ({ focused }) => (
                 <Icon
                     name="md-settings"
                     style={{ color: focused ? '#BD1C5F' : '#5A5A5A' }}
                 />
-            )
+            ),
+            headerStyle: {
+               backgroundColor:'#BD1C5F'
+            },
+            headerTintColor: 'white',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+              alignSelf: 'center'
+            },
+
         }
     },
 }, {
@@ -77,7 +100,7 @@ const TabHandler = new TabNavigator({
         showIcon: true,
         showLabel: false,
         style: {
-            backgroundColor: '#171717',
+            backgroundColor: 'white',
         },
         tabStyle: {
             height: 60,

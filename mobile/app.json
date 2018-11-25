@@ -1,12 +1,13 @@
 {
   "expo": {
     "name": "Integra",
-    "icon": "assets/icon.png",
-    "splash": {
-      "image": "assets/splash.png",
-      "backgroundColor": "#BD1C5F"
+    "description": "Aplicativo de utilitários para a Faculdade do Gama, Universidade de Brasília.",
+    "githubUrl": "https://github.com/fga-eps-mds/2018.2-FGAPP-FrontEnd",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "notification": {
+      "icon": "./assets/icon.png"
     },
-    "slug": "integra-app",
     "sdkVersion": "27.0.0",
     "primaryColor": "#BD1C5F",
     "githubUrl": "https://github.com/fga-eps-mds/2018.2-FGAPP-FrontEnd",
@@ -14,9 +15,17 @@
       "sourceExts": ["ts", "tsx"],
       "transformer": "node_modules/react-native-typescript-transformer/index.js"
     },
-    "android": {
-      "package": "com.unbgama.integra",
+    "version": "1.0.0",
+    "slug": "integra-app",
+    "android":{
+      "package":"com.unbgama.integra",
       "versionCode": 3
+    }
+  },
+  "android": {
+    "package": "com.codingmechanic.mapcuny",
+    "config": {
+      "googleMaps": {"apiKey": "API-KEY-AQUI"}
     }
   }
 }

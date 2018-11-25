@@ -1,8 +1,9 @@
-[![Maintainability](https://api.codeclimate.com/v1/badges/9f8f416c478c348e9dd3/maintainability)](https://codeclimate.com/github/fga-eps-mds/2018.2-FGAPP-FrontEnd/maintainability)
-
 # Integra APP
 An application developed by university students, for university students.
 
+[Download the application here!](https://play.google.com/store/apps/details?id=com.unbgama.integra)
+
+You can also test the beta of the application by registering for this link: [https://play.google.com/apps/testing/com.unbgama.integra](https://play.google.com/apps/testing/com.unbgama.integra)
 
 ## Requirements
 This projects needs some requirements that need to be downloaded.

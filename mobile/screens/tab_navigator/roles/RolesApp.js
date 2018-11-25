@@ -1,25 +1,36 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import { 
     View,
     Text,
-    StyleSheet
-} from 'react-native';
+    StyleSheet,
+} from "react-native";
+import {Provider as PaperProvider} from 'react-native-paper';
 
-class RolesApp extends Component {
+import {Button} from 'native-base'
+
+import HomeScreen from './screens/HomeScreen'
+import {StackNavigator} from 'react-navigation'
+import RolesTabHandler from './RolesTabHandler'
+
+export default class RolesApp extends Component {
+
     render() {
         return (
-            <View style={styles.container}>
-                <Text>Rolês</Text>
-            </View>
+            <PaperProvider>
+                <RolesStackNavigator />
+            </PaperProvider>
         );
     }
 }
-export default RolesApp;
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
-    }
-});
+const RolesStackNavigator = StackNavigator({
+    RolesTabHandler:{
+        screen:RolesTabHandler,
+        navigationOptions: ({ navigation }) => ({
+          header: null,
+        }),
+    },
+})
+
+//Cor limegreen principal do app
+// #32CD32

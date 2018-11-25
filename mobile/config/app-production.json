@@ -6,6 +6,9 @@
       "image": "assets/splash.png",
       "backgroundColor": "#BD1C5F"
     },
+    "notification": {
+      "icon": "./assets/icon.png"
+    },
     "slug": "integra-app",
     "sdkVersion": "27.0.0",
     "primaryColor": "#BD1C5F",
@@ -16,7 +19,12 @@
     },
     "android": {
       "package": "com.unbgama.integra",
-      "versionCode": 2
+      "versionCode": 2,
+      "config": {
+        "googleMaps": {
+            "apiKey": "AIzaSyBtDGKIxbngjRePVN93YgE176CMKBKUgzI"
+        }
+      }
     }
   }
 }
