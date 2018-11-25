@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 import { Icon } from 'native-base';
 
-import { TabNavigator } from 'react-navigation';
+import { TabNavigator} from 'react-navigation';
 import TabHandlerVendasApp from './tab_navigator/vendas/TabHandlerVendasApp';
 import IndicaAiApp from './tab_navigator/indica_ai/IndicaAiApp';
 import RolesApp from './tab_navigator/roles/RolesApp';
@@ -55,7 +55,7 @@ const TabHandler = new TabNavigator({
             headerLeft: null,
             tabBarIcon: ({ focused }) => (
                 <Icon
-                    name="md-locate"
+                    name="md-pin"
                     style={{ color: focused ? '#0AACCC' : '#5A5A5A' }}
                 />
             ),

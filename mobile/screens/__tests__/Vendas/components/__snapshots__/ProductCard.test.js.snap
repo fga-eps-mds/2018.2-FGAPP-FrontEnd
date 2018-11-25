@@ -1,0 +1,249 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "backgroundColor": "#fff",
+        "borderBottomWidth": 0.5,
+        "borderColor": "#ccc",
+        "borderLeftWidth": 0.5,
+        "borderRadius": 2,
+        "borderRightWidth": 0.5,
+        "borderTopWidth": 0.5,
+        "elevation": 3,
+        "flexWrap": "nowrap",
+        "marginBottom": 5,
+        "marginLeft": 2,
+        "marginRight": 2,
+        "marginTop": 5,
+        "shadowColor": "#000",
+        "shadowOffset": Object {
+          "height": 2,
+          "width": 0,
+        },
+        "shadowOpacity": 0.1,
+        "shadowRadius": 1.5,
+      },
+      Object {
+        "padding": 10,
+      },
+    ]
+  }
+  virtual={undefined}
+>
+  <View
+    accessibilityComponentType={undefined}
+    accessibilityLabel={undefined}
+    accessibilityTraits={undefined}
+    accessible={true}
+    hasTVPreferredFocus={undefined}
+    hitSlop={undefined}
+    isTVSelectable={true}
+    nativeID={undefined}
+    onLayout={undefined}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={null}
+    testID={undefined}
+    tvParallaxProperties={undefined}
+  >
+    <View
+      style={
+        Object {
+          "flex": 1,
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "height": 210,
+            "width": "100%",
+          }
+        }
+      >
+        <Image
+          source={
+            Object {
+              "uri": undefined,
+            }
+          }
+          style={
+            Array [
+              Object {
+                "bottom": 0,
+                "left": 0,
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+              },
+              Object {
+                "height": 210,
+                "width": "100%",
+              },
+              undefined,
+            ]
+          }
+        />
+        <ExponentLinearGradient
+          colors={
+            Array [
+              0,
+              4278190080,
+            ]
+          }
+          endPoint={undefined}
+          locations={
+            Array [
+              0.989,
+              0.8,
+            ]
+          }
+          startPoint={undefined}
+          style={
+            Object {
+              "backgroundColor": "transparent",
+              "bottom": 0,
+              "left": 0,
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
+            }
+          }
+        />
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#fff",
+              "borderRadius": 2,
+              "flexDirection": "row",
+              "paddingBottom": 10,
+              "paddingLeft": 15,
+              "paddingRight": 15,
+              "paddingTop": 10,
+            },
+            Object {
+              "backgroundColor": "white",
+              "paddingTop": 20,
+            },
+          ]
+        }
+        virtual={undefined}
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "alignSelf": "center",
+              "flex": 1,
+              "flexDirection": "row",
+            }
+          }
+          virtual={undefined}
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Array [
+                Object {
+                  "alignSelf": "center",
+                  "color": "#000",
+                  "fontFamily": "System",
+                  "fontSize": 16,
+                  "marginLeft": 10,
+                },
+                Object {
+                  "alignSelf": "center",
+                  "backgroundColor": "transparent",
+                  "color": "black",
+                  "fontSize": 20,
+                  "fontWeight": "normal",
+                  "marginLeft": 0,
+                  "textShadowColor": "#5A5A5A",
+                  "textShadowOffset": Object {
+                    "height": 0,
+                    "width": 0,
+                  },
+                  "textShadowRadius": 5,
+                },
+              ]
+            }
+            uppercase={false}
+            virtual={undefined}
+          />
+        </View>
+        <View
+          style={
+            Object {
+              "alignItems": "flex-end",
+              "alignSelf": "center",
+              "flex": 0.8,
+            }
+          }
+          virtual={undefined}
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "alignSelf": null,
+                "color": "#000",
+                "fontFamily": "System",
+                "fontSize": 15,
+              }
+            }
+            uppercase={false}
+            virtual={undefined}
+          >
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Array [
+                  Object {
+                    "color": "#000",
+                    "fontFamily": "System",
+                    "fontSize": 16,
+                  },
+                  Object {
+                    "alignSelf": "center",
+                    "backgroundColor": "transparent",
+                    "color": "black",
+                    "fontSize": 20,
+                    "fontWeight": "normal",
+                    "marginLeft": 0,
+                    "textShadowColor": "#5A5A5A",
+                    "textShadowOffset": Object {
+                      "height": 0,
+                      "width": 0,
+                    },
+                    "textShadowRadius": 5,
+                  },
+                ]
+              }
+              uppercase={false}
+              virtual={undefined}
+            >
+              R$ 
+            </Text>
+          </Text>
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;

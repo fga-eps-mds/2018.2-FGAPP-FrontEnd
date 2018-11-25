@@ -12,26 +12,34 @@ import {
 } from 'react-native';
 import OrderCard from '../../components/OrderCard'
 import BuyerOrderCard from '../../components/BuyerOrderCard'
+import OrderHeader from '../../components/OrderHeader'
 import jwt_decode from 'jwt-decode'
+import {getUserToken} from '../../../../../AuthMethods'
 
 class OrderedProducts extends Component {
     constructor(props) {
       super(props);
       this.state = {
+          token: undefined,
           orders: [''],
           buyer_orders: [''],
           refreshing: false,
+          my_order_message: 'Meus pedidos',
+          received_order_message: 'Pedidos recebidos',
       };
     }
     componentDidMount(){
-        this.loadOrders();
+        getUserToken()
+        .then(res =>{ 
+            this.setState({ token: res })
+            this.loadOrders();
+        })
     }
-    loadOrders = async () => {
-      const {state} = this.props.navigation;
-      var token = state.params ? state.params.token : undefined;
-      var user = jwt_decode(token);
 
-      //Referencia para API gateway
+    loadOrders = async () => {
+      var user = jwt_decode(this.state.token);
+
+      //Reference to API gateway
       const orders_screen_path = `${process.env.VENDAS_API}/api/orders_screen/`;
 
       fetch(orders_screen_path, {
@@ -41,12 +49,18 @@ class OrderedProducts extends Component {
           },
           body: JSON.stringify({
           'user_id': user.user_id, //UsernameField foi definido como email
-          'token': token,
+          'token': this.state.token,
         }),
       })
       .then((response) => response.json())
       .then((responseJson) => {
           console.log(responseJson);
+          if (responseJson.length == 0) {
+            this.setState({ received_order_message: 'Você não recebeu pedidos' });
+          }
+          else {
+            this.setState({ received_order_message: 'Pedidos recebidos' });
+          }
           if (responseJson.length > 1) {
             responseJson.sort((order1, order2) => {
               return (order1.date - order2.date);
@@ -67,12 +81,18 @@ class OrderedProducts extends Component {
           },
           body: JSON.stringify({
           'user_id': user.user_id,
-          'token': token, // TODO test token
+          'token': this.state.token, // TODO test token
         }),
       })
       .then((response) => response.json())
       .then((responseJson) => {
           console.log(responseJson);
+          if (responseJson.length == 0) {
+            this.setState({ my_order_message: 'Você não fez pedidos' });
+          }
+          else {
+            this.setState({ my_order_message: 'Meus pedidos' });
+          }
           if (responseJson.length > 1) {
             responseJson.sort((order1, order2) => {
               return (order1.date - order2.date);
@@ -80,9 +100,6 @@ class OrderedProducts extends Component {
           }
           this.setState({ buyer_orders: responseJson });
       })
-      .catch((error) => {
-          console.error(error);
-      });
     }
 
     refreshOrders = async () => {
@@ -93,11 +110,7 @@ class OrderedProducts extends Component {
     }
 
 
-    render() {
-      const {state} = this.props.navigation;
-      var token = state.params ? state.params.token : undefined;
-
-
+    render() {      
         return (
           <View style={styles.container}>
                 <ScrollView
@@ -108,6 +121,9 @@ class OrderedProducts extends Component {
                         />
                     }
                 >
+                <OrderHeader
+                  message = {this.state.my_order_message}
+                />
                 {this.state.buyer_orders.map((buyer_order, index) => {
                     return (
                       <BuyerOrderCard
@@ -117,11 +133,13 @@ class OrderedProducts extends Component {
                         orderQuantity = {`Quantidade: ${buyer_order.quantity}`}
                         orderPrice = {parseFloat(buyer_order.total_price).toFixed(2)}
                         orderStatus = {`${buyer_order.status}`}
-                        onPress={() => this.props.navigation.navigate('OrderDetails', {order: buyer_order, token:token})}
+                        onPress={() => this.props.navigation.navigate('OrderDetails', { order: buyer_order, token:this.state.token })}
                       />
                     );
                 })}
-
+                <OrderHeader
+                  message = {this.state.received_order_message}
+                />
                 {this.state.orders.map((order, index) => {
                     return (
                       <OrderCard
@@ -132,7 +150,7 @@ class OrderedProducts extends Component {
                         orderStatus = {`${order.status}`}
                         orderPrice = {parseFloat(order.total_price).toFixed(2)}
                         orderStatus = {`${order.status}`}
-                        onPress={() => this.props.navigation.navigate('OrderDetails', {order: order, token:token})}
+                        onPress={() => this.props.navigation.navigate('OrderDetails', { order: order, token:this.state.token })}
                       />
                     );
                 })}

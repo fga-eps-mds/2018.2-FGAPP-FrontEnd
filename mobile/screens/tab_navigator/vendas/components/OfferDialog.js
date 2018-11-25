@@ -37,7 +37,7 @@ export default class OfferDialog extends Component{
               <Button
                 title="Cancelar"
                 onPress={this.props.backButton}
-                color="purple"
+                color="#830037"
               />
             </View>
             <View style={{width: '30%', height: 50}} />

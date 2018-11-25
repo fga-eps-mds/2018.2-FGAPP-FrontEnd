@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "alignSelf": "center",
+      "left": "70%",
+      "paddingHorizontal": 50,
+      "paddingVertical": 50,
+      "position": "absolute",
+      "top": 215,
+    }
+  }
+>
+  <RCTPicker
+    items={
+      Array [
+        Object {
+          "label": "1",
+          "textColor": undefined,
+          "value": 1,
+        },
+        Object {
+          "label": "2",
+          "textColor": undefined,
+          "value": 2,
+        },
+        Object {
+          "label": "3",
+          "textColor": undefined,
+          "value": 3,
+        },
+        Object {
+          "label": "4",
+          "textColor": undefined,
+          "value": 4,
+        },
+        Object {
+          "label": "5",
+          "textColor": undefined,
+          "value": 5,
+        },
+        Object {
+          "label": "6",
+          "textColor": undefined,
+          "value": 6,
+        },
+        Object {
+          "label": "7",
+          "textColor": undefined,
+          "value": 7,
+        },
+        Object {
+          "label": "8",
+          "textColor": undefined,
+          "value": 8,
+        },
+        Object {
+          "label": "9",
+          "textColor": undefined,
+          "value": 9,
+        },
+        Object {
+          "label": "10",
+          "textColor": undefined,
+          "value": 10,
+        },
+      ]
+    }
+    onChange={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    selectedIndex={0}
+    style={
+      Array [
+        Object {
+          "height": 216,
+        },
+        undefined,
+      ]
+    }
+  />
+</View>
+`;

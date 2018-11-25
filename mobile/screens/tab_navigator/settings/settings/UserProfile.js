@@ -10,16 +10,23 @@ import {
 import { Card, CardItem, Body, Item, Label, Input } from 'native-base';
 import jwt_decode from 'jwt-decode'
 import UserCard from '../../../components/UserCard'
+import { getUserToken, onSignOut } from "../../../../AuthMethods";
 
 class UserProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      token: undefined,
       name: undefined,
       email: undefined,
       photo: undefined,
       need_logout: false,
     };
+  }
+  componentWillMount(){
+    getUserToken()
+    .then(res => this.setState({ token: res }))
+    .catch(err => alert("Erro"));
   }
 
   _goBack = async () => {
@@ -39,30 +46,13 @@ class UserProfile extends Component {
     }
   }
   _logout = async () => {
-    const logoutPath = `${process.env.INTEGRA_LOGIN_AUTH}/api/logout/`;
-    fetch(logoutPath, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-      }),
-    })
-    .then((response) => response.json())
-    .then((responseJson) => {
-      console.log(JSON.stringify(responseJson.detail));
-      if (responseJson.detail == 'Successfully logged out.') {
-        this.props.navigation.state.params.token = null;
-        this.props.navigation.navigate('LoginScreen');
-      }
-    });
+    onSignOut()
+    this.props.navigation.navigate('LoginScreen');
   }
 
   _editProfile = async () => {
     const { state } = this.props.navigation;
-    var token = state.params ? state.params.token : undefined;
-
-    var user = jwt_decode(token);
+    var user = jwt_decode(this.state.token);
     var name = this.state.name;
     var email = this.state.email;
     const uri = this.state.photo;

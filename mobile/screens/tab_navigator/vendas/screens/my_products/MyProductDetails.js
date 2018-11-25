@@ -6,15 +6,17 @@ import React, { Component } from 'react';
 import {
     View,
     StyleSheet,
-    Text,
     Keyboard,
-    Animated
+    TouchableOpacity,
+    Animated,
 } from 'react-native';
-import ProductImage from '../../components/ProductImage';
-import { Textarea, Form, Item, Input, Label, Button } from 'native-base';
-import jwt_decode from 'jwt-decode';
+import { Textarea, Form } from 'native-base';
 import ErrorDialog from './ErrorDialog';
 import ToogleView from './ToogleView';
+import {getUserToken} from '../../../../../AuthMethods'
+import GreenButton from '../../components/GreenButton';
+import RedButton from '../../components/RedButton';
+import InputLab from '../../components/InputLab';
 
 class MyProductDetails extends Component {
     constructor(props) {
@@ -22,6 +24,7 @@ class MyProductDetails extends Component {
       this.keyboardHeight = new Animated.Value(0);
       this.imageHeight = new Animated.Value(199);
       this.state = {
+        token:undefined,
         isButtonsHidden: false,
         name: '',
         price: '',
@@ -29,6 +32,10 @@ class MyProductDetails extends Component {
         isDialogVisible: false,
         messageError: '',
       };
+    }
+    componentWillMount(){
+      getUserToken()
+      .then(res => this.setState({ token: res }))
     }
 
     openDialog = async () => {
@@ -38,29 +45,58 @@ class MyProductDetails extends Component {
       this.setState({ isDialogVisible: false })
     }
 
+    _goBack = async () => {
+
+      this.props.navigation.navigate('MyProducts', {token:this.state.token});
+    }
+    
+    _clickPhoto = async () => {
+      const {
+        cancelled,
+        uri,
+      } = await Expo.ImagePicker.launchImageLibraryAsync({
+        allowsEditing: true,
+        mediaTypes: 'Images',
+        quality: 0.7,
+        base64: true
+      });
+  
+      if (!cancelled) {
+        this.setState({ photo: uri });
+      }
+    }
+
     editProduct = async () => {
       const {state} = this.props.navigation;
-      var token = state.params ? state.params.token : undefined;
       var product = state.params ? state.params.product : undefined;
 
-      var name = this.state.name ? this.state.name : product.name;
-      var price = this.state.price ? this.state.price : product.price;
-      var description = this.state.description ? this.state.name : product.description;
+      const formData = new FormData();
+      formData.append('product_id', product.id);
+      formData.append('name', (this.state.name ? this.state.name : product.name));
+      formData.append('price', (this.state.price ? this.state.price : product.price));
+      formData.append('description', (this.state.description ? this.state.description : product.description));
+      formData.append('token', this.state.token);
 
+      var uri = this.state.photo;
+      if (uri != null) {
+        const uriParts = uri.split('.');
+        const fileType = uriParts[uriParts.length - 1];
+
+        formData.append('photo', {
+          uri: uri,
+          name: `photo.${fileType}`,
+          type: `application/${fileType}`,
+        });
+      }
       const edit_product_path = `${process.env.VENDAS_API}/api/edit_product/`;
+
       fetch(edit_product_path, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Content-Type': 'multipart/form-data',
         },
-        body: JSON.stringify({
-            'product_id': product.id,
-            'price': price,
-            'name': name,
-            'description': description,
-            'photo': product.photo, // <- Need atention later
-            'token':token,
-        }),
+        body: formData,
       })
       .then((response) => {
         return response.json();
@@ -71,7 +107,7 @@ class MyProductDetails extends Component {
           this.setState({ isDialogVisible: true })
         }
         else{
-          this.props.navigation.navigate('MyProducts', {token:token});
+          this.props.navigation.navigate('MyProducts', {token:this.state.token});
         }
       })
       .catch((err) => {
@@ -118,8 +154,10 @@ class MyProductDetails extends Component {
 
     render() {
         const {state} = this.props.navigation;
-        var token = state.params ? state.params.token : undefined;
         var product = state.params ? state.params.product : undefined;
+
+        const editableIcon = require('../../assets/editableIcon.png');
+        var photo = (this.state.photo == null) ? product.photo : this.state.photo;
 
         return (
             <Animated.View style={[styles.container, { paddingBottom: this.keyboardHeight }]}>
@@ -128,23 +166,29 @@ class MyProductDetails extends Component {
                   isDialogVisible={this.state.isDialogVisible}
                   backButton = {this.closeDialog}
               />
-              <Animated.Image source={{ uri: 'http://www.piniswiss.com/wp-content/uploads/2013/05/image-not-found-4a963b95bf081c3ea02923dceaeb3f8085e1a654fc54840aac61a57a60903fef-300x199.png' }} style={[styles.logo, { height: this.imageHeight, width: '100%' }]} />
+              <TouchableOpacity onPress={this._clickPhoto}>
+                <Animated.Image
+                  source={{ uri: photo }}
+                  style={{ height: this.imageHeight, width: '100%' }}
+                />
+                <Animated.Image
+                  source={editableIcon}
+                  style={{ position: 'absolute', left: '90%', top: '5%' }}
+                />
+              </TouchableOpacity>
               <Form style={styles.description}>
-                <Item floatingLabel>
-                  <Label>Nome atual: {product.name}</Label>
-                  <Input
-                    style={{ color: 'black' }}
+
+                  <InputLab
+                    nameLabel={product.name}
                     onChangeText={(name) => {this.setState({name})}}
                   />
-                </Item>
-                <Item floatingLabel>
-                  <Label>Preço atual: {product.price}</Label>
-                  <Input
-                    style={{ color: 'black' }}
+
+                  <InputLab
+                    nameLabel={product.price}
                     keyboardType='numeric'
                     onChangeText={(price) => {this.setState({price})}}
                   />
-                </Item>
+
                 <Textarea
                   style={{ color: 'black' }}
                   onChangeText={(description) => {this.setState({description})}}
@@ -155,20 +199,14 @@ class MyProductDetails extends Component {
               </Form>
               <ToogleView hide={this.state.isButtonsHidden}>
                 <View style={styles.buttonContainer}>
-                  <Button
-                    onPress={() => {this.props.navigation.navigate('MyProducts', {token:token});}}
-                    style={styles.button}
-                    danger
-                  >
-                    <Text style={{color: 'white'}}> CANCELAR </Text>
-                  </Button>
-                  <Button
+                  <RedButton
+                    onPress={this._goBack}
+                    text="CANCELAR"
+                  />
+                  <GreenButton
                     onPress={this.editProduct}
-                    style={styles.button}
-                    success
-                  >
-                    <Text style={{color: 'white'}}> SALVAR </Text>
-                  </Button>
+                    text="SALVAR"
+                  />
                 </View>
               </ToogleView>
             </Animated.View>
@@ -192,9 +230,4 @@ const styles = StyleSheet.create({
       justifyContent: 'space-around',
       paddingBottom: 10,
     },
-    button: {
-      justifyContent: 'center',
-      height: 40,
-      width: 100,
-    }
 });

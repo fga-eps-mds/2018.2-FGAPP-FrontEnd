@@ -11,7 +11,10 @@ export default async (email, password) => {
       'password': password,
     }),
   })
+  .then(response => response.json())
+  .catch(error => {
+    console.log(error);
+  });
 
-  const loginJson = login.json()
-  return loginJson
+  return login
 }

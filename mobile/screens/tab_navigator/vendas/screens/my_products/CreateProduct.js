@@ -4,118 +4,162 @@
 
 import React, { Component } from 'react';
 import {
-    View,
-    StyleSheet,
-    Text,
-    Keyboard,
-    Animated
+  View,
+  StyleSheet,
+  Text,
+  Keyboard,
+  Animated,
+  TouchableOpacity,
+  ImageBackground
 } from 'react-native';
 import ProductImage from '../../components/ProductImage';
-import { Textarea, Form, Item, Input, Label, Button } from 'native-base';
+import GreenButton from '../../components/GreenButton';
+import RedButton from '../../components/RedButton';
+import InputLab from '../../components/InputLab';
+import { Textarea, Form } from 'native-base';
 import jwt_decode from 'jwt-decode';
 import ErrorDialog from './ErrorDialog';
 import ToogleView from './ToogleView';
+import { ImagePicker } from 'expo';
+import {getUserToken} from '../../../../../AuthMethods'
 
 class CreateProduct extends Component {
-    constructor(props) {
-      super(props);
-      this.keyboardHeight = new Animated.Value(0);
-      this.imageHeight = new Animated.Value(199);
-      this.state = {
-        isButtonsHidden: false,
-        title: '',
-        price: '',
-        description: '',
-        isDialogVisible: false,
-        messageError: '',
-      };
-    }
+  constructor(props) {
+    super(props);
+    this.keyboardHeight = new Animated.Value(0);
+    this.imageHeight = new Animated.Value(199);
+    this.state = {
+      isButtonsHidden: false,
+      title: null,
+      price: null,
+      photo: null,
+      description: '',
+      isDialogVisible: false,
+      messageError: '',
+    };
+  }
 
-    openDialog = async () => {
-      this.setState({ isDialogVisible: true })
-    }
-    closeDialog = async () => {
-      this.setState({ isDialogVisible: false })
-    }
+  openDialog = async () => {
+    this.setState({ isDialogVisible: true })
+  }
+  closeDialog = async () => {
+    this.setState({ isDialogVisible: false })
+  }
 
-    registerProduct = async () => {
-      const {state} = this.props.navigation;
-      var token = state.params ? state.params.token : undefined;
-      var jwtDecode = require('jwt-decode');
-      var user = jwt_decode(token);
-      const create_product_path = `${process.env.VENDAS_API}/api/create_product/`;
-      fetch(create_product_path, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          'fk_vendor': user.user_id,
-          'name': this.state.title,
-          'price': this.state.price,
-          'photo': 'https://foodrevolution.org/wp-content/uploads/2018/04/blog-featured-diabetes-20180406-1330.jpg',
-          'description': this.state.description,
-          'token':token,
-        }),
-      })
-      .then((response) => {
-        return response.json();
-      })
-      .then((responseJson) => {
-        if (responseJson.error != undefined){
-          this.setState ({ messageError: responseJson.error})
-          this.setState({ isDialogVisible: true })
-        }
-        else{
-          this.props.navigation.navigate('MyProducts', {token:token});
-        }
-      })
-      .catch((err) => {
-        this.setState ({ messageError: "Erro interno, não foi possível se comunicar com o servidor."})
+  _clickPhoto = async () => {
+    const {
+      cancelled,
+      uri,
+    } = await Expo.ImagePicker.launchImageLibraryAsync({
+      allowsEditing: true,
+      mediaTypes: 'Images',
+      quality: 0.7,
+      base64: true
+    });
+
+    if (!cancelled) {
+      this.setState({ photo: uri });
+    }
+  }
+
+  _goBack = async () => {
+    const {state} = this.props.navigation;
+    var token = state.params ? state.params.token : undefined;
+
+    this.props.navigation.navigate('MyProducts', {token:token});
+  }
+
+  registerProduct = () => {
+    const {state} = this.props.navigation;
+    var token = state.params ? state.params.token : undefined;
+    const user = jwt_decode(this.state.token);
+
+    const formData = new FormData();
+    formData.append('fk_vendor', user.user_id);
+    formData.append('name', this.state.title);
+    formData.append('price', this.state.price);
+    formData.append('description', this.state.description);
+    formData.append('token', this.state.token);
+
+    var uri = this.state.photo;
+    if (uri != null) {
+      const uriParts = uri.split('.');
+      const fileType = uriParts[uriParts.length - 1];
+
+      formData.append('photo', {
+        uri: uri,
+        name: `photo.${fileType}`,
+        type: `application/${fileType}`,
+      });
+    }
+    
+      const createProductPath = `${process.env.VENDAS_API}/api/create_product/`;
+      fetch(createProductPath, {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+    .then((response) => {
+      return response.json();
+    })
+    .then((responseJson) => {
+      if (responseJson.error != null) {
+        this.setState({ messageError: responseJson.error })
         this.setState({ isDialogVisible: true })
-      })
-    }
+      }
+      else {
+        this.props.navigation.navigate('MyProducts', { token: token });
+      }
+    })
+    .catch((err) => {
+      this.setState({ messageError: "Erro interno, não foi possível se comunicar com o servidor." })
+      this.setState({ isDialogVisible: true })
+    })
+  }
 
-    componentDidMount () {
-      this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
-      this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
-    }
+  componentDidMount() {
+    this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
+    this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
+  }
 
-    componentWillUnmount () {
-      this.keyboardDidShowListener.remove();
-      this.keyboardDidHideListener.remove();
-    }
+  componentWillUnmount() {
+    this.keyboardDidShowListener.remove();
+    this.keyboardDidHideListener.remove();
+  }
 
-    _keyboardDidShow = (event) => {
-      this.setState({ isButtonsHidden: true });
-      Animated.parallel([
-        Animated.timing(this.keyboardHeight, {
-          duration: event.duration,
-          toValue: event.endCoordinates.height,
-        }),
-        Animated.timing(this.imageHeight, {
-          duration: event.duration,
-          toValue: 0,
-        }),
-      ]).start();
-    }
+  _keyboardDidShow = (event) => {
+    this.setState({ isButtonsHidden: true });
+    Animated.parallel([
+      Animated.timing(this.keyboardHeight, {
+        duration: event.duration,
+        toValue: event.endCoordinates.height,
+      }),
+      Animated.timing(this.imageHeight, {
+        duration: event.duration,
+        toValue: 0,
+      }),
+    ]).start();
+  }
 
-    _keyboardDidHide = (event) => {
-      this.setState({ isButtonsHidden: false });
-      Animated.parallel([
-        Animated.timing(this.keyboardHeight, {
-          toValue: 0,
-        }),
-        Animated.timing(this.imageHeight, {
-          toValue: 199,
-        }),
-      ]).start();
-    }
+  _keyboardDidHide = (event) => {
+    this.setState({ isButtonsHidden: false });
+    Animated.parallel([
+      Animated.timing(this.keyboardHeight, {
+        toValue: 0,
+      }),
+      Animated.timing(this.imageHeight, {
+        toValue: 199,
+      }),
+    ]).start();
+  }
 
     render() {
-        const {state} = this.props.navigation;
-        var token = state.params ? state.params.token : undefined;
-
+      const editableIcon = require('../../assets/editableIcon.png');
+      const defaultPhoto = 'https://res.cloudinary.com/integraappfga/image/upload/v1541634743/SEM_IMAGEM.jpg';
+      var photo = (this.state.photo == null) ? defaultPhoto : this.state.photo;
         return (
             <Animated.View style={[styles.container, { paddingBottom: this.keyboardHeight }]}>
               <ErrorDialog
@@ -123,23 +167,30 @@ class CreateProduct extends Component {
                   isDialogVisible={this.state.isDialogVisible}
                   backButton = {this.closeDialog}
               />
-              <Animated.Image source={{ uri: 'http://www.piniswiss.com/wp-content/uploads/2013/05/image-not-found-4a963b95bf081c3ea02923dceaeb3f8085e1a654fc54840aac61a57a60903fef-300x199.png' }} style={[styles.logo, { height: this.imageHeight, width: '100%' }]} />
+              <TouchableOpacity onPress={this._clickPhoto}>
+                <Animated.Image
+                  source={{ uri: photo }}
+                  style={{ height: this.imageHeight, width: '100%' }}
+                />
+                <Animated.Image
+                  source={editableIcon}
+                  style={{ position: 'absolute', left: '90%', top: '5%' }}
+                />
+              </TouchableOpacity>
+              
               <Form style={styles.description}>
-                <Item floatingLabel>
-                  <Label>Título</Label>
-                  <Input
-                    style={{ color: 'black' }}
-                    onChangeText={(title) => {this.setState({title})}}
-                  />
-                </Item>
-                <Item floatingLabel>
-                  <Label>Preço</Label>
-                  <Input
-                    style={{ color: 'black' }}
-                    keyboardType='numeric'
-                    onChangeText={(price) => {this.setState({price})}}
-                  />
-                </Item>
+
+                <InputLab
+                  nameLabel='Título'
+                  onChangeText={(title) => this.setState({title})}
+                />
+
+                <InputLab
+                  nameLabel = 'Preço'
+                  keyboardType='numeric'
+                  onChangeText={(price) => {this.setState({price})}}
+                />
+
                 <Textarea
                   style={{ color: 'black' }}
                   onChangeText={(description) => {this.setState({description})}}
@@ -150,20 +201,14 @@ class CreateProduct extends Component {
               </Form>
               <ToogleView hide={this.state.isButtonsHidden}>
                 <View style={styles.buttonContainer}>
-                  <Button
-                    onPress={() => {this.props.navigation.navigate('MyProducts', {token:token});}}
-                    style={styles.button}
-                    danger
-                  >
-                    <Text style={{color: 'white'}}> CANCELAR </Text>
-                  </Button>
-                  <Button
+                  <RedButton
+                    onPress={this._goBack}
+                    text="CANCELAR"
+                  />
+                  <GreenButton
                     onPress={this.registerProduct}
-                    style={styles.button}
-                    success
-                  >
-                    <Text style={{color: 'white'}}> SALVAR </Text>
-                  </Button>
+                    text="SALVAR"
+                  />
                 </View>
               </ToogleView>
             </Animated.View>
@@ -187,9 +232,4 @@ const styles = StyleSheet.create({
       justifyContent: 'space-around',
       paddingBottom: 10,
     },
-    button: {
-      justifyContent: 'center',
-      height: 40,
-      width: 100,
-    }
 });

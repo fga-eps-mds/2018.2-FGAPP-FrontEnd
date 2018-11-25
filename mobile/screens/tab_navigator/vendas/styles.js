@@ -1,4 +1,54 @@
 export default {
+  imageBackgrd: {
+    width: '100%',
+    height: '100%',
+  },
+  logoView: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-evenly',
+  },
+  logoViewSet: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  logoImage: {
+    width: 1000/4,
+    height: 561/4,
+  },
+  formStyle: {
+    paddingLeft: '5%',
+    paddingRight: '5%',
+  },
+  fieldStyle: {
+    paddingBottom: 10,
+    paddingTop: 5,
+  },
+  loginBtn: {
+   color: 'black',
+   fontWeight: 'bold',
+  },
+  signUpBtn: {
+    color:  'white',
+    fontWeight: 'bold',
+  },
+  loginContent: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingLeft: '35%',
+    paddingRight: '35%',
+  },
+  forgotPassword: {
+    padding: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  signUp: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingLeft: '35%',
+    paddingRight: '35%',
+  },
   item: {
     backgroundColor: 'white',
     paddingTop: 20,
@@ -29,13 +79,20 @@ export default {
   order_main: {
     flex: 1,
     flexDirection: 'row',
-    //width: '100%',
     backgroundColor: '#0EAC6F',
     paddingTop: 10,
     paddingBottom: 20,
     paddingLeft: 20,
     paddingRight: 20,
-
+  },
+  order_header: {
+    borderRadius: 5,
+    flex: 1,
+    flexDirection: 'row',
+    paddingTop: 10,
+    paddingBottom: 20,
+    paddingLeft: 20,
+    paddingRight: 20,
   },
   items: {
     backgroundColor: '#171717',
@@ -57,6 +114,11 @@ export default {
   },
   order_title: {
     color: 'white',
+    fontSize: 25,
+  },
+  order_header_title: {
+    textAlign: 'center',
+    color: 'gray',
     fontSize: 25,
   },
   order_subtitle: {
@@ -108,7 +170,14 @@ export default {
     fontSize: 15,
   },
   customBtnBG: {
+    flex: 0,
     backgroundColor: "#0EAC6F",
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+  },
+  customBtnBR: {
+    flex: 0,
+    backgroundColor: "#830037",
     paddingVertical: 10,
     paddingHorizontal: 15,
   },
@@ -119,10 +188,10 @@ export default {
     paddingLeft: '70%',
   },
   customBtnText: {
-    fontSize: 20,
-    fontWeight: '400',
+    fontSize: 16,
+    fontWeight: '300',
     color: 'white',
-    alignItems: 'flex-start',
+    alignItems: 'center',
   },
   PickerStyle: {
     position: 'absolute',
@@ -130,7 +199,6 @@ export default {
     left: '70%',
     paddingVertical: 50,
     paddingHorizontal: 50,
-    color: 'black',
     alignSelf: 'center',
    },
    PickerText: {
@@ -176,8 +244,7 @@ export default {
    buyer_order_main: {
     flex: 1,
     flexDirection: 'row',
-    //width: '100%',
-    backgroundColor: '#BD1C5F', // TODO change backgroundColor
+    backgroundColor: '#0EAC6F',
     paddingTop: 10,
     paddingBottom: 20,
     paddingLeft: 20,
@@ -188,4 +255,9 @@ export default {
      color: 'white',
      fontSize: 17,
     },
+    button: {
+      justifyContent: 'center',
+      height: 40,
+      width: 100,
+    }
 };
