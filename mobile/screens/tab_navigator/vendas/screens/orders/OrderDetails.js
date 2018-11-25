@@ -216,7 +216,7 @@ class OrderDetails extends Component {
                 <Button
                   onPress={this._cancelButton}
                   style={local_styles.button}
-                  danger
+                  backgroundColor = "#830037"
                 >
                   <Text style={{color: 'white'}}> CANCELAR </Text>
                   <Text style={{color: 'white'}}> PEDIDO </Text>

@@ -188,7 +188,7 @@ exports[`Test _cancelButton renders correctly 1`] = `
             Object {
               "alignItems": "center",
               "alignSelf": "flex-start",
-              "backgroundColor": "#d9534f",
+              "backgroundColor": "#007aff",
               "borderBottomWidth": null,
               "borderColor": "#007aff",
               "borderLeftWidth": null,

@@ -228,7 +228,7 @@ exports[`renders correctly 1`] = `
                           "textAlign": "center",
                         },
                         Object {
-                          "color": "purple",
+                          "color": "#830037",
                         },
                       ]
                     }
