@@ -6,44 +6,119 @@ import {
     Image,
     ScrollView,
     CardItem,
-    Button,
     Alert,
     ImageBackground,
 } from 'react-native';
 import styles from '../../styles'
 import { LinearGradient } from 'expo';
-import GreenButton from '../../components/GreenButton';
+import { Button } from 'native-base';
 
-const ORDER_CLOSED = 1;
 
 class OrderDetails extends Component {
 
-    attendedOrder = async () => {
-        const {state} = this.props.navigation;
-        var token = state.params ? state.params.token : undefined;
-        var order = state.params ? state.params.order : undefined;
-        const set_order_status = `${process.env.VENDAS_API}/api/set_order_status/`;
-        fetch(set_order_status, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            'order_id': order.id,
-            'new_status': ORDER_CLOSED,
-            'token':token,
-          }),
-        })
-        .then((response) => {
-          return response.json();
-        })
-        .then((responseJson) => {
-          this._goBack();
-        })
-        .catch((err) => {
-          this.setState ({ messageError: "Erro interno, não foi possível se comunicar com o servidor."})
-          this.setState({ isDialogVisible: true })
-        })
+    constructor(props) {
+      super(props);
+      this.state = {
+        request: '0',
+      };
+    }
+    _cancelButton = async () => {
+      const {state} = this.props.navigation;
+      var order = state.params ? state.params.order : undefined;
+      var token = state.params ? state.params.token : undefined;
+      const set_order_status_path = `${process.env.VENDAS_API}/api/set_order_status/`;
+
+      fetch(set_order_status_path, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          'order_id': order.id,
+          'new_status': '2',
+          'token': token,
+        }),
+      })
+      .then((response) => {
+        return response.json();
+      })
+      .then((responseJson) => {
+        if(responseJson.error != undefined)
+          Alert.alert(responseJson.error)
+
+        else
+          Alert.alert('Operação realizada com sucesso.')
+          this.props.navigation.navigate('OrderedProducts', {token:token})
+      })
+      .catch((err) => {
+        console.error(err)
+      })
+    }
+
+    _closeButton = async () => {
+      const {state} = this.props.navigation;
+      var order = state.params ? state.params.order : undefined;
+      var token = state.params ? state.params.token : undefined;
+      const set_order_status_path = `${process.env.VENDAS_API}/api/set_order_status/`;
+
+      fetch(set_order_status_path, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          'order_id': order.id,
+          'new_status': '1',
+          'token': token,
+        }),
+      })
+      .then((response) => {
+        return response.json();
+      })
+      .then((responseJson) => {
+        if(responseJson.error != undefined)
+          Alert.alert(responseJson.error)
+
+        else
+          Alert.alert('Operação realizada com sucesso.')
+          this.props.navigation.navigate('OrderedProducts', {token:token})
+      })
+      .catch((err) => {
+        console.error(err)
+      })
+    }
+
+    _buttonRequest() {
+      const {state} = this.props.navigation;
+      var order = state.params ? state.params.order : undefined;
+      var token = state.params ? state.params.token : undefined;
+      const set_order_status_path = `${process.env.VENDAS_API}/api/set_order_status/`;
+
+      fetch(set_order_status_path, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          'order_id': order.id,
+          'new_status': this.state.request,
+          'token': token,
+        }),
+      })
+      .then((response) => {
+        return response.json();
+      })
+      .then((responseJson) => {
+        if(responseJson.error != undefined)
+          Alert.alert(responseJson.error)
+
+        else
+          Alert.alert('Operação realizada com sucesso.')
+          this.props.navigation.navigate('OrderedProducts', {token:token})
+      })
+      .catch((err) => {
+        console.error(err)
+      })
     }
 
     _goBack= async () => {
@@ -64,7 +139,7 @@ class OrderDetails extends Component {
   			},
   			body: JSON.stringify({
   				'token': token,
-        			 'user_id': order.fk_buyer,
+        	'user_id': order.fk_buyer,
   			}),
   		})
   			.then((response) => { return response.json() })
@@ -114,14 +189,14 @@ class OrderDetails extends Component {
       var name = this.loadUser(token, order);
 
         return (
-          <ScrollView>
+          <ScrollView style={{ backgroundColor: 'white' }}>
             <View style={styles.details_main}>
               <Image
                 style={styles.image }
                 source={{ uri: photo}}
               >
               </Image>
-              <View style={{ flexDirection: 'row', paddingBottom: 2, paddingLeft: 10}}>
+              <View style={{ flexDirection: 'row', paddingLeft: 10}}>
                 <View style={{flexDirection: 'column', width: '70%',}}>
                   <Text style={{fontSize: 25}}>{order.product_name}</Text>
                   <Text style={{fontSize: 20}}>R$ {parseFloat(order.total_price).toFixed(2)}</Text>
@@ -137,14 +212,23 @@ class OrderDetails extends Component {
                 <Text style={{fontSize: 16, color: '#5A5A5A'}}>{order.buyer_message}</Text>
                 <View style={{height: 50}}/>
               </View>
-              <View style={{flexDirection: 'row'}}>
-                <View style={{width: '60%'}}/>
-                <GreenButton
-                  text="Atendido"
-                  onPress={this.attendedOrder}
-                />
+              <View style={local_styles.buttonContainer}>
+                <Button
+                  onPress={this._cancelButton}
+                  style={local_styles.button}
+                  danger
+                >
+                  <Text style={{color: 'white'}}> CANCELAR </Text>
+                  <Text style={{color: 'white'}}> PEDIDO </Text>
+                </Button>
+                <Button
+                  onPress={this._closeButton}
+                  style={local_styles.button}
+                  success
+                >
+                  <Text style={{color: 'white'}}>ATENDIDO</Text>
+                </Button>
               </View>
-            <View style={{padding:20}}/>
             </View>
           </ScrollView>
         );
@@ -152,9 +236,24 @@ class OrderDetails extends Component {
 }
 export default OrderDetails;
 
-const styless = StyleSheet.create({
+const local_styles = StyleSheet.create({
     container: {
-        flex: 1,
-        //width: '100%',
+      flex: 1
+    },
+    description: {
+      flex: 1,
+      height: '35%',
+      width: '95%',
+    },
+    buttonContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-around',
+      paddingBottom: 10,
+    },
+    button: {
+      justifyContent: 'center',
+      flexDirection: 'column',
+      height: 40,
+      width: 100,
     }
 });

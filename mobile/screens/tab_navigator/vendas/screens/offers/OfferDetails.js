@@ -26,6 +26,22 @@ import FormPicker from '../../components/FormPicker';
       };
     }
 
+    sendNotification = async (product, token) => {
+      const path = `${process.env.VENDAS_API}/api/send_push_message/`
+      fetch( path, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          'user_id': product.fk_vendor,
+          'title': 'Novo pedido',
+          'message': 'Existe(m) pedido(s) para '+product.name,
+          'token': token,
+        }),
+      })
+    }
+
     openDialog = async () => {
       this.setState({ buyer_message: '' })
       this.setState({ isDialogVisible: true })
@@ -61,11 +77,13 @@ import FormPicker from '../../components/FormPicker';
     })
     .then((response) => response.json())
     .then((responseJson) => {
+      this.sendNotification(product, token);
       console.log(responseJson);
       if(responseJson.error != undefined)
         Alert.alert(responseJson.error);
       else
         Alert.alert('Compra realizada com sucesso');
+        this.props.navigation.navigate('Offers', {token:token})
      })
 
      .catch( err => {

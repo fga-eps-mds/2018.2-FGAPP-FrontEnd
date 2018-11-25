@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View
+  style={
+    Array [
+      Object {},
+      Object {
+        "padding": 10,
+      },
+    ]
+  }
+  virtual={undefined}
+>
+  <View
+    style={
+      Array [
+        Object {},
+        Object {
+          "borderRadius": 5,
+          "flex": 1,
+          "flexDirection": "row",
+          "paddingBottom": 20,
+          "paddingLeft": 20,
+          "paddingRight": 20,
+          "paddingTop": 10,
+        },
+      ]
+    }
+    virtual={undefined}
+  >
+    <View
+      style={
+        Array [
+          Object {},
+          Object {
+            "flexDirection": "column",
+            "width": "100%",
+          },
+        ]
+      }
+      virtual={undefined}
+    >
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        style={
+          Array [
+            Object {
+              "color": "#000",
+              "fontFamily": "System",
+              "fontSize": 16,
+            },
+            Object {
+              "color": "gray",
+              "fontSize": 25,
+              "textAlign": "center",
+            },
+          ]
+        }
+        uppercase={false}
+        virtual={undefined}
+      />
+    </View>
+    <View
+      style={
+        Array [
+          Object {},
+          Object {
+            "height": 10,
+          },
+        ]
+      }
+      virtual={undefined}
+    />
+  </View>
+</View>
+`;

@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View
+  accessibilityComponentType={undefined}
+  accessibilityLabel={undefined}
+  accessibilityTraits={undefined}
+  accessible={true}
+  collapsable={undefined}
+  hasTVPreferredFocus={undefined}
+  hitSlop={undefined}
+  isTVSelectable={true}
+  nativeID={undefined}
+  onLayout={undefined}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "alignItems": "center",
+      "alignSelf": "stretch",
+      "backgroundColor": "#f4f4f4",
+      "borderBottomWidth": null,
+      "borderColor": "#007aff",
+      "borderLeftWidth": null,
+      "borderRadius": 5,
+      "borderRightWidth": null,
+      "borderTopWidth": null,
+      "borderWidth": undefined,
+      "elevation": 2,
+      "flexDirection": "row",
+      "height": 45,
+      "justifyContent": "center",
+      "opacity": 1,
+      "paddingBottom": 6,
+      "paddingTop": 6,
+      "shadowColor": undefined,
+      "shadowOffset": undefined,
+      "shadowOpacity": undefined,
+      "shadowRadius": undefined,
+    }
+  }
+  testID={undefined}
+  tvParallaxProperties={undefined}
+>
+  <Text
+    accessible={true}
+    allowFontScaling={true}
+    ellipsizeMode="tail"
+    style={
+      Object {
+        "color": "black",
+        "fontWeight": "bold",
+      }
+    }
+  >
+    ENTRAR
+  </Text>
+</View>
+`;

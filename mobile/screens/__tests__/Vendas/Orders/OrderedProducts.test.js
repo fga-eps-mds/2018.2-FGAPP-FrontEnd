@@ -35,7 +35,6 @@ describe('Test loadOrders requisition and snapshot', () => {
     })
 
     it('tests refreshOrders function',() => {
-      //const navigation = jest.fn();
       const wrapper = shallow(<OrderedProducts navigation = {navigation}/>);
       const refreshOrders = wrapper.instance().refreshOrders();
     })
@@ -81,7 +80,9 @@ describe('Test loadOrders requisition and snapshot', () => {
         const state = {
             orders: [''],
             buyer_orders: [''],
-            refreshing: false
+            refreshing: false,
+            my_order_message: 'Meus pedidos',
+            received_order_message: 'Pedidos recebidos',
         };
 
         wrapper.setState(state);
@@ -93,23 +94,6 @@ describe('Test loadOrders requisition and snapshot', () => {
     });
 
 })
-
-// describe('Test OrderedProducts snapshot', () => {
-//     const navigation = {
-//         state: {
-//             params: {
-//                 token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InJvZ2VybGVua2VAZ21haWwuY29tIiwidXNlcl9pZCI6MSwib3JpZ19pYXQiOjE1NDE3MTk3NDksImV4cCI6MTU0MTcyMDA0OSwidXNlcm5hbWUiOiJyb2dlcmxlbmtlQGdtYWlsLmNvbSJ9.eCEGRB9yYAkP5iBIybeDsAoWk4HyusPUTX3LBiP0I64"
-//             }
-//         },
-//         navigate: jest.fn(),
-//     }
-//
-//     it('renders correctly', () => {
-//       //const navigation = jest.fn();
-//       const tree = renderer.create(<OrderedProducts navigation={navigation}/>).toJSON();
-//       expect(tree).toMatchSnapshot();
-//     });
-//
 
 describe('Testing navigation', () => {
 

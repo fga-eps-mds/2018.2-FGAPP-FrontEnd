@@ -47,7 +47,7 @@ describe('Testing navigation', () => {
     })
 })
 
-describe('Test attendedOrder', () => {
+describe('Test _cancelButton', () => {
     const navigation = {
         state: {
             params: {
@@ -69,13 +69,13 @@ describe('Test attendedOrder', () => {
 
     const ORDER_CLOSED = 1;
     // Url to be mocked
-    let set_order_status = '';
+    let set_order_status_path = '';
     let get_product_path = '';
     let get_user_path = '';
 
     beforeAll(() => {
         process.env.VENDAS_API = 'http://test.ip';
-        set_order_status = `${process.env.VENDAS_API}/api/set_order_status/`;
+        set_order_status_path = `${process.env.VENDAS_API}/api/set_order_status/`;
         get_product_path = `${process.env.VENDAS_API}/api/get_product/`;
         get_user_path = `${process.env.VENDAS_API}/api/get_name/`;
     })
@@ -89,21 +89,21 @@ describe('Test attendedOrder', () => {
         expect(tree).toMatchSnapshot();
     });
 
-    it('Test attendedOrder with sucess', async (done) => {
+    it('Test buttons functions with sucess', async (done) => {
         const wrapper = shallow(<OrderDetails navigation={navigation}/>);
-        
-        fetchMock.post(set_order_status, {
+
+        fetchMock.post(set_order_status_path, {
             "buyer_message": "Message",
             "date": "2018-11-14T01:16:07.680903Z",
             "fk_buyer": 3,
             "fk_product": 2,
             "id": 5,
-            "product_name": "Shiana",
+            "product_name": "Product 3",
             "quantity": 1,
             "status": 1,
             "total_price": 127.99,
         });
-        
+
         fetchMock.post(get_product_path, {
             "description": "This is a description",
             "fk_vendor": 3,
@@ -112,7 +112,7 @@ describe('Test attendedOrder', () => {
             "photo": "This is a photo url",
             "price": 127.99,
         });
-        
+
         fetchMock.post(get_user_path, {
             "name": "UserName",
         });
@@ -130,16 +130,17 @@ describe('Test attendedOrder', () => {
                     "status": 1,
                     "total_price": 127.99,
                 },
+                request: '0',
             },
         };
 
         wrapper.setState(state);
-
-        await wrapper.instance().attendedOrder()
+        await wrapper.instance()._closeButton()
+        await wrapper.instance()._cancelButton()
+        await wrapper.instance()._buttonRequest()
         process.nextTick(() => {
             done();
         });
-        
-    });
 
+    });
 })

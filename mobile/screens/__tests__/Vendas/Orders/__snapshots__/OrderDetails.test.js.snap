@@ -1,12 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Test attendedOrder renders correctly 1`] = `
-<RCTScrollView>
+exports[`Test _cancelButton renders correctly 1`] = `
+<RCTScrollView
+  style={
+    Object {
+      "backgroundColor": "white",
+    }
+  }
+>
   <View>
     <View
       style={
         Object {
-          "backgroundColor": "white",
           "flex": 1,
           "flexDirection": "column",
           "margin": 0,
@@ -32,7 +37,6 @@ exports[`Test attendedOrder renders correctly 1`] = `
         style={
           Object {
             "flexDirection": "row",
-            "paddingBottom": 2,
             "paddingLeft": 10,
           }
         }
@@ -158,16 +162,11 @@ exports[`Test attendedOrder renders correctly 1`] = `
         style={
           Object {
             "flexDirection": "row",
+            "justifyContent": "space-around",
+            "paddingBottom": 10,
           }
         }
       >
-        <View
-          style={
-            Object {
-              "width": "60%",
-            }
-          }
-        />
         <View
           accessibilityComponentType={undefined}
           accessibilityLabel={undefined}
@@ -188,12 +187,26 @@ exports[`Test attendedOrder renders correctly 1`] = `
           style={
             Object {
               "alignItems": "center",
-              "alignSelf": "center",
-              "backgroundColor": "#0EAC6F",
-              "flex": 0,
-              "height": 50,
+              "alignSelf": "flex-start",
+              "backgroundColor": "#d9534f",
+              "borderBottomWidth": null,
+              "borderColor": "#007aff",
+              "borderLeftWidth": null,
+              "borderRadius": 5,
+              "borderRightWidth": null,
+              "borderTopWidth": null,
+              "borderWidth": undefined,
+              "elevation": 2,
+              "flexDirection": "column",
+              "height": 40,
               "justifyContent": "center",
               "opacity": 1,
+              "paddingBottom": 6,
+              "paddingTop": 6,
+              "shadowColor": undefined,
+              "shadowOffset": undefined,
+              "shadowOpacity": undefined,
+              "shadowRadius": undefined,
               "width": 100,
             }
           }
@@ -206,26 +219,85 @@ exports[`Test attendedOrder renders correctly 1`] = `
             ellipsizeMode="tail"
             style={
               Object {
-                "alignItems": "center",
                 "color": "white",
-                "fontSize": 16,
-                "fontWeight": "300",
               }
             }
           >
-             
-            Atendido
-             
+             CANCELAR 
+          </Text>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "white",
+              }
+            }
+          >
+             PEDIDO 
+          </Text>
+        </View>
+        <View
+          accessibilityComponentType={undefined}
+          accessibilityLabel={undefined}
+          accessibilityTraits={undefined}
+          accessible={true}
+          collapsable={undefined}
+          hasTVPreferredFocus={undefined}
+          hitSlop={undefined}
+          isTVSelectable={true}
+          nativeID={undefined}
+          onLayout={undefined}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "alignItems": "center",
+              "alignSelf": "flex-start",
+              "backgroundColor": "#5cb85c",
+              "borderBottomWidth": null,
+              "borderColor": "#007aff",
+              "borderLeftWidth": null,
+              "borderRadius": 5,
+              "borderRightWidth": null,
+              "borderTopWidth": null,
+              "borderWidth": undefined,
+              "elevation": 2,
+              "flexDirection": "column",
+              "height": 40,
+              "justifyContent": "center",
+              "opacity": 1,
+              "paddingBottom": 6,
+              "paddingTop": 6,
+              "shadowColor": undefined,
+              "shadowOffset": undefined,
+              "shadowOpacity": undefined,
+              "shadowRadius": undefined,
+              "width": 100,
+            }
+          }
+          testID={undefined}
+          tvParallaxProperties={undefined}
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "white",
+              }
+            }
+          >
+            ATENDIDO
           </Text>
         </View>
       </View>
-      <View
-        style={
-          Object {
-            "padding": 20,
-          }
-        }
-      />
     </View>
   </View>
 </RCTScrollView>
