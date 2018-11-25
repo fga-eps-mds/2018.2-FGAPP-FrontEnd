@@ -30,7 +30,7 @@ class RegisterLocalAPI extends Component {
     };
   }
 
-  _postForm = async (name, description) => {
+  _postForm = async (name, telephone, description) => {
     const { opening_hours } = this.state
     const { selectedCategories } = this.state
     const categories = Array()
@@ -46,7 +46,7 @@ class RegisterLocalAPI extends Component {
       "latitude": this.props.latitude,
       "longitude": this.props.longitude,
       "opening_hours": opening_hours,
-      "telephone": undefined,
+      "telephone": telephone,
     });
     try {
       const response = await fetch(url, {
@@ -72,8 +72,8 @@ class RegisterLocalAPI extends Component {
     }
   }
 
-  takeDataFromTheForm = (name, description) => {
-    this._postForm(name, description);
+  takeDataFromTheForm = (name, telephone, description) => {
+    this._postForm(name, telephone, description);
   }
 
   setSelectedCategories = (selectedCategories) => {

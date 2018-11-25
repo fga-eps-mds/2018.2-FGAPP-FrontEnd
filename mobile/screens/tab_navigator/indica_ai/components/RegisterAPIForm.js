@@ -29,6 +29,7 @@ export default class RegisterAPIForm extends Component {
     this.state = {
       selected: undefined,
       name: null,
+      telephone: null,
       description: null,
       errorModalVisible: false,
       eachDay: false,
@@ -71,6 +72,12 @@ export default class RegisterAPIForm extends Component {
               onChangeText={(name) => this.setState({ name })}
             />
           </View>
+
+          <TextInput
+            placeholder='Telefone'
+            keyboardType={'numeric'}
+            onhxangeText={(telephone) => this.setState({ telephone })}
+          />
 
           <View style={styles.inputDescription}>
             <TextInput
@@ -119,12 +126,12 @@ export default class RegisterAPIForm extends Component {
                     { cancelable: false }
                   )
                 } else {
-                  this.props.sendDataToTheForm(this.state.name, this.state.description)
+                  this.props.sendDataToTheForm(this.state.name, this.state.telephone, this.state.description)
                 }
               }}>
               <Text style={{ color: "white" }}>Confirmar</Text>
             </Button>
-        </View>
+          </View>
 
         </Container>
       </KeyboardAwareScrollView>
@@ -266,8 +273,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 2,
     padding: 3,
-    marginLeft: 5,
-    color: 'gray'
+    marginLeft: 5
   },
   day: {
     fontSize: 15,
