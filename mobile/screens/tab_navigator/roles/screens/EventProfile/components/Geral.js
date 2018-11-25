@@ -21,12 +21,25 @@ const adultOnly = require("../../../static/adultOnly.png");
 class Geral extends Component {
 	render() {
 		const uri = this.props.photo;
-		const dataFormatada =
-			this.props.eventDate.slice(-2) +
-			"/" +
-			this.props.eventDate.slice(5, 7) +
-			"/" +
-			this.props.eventDate.slice(0, 4);
+
+		let dataFormatada;
+		if (this.props.eventDate == undefined) {
+			dataFormatada == "Data Inválida";
+		} else {
+			dataFormatada =
+				this.props.eventDate.slice(-2) +
+				"/" +
+				this.props.eventDate.slice(5, 7) +
+				"/" +
+				this.props.eventDate.slice(0, 4);
+		}
+
+		let horaFormatada;
+		if(this.props.eventHour == undefined) {
+			horaFormatada = "Hora inválida"
+		} else {
+			horaFormatada = this.props.eventHour.slice(0, 5);
+		}
 		return (
 			<Card>
 				<CardHeader text="Geral" />
@@ -55,11 +68,11 @@ class Geral extends Component {
 								<Icon name="time" />
 							</Left>
 							<Right>
-								<Text>{this.props.eventHour.slice(0, 5)}h</Text>
+								<Text>{horaFormatada}h</Text>
 							</Right>
 						</Card>
 
-						<Card style={styles.descCards}>
+						<Card style={{ flexDirection: "row" }}>
 							<Left>
 								<Icon name="calendar" />
 							</Left>

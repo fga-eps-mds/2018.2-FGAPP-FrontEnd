@@ -7,24 +7,6 @@ exports[`renders correctly 1`] = `
   <View>
     <TextInput
       allowFontScaling={true}
-      maxLength={40}
-      multiline={false}
-      onChangeText={[Function]}
-      placeholder="Autor"
-      style={
-        Object {
-          "alignSelf": "center",
-          "borderColor": "grey",
-          "borderWidth": 1,
-          "marginBottom": 5,
-          "padding": 10,
-          "width": "80%",
-        }
-      }
-      underlineColorAndroid="transparent"
-    />
-    <TextInput
-      allowFontScaling={true}
       maxLength={128}
       multiline={false}
       onChangeText={[Function]}
