@@ -34,7 +34,7 @@ class OrderedProducts extends Component {
       var token = state.params ? state.params.token : undefined;
       var user = jwt_decode(token);
 
-      //Referencia para API gateway
+      //Reference to API gateway
       const orders_screen_path = `${process.env.VENDAS_API}/api/orders_screen/`;
 
       fetch(orders_screen_path, {
@@ -43,7 +43,7 @@ class OrderedProducts extends Component {
               'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-          'user_id': user.user_id, //UsernameField foi definido como email
+          'user_id': user.user_id, //UsernameField was defined as email
           'token': token,
         }),
       })
@@ -76,7 +76,7 @@ class OrderedProducts extends Component {
           },
           body: JSON.stringify({
           'user_id': user.user_id,
-          'token': token, // TODO test token
+          'token': token,
         }),
       })
       .then((response) => response.json())

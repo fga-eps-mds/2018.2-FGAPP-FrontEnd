@@ -10,7 +10,6 @@ import {
     ImageBackground,
 } from 'react-native';
 import styles from '../../styles'
-import jwt_decode from 'jwt-decode'
 import { LinearGradient } from 'expo';
 import { Button } from 'native-base';
 
@@ -122,11 +121,18 @@ class OrderDetails extends Component {
       })
     }
 
+    _goBack= async () => {
+      const {state} = this.props.navigation;
+      var token = state.params ? state.params.token : undefined;
+
+      this.props.navigation.navigate('OrderedProducts', {token:token});
+    }
+
     loadUser(token, order){
-      const get_product_path = `${process.env.VENDAS_API}/api/get_name/`;
+      const get_user_path = `${process.env.VENDAS_API}/api/get_name/`;
 
       var name = 'Usuário sem nome';
-  		fetch(get_product_path, {
+  		fetch(get_user_path, {
   			method: 'POST',
   			headers: {
   			'Content-Type': 'application/json',
@@ -179,7 +185,6 @@ class OrderDetails extends Component {
       const {state} = this.props.navigation;
       var token = state.params ? state.params.token : undefined;
       var order = state.params ? state.params.order : undefined;
-      var user = jwt_decode(token);
       var photo = this.loadProduct(token, order);
       var name = this.loadUser(token, order);
 
@@ -211,7 +216,7 @@ class OrderDetails extends Component {
                 <Button
                   onPress={this._cancelButton}
                   style={local_styles.button}
-                  danger
+                  backgroundColor = "#830037"
                 >
                   <Text style={{color: 'white'}}> CANCELAR </Text>
                   <Text style={{color: 'white'}}> PEDIDO </Text>
