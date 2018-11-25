@@ -118,7 +118,7 @@ class FavoriteContainer extends React.Component {
       <View>
         <FavoriteIcon
           favMessageIcon={this.favMessageIcon}
-          liked={favorites.some(favorite => favorite.local_id === local_id)}
+          // liked={favorites.some(favorite => favorite.local_id === local_id)}
         />
         <ErrorModal
           onCancel={() => this.setState({ errorModalVisible: false })}
