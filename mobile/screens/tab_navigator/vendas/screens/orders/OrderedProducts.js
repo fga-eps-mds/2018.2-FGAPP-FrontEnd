@@ -40,7 +40,7 @@ class OrderedProducts extends Component {
     loadOrders = async () => {
       var user = jwt_decode(this.state.token);
 
-      //Referencia para API gateway
+      //Reference to API gateway
       const orders_screen_path = `${process.env.VENDAS_API}/api/orders_screen/`;
 
       fetch(orders_screen_path, {

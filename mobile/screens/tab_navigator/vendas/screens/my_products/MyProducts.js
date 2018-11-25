@@ -75,31 +75,31 @@ class MyProducts extends Component {
   render() {
 
         return (
-            <View style={styles.container}>
+        	<View style={styles.container}>
                 <View>
-                  <ScrollView
-                    refreshControl={
-                      <RefreshControl
-                        refreshing={this.state.refreshing}
-                        onRefresh={this.refreshUserProducts}
-                      />
-                    }
-                  >
-                    {this.state.products.map((product, index) => {
-                        return (
-                            <ProductCard
-                                key={index}
-                                photo={product.photo}
-                                name={product.name}
-								price={parseFloat(product.price).toFixed(2)}
-								onPress={() => {this.props.navigation.navigate('MyProductDetails', {product:product})} }
+                	<ScrollView
+						refreshControl={
+						<RefreshControl
+							refreshing={this.state.refreshing}
+							onRefresh={this.refreshUserProducts}
+						/>
+						}
+                	>
+						{this.state.products.map((product, index) => {
+							return (
+								<ProductCard
+									key={index}
+									photo={product.photo}
+									name={product.name}
+									price={parseFloat(product.price).toFixed(2)}
+									onPress={() => {this.props.navigation.navigate('MyProductDetails', {token:token, product:product})} }
 								/>
-								);
-							})}
-                  </ScrollView>
+							);
+						})}
+                	</ScrollView>
                 </View>
                 <Fab
-					onPress={() => {this.props.navigation.navigate('CreateProduct');} }
+					onPress={() => {this.props.navigation.navigate('CreateProduct', {token:token});} }
                     style={styles.fab}>
                     <Icon name='md-add' />
                 </Fab>
