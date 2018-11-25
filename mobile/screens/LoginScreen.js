@@ -15,9 +15,15 @@ import {
 } from "react-native";
 import {Button} from 'native-base';
 import Field from './components/Field';
+import styles from './tab_navigator/vendas/styles';
+import LoginButton from './components/LoginButton';
+import SignUpButton from './components/SignUpButton';
+import ResetPasswordButton from './components/ResetPasswordButton';
 import Login from './components/Login';
 import jwt_decode from 'jwt-decode'
 
+const LOGIN_BACKGROUND_IMAGE = 'https://i.imgur.com/dvhebUS.png';
+const LOGO_IMAGE = 'https://i.imgur.com/F7PTwBg.png';
 
 async function getExpoToken(loginToken) {
   const { status } = await Expo.Permissions.askAsync(
@@ -126,18 +132,20 @@ class LoginScreen extends Component {
         return (
           <KeyboardAvoidingView behavior="padding">
             <ImageBackground
-              style={{ width: '100%', height: '100%' }}
+              style={styles.imageBackgrd}
               imageStyle={{resizeMode: 'stretch'}}
               source={{
-                uri: 'https://i.imgur.com/dvhebUS.png'
+                uri: LOGIN_BACKGROUND_IMAGE
               }}
-              >
-              <View style={{flex: 1, flexDirection: 'column', paddingTop: '0%', justifyContent: 'space-evenly' }}>
-                <View style={{ alignItems: 'center', justifyContent: 'center'}}>
-                  <Image source={{uri: 'https://i.imgur.com/F7PTwBg.png'}} style={{width:1000/4, height: 561/4}} />
+             >
+              <View style={styles.logoView}>
+                <View style={styles.logoViewSet}>
+                  <Image source={{uri: LOGO_IMAGE}} style={styles.logoImage} />
                 </View>
-                <View style={{paddingLeft: '5%', paddingRight: '5%'}}>
+                <View style={styles.formStyle}>
+
                   <Field
+                   style={styles.fieldStyle}
                    placeholder={"Email"}
                    badInput={this.state.email_field_is_bad}
                    fieldAlert={this.state.email_field_alerts}
@@ -146,13 +154,12 @@ class LoginScreen extends Component {
                   />
 
                   <Field
-                   style={{ paddingBottom: 10, paddingTop: 5}}
+                   style={styles.fieldStyle}
                    placeholder={"Senha"}
                    badInput={this.state.password_field_is_bad}
                    fieldAlert={this.state.password_field_alerts}
                    keyExtractor={'password'}
                    onChangeText={(password) => this.setState({password})}
-
                    secureTextEntry
                   />
 
@@ -160,52 +167,29 @@ class LoginScreen extends Component {
                       data={this.state.non_field_alert}
                       renderItem={({item}) => <Text style ={{color: 'red'}}>{item}</Text>}
                       keyExtractor={item => 'non_field_errors'}
-
                   />
 
+                  </View>
+              <View>
+                <View style={styles.loginContent}>
+                  <LoginButton
+                   onPress={this._onPressButton}
+                  />
+                <View style={{padding: 5}}/>
+                  <SignUpButton
+                   onPress={() => this.props.navigation.navigate('SignUpScreen')}
+                  />
                 </View>
-                <View>
-
-                  <View style={{alignItems: 'center', justifyContent: 'center', paddingLeft: '35%', paddingRight: '35%'}}>
-                    <Button light block onPress={this._onPressButton}>
-                      <Text style={{color: 'black', fontWeight: 'bold'}}>ENTRAR</Text>
-                    </Button>
-                    <View style={{padding: 5}}/>
-                    <Button bordered light block onPress={() => this.props.navigation.navigate('SignUpScreen')} color='transparent'>
-                      <Text style={{color:  'white', fontWeight: 'bold'}}> CADASTRAR </Text>
-                    </Button>
-                  </View>
-
-                  <View style={{padding: 5, alignItems: 'center', justifyContent: 'center'}}>
-                    <TouchableOpacity onPress={() => Linking.openURL(password_reset_path)}>
-                      <Text
-                        style={{color:  'white', textDecorationLine: 'underline'}}>
-                        Esqueci minha senha
-                      </Text>
-                    </TouchableOpacity>
-                  </View>
-                  
-                  <View style={{padding: 20, alignItems: 'center', justifyContent: 'center'}}>
-                    <TouchableOpacity onPress={ this.termsOfUse }>
-                      <Text
-                        style={{color:  'black', textDecorationLine: 'underline'}}>
-                        Termos de Uso
-                      </Text>
-                    </TouchableOpacity>
-                  </View>
+                <View style={styles.forgotPassword}>
+                  <ResetPasswordButton
+                   onPress={() => Linking.openURL(password_reset_path)}
+                  />
                 </View>
               </View>
-            </ImageBackground>
-          </KeyboardAvoidingView>
+            </View>
+          </ImageBackground>
+        </KeyboardAvoidingView>
         );
     }
 }
 export default LoginScreen;
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
-    }
-});

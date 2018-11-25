@@ -7,77 +7,12 @@ import {
     Alert,
 } from 'react-native';
 import ProductImage from '../../components/ProductImage';
-import styles from '../../components/styles';
+import styles from '../../styles';
 import { Card, CardItem, Text, Left, Right, Content, Body} from 'native-base';
 import OfferDialog from '../../components/OfferDialog';
 import jwt_decode from 'jwt-decode';
-
-const Quantity = [
-  {
-    label: '1',
-    value: '1'
-  },
-  {
-    label: '2',
-    value: '2'
-  },
-  {
-    label: '3',
-    value: '3'
-  },
-  {
-    label: '4',
-    value: '4'
-  },
-  {
-    label: '5',
-    value: '5'
-  },
-  {
-    label: '6',
-    value: '6'
-  },
-  {
-    label: '7',
-    value: '7'
-  },
-  {
-    label: '8',
-    value: '8'
-  },
-  {
-    label: '9',
-    value: '9'
-  },
-  {
-    label: '10',
-    value: '10'
-  }
-];
-
-class FormPicker extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-        modalVisible: false
-    };
-  }
-
-  render(){
-    return (
-      <Picker
-      selectedValue = {this.props.value}
-      onValueChange = {this.props.onValueChange}
-      style = {styles.PickerStyle}
-      mode = 'dropdown'
-      >
-      {this.props.items.map((i, index) => (
-        <Picker.Item key = {index} label = {i.label} value = {i.value} />
-      ))}
-      </Picker>
-    );
-  }
-}
+import GreenButton from '../../components/GreenButton';
+import FormPicker from '../../components/FormPicker';
 
 
  class OfferDetails extends Component {
@@ -167,9 +102,7 @@ class FormPicker extends Component {
     render() {
       const {state} = this.props.navigation;
       var product = state.params ? state.params.product : undefined;
-
       const characters = `${this.state.buyer_message.length.toString()}/${this.state.max_characters}`;
-
       var price = `${this.state.quantity*product.price}`;
 
       return (
@@ -196,11 +129,10 @@ class FormPicker extends Component {
                 </Body>
               </CardItem>
               <CardItem style = {styles.buttonCard}>
-              <TouchableOpacity style={styles.customBtnBG}
-              onPress={this.openDialog}>
-                <Text style={styles.customBtnText}> Pedir </Text>
-              </TouchableOpacity>
-
+              <GreenButton
+                onPress={this.openDialog}
+                text="Pedir"
+              />
               <OfferDialog
                 isDialogVisible = {this.state.isDialogVisible}
                 backButton = {this.closeDialog}
@@ -212,7 +144,6 @@ class FormPicker extends Component {
               <Text style = {styles.PickerText}> Quantidade </Text>
 
               <FormPicker
-                items={Quantity}
                 value={this.state.quantity}
                 onValueChange={(itemValue, itemIndex) => this.setState({ quantity: itemValue })}
               />

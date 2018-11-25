@@ -14,10 +14,13 @@ import {
     Image
 } from 'react-native';
 import ProductImage from '../../components/ProductImage';
-import { Textarea, Form, Item, Input, Label, Button } from 'native-base';
+import { Textarea, Form } from 'native-base';
 import jwt_decode from 'jwt-decode';
 import ErrorDialog from './ErrorDialog';
 import ToogleView from './ToogleView';
+import GreenButton from '../../components/GreenButton';
+import RedButton from '../../components/RedButton';
+import InputLab from '../../components/InputLab';
 
 class MyProductDetails extends Component {
     constructor(props) {
@@ -41,6 +44,13 @@ class MyProductDetails extends Component {
       this.setState({ isDialogVisible: false })
     }
 
+    _goBack = async () => {
+      const {state} = this.props.navigation;
+      var token = state.params ? state.params.token : undefined;
+
+      this.props.navigation.navigate('MyProducts', {token:token});
+    }
+    
     _clickPhoto = async () => {
       const {
         cancelled,
@@ -146,7 +156,6 @@ class MyProductDetails extends Component {
 
     render() {
         const {state} = this.props.navigation;
-        var token = state.params ? state.params.token : undefined;
         var product = state.params ? state.params.product : undefined;
 
         const editableIcon = require('../../assets/editableIcon.png');
@@ -170,21 +179,18 @@ class MyProductDetails extends Component {
                 />
               </TouchableOpacity>
               <Form style={styles.description}>
-                <Item floatingLabel>
-                  <Label>Nome atual: {product.name}</Label>
-                  <Input
-                    style={{ color: 'black' }}
+
+                  <InputLab
+                    nameLabel={product.name}
                     onChangeText={(name) => {this.setState({name})}}
                   />
-                </Item>
-                <Item floatingLabel>
-                  <Label>Preço atual: {product.price}</Label>
-                  <Input
-                    style={{ color: 'black' }}
+
+                  <InputLab
+                    nameLabel={product.price}
                     keyboardType='numeric'
                     onChangeText={(price) => {this.setState({price})}}
                   />
-                </Item>
+
                 <Textarea
                   style={{ color: 'black' }}
                   onChangeText={(description) => {this.setState({description})}}
@@ -195,20 +201,14 @@ class MyProductDetails extends Component {
               </Form>
               <ToogleView hide={this.state.isButtonsHidden}>
                 <View style={styles.buttonContainer}>
-                  <Button
-                    onPress={() => {this.props.navigation.navigate('MyProducts', {token:token});}}
-                    style={styles.button}
-                    danger
-                  >
-                    <Text style={{color: 'white'}}> CANCELAR </Text>
-                  </Button>
-                  <Button
+                  <RedButton
+                    onPress={this._goBack}
+                    text="CANCELAR"
+                  />
+                  <GreenButton
                     onPress={this.editProduct}
-                    style={styles.button}
-                    success
-                  >
-                    <Text style={{color: 'white'}}> SALVAR </Text>
-                  </Button>
+                    text="SALVAR"
+                  />
                 </View>
               </ToogleView>
             </Animated.View>
@@ -232,9 +232,4 @@ const styles = StyleSheet.create({
       justifyContent: 'space-around',
       paddingBottom: 10,
     },
-    button: {
-      justifyContent: 'center',
-      height: 40,
-      width: 100,
-    }
 });

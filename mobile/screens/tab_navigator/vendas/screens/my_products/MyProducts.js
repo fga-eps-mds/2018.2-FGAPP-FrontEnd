@@ -87,15 +87,15 @@ class MyProducts extends Component {
                                 key={index}
                                 photo={product.photo}
                                 name={product.name}
-								price={parseFloat(product.price).toFixed(2)}
-								onPress={() => {this.props.navigation.navigate('MyProductDetails', {token:token, product:product})} }
-								/>
-								);
-							})}
+																price={parseFloat(product.price).toFixed(2)}
+																onPress={() => {this.props.navigation.navigate('MyProductDetails', {token:token, product:product})} }
+														/>
+												);
+										})}
                   </ScrollView>
                 </View>
                 <Fab
-					onPress={() => {this.props.navigation.navigate('CreateProduct', {token:token});} }
+										onPress={() => {this.props.navigation.navigate('CreateProduct', {token:token});} }
                     style={styles.fab}>
                     <Icon name='md-add' />
                 </Fab>

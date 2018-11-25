@@ -1,0 +1,162 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing Field renders correctly 1`] = `
+<View
+  style={undefined}
+>
+  <View
+    style={Object {}}
+    virtual={undefined}
+  >
+    <View
+      accessibilityComponentType={undefined}
+      accessibilityLabel={undefined}
+      accessibilityTraits={undefined}
+      accessible={true}
+      collapsable={undefined}
+      hasTVPreferredFocus={undefined}
+      hitSlop={undefined}
+      isTVSelectable={true}
+      nativeID={undefined}
+      onLayout={undefined}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderBottomWidth": 1,
+          "borderColor": "#D9D5DC",
+          "borderLeftWidth": 0,
+          "borderRadius": undefined,
+          "borderRightWidth": 0,
+          "borderTopWidth": 0,
+          "borderWidth": undefined,
+          "flexDirection": "row",
+          "marginLeft": 15,
+          "marginTop": 15,
+          "opacity": 1,
+        }
+      }
+      testID={undefined}
+      tvParallaxProperties={undefined}
+    >
+      <View
+        collapsable={undefined}
+        style={
+          Object {
+            "left": 0,
+            "opacity": 1,
+            "paddingBottom": undefined,
+            "paddingTop": undefined,
+            "position": "absolute",
+            "right": 0,
+            "top": 18,
+          }
+        }
+      >
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={
+            Array [
+              Object {
+                "color": "#575757",
+                "fontSize": 17,
+                "left": 0,
+                "paddingRight": 5,
+                "paddingTop": 5,
+                "top": 6,
+              },
+              Object {
+                "color": "white",
+              },
+            ]
+          }
+          virtual={undefined}
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Array [
+                Object {
+                  "fontSize": 17,
+                },
+                Object {
+                  "color": "white",
+                },
+              ]
+            }
+            virtual={undefined}
+          />
+        </Text>
+      </View>
+      <TextInput
+        allowFontScaling={true}
+        editable={true}
+        onBlur={[Function]}
+        onChangeText={[Function]}
+        onFocus={[Function]}
+        placeholderTextColor="#575757"
+        secureTextEntry={undefined}
+        style={
+          Array [
+            Object {
+              "color": "#000",
+              "flex": 1,
+              "fontSize": 17,
+              "height": 50,
+              "marginLeft": null,
+              "paddingBottom": 7,
+              "paddingLeft": null,
+              "paddingRight": 5,
+              "paddingTop": 3,
+              "top": 10,
+            },
+            Object {
+              "color": "white",
+            },
+          ]
+        }
+        underlineColorAndroid="white"
+        value=""
+        virtual={undefined}
+      />
+    </View>
+  </View>
+  <RCTScrollView
+    data={undefined}
+    disableVirtualization={false}
+    getItem={[Function]}
+    getItemCount={[Function]}
+    horizontal={false}
+    initialNumToRender={10}
+    invertStickyHeaders={undefined}
+    keyExtractor={[Function]}
+    maxToRenderPerBatch={10}
+    numColumns={1}
+    onContentSizeChange={[Function]}
+    onEndReachedThreshold={2}
+    onLayout={[Function]}
+    onMomentumScrollEnd={[Function]}
+    onScroll={[Function]}
+    onScrollBeginDrag={[Function]}
+    onScrollEndDrag={[Function]}
+    renderItem={[Function]}
+    scrollEventThrottle={50}
+    stickyHeaderIndices={Array []}
+    updateCellsBatchingPeriod={50}
+    viewabilityConfigCallbackPairs={Array []}
+    windowSize={21}
+  >
+    <View />
+  </RCTScrollView>
+</View>
+`;
