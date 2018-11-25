@@ -13,7 +13,7 @@ import {
 } from "react-native";
 import { ImagePicker } from "expo";
 import { Icon, TextInput, Button, H2, Item, Input } from "native-base";
-
+import jwt_decode from 'jwt-decode';
 import CadastroInput from "./CadastroInput/index.js";
 import MapsModal from "./MapsModal/index.js";
 import ImageModal from "./ImageModal/index.js";
@@ -27,7 +27,8 @@ export default class CadastroEventos1 extends Component {
 	state = {
 		eventName: "",
 		eventDescription: "",
-		owner: "",
+		ownerName: "",
+		ownerId: "",
 		linkReference: "",
 		organizer: "",
 		organizerTel: "",
@@ -60,11 +61,11 @@ export default class CadastroEventos1 extends Component {
 		responseOk: false
 	};
 
-	_loadProfile = async () => {
+	_loadInfo = () => {
         const { state } = this.props.navigation;
         const token = state.params ? state.params.token : undefined;
         const user = jwt_decode(token);
-        this.setState({userId: user.user_id});
+		this.setState({userId: user.user_id});
 
         const profileInfoPath = `${process.env.INTEGRA_LOGIN_AUTH}/api/users/get_profile/`;
         fetch(profileInfoPath, {
@@ -79,7 +80,7 @@ export default class CadastroEventos1 extends Component {
         .then((response) => { return response.json() })
         .then((responseJson) => {
           if (!responseJson.error) {
-            this.setState({ profileInfo: responseJson.name });
+            this.setState({ profileInfo: responseJson });
           }
         })
         .catch((error) => {
@@ -141,7 +142,8 @@ export default class CadastroEventos1 extends Component {
 		this.setState({
 			eventName: "",
 			eventDescription: "",
-			owner: "",
+			ownerName: "",
+			ownerId: "",
 			linkReference: "",
 			organizer: "",
 			organizerTel: "",
@@ -164,11 +166,12 @@ export default class CadastroEventos1 extends Component {
 	}
 
 	componentDidMount() {
+		this._loadInfo();
 		this._resetStates();
-		this._loadProfile();
 	}
 
 	_cadastraRole(photoURL) {
+		console.log(this.state);
 		const eventPath = `${process.env.ROLES_EVENTS_API}/events/`;
 		fetch(eventPath, {
 			method: "POST",
@@ -177,7 +180,7 @@ export default class CadastroEventos1 extends Component {
 				"Content-Type": "application/json"
 			},
 			body: JSON.stringify({
-				ownerName: this.state.profileInfo.toString,
+				ownerName: this.state.profileInfo.name,
 				ownerId: this.state.userId, 
 				eventName: this.state.eventName,
 				linkReference: "https://" + this.state.linkReference + ".com", // Verificar Front-End e Back para decisão sobre este campo
