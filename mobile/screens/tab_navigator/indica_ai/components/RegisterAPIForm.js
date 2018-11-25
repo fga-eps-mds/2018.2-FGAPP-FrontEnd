@@ -31,7 +31,7 @@ export default class RegisterAPIForm extends Component {
       name: null,
       telephone: null,
       description: null,
-      errorModalVisible: false,
+      warningModalVisible: false,
       eachDay: false,
       week: false
     };
@@ -117,14 +117,7 @@ export default class RegisterAPIForm extends Component {
             <Button block info onPress={
               () => {
                 if (!(this.state.name)) {
-                  Alert.alert(
-                    'Atenção!',
-                    "Os campos 'Nome' ou 'Descrição' não podem estar vazios",
-                    [
-                      { text: 'OK', onPress: () => console.log('OK Pressed') }
-                    ],
-                    { cancelable: false }
-                  )
+                  this.setState({ warningModalVisible: true })
                 } else {
                   this.props.sendDataToTheForm(this.state.name, this.state.telephone, this.state.description)
                 }
@@ -132,6 +125,12 @@ export default class RegisterAPIForm extends Component {
               <Text style={{ color: "white" }}>Confirmar</Text>
             </Button>
           </View>
+
+          <WarningModal
+            onCancel={() => this.setState({ warningModalVisible: false })}
+            visible={this.state.warningModalVisible}
+            message = {"Nome do local não pode estar vazio!"}
+          />
 
         </Container>
       </KeyboardAwareScrollView>
