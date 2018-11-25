@@ -60,6 +60,33 @@ export default class CadastroEventos1 extends Component {
 		responseOk: false
 	};
 
+	_loadProfile = async () => {
+        const { state } = this.props.navigation;
+        const token = state.params ? state.params.token : undefined;
+        const user = jwt_decode(token);
+        this.setState({userId: user.user_id});
+
+        const profileInfoPath = `${process.env.INTEGRA_LOGIN_AUTH}/api/users/get_profile/`;
+        fetch(profileInfoPath, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            'user_id': user.user_id,
+          }),
+        })
+        .then((response) => { return response.json() })
+        .then((responseJson) => {
+          if (!responseJson.error) {
+            this.setState({ profileInfo: responseJson });
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+
 	_uploadImage = uri => {
 		let formdata = new FormData();
 		let timestamp = ((Date.now() / 1000) | 0).toString();
@@ -138,6 +165,7 @@ export default class CadastroEventos1 extends Component {
 
 	componentDidMount() {
 		this._resetStates();
+		this._loadProfile();
 	}
 
 	_cadastraRole(photoURL) {
@@ -149,7 +177,8 @@ export default class CadastroEventos1 extends Component {
 				"Content-Type": "application/json"
 			},
 			body: JSON.stringify({
-				owner: this.state.organizer, // Verificar Front-End e Back para decisão sobre este campo
+				ownerName: this.state.profileInfo.name,
+				ownerId: this.state.userId, // Verificar Front-End e Back para decisão sobre este campo
 				eventName: this.state.eventName,
 				linkReference: "https://" + this.state.linkReference + ".com", // Verificar Front-End e Back para decisão sobre este campo
 				organizer: this.state.organizer,
