@@ -6,18 +6,14 @@ import React, { Component } from 'react';
 import {
     View,
     StyleSheet,
-    Text,
     Keyboard,
     TouchableOpacity,
     Animated,
-    ImageBackground,
-    Image
 } from 'react-native';
-import ProductImage from '../../components/ProductImage';
 import { Textarea, Form } from 'native-base';
-import jwt_decode from 'jwt-decode';
 import ErrorDialog from './ErrorDialog';
 import ToogleView from './ToogleView';
+import {getUserToken} from '../../../../../AuthMethods'
 import GreenButton from '../../components/GreenButton';
 import RedButton from '../../components/RedButton';
 import InputLab from '../../components/InputLab';
@@ -28,6 +24,7 @@ class MyProductDetails extends Component {
       this.keyboardHeight = new Animated.Value(0);
       this.imageHeight = new Animated.Value(199);
       this.state = {
+        token:undefined,
         isButtonsHidden: false,
         name: '',
         price: '',
@@ -35,6 +32,10 @@ class MyProductDetails extends Component {
         isDialogVisible: false,
         messageError: '',
       };
+    }
+    componentWillMount(){
+      getUserToken()
+      .then(res => this.setState({ token: res }))
     }
 
     openDialog = async () => {
@@ -45,10 +46,8 @@ class MyProductDetails extends Component {
     }
 
     _goBack = async () => {
-      const {state} = this.props.navigation;
-      var token = state.params ? state.params.token : undefined;
 
-      this.props.navigation.navigate('MyProducts', {token:token});
+      this.props.navigation.navigate('MyProducts', {token:this.state.token});
     }
     
     _clickPhoto = async () => {
@@ -69,7 +68,6 @@ class MyProductDetails extends Component {
 
     editProduct = async () => {
       const {state} = this.props.navigation;
-      var token = state.params ? state.params.token : undefined;
       var product = state.params ? state.params.product : undefined;
 
       const formData = new FormData();
@@ -77,7 +75,7 @@ class MyProductDetails extends Component {
       formData.append('name', (this.state.name ? this.state.name : product.name));
       formData.append('price', (this.state.price ? this.state.price : product.price));
       formData.append('description', (this.state.description ? this.state.description : product.description));
-      formData.append('token', token);
+      formData.append('token', this.state.token);
 
       var uri = this.state.photo;
       if (uri != null) {
@@ -109,7 +107,7 @@ class MyProductDetails extends Component {
           this.setState({ isDialogVisible: true })
         }
         else{
-          this.props.navigation.navigate('MyProducts', {token:token});
+          this.props.navigation.navigate('MyProducts', {token:this.state.token});
         }
       })
       .catch((err) => {

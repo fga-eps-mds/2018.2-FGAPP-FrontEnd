@@ -6,13 +6,15 @@ import Enzyme from 'enzyme';
 import renderer from 'react-test-renderer';
 import fetchMock from 'fetch-mock';
 
+const TOKEN_EXAMPLE = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InJvZ2VybGVua2VAZ21haWwuY29tIiwidXNlcl9pZCI6MSwib3JpZ19pYXQiOjE1NDE3MTk3NDksImV4cCI6MTU0MTcyMDA0OSwidXNlcm5hbWUiOiJyb2dlcmxlbmtlQGdtYWlsLmNvbSJ9.eCEGRB9yYAkP5iBIybeDsAoWk4HyusPUTX3LBiP0I64";
+
 Enzyme.configure({adapter: new Adapter()});
 
 describe('Test submitDialog', () => {
     const navigation = {
         state: {
             params: {
-                token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InJvZ2VybGVua2VAZ21haWwuY29tIiwidXNlcl9pZCI6MSwib3JpZ19pYXQiOjE1NDE3MTk3NDksImV4cCI6MTU0MTcyMDA0OSwidXNlcm5hbWUiOiJyb2dlcmxlbmtlQGdtYWlsLmNvbSJ9.eCEGRB9yYAkP5iBIybeDsAoWk4HyusPUTX3LBiP0I64",
+                token: TOKEN_EXAMPLE,
                 product: "someJsonProduct"
             }
         },
@@ -35,6 +37,7 @@ describe('Test submitDialog', () => {
         const wrapper = shallow(<OfferDetails navigation={navigation}/>);
 
         const state = {
+            token:TOKEN_EXAMPLE,
             buyer_message: "I'm beside you",
             total_price: 1,
             quantity: 1,
@@ -79,6 +82,7 @@ describe('Test submitDialog', () => {
         const wrapper = shallow(<OfferDetails navigation={navigation}/>);
 
         const state = {
+            token:TOKEN_EXAMPLE,
             buyer_message: "I'm beside you",
             total_price: 1,
             quantity: 1,

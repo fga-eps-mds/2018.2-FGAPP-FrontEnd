@@ -13,12 +13,13 @@ import OfferDialog from '../../components/OfferDialog';
 import jwt_decode from 'jwt-decode';
 import GreenButton from '../../components/GreenButton';
 import FormPicker from '../../components/FormPicker';
-
+import {getUserToken} from '../../../../../AuthMethods'
 
  class OfferDetails extends Component {
     constructor(props){
       super(props);
       this.state = {
+        token: undefined,
         quantity: '1',
         isDialogVisible: false,
         buyer_message: '',
@@ -26,6 +27,12 @@ import FormPicker from '../../components/FormPicker';
       };
     }
 
+    componentDidMount(){
+      getUserToken()
+          .then(res => this.setState({ token: res }))
+          .catch(err => alert("Erro"));
+    }
+    
     sendNotification = async (product, token) => {
       const path = `${process.env.VENDAS_API}/api/send_push_message/`
       fetch( path, {
@@ -36,7 +43,7 @@ import FormPicker from '../../components/FormPicker';
         body: JSON.stringify({
           'user_id': product.fk_vendor,
           'title': 'Novo pedido',
-          'message': 'Existe(m) pedido(s) para '+product.name,
+          'message': 'Existe(m) pedido(s) para ' + product.name,
           'token': token,
         }),
       })
@@ -55,8 +62,7 @@ import FormPicker from '../../components/FormPicker';
     submitDialog = async () => {
       const {state} = this.props.navigation;
       var product = state.params ? state.params.product : undefined;
-      var token = state.params ? state.params.token : undefined;
-      var user = jwt_decode(token);
+      var user = jwt_decode(this.state.token);
       const create_order_path = `${process.env.VENDAS_API}/api/create_order/`;
 
       fetch(create_order_path,{
@@ -72,18 +78,18 @@ import FormPicker from '../../components/FormPicker';
           'total_price': product.price*this.state.quantity,
           'quantity': this.state.quantity,
           'product_name': product.name,
-          'token': token,
+          'token': this.state.token,
         }),
     })
     .then((response) => response.json())
     .then((responseJson) => {
-      this.sendNotification(product, token);
+      this.sendNotification(product, this.state.token);
       console.log(responseJson);
       if(responseJson.error != undefined)
         Alert.alert(responseJson.error);
       else
         Alert.alert('Compra realizada com sucesso');
-        this.props.navigation.navigate('Offers', {token:token})
+        this.props.navigation.navigate('Offers', { token:this.state.token })
      })
 
      .catch( err => {

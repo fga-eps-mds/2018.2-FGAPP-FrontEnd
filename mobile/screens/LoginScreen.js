@@ -2,13 +2,10 @@ import React, { Component } from "react";
 import {
     View,
     Text,
-    TextInput,
     StyleSheet,
     FlatList,
-    Alert,
     ImageBackground,
     Image,
-    StatusBar,
     KeyboardAvoidingView,
     TouchableOpacity,
     Linking
@@ -21,6 +18,7 @@ import SignUpButton from './components/SignUpButton';
 import ResetPasswordButton from './components/ResetPasswordButton';
 import Login from './components/Login';
 import jwt_decode from 'jwt-decode'
+import { onSignIn } from "../AuthMethods";
 
 const LOGIN_BACKGROUND_IMAGE = 'https://i.imgur.com/dvhebUS.png';
 const LOGO_IMAGE = 'https://i.imgur.com/F7PTwBg.png';
@@ -118,6 +116,7 @@ class LoginScreen extends Component {
     //Sucesso
    if (responseJson.token != undefined || responseJson.key != undefined){
      getExpoToken(responseJson.token);
+     onSignIn(responseJson.token);
      this.props.navigation.navigate('TabHandler', {token:responseJson.token})
    }
   }
