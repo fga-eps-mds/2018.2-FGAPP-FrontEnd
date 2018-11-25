@@ -20,16 +20,17 @@ import * as helpers from "../../../utils/helpers";
 
 const noPic = require("../../../static/noPic.png");
 
+
+
 class FeedItem extends Component {
 	render() {
 		const uri = this.props.imgRole;
+		const { state } = this.props.navigation;
+		const token = state.params ? state.params.token : undefined;
 		return (
 			<Card style={styles.mb}>
 				<TouchableOpacity
 					onPress={() => {
-						console.log(
-							"Profile -> " + this.props.nomeRole + "/" + this.props.idRole
-						);
 						this.props.navigation.navigate("Profile", {
 							idRole: this.props.idRole
 						});
@@ -105,7 +106,8 @@ class FeedItem extends Component {
 						onPress={() => {
 							this.props.navigation.navigate("Comments", {
 								idRole: this.props.idRole,
-								eventName: this.props.nomeRole
+								eventName: this.props.nomeRole,
+								token: token,
 							});
 						}}
 					>
