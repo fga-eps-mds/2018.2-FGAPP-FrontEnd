@@ -11,16 +11,20 @@ import { Notifications, Permissions, Constants } from 'expo';
 require('./env-config');
 
 export default class App extends React.Component<{}> {
+  _isMounted = false;
   state = {
     signed: false,
-    signLoaded: false,
   }
-  componentWillMount(){
-    isSignedIn()
-    .then(res => this.setState({ signed: res, signLoaded: true }))
-    .catch(err => alert("Erro"));
-  }
+
   async componentDidMount() {
+    this._isMounted = true;
+    isSignedIn()
+    .then(res => {
+      if(this._isMounted)
+        this.setState({ signed: res })
+      
+    })
+
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
 
     const localNotification = {
@@ -61,6 +65,7 @@ export default class App extends React.Component<{}> {
   }
 
   componentWillUnmount() {
+    this._isMounted = false;
     BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
   }
 
@@ -69,12 +74,7 @@ export default class App extends React.Component<{}> {
   }
 
   render() {
-    const { signLoaded, signed } = this.state;
-
-    if (!signLoaded) {
-      return null;
-    }
-
+    const { signed } = this.state;
     const Layout = RootNavigator(signed);
     return <Layout />;
   }

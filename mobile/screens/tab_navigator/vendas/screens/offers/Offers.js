@@ -33,12 +33,9 @@ class Offers extends Component {
 			this.loadOffers();
 			this.setState({ refreshing: false });
 		})
-		.catch(err => alert("Erro"));
 	}
 	
 	loadOffers = async () => {
-		const { state } = this.props.navigation;
-		var token = state.params ? state.params.token : undefined;
 		var products_path = `${process.env.VENDAS_API}/api/all_products/`;
 
 		
@@ -74,8 +71,6 @@ class Offers extends Component {
 	}
 
 	render() {
-		const { state } = this.props.navigation;
-		var token = state.params ? state.params.token : undefined;
 		return (
 			<View style={styles.container}>
 				<ScrollView
@@ -93,7 +88,7 @@ class Offers extends Component {
 								photo={product.photo}
 								name={product.name}
 								price={parseFloat(product.price).toFixed(2)}
-								onPress={() => this.props.navigation.navigate('OfferDetails', { product: product, token: token })}
+								onPress={() => this.props.navigation.navigate('OfferDetails', { product: product, token:this.state.token })}
 							/>
 						);
 					})}

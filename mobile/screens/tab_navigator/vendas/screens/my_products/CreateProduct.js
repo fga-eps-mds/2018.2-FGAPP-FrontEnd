@@ -70,6 +70,8 @@ class CreateProduct extends Component {
   }
 
   registerProduct = () => {
+    const {state} = this.props.navigation;
+    var token = state.params ? state.params.token : undefined;
     const user = jwt_decode(this.state.token);
 
     const formData = new FormData();

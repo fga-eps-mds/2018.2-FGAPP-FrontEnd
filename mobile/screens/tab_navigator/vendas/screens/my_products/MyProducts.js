@@ -34,7 +34,6 @@ class MyProducts extends Component {
 			this.setState({ token: res })
 			this.loadUserProducts();
 		})
-		.catch(err => alert("Erro"));
 	}
 
 	loadUserProducts = async () => {
@@ -92,14 +91,14 @@ class MyProducts extends Component {
 									photo={product.photo}
 									name={product.name}
 									price={parseFloat(product.price).toFixed(2)}
-									onPress={() => {this.props.navigation.navigate('MyProductDetails', {token:token, product:product})} }
+									onPress={() => {this.props.navigation.navigate('MyProductDetails', {token:this.state.token, product:product})} }
 								/>
 							);
 						})}
                 	</ScrollView>
                 </View>
                 <Fab
-					onPress={() => {this.props.navigation.navigate('CreateProduct', {token:token});} }
+					onPress={() => {this.props.navigation.navigate('CreateProduct', {token:this.state.token});} }
                     style={styles.fab}>
                     <Icon name='md-add' />
                 </Fab>

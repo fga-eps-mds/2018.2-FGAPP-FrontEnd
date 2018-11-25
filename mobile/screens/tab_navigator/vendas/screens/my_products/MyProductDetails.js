@@ -36,7 +36,6 @@ class MyProductDetails extends Component {
     componentWillMount(){
       getUserToken()
       .then(res => this.setState({ token: res }))
-      .catch(err => alert("Erro"));
     }
 
     openDialog = async () => {
@@ -47,10 +46,8 @@ class MyProductDetails extends Component {
     }
 
     _goBack = async () => {
-      const {state} = this.props.navigation;
-      var token = state.params ? state.params.token : undefined;
 
-      this.props.navigation.navigate('MyProducts', {token:token});
+      this.props.navigation.navigate('MyProducts', {token:this.state.token});
     }
     
     _clickPhoto = async () => {
@@ -110,7 +107,7 @@ class MyProductDetails extends Component {
           this.setState({ isDialogVisible: true })
         }
         else{
-          this.props.navigation.navigate('MyProducts');
+          this.props.navigation.navigate('MyProducts', {token:this.state.token});
         }
       })
       .catch((err) => {

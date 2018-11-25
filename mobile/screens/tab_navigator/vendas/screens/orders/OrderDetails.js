@@ -27,7 +27,6 @@ class OrderDetails extends Component {
     componentWillMount(){
       getUserToken()
       .then(res => this.setState({ token: res }))
-      .catch(err => alert("Erro"));
     }
     _cancelButton = async () => {
       const {state} = this.props.navigation;
@@ -86,7 +85,7 @@ class OrderDetails extends Component {
 
         else
           Alert.alert('Operação realizada com sucesso.')
-          this.props.navigation.navigate('OrderedProducts', {token:token})
+          this.props.navigation.navigate('OrderedProducts', {token:this.state.token})
       })
       .catch((err) => {
         console.error(err)
@@ -126,10 +125,7 @@ class OrderDetails extends Component {
     }
 
     _goBack= async () => {
-      const {state} = this.props.navigation;
-      var token = state.params ? state.params.token : undefined;
-
-      this.props.navigation.navigate('OrderedProducts', {token:token});
+      this.props.navigation.navigate('OrderedProducts', {token:this.state.token});
     }
 
     loadUser(order){

@@ -34,7 +34,6 @@ class OrderedProducts extends Component {
             this.setState({ token: res })
             this.loadOrders();
         })
-        .catch(err => alert("Erro"));
     }
 
     loadOrders = async () => {
@@ -101,9 +100,6 @@ class OrderedProducts extends Component {
           }
           this.setState({ buyer_orders: responseJson });
       })
-      .catch((error) => {
-          console.error(error);
-      });
     }
 
     refreshOrders = async () => {
@@ -137,7 +133,7 @@ class OrderedProducts extends Component {
                         orderQuantity = {`Quantidade: ${buyer_order.quantity}`}
                         orderPrice = {parseFloat(buyer_order.total_price).toFixed(2)}
                         orderStatus = {`${buyer_order.status}`}
-                        onPress={() => this.props.navigation.navigate('OrderDetails', {order: buyer_order, token:this.state.token})}
+                        onPress={() => this.props.navigation.navigate('OrderDetails', { order: buyer_order, token:this.state.token })}
                       />
                     );
                 })}
@@ -154,7 +150,7 @@ class OrderedProducts extends Component {
                         orderStatus = {`${order.status}`}
                         orderPrice = {parseFloat(order.total_price).toFixed(2)}
                         orderStatus = {`${order.status}`}
-                        onPress={() => this.props.navigation.navigate('OrderDetails', {order: order, token:this.state.token})}
+                        onPress={() => this.props.navigation.navigate('OrderDetails', { order: order, token:this.state.token })}
                       />
                     );
                 })}

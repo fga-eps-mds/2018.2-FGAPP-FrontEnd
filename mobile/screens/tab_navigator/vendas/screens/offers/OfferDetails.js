@@ -13,7 +13,7 @@ import OfferDialog from '../../components/OfferDialog';
 import jwt_decode from 'jwt-decode';
 import GreenButton from '../../components/GreenButton';
 import FormPicker from '../../components/FormPicker';
-
+import {getUserToken} from '../../../../../AuthMethods'
 
  class OfferDetails extends Component {
     constructor(props){
@@ -27,12 +27,12 @@ import FormPicker from '../../components/FormPicker';
       };
     }
 
-    componentWillMount(){
-          getUserToken()
+    componentDidMount(){
+      getUserToken()
           .then(res => this.setState({ token: res }))
           .catch(err => alert("Erro"));
     }
-
+    
     sendNotification = async (product, token) => {
       const path = `${process.env.VENDAS_API}/api/send_push_message/`
       fetch( path, {
@@ -89,7 +89,7 @@ import FormPicker from '../../components/FormPicker';
         Alert.alert(responseJson.error);
       else
         Alert.alert('Compra realizada com sucesso');
-        this.props.navigation.navigate('Offers', {token:this.state.token})
+        this.props.navigation.navigate('Offers', { token:this.state.token })
      })
 
      .catch( err => {
