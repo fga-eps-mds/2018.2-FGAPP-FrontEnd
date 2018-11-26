@@ -1,7 +1,18 @@
 import React from 'react';
-import { Platform, Text, View, StyleSheet, Dimensions } from 'react-native'
-import { Constants, Location, Permissions } from 'expo'
-import MapView, {Marker} from 'react-native-maps'
+import {
+    Platform,
+    Text,
+    View,
+    StyleSheet,
+    Dimensions
+} from 'react-native'
+import {
+    Constants,
+    Location,
+    Permissions,
+    MapView,
+    Marker
+} from 'expo'
 import {mapStyle} from '../assets/mapStyle.js'
 import icon from '../assets/icon4.png'
 import RegisterLocal from '../containers/RegisterLocal'

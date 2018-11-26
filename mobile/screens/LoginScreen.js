@@ -72,9 +72,15 @@ class LoginScreen extends Component {
 }
 
   termsOfUse = () => {
-    Linking.canOpenURL('https://github.com/fga-eps-mds/2018.2-FGAPP-FrontEnd/blob/indica-ai-app/195-homologation-environment/mobile/TERMS_OF_USE.md').then(supported => {
+    Linking.canOpenURL(
+      'https://github.com/fga-eps-mds/2018.2-FGAPP-FrontEnd/' +
+      'blob/master/mobile/TERMS_OF_USE.md'
+    ).then(supported => {
       if (supported) {
-        Linking.openURL('https://github.com/fga-eps-mds/2018.2-FGAPP-FrontEnd/blob/indica-ai-app/195-homologation-environment/mobile/TERMS_OF_USE.md');
+        Linking.openURL(
+          'https://github.com/fga-eps-mds/2018.2-FGAPP-FrontEnd/' +
+          'blob/master/mobile/TERMS_OF_USE.md'
+        );
       } else {
         console.log("Don't know how to open TERMS OF USE");
       }
