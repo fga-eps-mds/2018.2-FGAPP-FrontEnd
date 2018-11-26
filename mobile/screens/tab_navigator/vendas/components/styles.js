@@ -35,7 +35,17 @@ export default {
     paddingBottom: 20,
     paddingLeft: 20,
     paddingRight: 20,
-
+  },
+  order_header: {
+    borderRadius: 5,
+    flex: 1,
+    flexDirection: 'row',
+    //width: '100%',
+    // backgroundColor: 'gray',
+    paddingTop: 10,
+    paddingBottom: 20,
+    paddingLeft: 20,
+    paddingRight: 20,
   },
   items: {
     backgroundColor: '#171717',
@@ -57,6 +67,11 @@ export default {
   },
   order_title: {
     color: 'white',
+    fontSize: 25,
+  },
+  order_header_title: {
+    textAlign: 'center',
+    color: 'gray',
     fontSize: 25,
   },
   order_subtitle: {
@@ -177,7 +192,7 @@ export default {
     flex: 1,
     flexDirection: 'row',
     //width: '100%',
-    backgroundColor: '#BD1C5F', // TODO change backgroundColor
+    backgroundColor: '#0EAC6F',
     paddingTop: 10,
     paddingBottom: 20,
     paddingLeft: 20,

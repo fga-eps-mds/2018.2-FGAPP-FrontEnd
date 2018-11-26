@@ -12,4 +12,4 @@ RUN npm install -g react-native-cli
 
 ADD package.json package.json
 
-RUN npm install -g expo expo-cli
+RUN npm install -g expo expo-cli --loglevel=error

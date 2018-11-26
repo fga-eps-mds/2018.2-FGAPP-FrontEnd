@@ -15,16 +15,16 @@ const TabHandlerIndicaAI = new TabNavigator({
   RegisterTab : {
     screen: RegisterTab,
     navigationOptions: {
-      tabBarLabel: 'Cadastrar',
-      title: 'Cadastrar'
+      tabBarLabel: 'Cadastrar Local',
+      title: 'Cadastrar Local'
     }
   },
   FavoritesTab : {
     // Not implemented
     screen: FavoritesTab,
     navigationOptions: {
-      tabBarLabel: 'Favoritos',
-      title: 'Favoritos'
+      tabBarLabel: 'Locais Favoritos',
+      title: 'Locais Favoritos'
     }
   }
 },

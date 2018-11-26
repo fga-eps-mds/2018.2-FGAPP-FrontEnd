@@ -48,6 +48,7 @@ class OrderDetails extends Component {
 
         else
           Alert.alert('Operação realizada com sucesso.')
+          this.props.navigation.navigate('OrderedProducts', {token:token})
       })
       .catch((err) => {
         console.error(err)
@@ -80,6 +81,7 @@ class OrderDetails extends Component {
 
         else
           Alert.alert('Operação realizada com sucesso.')
+          this.props.navigation.navigate('OrderedProducts', {token:token})
       })
       .catch((err) => {
         console.error(err)
@@ -112,6 +114,7 @@ class OrderDetails extends Component {
 
         else
           Alert.alert('Operação realizada com sucesso.')
+          this.props.navigation.navigate('OrderedProducts', {token:token})
       })
       .catch((err) => {
         console.error(err)

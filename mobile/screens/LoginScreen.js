@@ -78,7 +78,7 @@ class LoginScreen extends Component {
       } else {
         console.log("Don't know how to open TERMS OF USE");
       }
-    }); 
+    });
   }
 
   checkJson(responseJson){
@@ -184,11 +184,11 @@ class LoginScreen extends Component {
                       </Text>
                     </TouchableOpacity>
                   </View>
-                  
+
                   <View style={{padding: 20, alignItems: 'center', justifyContent: 'center'}}>
                     <TouchableOpacity onPress={ this.termsOfUse }>
                       <Text
-                        style={{color:  'black', textDecorationLine: 'underline'}}>
+                        style={{color:  'white', textDecorationLine: 'underline'}}>
                         Termos de Uso
                       </Text>
                     </TouchableOpacity>
