@@ -47,7 +47,6 @@ class RegisterLocalAPI extends Component {
       "opening_hours": opening_hours,
       "telephone": telephone,
     });
-    console.log(jsonTest);
     try {
       const response = await fetch(url, {
         method: 'POST',

@@ -199,7 +199,6 @@ constructor(props){
  }
    afterRegister() {
      const { local } = this.state
-     console.log(local);
      this.setState({ successModalVisible: false });
      this.props.navigation.navigate('LocalDetails', {local});
    }
@@ -260,7 +259,6 @@ constructor(props){
            address = {address}
            latitude = {this.state.latitude}
            longitude = {this.state.longitude}
-
         />
         <SuccessModal
           onCancel={() => this.afterRegister()}
@@ -298,11 +296,6 @@ const styles = StyleSheet.create({
     color: "#0AACCC",
   },
   localMap:{
-    height: 300,
-    width: "100%",
-    top: 10,
-    padding:20,
-    backgroundColor:'#d9d9d9',
     shadowColor: "#000000",
     shadowOpacity: 0.8,
     shadowRadius: 2,
