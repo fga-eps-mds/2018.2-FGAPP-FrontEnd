@@ -5,8 +5,6 @@ import {
 	Left,
 	Thumbnail,
 	Body,
-	Right,
-	Icon,
 	H2,
 } from "native-base";
 import { Text, StyleSheet } from "react-native";
