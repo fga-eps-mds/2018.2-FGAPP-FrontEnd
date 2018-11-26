@@ -46,6 +46,7 @@ elif [ "$1" = 'testing' ]; then
     ROLES_COMMENTS_API='http://test'
     ROLES_CLOUDNARY_KEY=123
     ROLES_CLOUDNARY_SECRET=123
+    GOOGLE_MAPS_API_KEY=123
     ROLES_CLOUDNARY_CLOUD=123
 
 else
