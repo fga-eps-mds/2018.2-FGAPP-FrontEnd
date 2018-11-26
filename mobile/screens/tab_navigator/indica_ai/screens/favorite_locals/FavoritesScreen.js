@@ -9,9 +9,13 @@ import ListFavorites from '../../containers/ListFavorites';
 class FavoritesScreen extends Component {
 
   render() {
+    const { state } = this.props.navigation;
+    const token = state.params ? state.params.token : undefined;
     return (
       <View style={styles.container}>
-        <ListFavorites />
+        <ListFavorites 
+           token = {token}
+        />
       </View>
     );
   }

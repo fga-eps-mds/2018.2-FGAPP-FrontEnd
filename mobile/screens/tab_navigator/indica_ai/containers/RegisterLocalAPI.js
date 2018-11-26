@@ -113,34 +113,34 @@ class RegisterLocalAPI extends Component {
     closes = this.state.close
 
     takeOpeningHours = (day, open, close) => {
-      if(open) {
-        this.setState({open})
+      if (open) {
+        this.setState({ open })
       }
-      if(close) {
-        this.setState({close})
+      if (close) {
+        this.setState({ close })
       }
-      if(this.state.open && this.state.close){
-        if(day==8 || day==9){
-          if(day==8){
-            for(var day=2; day<7; day++){
-              obj = {day, opens, closes}
-              this.state.opening_hours = [ ...this.state.opening_hours, obj];
+      if (this.state.open && this.state.close) {
+        if (day == 8 || day == 9) {
+          if (day == 8) {
+            for (var day = 2; day < 7; day++) {
+              obj = { day, opens, closes }
+              this.state.opening_hours = [...this.state.opening_hours, obj];
             }
-            this.setState({open: ''})
-            this.setState({close: ''})
-          }else{
-            for(var day=1; day<8; day=day+6){
-              obj = {day, opens, closes}
-              this.state.opening_hours = [ ...this.state.opening_hours, obj];
+            this.setState({ open: '' })
+            this.setState({ close: '' })
+          } else {
+            for (var day = 1; day < 8; day = day + 6) {
+              obj = { day, opens, closes }
+              this.state.opening_hours = [...this.state.opening_hours, obj];
             }
-            this.setState({open: ''})
-            this.setState({close: ''})
+            this.setState({ open: '' })
+            this.setState({ close: '' })
           }
-        }else{
-          obj = {day, opens, closes}
-          this.state.opening_hours = [ ...this.state.opening_hours, obj];
-          this.setState({open: ''})
-          this.setState({close: ''})
+        } else {
+          obj = { day, opens, closes }
+          this.state.opening_hours = [...this.state.opening_hours, obj];
+          this.setState({ open: '' })
+          this.setState({ close: '' })
         }
       }
     }

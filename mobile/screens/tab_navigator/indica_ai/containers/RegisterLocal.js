@@ -1,14 +1,14 @@
 import { Platform } from 'react-native';
 import React, { Component } from "react";
-import {Button, Text } from 'native-base';
+import { Button, Text } from 'native-base';
 import { Constants, Location, Permissions } from 'expo';
 import {
-    View,
-    StyleSheet,
-    Image,
-    TouchableOpacity,
-    ScrollView,
-    Alert
+  View,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+  Alert
 } from "react-native";
 
 import { Dimensions } from "react-native";
@@ -22,9 +22,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { searchAction } from '../actions'
 
-class RegisterLocal extends Component{
+class RegisterLocal extends Component {
 
-constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       loading: true,
@@ -48,7 +48,7 @@ constructor(props){
     this.setState({ loading: false });
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.watchId = navigator.geolocation.watchPosition(
       (position) => {
         this.setState({
@@ -56,10 +56,10 @@ constructor(props){
           longitude: position.coords.longitude,
           error: null,
         });
-          this._getDataAsync();
+        this._getDataAsync();
       },
-      (error) => this.setState({error: error.message}),
-      {enableHighAccuracy: true, timeout: 0, maximumAge: 1000, distanceFilter: 3},
+      (error) => this.setState({ error: error.message }),
+      { enableHighAccuracy: true, timeout: 0, maximumAge: 1000, distanceFilter: 3 },
     );
   }
 
@@ -67,57 +67,80 @@ constructor(props){
     navigator.geolocation.clearWatch(this.watchId);
   }
 
-    _getDataAsync = async () => {
-      let longitude;
-      let latitude;
-      if(this.state.latitude && this.state.longitude){
-         longitude =  this.state.longitude;
-         latitude =   this.state.latitude;
+  _getDataAsync = async () => {
+    let longitude;
+    let latitude;
+    if (this.state.latitude && this.state.longitude) {
+      longitude = this.state.longitude;
+      latitude = this.state.latitude;
+    }
+
+    try {
+      const response = await fetch('https://maps.googleapis.com/maps/api/geocode/json?latlng='
+        + String(latitude) + ',' + String(longitude)
+        + '&key=AIzaSyBM9WYVio--JddgNX3TTF6flEhubkpjJYc');
+      if (response.ok) {
+        const jsonResponse = await response.json();
+        this.setState({ jsonResponse });
+        this._getDetailsAsync();
+
       }
+      throw new Error('Request failed!');
+    } catch (Error) {
+      console.log(Error);
+    }
+  };
 
-     try{
-       const response = await fetch('https://maps.googleapis.com/maps/api/geocode/json?latlng='
-                            + String(latitude) + ',' + String(longitude)
-                            + '&key=AIzaSyBM9WYVio--JddgNX3TTF6flEhubkpjJYc');
-       if(response.ok){
-         const jsonResponse = await response.json();
-         this.setState({ jsonResponse });
-         this._getDetailsAsync();
-
-       }
-       throw new Error('Request failed!');
-     }catch(Error){
-       console.log(Error);
-     }
-   };
-
-   _getNewDataAsync = async (latitude, longitude) => {
-    try{
-      const response = await fetch('https://maps.googleapis.com/maps/api/geocode/json?latlng='+String(latitude)+','+String(longitude)+'&key=AIzaSyBM9WYVio--JddgNX3TTF6flEhubkpjJYc');
-      if(response.ok){
+  _getNewDataAsync = async (latitude, longitude) => {
+    try {
+      const response = await fetch('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + String(latitude) + ',' + String(longitude) + '&key=AIzaSyBM9WYVio--JddgNX3TTF6flEhubkpjJYc');
+      if (response.ok) {
         const jsonResponse = await response.json();
         this.setState({ jsonResponse });
         this._getDetailsAsync();
       }
       throw new Error('Request failed!');
-    }catch(Error){
+    } catch (Error) {
       console.log(Error);
     }
   };
 
 
-    _getDetailsAsync = async () => {
-      let index =0;
-      let i = 0;
-      let place_id;
-      if(this.state.jsonResponse){
-        this.state.jsonResponse['results'].forEach(result => {
-          if(result['geometry']['location_type'] === 'ROOFTOP'){
-             index = i;
-       }
-       i++;
-        });
-        place_id = this.state.jsonResponse['results'][index]['place_id'];
+  _getDetailsAsync = async () => {
+    let index = 0;
+    let i = 0;
+    let place_id;
+    if (this.state.jsonResponse) {
+      this.state.jsonResponse['results'].forEach(result => {
+        if (result['geometry']['location_type'] === 'ROOFTOP') {
+          index = i;
+        }
+        i++;
+      });
+      place_id = this.state.jsonResponse['results'][index]['place_id'];
+    }
+    try {
+      const response = await fetch('https://maps.googleapis.com/maps/api/place/details/json?placeid=' +
+        place_id +
+        '&fields=opening_hours,formatted_address,name,rating,formatted_phone_number,'
+        + 'photo,rating,geometry,reviews&key=AIzaSyBM9WYVio--JddgNX3TTF6flEhubkpjJYc')
+      if (response.ok) {
+        const jsonDetails = await response.json();
+        this.setState({ jsonDetails });
+        let obj = [];
+        for (let i = 0; i < 7; i++) {
+          if (jsonDetails['result']['opening_hours']['periods'][i]) {
+            day = i + 1;
+            this.setState({ day });
+            opens = jsonDetails['result']['opening_hours']['periods'][i]['open']['time'];
+            this.setState({ opens });
+            closes = jsonDetails['result']['opening_hours']['periods'][i]['close']['time'];
+            this.setState({ closes });
+            obj = { day, opens, closes };
+            this.state.opening_hours = [...this.state.opening_hours, obj];
+          }
+        }
+        this.state.opening_hours = []
       }
      try{
        const response = await fetch('https://maps.googleapis.com/maps/api/place/details/json?placeid='+
@@ -208,28 +231,28 @@ constructor(props){
     let latitude;
     let longitude;
 
-    if(this.state.latitude && this.state.longitude){
-      latitude= this.state.latitude;
+    if (this.state.latitude && this.state.longitude) {
+      latitude = this.state.latitude;
       longitude = this.state.longitude;
     }
     let markLat = 0;
     let markLong = 0;
 
-    if(this.state.latitude && this.state.longitude){
+    if (this.state.latitude && this.state.longitude) {
       markLat = this.state.latitude;
       markLong = this.state.longitude;
     }
     let name;
-    if(this.state.jsonDetails){
+    if (this.state.jsonDetails) {
       name = this.state.jsonDetails['result']['name'];
     }
     let address;
-    if(this.state.jsonDetails){
+    if (this.state.jsonDetails) {
       address = this.state.jsonDetails['result']['formatted_address'];
     }
     let telephone;
     let rating;
-    if(this.state.jsonDetails){
+    if (this.state.jsonDetails) {
       telephone = this.state.jsonDetails['result']['formatted_phone_number']
       rating = this.state.jsonDetails['result']['rating']
     }
@@ -237,14 +260,14 @@ constructor(props){
     let opening_hours = [];
     opening_hours = this.state.opening_hours;
 
-    const data = {name, address, telephone, latitude, longitude, opening_hours}
+    const data = { name, address, telephone, latitude, longitude, opening_hours }
 
     if (this.state.loading) {
       return <Expo.AppLoading />;
     }
 
     return (
-      <View style = {styles.container}>
+      <View style={styles.container}>
         <UserLocationMap
           latitude = {latitude}
           longitude = {longitude}
@@ -263,12 +286,12 @@ constructor(props){
         <SuccessModal
           onCancel={() => this.afterRegister()}
           visible={this.state.successModalVisible}
-          message = {"Local cadastrado com sucesso"}
+          message={"Local cadastrado com sucesso"}
         />
         <ErrorModal
           onCancel={() => this.setState({ errorModalVisible: false })}
           visible={this.state.errorModalVisible}
-          message = {"Erro ao cadastrar o local"}
+          message={"Erro ao cadastrar o local"}
         />
       </View>
     )
@@ -288,7 +311,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     flex: 1
   },
-  titleName : {
+  titleName: {
     alignItems: 'center',
     marginLeft: '34%',
     fontSize: 30,
