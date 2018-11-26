@@ -1,10 +1,10 @@
-import React, { Component}   from 'react';
+import React, { Component} from 'react';
 import {
   View,
   Text,
   StyleSheet
 } from 'react-native';
-import MapView from "react-native-maps"
+import { MapView } from "expo"
 
 export default class LocalMap extends Component {
   constructor(props) {

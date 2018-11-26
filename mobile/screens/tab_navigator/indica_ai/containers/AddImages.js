@@ -117,12 +117,12 @@ _updateFunction = () => {
         <SuccessModal
           onCancel={() => this.setState({ successModalVisible: false })}
           visible={this.state.successModalVisible}
-          message="Imagem Enviada com Sucesso"
+          message="Imagem enviada com sucesso"
         />
         <ErrorModal
           onCancel={() => this.setState({ errorModalVisible: false })}
           visible={this.state.errorModalVisible}
-          message="Error ao Enviar Imagem"
+          message="Error ao enviar imagem"
         />
       </View>
     );
