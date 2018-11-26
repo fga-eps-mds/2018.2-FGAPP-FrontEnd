@@ -132,9 +132,16 @@ constructor(props){
            if(jsonDetails['result']['opening_hours']['periods'][i]){
              day = i+1;
              this.setState({day});
-             opens = jsonDetails['result']['opening_hours']['periods'][i]['open']['time'];
+             hourO = jsonDetails['result']['opening_hours']['periods'][i]['open']['time'];
+             sep=':'
+             open = [hourO.slice(0,2), sep, hourO.slice(2)]
+             opens = open[0].concat(sep, open[2])
+             console.log(opens);
              this.setState({opens});
-             closes = jsonDetails['result']['opening_hours']['periods'][i]['close']['time'];
+             hourC = jsonDetails['result']['opening_hours']['periods'][i]['close']['time'];
+             close = [hourC.slice(0,2), sep, hourC.slice(2)]
+             closes = close[0].concat(sep, close[2])
+             console.log(closes);
              this.setState({closes});
              obj = {day, opens, closes};
              this.state.opening_hours = [ ...this.state.opening_hours, obj];
@@ -192,8 +199,6 @@ constructor(props){
    });
 
  }
-
-
    afterRegister() {
      this.setState({ successModalVisible: false });
      this.props.navigation.navigate('LocalDetails', {local: this.state.local});
@@ -275,7 +280,10 @@ constructor(props){
 const mapDispatchToProps = dispatch => (
   bindActionCreators({ searchAction }, dispatch)
 )
-export default connect( null, mapDispatchToProps )(RegisterLocal);
+export default connect(
+  null,
+  mapDispatchToProps
+)(RegisterLocal);
 
 const styles = StyleSheet.create({
   container: {
