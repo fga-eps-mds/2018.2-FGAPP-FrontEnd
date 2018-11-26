@@ -26,6 +26,7 @@ describe('Test Settings', () => {
     }
 
     beforeAll(() => {
+        jest.setTimeout(10000);
         process.env.INTEGRA_LOGIN_AUTH = 'http://test.ip';
         profileInfoPath = `${process.env.INTEGRA_LOGIN_AUTH}/api/users/get_profile/`;
     });
@@ -45,21 +46,21 @@ describe('Test Settings', () => {
 
     it('Test _loadProfile fetch with sucess', async (done) => {
         const wrapper = shallow(<Settings navigation={navigation} />);
+
         const state = {
-            profileInfo: {
-                name: 'Naruto Uzumaki',
-                email: 'uzumakinaruto@gmail.com',
-                photo: 'https://res-console.cloudinary.com/integraappfga/thumbnails/v1/image/upload/v1541537829/c2VuazJvZG54YW1vcHdsa215b3E=/grid'
-            }
+            token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InJvZ2VybGVua2VAZ21haWwuY29tIiwidXNlcl9pZCI6MSwib3JpZ19pYXQiOjE1NDE3MTk3NDksImV4cCI6MTU0MTcyMDA0OSwidXNlcm5hbWUiOiJyb2dlcmxlbmtlQGdtYWlsLmNvbSJ9.eCEGRB9yYAkP5iBIybeDsAoWk4HyusPUTX3LBiP0I64',
+            name: 'Naruto Uzumaki',
+            email: 'uzumakinaruto@gmail.com',
+            photo: 'https://res-console.cloudinary.com/integraappfga/thumbnails/v1/image/upload/v1541537829/c2VuazJvZG54YW1vcHdsa215b3E=/grid'
         }
 
-        fetchMock.post(profileInfoPath, [
-            {
-                name: 'Naruto Uzumaki',
-                email: 'uzumakinaruto@gmail.com',
-                photo: 'https://res-console.cloudinary.com/integraappfga/thumbnails/v1/image/upload/v1541537829/c2VuazJvZG54YW1vcHdsa215b3E=/grid',
-            }
-        ]);
+        const profile = {
+            name: 'Naruto Uzumaki',
+            email: 'uzumakinaruto@gmail.com',
+            photo: 'https://res-console.cloudinary.com/integraappfga/thumbnails/v1/image/upload/v1541537829/c2VuazJvZG54YW1vcHdsa215b3E=/grid',
+        }
+
+        fetchMock.post(profileInfoPath, {profile});
 
         wrapper.setState(state);
         await wrapper.instance()._loadProfile();
@@ -73,6 +74,7 @@ describe('Test Settings', () => {
         const wrapper = shallow(<Settings navigation={navigation} />);
 
         const state = {
+            token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InJvZ2VybGVua2VAZ21haWwuY29tIiwidXNlcl9pZCI6MSwib3JpZ19pYXQiOjE1NDE3MTk3NDksImV4cCI6MTU0MTcyMDA0OSwidXNlcm5hbWUiOiJyb2dlcmxlbmtlQGdtYWlsLmNvbSJ9.eCEGRB9yYAkP5iBIybeDsAoWk4HyusPUTX3LBiP0I64',
             name: '',
             email: '',
             photo: 'https://res-console.cloudinary.com/integraappfga/thumbnails/v1/image/upload/v1541537829/c2VuazJvZG54YW1vcHdsa215b3E=/grid'
