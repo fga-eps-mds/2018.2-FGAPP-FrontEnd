@@ -18,6 +18,7 @@ fi
 ROLES_CLOUDNARY_KEY=$ROLES_CLOUDNARY_KEY
 ROLES_CLOUDNARY_SECRET=$ROLES_CLOUDNARY_SECRET
 ROLES_CLOUDNARY_CLOUD=$ROLES_CLOUDNARY_CLOUD
+GOOGLE_MAPS_API_KEY=$GOOGLE_MAPS_API_KEY
 
 # Checking different envs
 if [ "$1" = 'production' ]; then
@@ -60,6 +61,7 @@ echo -e "Checking variables... \n"
 [ -z "$ROLES_CLOUDNARY_KEY" ] && emptyVarMessage 'ROLES_CLOUDNARY_KEY' && exit 1
 [ -z "$ROLES_CLOUDNARY_SECRET" ] && emptyVarMessage 'ROLES_CLOUDNARY_SECRET' && exit 1
 [ -z "$ROLES_CLOUDNARY_CLOUD" ] && emptyVarMessage 'ROLES_CLOUDNARY_CLOUD' && exit 1
+[ -z "$GOOGLE_MAPS_API_KEY" ] && emptyVarMessage 'GOOGLE_MAPS_API_KEY' && exit 1
 echo -e " ✓ variables ok! \n"
 
 echo "$prefix.VENDAS_API='$VENDAS_API'" >> $file
@@ -70,5 +72,6 @@ echo "$prefix.ROLES_COMMENTS_API='$ROLES_COMMENTS_API'" >> $file
 echo "$prefix.ROLES_CLOUDNARY_KEY='$ROLES_CLOUDNARY_KEY'" >> $file
 echo "$prefix.ROLES_CLOUDNARY_CLOUD='$ROLES_CLOUDNARY_CLOUD'" >> $file
 echo "$prefix.ROLES_CLOUDNARY_SECRET='$ROLES_CLOUDNARY_SECRET'" >> $file
+echo "$prefix.GOOGLE_MAPS_API_KEY='$GOOGLE_MAPS_API_KEY'" >> $file
 
 
