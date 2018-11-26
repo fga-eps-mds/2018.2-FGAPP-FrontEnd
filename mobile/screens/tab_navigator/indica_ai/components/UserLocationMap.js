@@ -27,7 +27,9 @@ export default class UserMap extends React.Component {
 
     this.state = {
       newLatitude: null,
-      newLongitude: null
+      newLongitude: null,
+      markLatitude: this.props.markLat,
+      markLongitude: this.props.markLong
     }
   };
 
@@ -42,21 +44,26 @@ export default class UserMap extends React.Component {
           longitude: this.props.longitude,
           latitudeDelta: 0.0004,
           longitudeDelta: 0.003,
-        }}>
+        }}
+        onRegionChangeComplete = {(event) =>{
+          this.props.sendNewCoods(event['latitude'],event['longitude'])
+          this.setState({
+            newLatitude: event['latitude'],
+            newLongitude: event['longitude']
+          })}}
+          onRegionChange = {(event) => {
+            this.setState({
+              markLatitude: event['latitude'],
+              markLongitude: event['longitude']
+            })
+          }}
+        >
         <MapView.Marker
         coordinate={{
-              latitude: this.props.markLat,
-              longitude:this.props.markLong,}}
+              latitude: this.state.markLatitude,
+              longitude:this.state.markLongitude,}}
               title = {this.props.name}
               image = {icon}
-              draggable
-              onDragEnd={(event) =>{
-                this.props.sendNewCoods(event.nativeEvent.coordinate['latitude'],event.nativeEvent.coordinate['longitude'])
-                this.setState({
-                  newLatitude: event.nativeEvent.coordinate['latitude'],
-                  newLongitude: event.nativeEvent.coordinate['longitude']
-                })}}
-
         >
         <MapView.Callout
           tooltip={true}>
