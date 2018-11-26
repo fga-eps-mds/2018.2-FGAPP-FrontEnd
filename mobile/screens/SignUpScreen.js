@@ -13,6 +13,11 @@ import jwt_decode from 'jwt-decode';
 import { Button } from 'native-base';
 import Field from './components/Field';
 import SignUp from './components/SignUp';
+import ConfirmSignUpBtn from './components/ConfirmSignUpBtn';
+import styles from './tab_navigator/vendas/styles';
+
+const LOGIN_BACKGROUND_IMAGE = 'https://i.imgur.com/dvhebUS.png';
+const LOGO_IMAGE = 'https://i.imgur.com/F7PTwBg.png';
 
 export default class App extends Component {
 
@@ -104,51 +109,45 @@ export default class App extends Component {
     return (
       <KeyboardAvoidingView behavior="padding">
         <ImageBackground
-          style={{ width: '100%', height: '100%' }}
-          imageStyle={{ resizeMode: 'stretch' }}
+          style={styles.imageBackgrd}
+          imageStyle={{resizeMode: 'stretch'}}
           source={{
-            uri: 'https://i.imgur.com/dvhebUS.png'
+            uri: LOGIN_BACKGROUND_IMAGE
           }}
         >
-          <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'space-evenly' }}>
-            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-              <Image source={{ uri: 'https://i.imgur.com/F7PTwBg.png' }} style={{ width: 1000 / 4, height: 561 / 4 }} />
-            </View>
-            <View style={{ paddingLeft: '5%', paddingRight: '5%' }}>
-              <Field
-                placeholder={"Nome"}
-                keyExtractor={null}
-                onChangeText={(name) => this.setState({ name })}
-              />
+        <View style={styles.logoView}>
+          <View style={styles.logoViewSet}>
+            <Image source={{uri: LOGO_IMAGE}} style={styles.logoImage} />
+          </View>
+          <View style={styles.formStyle}>
 
-              <Field
-                placeholder={"Email"}
-                badInput={this.state.email_field_is_bad}
-                fieldAlert={this.state.email_field_alerts}
-                keyExtractor={'email'}
-                onChangeText={(email) => this.setState({ email })}
-              />
+             <Field
+              style={styles.fieldStyle}
+              placeholder={"Email"}
+              badInput={this.state.email_field_is_bad}
+              fieldAlert={this.state.email_field_alerts}
+              keyExtractor={'email'}
+              onChangeText={(email) => this.setState({email})}
+             />
 
-              <Field
-                placeholder={"Senha"}
-                badInput={this.state.password_field_is_bad}
-                fieldAlert={this.state.password_field_alerts}
-                keyExtractor={'password1'}
-                onChangeText={(password) => this.setState({ password })}
-                secureTextEntry
-              />
-
-              <FlatList
-                data={this.state.non_field_alert}
-                renderItem={({ item }) => <Text style={{ color: 'red' }}>{item}</Text>}
-                keyExtractor={item => 'non_field_errors'}
-              />
+             <Field
+              style={styles.fieldStyle}
+              placeholder={"Senha"}
+              badInput={this.state.password_field_is_bad}
+              fieldAlert={this.state.password_field_alerts}
+              keyExtractor={'password1'}
+              onChangeText={(password) => this.setState({password})}
+              secureTextEntry
+             />
+             <FlatList
+                 data={this.state.non_field_alert}
+                 renderItem={({item}) => <Text style ={{color: 'red'}}>{item}</Text>}
+                 keyExtractor={item => 'non_field_errors'}
+               />
             </View>
-            <View style={{ alignItems: 'center', justifyContent: 'center', paddingLeft: '35%', paddingRight: '35%' }}>
-              <Button light block onPress={this._onPressButton}>
-                <Text style={{ color: 'black', fontWeight: 'bold' }}>CADASTRAR</Text>
-              </Button>
-            </View>
+              <View style={styles.signUp}>
+               <ConfirmSignUpBtn onPress={this._onPressButton}/>
+             </View>
           </View>
         </ImageBackground>
       </KeyboardAvoidingView>

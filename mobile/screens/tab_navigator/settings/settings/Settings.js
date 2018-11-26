@@ -16,6 +16,7 @@ import {
   Icon
 } from 'native-base';
 import jwt_decode from 'jwt-decode'
+import { getUserToken } from "../../../../AuthMethods";
 
 class Settings extends Component {
   constructor(props) {
@@ -23,17 +24,20 @@ class Settings extends Component {
 
     this.state = {
       profileInfo: {
+        token: undefined,
         name: '',
         email: '',
         photo: ''
       }
     }
   }
-
-  componentDidMount() {
-    this._loadProfile();
-  }
-  componentWillMount() {
+  componentWillMount(){
+    getUserToken()
+    .then(res => {
+      this.setState({ token: res })
+      this._loadProfile();
+    })
+    .catch(err => alert("Erro"));
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
   }
   componentWillUnmount() {
@@ -44,10 +48,7 @@ class Settings extends Component {
       return true;
   }
   _loadProfile = async () => {
-    const { state } = this.props.navigation;
-    const token = state.params ? state.params.token : undefined;
-    const user = jwt_decode(token);
-
+    const user = jwt_decode(this.state.token);
     const profileInfoPath = `${process.env.INTEGRA_LOGIN_AUTH}/api/users/get_profile/`;
     fetch(profileInfoPath, {
       method: 'POST',
@@ -70,15 +71,13 @@ class Settings extends Component {
   }
 
   render() {
-    const { state } = this.props.navigation;
-    var token = state.params ? state.params.token : undefined;
 
     return (
       <Container style={styles.container}>
         <Content>
           <List>
             <ListItem
-              onPress={() => this.props.navigation.navigate('UserProfile', { userInfo: this.state.profileInfo, token })}
+              onPress={() => this.props.navigation.navigate('UserProfile', { userInfo: this.state.profileInfo })}
               noIndent
               style={styles.cardItem}
             >

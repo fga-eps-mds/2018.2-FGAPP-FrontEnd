@@ -5,7 +5,7 @@
 import React, { Component } from 'react';
 import { Image, TouchableHighlight, View, ImageBackground } from 'react-native';
 import { Card, CardItem, Text, Left, Right, Body } from 'native-base';
-import styles from './styles';
+import styles from '../styles';
 import { LinearGradient } from 'expo';
 
 class ProductCard extends Component {
