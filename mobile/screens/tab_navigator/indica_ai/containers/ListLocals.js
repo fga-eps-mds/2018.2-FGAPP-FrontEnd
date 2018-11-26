@@ -4,7 +4,8 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  TouchableHighlight
+  TouchableHighlight,
+  RefreshControl
 } from "react-native";
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -16,14 +17,21 @@ import { withNavigation } from 'react-navigation';
 
 class ListLocals extends Component {
 
-  state = {
-    locals: []
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      refreshing: false,
+        locals: []
+    };
+  }
 
   // Fucntion responsable to load all places before mount
   // the component by setting the state equal to result from fetch
-  componentWillMount() {
-    const url = fetch(`${process.env.INDICA_AI_API}/locals/`, {
+  componentDidMount() {
+    this.getData();
+  }
+  getData = async () => {
+      fetch(`${process.env.INDICA_AI_API}/locals/`, {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -38,7 +46,6 @@ class ListLocals extends Component {
         console.log(error);
       });
   }
-
   // Function responsable update the component
   // when the state is diferent from parent props (locals.locals[0])
   componentWillReceiveProps(newProps) {
@@ -46,10 +53,16 @@ class ListLocals extends Component {
       this.setState({ locals: newProps.locals })
     }
   }
+  _onRefresh = () => {
+  this.setState({refreshing: true});
+  this.getData().then(() => {
+    this.setState({refreshing: false});
+  });
+}
 
   render() {
     const { locals } = this.state
-
+    locals.reverse()
     if (locals.length == 0) {
       return (
         <IconMessage
@@ -60,7 +73,14 @@ class ListLocals extends Component {
     } else {
       return (
 
-        <ScrollView showsVerticalScrollIndicator={false}>
+        <ScrollView showsVerticalScrollIndicator={false}
+        refreshControl={
+                        <RefreshControl
+                          refreshing={this.state.refreshing}
+                          onRefresh={this._onRefresh}
+                        />
+                      }
+        >
 
           {locals.map(local =>
             local.publicity == 'true' ?

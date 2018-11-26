@@ -46,7 +46,7 @@ class LocalDetails extends Component {
                         style={styles.button}
                         onPress={this.dispatchSendData}
                      >
-                        <Text> {"Check-in"} </Text>
+                        <Text> {"Salvar Local"} </Text>
                      </Button>
                      <Button
                         info
