@@ -8,12 +8,12 @@ import {
 	Right,
 	Icon,
 	H2,
-	List,
-	ListItem
 } from "native-base";
 import { Text, StyleSheet } from "react-native";
 import Divider from "./Divider";
 import CardHeader from "./CardHeader";
+import GeralDetails from "./GeralDetails";
+import * as helpers from '../../../utils/helpers';
 
 const noPic = require("../../../static/noPic.png");
 const adultOnly = require("../../../static/adultOnly.png");
@@ -21,12 +21,6 @@ const adultOnly = require("../../../static/adultOnly.png");
 class Geral extends Component {
 	render() {
 		const uri = this.props.photo;
-		const dataFormatada =
-			this.props.eventDate.slice(-2) +
-			"/" +
-			this.props.eventDate.slice(5, 7) +
-			"/" +
-			this.props.eventDate.slice(0, 4);
 		return (
 			<Card>
 				<CardHeader text="Geral" />
@@ -49,33 +43,13 @@ class Geral extends Component {
 						</H2>
 
 						<Divider />
+            
+            <GeralDetails iconName="time" text={`${this.props.eventHour.slice(0,5)}h`}/>
 
-						<Card style={styles.descCards}>
-							<Left>
-								<Icon name="time" />
-							</Left>
-							<Right>
-								<Text>{this.props.eventHour.slice(0, 5)}h</Text>
-							</Right>
-						</Card>
+            <GeralDetails iconName="calendar" text={ helpers.formatDate(this.props.eventDate).formatted }/>
 
-						<Card style={styles.descCards}>
-							<Left>
-								<Icon name="calendar" />
-							</Left>
-							<Right>
-								<Text>{dataFormatada}</Text>
-							</Right>
-						</Card>
+            <GeralDetails iconName="cash" text={ `R$ ${this.props.value}` }/>
 
-						<Card style={styles.descCards}>
-							<Left>
-								<Icon name="cash" />
-							</Left>
-							<Right>
-								<Text>R$ {this.props.value}</Text>
-							</Right>
-						</Card>
 					</Body>
 				</CardItem>
 

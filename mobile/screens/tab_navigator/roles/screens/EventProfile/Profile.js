@@ -1,24 +1,7 @@
 import React, { Component } from "react";
 import {
-	Card,
-	CardItem,
-	Left,
-	Thumbnail,
-	Body,
-	Right,
-	List,
-	ListItem,
-	Icon,
-	Container,
-	Button
-} from "native-base";
-import {
 	View,
 	ScrollView,
-	Text,
-	StyleSheet,
-	Linking,
-	TouchableOpacity,
 	ActivityIndicator
 } from "react-native";
 
@@ -27,9 +10,6 @@ import Detalhes from "./components/Detalhes";
 import Avaliacao from "./components/Avaliacao";
 import Localizacao from "./components/Localizacao";
 import Contato from "./components/Contato";
-import Comments from "../EventComments/Comments";
-
-const noPic = require("../../static/noPic.png");
 
 class Profile extends Component {
 	state = {

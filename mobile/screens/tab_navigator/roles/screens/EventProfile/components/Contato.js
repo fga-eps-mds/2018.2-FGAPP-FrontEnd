@@ -5,13 +5,10 @@ import {
 	Icon,
 } from "native-base"
 import {
-	ScrollView,
 	Text,
 	StyleSheet,
 } from "react-native"
 
-import CardsDetalhes from './CardsDetalhes'
-import Divider from './Divider'
 import CardHeader from "./CardHeader";
 
 class Contato extends Component {
@@ -19,16 +16,6 @@ class Contato extends Component {
 		return (
 			<Card>
 				<CardHeader text="Suporte"/>
-
-				<CardsDetalhes 
-					descricao = "TEXTO FAQ"
-					icon='quote'
-					label='FAQ'
-					color='black'
-				/>
-
-				<Divider/>
-
 				<CardItem style={{alignSelf:'center', width:'100%'}}>
 					<Card style={{ width: '100%', alignSelf:'center'}}>
 						<CardItem>
