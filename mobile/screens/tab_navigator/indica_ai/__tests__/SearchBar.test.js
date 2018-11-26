@@ -25,16 +25,4 @@ describe('Test SearchScreen action', () => {
 
     expect([1,2]).toEqual([1,2]);
   })
-
-  /*it('renders correctly', () => {
-  const tree = renderer.create(<SearchBar/>).toJSON();
-  expect(tree).toMatchSnapshot();
-})*/
-
-  /*it('Testing onPress', () => {
-     const onPressMock = jest.fn();
-     const wrapper = shallow((<InputWithButton onPress = {onPressMock}></InputWithButton>));
-     button.simulate('click')
-     expect(onPressMock).toBeCalled();
- })*/
 });
