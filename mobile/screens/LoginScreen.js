@@ -194,7 +194,7 @@ class LoginScreen extends Component {
                   <View style={{padding: 20, alignItems: 'center', justifyContent: 'center'}}>
                     <TouchableOpacity onPress={ this.termsOfUse }>
                       <Text
-                        style={{color: 'white', textDecorationLine: 'underline'}}>
+                        style={{color:  'white', textDecorationLine: 'underline'}}>
                         Termos de Uso
                       </Text>
                     </TouchableOpacity>

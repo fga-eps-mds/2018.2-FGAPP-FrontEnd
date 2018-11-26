@@ -60,7 +60,10 @@ class ListLocals extends Component {
     } else {
       return (
 
-        <ScrollView showsVerticalScrollIndicator={false}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          keyboardDismissMode='on-drag'
+        >
 
           {locals.map(local =>
             local.publicity == 'true' ?
