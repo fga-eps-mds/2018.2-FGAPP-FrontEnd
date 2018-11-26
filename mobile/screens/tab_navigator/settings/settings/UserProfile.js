@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { Card, CardItem, Body, Item, Label, Input } from 'native-base';
 import jwt_decode from 'jwt-decode'
+import UserCard from '../../../components/UserCard'
 import { getUserToken, onSignOut } from "../../../../AuthMethods";
 
 class UserProfile extends Component {
@@ -26,6 +27,13 @@ class UserProfile extends Component {
     getUserToken()
     .then(res => this.setState({ token: res }))
     .catch(err => alert("Erro"));
+  }
+
+  _goBack = async () => {
+    const { state } = this.props.navigation;
+    var token = state.params ? state.params.token : undefined;
+
+    this.props.navigation.navigate('Settings', { token: token });
   }
 
   _clickPhoto = async () => {
@@ -93,18 +101,8 @@ class UserProfile extends Component {
         }
         else{
           Alert.alert('Informações atualizadas com sucesso.');
-          this.props.navigation.navigate('Settings');
+          this._goBack();
         }
-      }
-    })
-    .catch(err => {
-      if (typeof err.text === 'function') {
-        err.text().then(errorMessage => {
-          this.props.dispatch(displayTheError(errorMessage));
-        });
-      } else {
-        Alert.alert("Erro na conexão.");
-        console.log(err);
       }
     });
   }
@@ -119,44 +117,14 @@ class UserProfile extends Component {
     return (
       <View style={styles.container}>
         <View style={{ margin: 5 }}>
-          <Card style={{ height: 150, paddingRight: 10 }}>
-            <CardItem style={{ height: '100%' }}>
-              <Body>
-                <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
-                  <TouchableOpacity onPress={this._clickPhoto} style={styles.view_circle}>
-                    <View>
-                      <Image
-                        source={{ uri: photo }}
-                        style={{ width: 100, height: 100, borderRadius: 100, position: 'absolute' }}
-                      />
-                      <Image
-                        source={{ uri: 'https://i.imgur.com/gr7Zvft.png' }}
-                        style={styles.image_circle}
-                      />
-                    </View>
-                  </TouchableOpacity>
-                  <View>
-                    <Item stackedLabel>
-                      <Label style={{ fontSize: 12 }}>Nome:</Label>
-                      <Input
-                        style={{ fontSize: 12 }}
-                        placeholder={name}
-                        onChangeText={(name) => this.setState({ name })}
-                      />
-                    </Item>
-                    <Item stackedLabel>
-                      <Label style={{ fontSize: 12 }}>Email</Label>
-                      <Input
-                        style={{ fontSize: 12 }}
-                        placeholder={email}
-                        onChangeText={(email) => this.setState({ email })}
-                      />
-                    </Item>
-                  </View>
-                </View>
-              </Body>
-            </CardItem>
-          </Card>
+          <UserCard
+            onPress={this._clickPhoto}
+            imageSource={{uri: photo}}
+            namePlaceholder={name}
+            onChangeTextName={(name) => this.setState({name})}
+            emailPlaceholder={email}
+            onChangeTextEmail={(email) => this.setState({email})}
+          />
         </View>
         <View style={{ margin: 5 }}>
           <Button
