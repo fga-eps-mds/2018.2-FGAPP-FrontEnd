@@ -8,7 +8,8 @@ import {
     Image,
     KeyboardAvoidingView,
     TouchableOpacity,
-    Linking
+    Linking,
+    Keyboard,
 } from "react-native";
 import {Button} from 'native-base';
 import Field from './components/Field';
@@ -19,51 +20,70 @@ import ResetPasswordButton from './components/ResetPasswordButton';
 import Login from './components/Login';
 import jwt_decode from 'jwt-decode'
 import { onSignIn } from "../AuthMethods";
+import ToogleView from './tab_navigator/vendas/screens/my_products/ToogleView';
 
 const LOGIN_BACKGROUND_IMAGE = 'https://i.imgur.com/dvhebUS.png';
 const LOGO_IMAGE = 'https://i.imgur.com/F7PTwBg.png';
-
-async function getExpoToken(loginToken) {
-  const { status } = await Expo.Permissions.askAsync(
-    Expo.Permissions.NOTIFICATIONS
-  );
-  if (status != 'granted') {
-    alert('Você precisa permitir notificações nas configurações.');
-    return;
-  }
-
-  const notificationToken = await Expo.Notifications.getExpoPushTokenAsync();
-  storeToken(loginToken, notificationToken)
-}
-
-async function storeToken(loginToken, notificationToken){
-  var user = jwt_decode(loginToken);
-
-  const notification_path = `${process.env.VENDAS_API}/api/save_user_token/`;
-  fetch(notification_path, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      'user_token': notificationToken,
-      'user_id': user.user_id,
-      'token': loginToken,
-    }),
-  }).catch( err => {
-    console.log(err)
-  });
-}
 
 class LoginScreen extends Component {
 
   constructor(props) {
       super(props);
       this.state = {
+        isButtonsHidden: false,
         email: '', password: '',
         email_field_is_bad: false, password_field_is_bad: false,
         email_field_alerts: [''], password_field_alerts: [''], non_field_alert: ['']
       };
+  }
+
+  getExpoToken = async (loginToken) =>  {
+    const { status } = await Expo.Permissions.askAsync(
+      Expo.Permissions.NOTIFICATIONS
+    );
+    if (status != 'granted') {
+      alert('Você precisa permitir notificações nas configurações.');
+      return;
+    }
+  
+    const notificationToken = await Expo.Notifications.getExpoPushTokenAsync();
+    this.storeToken(loginToken, notificationToken)
+  }
+  
+  storeToken = async (loginToken, notificationToken) => {
+    var user = jwt_decode(loginToken);
+    const notification_path = `${process.env.VENDAS_API}/api/save_user_token/`;
+    fetch(notification_path, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        'user_token': notificationToken,
+        'user_id': user.user_id,
+        'token': loginToken,
+      }),
+    }).catch( err => {
+      console.log(err)
+    });
+  }
+
+  componentDidMount() {
+    this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
+    this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
+  }
+
+  componentWillUnmount() {
+    this.keyboardDidShowListener.remove();
+    this.keyboardDidHideListener.remove();
+  }
+
+  _keyboardDidShow = (event) => {
+    this.setState({ isButtonsHidden: true });
+  }
+
+  _keyboardDidHide = (event) => {
+    this.setState({ isButtonsHidden: false });
   }
 
   async componentWillMount() {
@@ -72,7 +92,6 @@ class LoginScreen extends Component {
             Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
             Ionicons: require("@expo/vector-icons/fonts/Ionicons.ttf"),
     });
-    this.setState({ loading: false });
 }
 
   termsOfUse = () => {
@@ -82,7 +101,7 @@ class LoginScreen extends Component {
       } else {
         console.log("Don't know how to open TERMS OF USE");
       }
-    }); 
+    });
   }
 
   checkJson(responseJson){
@@ -115,7 +134,7 @@ class LoginScreen extends Component {
     }
     //Sucesso
    if (responseJson.token != undefined || responseJson.key != undefined){
-     getExpoToken(responseJson.token);
+     this.getExpoToken(responseJson.token);
      onSignIn(responseJson.token);
      this.props.navigation.navigate('TabHandler', {token:responseJson.token})
    }
@@ -169,7 +188,7 @@ class LoginScreen extends Component {
                   />
 
                   </View>
-              <View>
+              <ToogleView hide={this.state.isButtonsHidden}>
                 <View style={styles.loginContent}>
                   <LoginButton
                    onPress={this._onPressButton}
@@ -184,7 +203,7 @@ class LoginScreen extends Component {
                    onPress={() => Linking.openURL(password_reset_path)}
                   />
                 </View>
-              </View>
+              </ToogleView>
             </View>
           </ImageBackground>
         </KeyboardAvoidingView>
