@@ -73,7 +73,10 @@ class ListLocals extends Component {
     } else {
       return (
 
-        <ScrollView showsVerticalScrollIndicator={false}
+
+        <ScrollView 
+        showsVerticalScrollIndicator={false}
+        keyboardDismissMode='on-drag'
         refreshControl={
                         <RefreshControl
                           refreshing={this.state.refreshing}

@@ -66,7 +66,7 @@ class OpeningHoursPanel extends Component {
         <Accordion
           dataArray={dataArray}
           content={dataArray.content}
-          headerStyle={{ backgroundColor: "#0AACCC"}}
+          headerStyle={{ backgroundColor: "#fff"}}
           contentStyle={{ backgroundColor: "#fff" }}
         />
       </Content>
