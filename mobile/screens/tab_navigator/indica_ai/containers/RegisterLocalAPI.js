@@ -19,7 +19,6 @@ class RegisterLocalAPI extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      requestStatus: null,
       selectedCategories: [],
       local: {},
       successModalVisible: false,
@@ -48,6 +47,7 @@ class RegisterLocalAPI extends Component {
       "opening_hours": opening_hours,
       "telephone": telephone,
     });
+    console.log(jsonTest);
     try {
       const response = await fetch(url, {
         method: 'POST',
@@ -59,20 +59,21 @@ class RegisterLocalAPI extends Component {
       })
       const jsonResponse = await response.json()
       if (jsonResponse['status'] === "SUCCESS") {
-        this.setState({ requestStatus: "SUCCESS" })
+        this.setState({successModalVisible: true})
         this.setState({
           local: jsonResponse["data"][0]
         })
         this._updateFunction();
       } else {
-        this.setState({ requestStatus: "FAILED" })
+        this.setState({ errorModalVisible: true })
       }
     } catch (error) {
       console.error(error);
-    }
+}
   }
 
-  takeDataFromTheForm = (name, telephone, description) => {
+  takeDataFromTheForm = (name, phone, description) => {
+    phone ? telephone=phone.toString() : telephone=null
     this._postForm(name, telephone, description);
   }
 
@@ -83,27 +84,27 @@ class RegisterLocalAPI extends Component {
   }
 
   afterRegister(){
-    this.props.navigation.navigate('LocalDetails', {local: this.state.local})
     this.setState({ successModalVisible: false })
+    this.props.navigation.navigate('LocalDetails', {local: this.state.local})
   }
 
   _updateFunction = () => {
     fetch(`${process.env.INDICA_AI_API}/locals/`, {
-     method: "GET",
-     headers: {
-       Accept: "application/json",
-       "Content-Type": "aplication/json"
-     }
-   })
-   .then(response => response.json())
-   .then(responseJson => {
-     this.props.searchAction(responseJson)
-   })
-   .catch(error => {
-     console.log(error);
-   });
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "aplication/json"
+      }
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        this.props.searchAction(responseJson)
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    }
 
- }
   render() {
 
     let opening_hours = [];
@@ -145,12 +146,6 @@ class RegisterLocalAPI extends Component {
       }
     }
 
-    if (this.state.requestStatus === "SUCCESS") {
-      alert(this.state.successModalVisible)
-      //this.setState({ successModalVisible: true })
-    } else if (this.state.requestStatus === "FAILED") {
-      this.setState({ errorModalVisible: true })
-    }
     return (
       <View style={styles.container}>
         <RegisterAPIForm
@@ -159,7 +154,7 @@ class RegisterLocalAPI extends Component {
           takeOpeningHours={takeOpeningHours}
         />
         <SuccessModal
-          onCancel={() => this.afterRegister}
+          onCancel={() => this.afterRegister()}
           visible={this.state.successModalVisible}
           message = {"Local cadastrado com sucesso"}
         />
@@ -176,7 +171,10 @@ class RegisterLocalAPI extends Component {
 const mapDispatchToProps = dispatch => (
   bindActionCreators({ searchAction }, dispatch)
 )
-export default withNavigation(connect( null, mapDispatchToProps )(RegisterLocalAPI));
+export default withNavigation(connect(
+  null,
+  mapDispatchToProps
+)(RegisterLocalAPI));
 
 const styles = StyleSheet.create({
   container: {

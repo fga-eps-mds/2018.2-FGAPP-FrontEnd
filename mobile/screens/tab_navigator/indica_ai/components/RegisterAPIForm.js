@@ -62,9 +62,9 @@ export default class RegisterAPIForm extends Component {
       <KeyboardAwareScrollView style={{flex: 1, width: '100%', padding: 20}}>
         <Container>
 
-          <View>
+          <View style={{ marginBottom: 20 }}>
             <TextInput
-              style={styles.inputName}
+              style={styles.input}
               placeholder='Nome'
               placeholderTextColor='gray'
               underlineColorAndroid='transparent'
@@ -74,9 +74,12 @@ export default class RegisterAPIForm extends Component {
           </View>
 
           <TextInput
+            style={styles.input}
             placeholder='Telefone'
+            placeholderTextColor='gray'
+            underlineColorAndroid='transparent'
             keyboardType={'numeric'}
-            onhxangeText={(telephone) => this.setState({ telephone })}
+            onChangeText={(telephone) => this.setState({ telephone })}
           />
 
           <View style={styles.inputDescription}>
@@ -86,6 +89,7 @@ export default class RegisterAPIForm extends Component {
               maxLength = {150}
               numberOfLines = {3}
               placeholder="Descrição"
+              underlineColorAndroid='transparent'
               placeholderTextColor='gray'
               onChangeText={(description) => this.setState({ description })}
             />
@@ -129,7 +133,7 @@ export default class RegisterAPIForm extends Component {
           <WarningModal
             onCancel={() => this.setState({ warningModalVisible: false })}
             visible={this.state.warningModalVisible}
-            message = {"Nome do local não pode estar vazio!"}
+            message = {"Nome do local esta vazio"}
           />
 
         </Container>
@@ -232,7 +236,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0
   },
-  inputName: {
+  input: {
     paddingLeft: 8,
     height: 40,
     width: '100%',
