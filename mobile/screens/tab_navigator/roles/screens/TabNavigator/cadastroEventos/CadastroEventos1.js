@@ -178,7 +178,10 @@ export default class CadastroEventos1 extends Component {
 	}
 
 	_cadastraRole(photoURL) {
-		console.log(this.state);
+    if(this.state.drinks == "") this.setState({drinks: null})
+    if(this.state.eventDescription == "") this.setState({eventDescription: null})
+    if(this.state.foods == "") this.setState({foods: null})
+    
 		const eventPath = `${process.env.ROLES_EVENTS_API}/events/`;
 		fetch(eventPath, {
 			method: "POST",
@@ -190,7 +193,6 @@ export default class CadastroEventos1 extends Component {
 				ownerName: this.state.profileInfo.name,
 				ownerId: this.state.userId, 
 				eventName: this.state.eventName,
-				// linkReference: "https://" + this.state.linkReference + ".com", // Verificar Front-End e Back para decisão sobre este campo
 				organizer: this.state.organizer,
 				value: this.state.value,
 				address: this.state.address,
@@ -198,7 +200,7 @@ export default class CadastroEventos1 extends Component {
         longitude: this.state.localization.longitude,
         latitudeDelta: this.state.localization.latitudeDelta,
         longitudeDelta: this.state.localization.longitudeDelta,
-				eventDate: this.state.eventDate,
+        eventDate: this.state.eventDate,
 				eventHour: this.state.eventHour,
 				adultOnly: this.state.adultOnly,
 				eventDescription: this.state.eventDescription,
@@ -213,7 +215,7 @@ export default class CadastroEventos1 extends Component {
 					responseOk: response.ok
 				});
 				console.log(JSON.stringify(response));
-				response.json();
+				return response.json();
 			})
 			.then(responseJson => {
 				console.log(
@@ -222,7 +224,8 @@ export default class CadastroEventos1 extends Component {
 					"//",
 					"Status:",
 					this.state.responseStatus
-				);
+        );
+        console.log('Response Message:',responseJson);
 				if (
 					this.state.responseStatus >= 200 &&
 					this.state.responseStatus <= 202 &&

@@ -1,13 +1,13 @@
-import { Icon, Text } from 'native-base';
-
 import React, { Component } from 'react';
 import {
-    View,
-    StyleSheet,
+  View,
+  StyleSheet,
     ScrollView,
     RefreshControl,
     ActivityIndicator
-} from 'react-native';
+  } from 'react-native';
+  import { Icon, Text } from 'native-base';
+
 import FeedItem from './FeedItem';
 import * as helpers from '../../../utils/helpers';
 
@@ -46,19 +46,8 @@ class Feed extends Component {
                 // RETIRANDO EVENTOS PASSADOS
                 resJson = resJson.filter(role => {
                     const { hasPassed, formatDate } = helpers;
-                    if (hasPassed(formatDate(role.eventDate).formatted)) {
-                        // console.log(
-                        //     role.eventName + ':\t',
-                        //     helpers.formatDate(role.eventDate).formatted,
-                        //     '\tEVENTO PASSADO!'
-                        // );
-                    } else {
-                        // console.log(
-                        //     role.eventName + ':\t',
-                        //     helpers.formatDate(role.eventDate).formatted,
-                        //     '\tEVENTO FUTURO!'
-                        // );
-                        return role;
+                    if (!hasPassed(formatDate(role.eventDate).formatted)) {
+                      return role;
                     }
                 });
 
