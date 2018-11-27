@@ -7539,7 +7539,7 @@ react-native-image-view@^2.0.12:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/react-native-image-view/-/react-native-image-view-2.1.1.tgz#ae3254751cddc5d5044f815da4e4cb7b79bd0874"
 
-react-native-iphone-x-helper@^1.0.1:
+react-native-iphone-x-helper@^1.0.1, react-native-iphone-x-helper@^1.0.3:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.2.0.tgz#9f8a376eb00bc712115abff4420318a0063fa796"
 

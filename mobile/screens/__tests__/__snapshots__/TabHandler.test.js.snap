@@ -359,7 +359,7 @@ exports[`renders correctly 1`] = `
                     style={
                       Object {
                         "backgroundColor": "transparent",
-                        "color": "rgba(28, 189, 36, 1)",
+                        "color": "rgba(0, 0, 0, 1)",
                         "fontSize": 11,
                         "marginBottom": 1.5,
                         "textAlign": "center",
