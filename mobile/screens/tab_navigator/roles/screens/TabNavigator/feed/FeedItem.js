@@ -91,17 +91,18 @@ class FeedItem extends Component {
 				</TouchableOpacity>
 
 				<CardItem style={{ paddingVertical: 0 }}>
-					<Button
+					{/* <Button
 						transparent
 						onPress={() => {
 							console.log("Likes -> " + this.props.nomeRole);
 						}}
 					>
 						<LikeButton likeText="LIKE" />
-					</Button>
+					</Button> */}
 
 					<Button
-						style={{ paddingLeft: "20%" }}
+            style={{width: '100%'}}
+            block
 						transparent
 						onPress={() => {
 							this.props.navigation.navigate("Comments", {

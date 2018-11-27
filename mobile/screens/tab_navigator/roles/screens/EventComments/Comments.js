@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, Button } from 'native-base';
+import { Card } from 'native-base';
 import {
     View,
     Text,
@@ -11,7 +11,6 @@ import {
 } from 'react-native';
 import jwt_decode from 'jwt-decode';
 import CommentItem from './components/CommentItem';
-import CommentAnswer from './components/CommentAnswer';
 import Divider from '../EventProfile/components/Divider';
 import CommentInput from './components/CommentInput';
 
@@ -22,33 +21,37 @@ class Comments extends Component {
         comments: [],
         like: false
     };
-    
+
     _loadProfile = async () => {
         const { state } = this.props.navigation;
         const token = state.params ? state.params.token : undefined;
         const user = jwt_decode(token);
-        this.setState({userId: user.user_id});
+        this.setState({ userId: user.user_id });
 
-        const profileInfoPath = `${process.env.INTEGRA_LOGIN_AUTH}/api/users/get_profile/`;
+        const profileInfoPath = `${
+            process.env.INTEGRA_LOGIN_AUTH
+        }/api/users/get_profile/`;
         fetch(profileInfoPath, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            'user_id': user.user_id,
-          }),
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                user_id: user.user_id
+            })
         })
-        .then((response) => { return response.json() })
-        .then((responseJson) => {
-          if (!responseJson.error) {
-            this.setState({ profileInfo: responseJson });
-          }
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }
+            .then(response => {
+                return response.json();
+            })
+            .then(responseJson => {
+                if (!responseJson.error) {
+                    this.setState({ profileInfo: responseJson });
+                }
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    };
 
     _getComments = () => {
         const { params } = this.props.navigation.state;
@@ -57,7 +60,7 @@ class Comments extends Component {
             .then(res => res.json())
             .then(resJson => {
                 resJson = resJson.filter(comment => {
-                    if (comment.eventId === params.idRole) {
+                    if (comment.eventID === params.idRole) {
                         return comment;
                     }
                 });
@@ -142,35 +145,16 @@ class Comments extends Component {
 
                     {this.state.comments.map((comment, index) => (
                         <View key={index}>
-                            {comment.answerId === 0 && (
-                                <View>
-                                    <CommentItem
-                                        id={comment.id}
-                                        author={comment.authorName}
-                                        text={comment.text}
-                                        postDate={comment.created}
-                                        modifyDate={comment.edited}
-                                        onDelete={id => this._deleteComment(id)}
-                                    />
-                                    {this.state.comments.map(
-                                        (answer, indexAnswer) =>
-                                            comment.id == answer.answerId && (
-                                                <CommentAnswer
-                                                    key={indexAnswer}
-                                                    id={answer.id}
-                                                    author={answer.authorName}
-                                                    text={answer.text}
-                                                    postDate={answer.created}
-                                                    modifyDate={answer.edited}
-                                                    onDelete={id =>
-                                                        this._deleteComment(id)
-                                                    }
-                                                />
-                                            )
-                                    )}
-                                    <Divider size="80%" />
-                                </View>
-                            )}
+                            {/* {comment.answerId === 0 && ( */}
+                            <CommentItem
+                                id={comment.id}
+                                author={comment.authorName}
+                                text={comment.text}
+                                postDate={comment.created}
+                                modifyDate={comment.edited}
+                                onDelete={id => this._deleteComment(id)}
+                            />
+                            <Divider size="80%" />
                         </View>
                     ))}
                 </Card>
