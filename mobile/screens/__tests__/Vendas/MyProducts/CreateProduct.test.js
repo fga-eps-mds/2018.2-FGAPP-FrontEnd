@@ -41,15 +41,18 @@ describe('Testing navigation', () => {
 })
 
 describe('Test CreateProduct', () => {
-    const navigation = {
-        state: {
-            params: {
-                token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InJvZ2VybGVua2VAZ21haWwuY29tIiwidXNlcl9pZCI6MSwib3JpZ19pYXQiOjE1NDE3MTk3NDksImV4cCI6MTU0MTcyMDA0OSwidXNlcm5hbWUiOiJyb2dlcmxlbmtlQGdtYWlsLmNvbSJ9.eCEGRB9yYAkP5iBIybeDsAoWk4HyusPUTX3LBiP0I64"
-            }
-        },
-        navigate: jest.fn(),
+  const props = {
+    navigation: {
+      navigate: jest.fn(),
+      state: {
+          params: {
+              token: TOKEN_EXAMPLE
+          }
+      },
     }
+  }
 
+  
     // Url to be mocked
     let create_product_path = '';
 
@@ -64,12 +67,12 @@ describe('Test CreateProduct', () => {
 
     it('renders correctly', () => {
       const navigation = jest.fn();
-      const tree = renderer.create(<CreateProduct navigation={navigation}/>).toJSON();
+      const tree = renderer.create(<CreateProduct {...props}/>).toJSON();
       expect(tree).toMatchSnapshot();
     });
 
     it('Test registerProduct with sucess', async (done) => {
-        const wrapper = shallow(<CreateProduct navigation={navigation}/>);
+        const wrapper = shallow(<CreateProduct {...props}/>);
 
         const state = {
           token:TOKEN_EXAMPLE,
@@ -89,7 +92,7 @@ describe('Test CreateProduct', () => {
     });
 
     it('Test registerProduct with error response', async (done) => {
-        const wrapper = shallow(<CreateProduct navigation={navigation}/>);
+        const wrapper = shallow(<CreateProduct {...props}/>);
 
         const state = {
           token:TOKEN_EXAMPLE,
@@ -112,7 +115,7 @@ describe('Test CreateProduct', () => {
     })
 
     it('Test registerProduct with error', async (done) => {
-        const wrapper = shallow(<CreateProduct navigation={navigation}/>);
+        const wrapper = shallow(<CreateProduct {...props}/>);
 
         const state = {
           token:TOKEN_EXAMPLE,
@@ -134,50 +137,50 @@ describe('Test CreateProduct', () => {
 
     it('tests openDialog to be true',() => {
       const navigation = jest.fn();
-      const wrapper = shallow(<CreateProduct navigation = {navigation}/>);
+      const wrapper = shallow(<CreateProduct {...props}/>);
       const openDialog = wrapper.instance().openDialog();
     });
 
     it('tests closeDialog to be false',() => {
       const navigation = jest.fn();
-      const wrapper = shallow(<CreateProduct navigation = {navigation}/>);
+      const wrapper = shallow(<CreateProduct {...props}/>);
       const closeDialog = wrapper.instance().closeDialog();
     });
 
     it('tests goBack function',() => {
       const navigation = jest.fn();
-      const wrapper = shallow(<CreateProduct navigation = {navigation}/>);
+      const wrapper = shallow(<CreateProduct {...props}/>);
       const _goBack = wrapper.instance()._goBack();
     });
 
     it('tests componentWillUnmount function',() => {
       const navigation = jest.fn();
-      const wrapper = shallow(<CreateProduct navigation = {navigation}/>);
+      const wrapper = shallow(<CreateProduct {...props}/>);
       const componentWillUnmount = wrapper.instance().componentWillUnmount();
     });
 
     it('test keyboardDidHide function',() => {
       const navigation = jest.fn();
-      const wrapper = shallow(<CreateProduct navigation = {navigation}/>);
+      const wrapper = shallow(<CreateProduct {...props}/>);
       const _keyboardDidHide = wrapper.instance()._keyboardDidHide();
     });
 
     test('change input title ', () => {
-      const wrapper = shallow(<CreateProduct />);
+      const wrapper = shallow(<CreateProduct {...props} /> );
       const title = wrapper.find('InputLab').at(0);
       title.simulate('changeText','text');
       expect(wrapper.state('title')).toBe('text');
     });
 
     test('change input price ', () => {
-      const wrapper = shallow(<CreateProduct />);
+      const wrapper = shallow(<CreateProduct {...props} />);
       const price = wrapper.find('InputLab').at(1);
       price.simulate('changeText','text');
       expect(wrapper.state('price')).toBe('text');
     });
 
     test('change text area description ', () => {
-      const wrapper = shallow(<CreateProduct />);
+      const wrapper = shallow(<CreateProduct {...props} />);
       const description = wrapper.find('Styled(Textarea)').at(0);
       description.simulate('changeText','text');
       expect(wrapper.state('description')).toBe('text');
