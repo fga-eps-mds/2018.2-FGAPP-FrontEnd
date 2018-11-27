@@ -94,7 +94,7 @@ export default class App extends Component {
       const user = jwt_decode(responseJson.token);
       const userID = user.user_id;
       this._updateUserName(userID);
-      
+
       Alert.alert("Conta criada com sucesso!");
       this.props.navigation.navigate('LoginScreen') //mudei aqui de WelcomeScreen pra LoginScreen
     }
@@ -120,6 +120,13 @@ export default class App extends Component {
             <Image source={{uri: LOGO_IMAGE}} style={styles.logoImage} />
           </View>
           <View style={styles.formStyle}>
+
+              <Field
+                style={styles.fieldStyle}
+                placeholder={"Nome"}
+                keyExtractor={null}
+                onChangeText={(name) => this.setState({ name })}
+              />
 
              <Field
               style={styles.fieldStyle}
