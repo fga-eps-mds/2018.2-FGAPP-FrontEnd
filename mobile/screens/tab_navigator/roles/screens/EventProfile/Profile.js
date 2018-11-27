@@ -37,11 +37,6 @@ class Profile extends Component {
 		role: ""
 	};
 
-	constructor(props){
-		super(props);
-		this.state = this.state.params;
-	}
-
 	_getDadosRole = () => {
 		const { idRole } = this.props.navigation.state.params;
 		const eventPath = `${process.env.ROLES_EVENTS_API}/events/`;
