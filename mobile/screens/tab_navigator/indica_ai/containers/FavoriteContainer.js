@@ -21,13 +21,26 @@ class FavoriteContainer extends React.Component {
     errorModalVisible: false,
     token: this.props.token,
     local_id: this.props.id,
-    favorites: this.props.favorites
+    favorites: this.props.favorites,
+    liked: false
   }
   componentWillReceiveProps(newProps) {
     if (newProps.favorites) {
       this.setState({ favorites: newProps.favorites })
     }
   }
+
+  componentWillMount(){
+    const { favorites, local_id } = this.state
+    if(favorites){
+      favorites.forEach(favorite => {
+        if(favorite.local_id === local_id){
+          this.setState({liked: true})
+        }
+      })
+    }
+  }
+
   _updateFunction = async () => {
     const { token } = this.state
     const user = jwt_decode(token)
@@ -113,17 +126,16 @@ class FavoriteContainer extends React.Component {
     }
   }
   render() {
-    const { favorites, local_id } = this.state
     return (
       <View>
         <FavoriteIcon
           favMessageIcon={this.favMessageIcon}
-          // liked={favorites.some(favorite => favorite.local_id === local_id)}
+          liked={this.state.liked}
         />
         <ErrorModal
           onCancel={() => this.setState({ errorModalVisible: false })}
           visible={this.state.errorModalVisible}
-          message="Ocorreu um erro, tente novamente mais tarde"
+          message="Ocorreu um erro"
         />
       </View>
     )
