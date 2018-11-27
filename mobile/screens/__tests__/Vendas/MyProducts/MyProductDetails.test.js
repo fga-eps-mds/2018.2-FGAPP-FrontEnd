@@ -77,18 +77,22 @@ describe('Test MyProductDetails requisitions', () => {
     const wrapper = shallow(<MyProductDetails navigation={navigation}/>);
 
     const state = {
+      token:undefined,
+      isButtonsHidden: false,
       name: '',
-      price: 20,
-      description: 'This is the description',
+      price: '',
+      description: '',
+      isDialogVisible: false,
+      messageError: '',
     };
 
-    const error = {
+    const err = {
       "name": [
           "This field is required."
       ]
     };
 
-    fetchMock.post(edit_product_path, {error});
+    fetchMock.post(edit_product_path, {err});
 
     wrapper.setState(state);
     await wrapper.instance().editProduct()
@@ -103,9 +107,13 @@ describe('Test MyProductDetails requisitions', () => {
     const wrapper = shallow(<MyProductDetails navigation={navigation}/>);
 
     const state = {
+      token:undefined,
+      isButtonsHidden: false,
       name: '',
-      price: 20,
-      description: 'This is the description',
+      price: '',
+      description: '',
+      isDialogVisible: false,
+      messageError: '',
     };
 
     const error = "Erro interno, não foi possível se comunicar com o servidor.";

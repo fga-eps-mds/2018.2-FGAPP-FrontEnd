@@ -39,10 +39,10 @@ class OrderedProducts extends Component {
     componentWillMount() {
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
     }
-	componentWillUnmount() {
+	  componentWillUnmount() {
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
-	}
-	handleBackButtonClick() {
+	  }
+	  handleBackButtonClick() {
         BackHandler.exitApp();
         return true;
     }
@@ -78,9 +78,6 @@ class OrderedProducts extends Component {
           }
           this.setState({ orders: responseJson });
       })
-      .catch((error) => {
-          console.error(error);
-      });
 
       const buyer_orders_path = `${process.env.VENDAS_API}/api/buyer_orders/`;
 

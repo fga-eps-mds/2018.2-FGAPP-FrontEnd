@@ -27,14 +27,14 @@ import {getUserToken} from '../../../../../AuthMethods'
         max_characters: '120',
       };
     }
-    
+
     componentWillMount() {
       BackHandler.addEventListener('hardwareBackPress', this.backPressed);
     }
-    
+
     componentWillUnmount() {
         BackHandler.removeEventListener('hardwareBackPress', this.backPressed);
-    } 
+    }
     backPressed = () => {
         this.props.navigation.goBack();
         return true;
@@ -43,9 +43,8 @@ import {getUserToken} from '../../../../../AuthMethods'
     componentDidMount(){
       getUserToken()
           .then(res => this.setState({ token: res }))
-          .catch(err => alert("Erro"));
     }
-    
+
     sendNotification = async (product, token) => {
       const path = `${process.env.VENDAS_API}/api/send_push_message/`
       fetch( path, {

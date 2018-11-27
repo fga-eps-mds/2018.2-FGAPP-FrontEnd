@@ -37,7 +37,6 @@ class Settings extends Component {
       this.setState({ token: res })
       this._loadProfile();
     })
-    .catch(err => alert("Erro"));
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
   }
   componentWillUnmount() {
@@ -65,9 +64,6 @@ class Settings extends Component {
         this.setState({ profileInfo: responseJson });
       }
     })
-    .catch((error) => {
-      console.error(error);
-    });
   }
 
   render() {

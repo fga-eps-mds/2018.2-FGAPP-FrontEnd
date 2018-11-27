@@ -74,9 +74,7 @@ class LoginScreen extends Component {
         'user_id': user.user_id,
         'token': loginToken,
       }),
-    }).catch( err => {
-      console.log(err)
-    });
+    })
   }
 
   componentDidMount() {
