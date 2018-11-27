@@ -5,6 +5,7 @@ import {
   ScrollView,
   TouchableHighlight,
   ImageBackground,
+  RefreshControl
 } from "react-native";
 import {
   Content,
@@ -28,7 +29,8 @@ class ListFavorites extends Component {
     super(props);
     this.state = {
       favorites: props ? props.favorites : [],
-      locals: props ? props.locals : []
+      locals: props ? props.locals : [],
+      refreshing: false,
     };
   }
 
@@ -69,7 +71,12 @@ class ListFavorites extends Component {
       this.setState({ locals: newProps.locals })
     }
   }
-
+    _onRefresh = () => {
+    this.setState({refreshing: true});
+    this.fetchFavoritesList().then(() => {
+      this.setState({refreshing: false});
+    });
+  }
   render() {
     const { favorites } = this.state
     const { locals } = this.state
@@ -86,7 +93,15 @@ class ListFavorites extends Component {
     } else {
 
       return (
-        <ScrollView style={styles.Container}>
+        <ScrollView style={styles.Container}
+            refreshControl={
+                            <RefreshControl
+                              refreshing={this.state.refreshing}
+                              onRefresh={this._onRefresh}
+                            />
+                          }
+        >
+
           {favorites.map(favorite =>
             <View key={favorite.id}>
               <FavoriteCard key={favorite.id}

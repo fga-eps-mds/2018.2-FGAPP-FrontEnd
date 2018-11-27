@@ -39,10 +39,7 @@ const TabHandlerVendasApp = new TabNavigator({
         activeTintColor: 'black',
         inactiveTintColor: '#5A5A5A',
         labelStyle: {
-            fontSize: 10,
-        },
-        tabStyle: {
-            height: 40,
+            fontSize: 11,
         },
         style: {
             backgroundColor: 'white',
