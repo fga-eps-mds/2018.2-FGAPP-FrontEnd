@@ -9,6 +9,15 @@ Enzyme.configure({adapter: new Adapter()});
 
 
 it('renders correctly', ()=> {
-    const tree = renderer.create(<Comments/>).toJSON();
+    const navigation = {
+		state: {
+			params: {
+				token:
+					"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InJvZ2VybGVua2VAZ21haWwuY29tIiwidXNlcl9pZCI6MSwib3JpZ19pYXQiOjE1NDE3MTk3NDksImV4cCI6MTU0MTcyMDA0OSwidXNlcm5hbWUiOiJyb2dlcmxlbmtlQGdtYWlsLmNvbSJ9.eCEGRB9yYAkP5iBIybeDsAoWk4HyusPUTX3LBiP0I64"
+			}
+		},
+		navigate: jest.fn()
+	};
+    const tree = renderer.create(<Comments navigation={navigation}/>).toJSON();
     expect(tree).toMatchSnapshot();
 });
