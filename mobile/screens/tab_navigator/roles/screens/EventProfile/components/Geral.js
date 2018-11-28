@@ -9,7 +9,6 @@ import {
 } from "native-base";
 import { Text, StyleSheet } from "react-native";
 import Divider from "./Divider";
-import CardHeader from "./CardHeader";
 import GeralDetails from "./GeralDetails";
 import * as helpers from '../../../utils/helpers';
 
@@ -21,7 +20,6 @@ class Geral extends Component {
 		const uri = this.props.photo;
 		return (
 			<Card>
-				<CardHeader text="Geral" />
 				<CardItem>
 					<Left>
 						<Thumbnail
