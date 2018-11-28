@@ -7,33 +7,10 @@ import Localizacao from './components/Localizacao';
 import Contato from './components/Contato';
 
 class Profile extends Component {
-<<<<<<< HEAD
-	state = {
-		loading: true,
-		role: ""
-	};
-
-	_getDadosRole = () => {
-		const { idRole } = this.props.navigation.state.params;
-		const eventPath = `${process.env.ROLES_EVENTS_API}/events/`;
-		fetch(eventPath + idRole)
-			.then(res => res.json())
-			.then(resJson => {
-				this.setState({ loading: false, role: resJson });
-			})
-			.catch(error => {
-				this.setState({
-					loading: false
-				});
-				console.error(error);
-			});
-	};
-=======
     state = {
         loading: true,
         role: ''
     };
->>>>>>> 4b5e00d150982727190611843984e56a0e413f9c
 
     _getDadosRole = () => {
         const { idRole } = this.props.navigation.state.params;
