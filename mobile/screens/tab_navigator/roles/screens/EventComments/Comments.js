@@ -19,7 +19,8 @@ class Comments extends Component {
         loading: true,
         refreshing: false,
         comments: [],
-        like: false
+        like: false,
+        profileInfo: {},
     };
 
     _loadProfile = async () => {
@@ -56,15 +57,10 @@ class Comments extends Component {
     _getComments = () => {
         const { params } = this.props.navigation.state;
         this.setState({ refreshing: true });
-        fetch('http://roles-comments.herokuapp.com/comment/')
+        fetch('http://roles-comments.herokuapp.com/comment/?eventID='+params.idRole)
             .then(res => res.json())
             .then(resJson => {
-                resJson = resJson.filter(comment => {
-                    if (comment.eventID === params.idRole) {
-                        return comment;
-                    }
-                });
-                this.setState({ loading: false, comments: resJson });
+              this.setState({ loading: false, comments: resJson });
             })
             .then(() => {
                 this.setState({ refreshing: false });
@@ -145,7 +141,6 @@ class Comments extends Component {
 
                     {this.state.comments.map((comment, index) => (
                         <View key={index}>
-                            {/* {comment.answerId === 0 && ( */}
                             <CommentItem
                                 id={comment.id}
                                 author={comment.authorName}
@@ -153,6 +148,7 @@ class Comments extends Component {
                                 postDate={comment.created}
                                 modifyDate={comment.edited}
                                 onDelete={id => this._deleteComment(id)}
+                                menu={ (comment.authorName === this.state.profileInfo.name) }
                             />
                             <Divider size="80%" />
                         </View>

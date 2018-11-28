@@ -7,26 +7,40 @@ import {
 	Text,
 	Thumbnail,
 	Left,
-	Right,
-	Row,
-	Item
 } from "native-base";
 
 import React, { Component } from "react";
-import { StyleSheet, Image, View, TouchableOpacity } from "react-native";
+import { StyleSheet, View, TouchableOpacity } from "react-native";
 import { withNavigation } from "react-navigation";
-import LikeButton from "./components/LikeButton";
 import * as helpers from "../../../utils/helpers";
 
 const noPic = require("../../../static/noPic.png");
 
-
-
 class FeedItem extends Component {
+  state = {
+    commentsLength: 0,
+  }
+
+  _getCommentsLength(){
+    return fetch( 'http://roles-comments.herokuapp.com/comment/?eventID='+this.props.idRole )
+    .then(res => res.json())
+    .then(resJson => {
+      if(resJson.length){
+        this.setState({commentsLength: resJson.length})
+      }
+    })
+    .catch( () => {});
+  }
+
+  componentWillMount(){
+    this._getCommentsLength()
+  }
+  
+
 	render() {
 		const uri = this.props.imgRole;
 		const { state } = this.props.navigation;
-		const token = state.params ? state.params.token : undefined;
+    const token = state.params ? state.params.token : undefined;
 		return (
 			<Card style={styles.mb}>
 				<TouchableOpacity
@@ -91,15 +105,6 @@ class FeedItem extends Component {
 				</TouchableOpacity>
 
 				<CardItem style={{ paddingVertical: 0 }}>
-					{/* <Button
-						transparent
-						onPress={() => {
-							console.log("Likes -> " + this.props.nomeRole);
-						}}
-					>
-						<LikeButton likeText="LIKE" />
-					</Button> */}
-
 					<Button
             style={{width: '100%'}}
             block
@@ -116,7 +121,7 @@ class FeedItem extends Component {
 						<Text
 							style={{ textAlign: "center", color: "gray", fontWeight: "bold" }}
 						>
-							Comentários
+						{this.state.commentsLength}	Comentários
 						</Text>
 					</Button>
 				</CardItem>

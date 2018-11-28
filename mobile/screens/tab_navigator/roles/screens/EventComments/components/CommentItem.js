@@ -47,7 +47,9 @@ class CommentItem extends Component {
                         >
                             {this.props.author}
                         </Text>
+
                         <Button
+                            disabled={!this.props.menu}
                             transparent
                             onPress={() =>
                                 ActionSheet.show(
@@ -69,10 +71,12 @@ class CommentItem extends Component {
 
                     <Text>{this.props.text}</Text>
 
-                    <Text style={{ color: 'grey', fontSize: 12 }}>
-                        Postado em:{' '}
-                        {helpers.datetimeParser(this.props.postDate)}
-                    </Text>
+                    {this.props.postDate != null && (
+                      <Text style={{ color: 'grey', fontSize: 12 }}>
+                          Postado em:{' '}
+                          {helpers.datetimeParser(this.props.postDate)}
+                      </Text>
+                    )}
                     {this.props.modifyDate != null && (
                         <Text
                             style={{

@@ -231,15 +231,16 @@ export default class CadastroEventos1 extends Component {
 					this.state.responseStatus <= 202 &&
 					this.state.responseOk
 				) {
-					console.log("Rolê cadastrado com sucesso!");
+          console.log("Rolê cadastrado com sucesso!");
 					Alert.alert("Parabéns!", "O Rolê foi cadastrado com sucesso!");
-					this.setState({ uploading: false, stage: 0 });
+          this.setState({ uploading: false, stage: 0 });
+          this.props.navigation.navigate('Feed');
 					this._resetStates();
 				} else {
 					return Promise.reject();
 				}
 			})
-			.catch(error => {
+			.catch( () => {
 				Alert.alert(
 					"Erro " + this.state.responseStatus,
 					"Houveram problemas na conexão. Tente novamente mais tarde."
