@@ -31,19 +31,8 @@ class Feed extends Component {
 				resJson = resJson.filter((role, index, array) => {
 					const { hasPassed, formatDate } = helpers;
 					if (hasPassed(formatDate(role.eventDate).formatted)) {
-						// console.log(
-						// 	role.eventName + ":\t",
-						// 	helpers.formatDate(role.eventDate).formatted,
-						// 	"\tEVENTO PASSADO!"
-						// );
-						return role;
-					} else {
-						// console.log(
-						// 	role.eventName + ":\t",
-						// 	helpers.formatDate(role.eventDate).formatted,
-						// 	"\tEVENTO FUTURO!"
-						// );
-					}
+            return role;
+          }
 				});
 
 				if (resJson.length === 0) {
@@ -70,6 +59,10 @@ class Feed extends Component {
 			});
 	};
 
+  componentDidMount(){
+    this._refreshFeed()
+  }
+
 	render() {
 		return (
 			<View>
@@ -82,26 +75,8 @@ class Feed extends Component {
 					>
 						<ActivityIndicator size="large" color="#00a50b" />
 					</View>
-				)}
-
-				{this.state.feedInit == true ? (
-					<ScrollView
-						refreshControl={
-							<RefreshControl
-								refreshing={this.state.refreshing}
-								onRefresh={this._refreshFeed}
-							/>
-						}
-					>
-						<View style={styles.refreshBox}>
-							<Text style={styles.refreshBoxText}>
-								<Icon name="refresh" />
-								{"\n"}
-								Puxe para carregar o feed
-							</Text>
-						</View>
-					</ScrollView>
-				) : (
+        )}
+        
 					<ScrollView
 						refreshControl={
 							<RefreshControl
@@ -132,7 +107,6 @@ class Feed extends Component {
 							))
 						)}
 					</ScrollView>
-				)}
 			</View>
 		);
 	}

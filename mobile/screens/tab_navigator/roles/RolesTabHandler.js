@@ -36,11 +36,14 @@ const RolesTabHandler = TabNavigator(
 	{
 		tabBarOptions: {
 			showLabel: true,
-			activeTintColor: "#1CBD24", // Color of tab when pressed
-			inactiveTintColor: "gray", // Color of tab when not pressed
+			activeTintColor: 'black',
+      inactiveTintColor: '#5A5A5A',
 			labelStyle: {
-				fontSize: 11
-			},
+				fontSize: 10
+      },
+      tabStyle: {
+        height: 40,
+      },
 			style: {
 				backgroundColor: "white"
 			}

@@ -60,7 +60,7 @@ class CommentInput extends Component {
                     answerId: 0,
                     created: moment().format('YYYY-MM-DD HH:mm:ss'),
                     edited,
-                    eventId: eventId
+                    eventID: eventId
                 })
             })
                 .then(response => {
@@ -68,21 +68,16 @@ class CommentInput extends Component {
                         responseStatus: response.status,
                         responseOk: response.ok
                     });
-                    response.json();
+                    return response.json();
                 })
                 .then(responseJson => {
-                    // console.log(
-                    //     `ResponseOk: ${responseOk}  //  Status: ${responseStatus}`
-                    // );
+
+                    console.log(responseJson)
                     if (
                         this.state.responseStatus >= 200 &&
                         this.state.responseStatus <= 202 &&
                         this.state.responseOk
                     ) {
-                        // console.log(
-                        //     'Comentário postado com sucesso!\n',
-                        //     responseJson
-                        // );
                         ToastAndroid.show(
                             'Comentário postado com sucesso!',
                             ToastAndroid.SHORT
