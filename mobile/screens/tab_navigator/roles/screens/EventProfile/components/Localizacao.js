@@ -59,8 +59,6 @@ class Localizacao extends Component {
 		return (
 			<View>
 				<Card>
-					<CardHeader text="Localização" />
-
 					<CardItem>
 						<Icon name="pin" style={styles.pinIcon} />
 

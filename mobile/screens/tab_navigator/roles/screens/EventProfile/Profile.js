@@ -59,19 +59,8 @@ class Profile extends Component {
                     eventDate={role.eventDate}
                     value={role.value}
                     adultOnly={role.adultOnly}
+                    eventDescription={role.eventDescription.length > 0 ? role.eventDescription: null }
                 />
-
-                {(role.eventDescription.length > 0 ||
-                    role.drinks.length > 0 ||
-                    role.foods.length > 0) && (
-                        <Detalhes
-                            eventDescription={role.eventDescription}
-                            drinks={role.drinks}
-                            foods={role.foods}
-                            refURL={this.state.role.linkReference}
-                        />
-                    )
-                }
 
                 {(role.latitude != 0 && role.longitude) != 0 && (
                     <Localizacao
@@ -82,6 +71,16 @@ class Profile extends Component {
                         longitudeDelta={role.longitudeDelta}
                     />
                 )}
+
+                {(  role.drinks.length > 0 ||
+                    role.foods.length > 0) && (
+                        <Detalhes
+                            drinks={role.drinks}
+                            foods={role.foods}
+                            refURL={this.state.role.linkReference}
+                        />
+                    )
+                }
 
                 <Contato
                     organizer={role.organizer}

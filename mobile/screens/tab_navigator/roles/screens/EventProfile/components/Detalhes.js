@@ -5,6 +5,7 @@ import { StyleSheet, View } from 'react-native';
 import CardsDetalhes from './CardsDetalhes';
 import DescModals from './DescModals';
 import CardHeader from './CardHeader';
+import Divider from './Divider';
 
 class Detalhes extends Component {
     state = {
@@ -29,14 +30,6 @@ class Detalhes extends Component {
     render() {
         return (
             <View>
-                <DescModals
-                    visible={this.state.detailsModalVisible}
-                    goBack={() => this._toggleModal('details')}
-                    icon="clipboard"
-                    headerLabel="Descrição do Rolê"
-                    text={this.props.eventDescription}
-                    link={this.props.refURL}
-                />
 
                 <DescModals
                     visible={this.state.drinksModalVisible}
@@ -57,26 +50,17 @@ class Detalhes extends Component {
                 />
 
                 <Card>
-                    <CardHeader text="Detalhes" />
-
-                    {this.props.eventDescription.length > 0 && (
-                        <CardsDetalhes
-                            onPressCard={() => this._toggleModal('details')}
-                            descricao={this.props.eventDescription}
-                            icon="clipboard"
-                            label="Descrição do Rolê"
-                            color="black"
-                        />
-                    )}
-
                     {this.props.drinks.length > 0 && (
-                        <CardsDetalhes
-                            onPressCard={() => this._toggleModal('drinks')}
-                            descricao={this.props.drinks}
-                            icon="beer"
-                            label="Drinks"
-                            color="#b79200"
-                        />
+                        <View>
+                            <CardsDetalhes
+                                onPressCard={() => this._toggleModal('drinks')}
+                                descricao={this.props.drinks}
+                                icon="beer"
+                                label="Drinks"
+                                color="#b79200"
+                            />
+                            <Divider size="100%"/>
+                        </View>
                     )}
 
                     {this.props.foods.length > 0 && (

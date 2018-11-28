@@ -77,7 +77,8 @@ class FeedItem extends Component {
                                 height: '100%',
                                 alignItems: 'center',
                                 alignContent: 'center',
-                                justifyContent: 'center'
+                                justifyContent: 'center',
+                                paddingTop: 20,
                             }}
                         >
                             <Text
@@ -95,26 +96,6 @@ class FeedItem extends Component {
                             <Text style={{ textAlign: 'center' }} note>
                                 Criado por: {this.props.org}
                             </Text>
-
-                            {/* <View flexDirection="row" alignSelf="center">
-                                <Icon
-                                    type="MaterialCommunityIcons"
-                                    name="calendar-blank"
-                                />
-                                <Text
-                                    style={{
-                                        textAlign: 'center',
-                                        marginLeft: 5,
-                                        textAlignVertical: 'center'
-                                    }}
-                                    note
-                                >
-                                    {
-                                        helpers.formatDate(this.props.eventDate)
-                                            .formatted
-                                    }
-                                </Text>
-                            </View>*/}
 
                             <GeralDetails
                                 iconName="calendar"
@@ -163,7 +144,7 @@ const styles = StyleSheet.create({
     },
     mb: {
         marginBottom: 15,
-        height: 240,
+        height: 250,
         justifyContent: 'space-between'
     },
     cardBtn: {
