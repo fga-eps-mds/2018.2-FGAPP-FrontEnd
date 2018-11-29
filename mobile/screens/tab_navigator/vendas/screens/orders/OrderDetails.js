@@ -21,12 +21,37 @@ class OrderDetails extends Component {
       this.state = {
         token: 'undefined',
         request: '0',
+        photo:'https://fosterautogroup.com/dist/img/nophoto.jpg',
+        name:'',
       };
     }
 
     componentWillMount(){
       getUserToken()
       .then(res => this.setState({ token: res }))
+
+      const {state} = this.props.navigation;
+      var order = state.params ? state.params.order : undefined;
+
+      const get_profile_path = `${process.env.INTEGRA_LOGIN_AUTH}/api/users/get_profile/`;
+      fetch(get_profile_path,{
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          'user_id': order.fk_buyer,
+        }),
+      })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log(responseJson)
+        this.setState({ name: responseJson.name })
+        if(responseJson.photo)
+          this.setState({ photo: responseJson.photo })
+      })
+
     }
     _cancelButton = async () => {
       const {state} = this.props.navigation;
@@ -128,32 +153,6 @@ class OrderDetails extends Component {
       this.props.navigation.navigate('OrderedProducts', {token:this.state.token});
     }
 
-    loadUser(order){
-      const get_user_path = `${process.env.VENDAS_API}/api/get_name/`;
-
-      var name = 'Usuário sem nome';
-  		fetch(get_user_path, {
-  			method: 'POST',
-  			headers: {
-  			'Content-Type': 'application/json',
-  			},
-  			body: JSON.stringify({
-  				'token': this.state.token,
-        	'user_id': order.fk_buyer,
-  			}),
-  		})
-  			.then((response) => { return response.json() })
-  			.then((responseJson) => {
-          if(responseJson.photo != '')
-            name=responseJson.name;
-  			})
-  			.catch((error) => {
-  				console.error(error);
-        });
-
-      return name;
-    }
-
     loadProduct(order){
       const get_product_path = `${process.env.VENDAS_API}/api/get_product/`;
 
@@ -185,7 +184,6 @@ class OrderDetails extends Component {
       const {state} = this.props.navigation;
       var order = state.params ? state.params.order : undefined;
       var photo = this.loadProduct(order);
-      var name = this.loadUser(order);
 
         return (
           <ScrollView style={{ backgroundColor: 'white' }}>
@@ -208,10 +206,10 @@ class OrderDetails extends Component {
               <View style={{ flexDirection: 'column', paddingLeft: 10 }}>
                 <View style={local_styles.user_container}>
                   <Image
-                    source={{ uri: 'https://res.cloudinary.com/integraappfga/image/upload/v1543060378/pg9po2nkmp613tyhyhfl.jpg' }}
+                    source={{ uri: this.state.photo }}
                     style={local_styles.image_circle}
                   />
-                  <Text style={local_styles.user_name}>{name}</Text>
+                  <Text style={local_styles.user_name}>{this.state.name}</Text>
                 </View>
                 <View style={{height: 10}}/>
                 <Text style={{fontSize: 16, color: '#5A5A5A'}}>{order.buyer_message}</Text>

@@ -25,8 +25,8 @@ import {getUserToken} from '../../../../../AuthMethods'
         isDialogVisible: false,
         buyer_message: '',
         max_characters: '120',
-        photo:'https://res.cloudinary.com/integraappfga/image/upload/v1543060378/pg9po2nkmp613tyhyhfl.jpg',
-        name:'Fulano da silva',
+        photo:'https://fosterautogroup.com/dist/img/nophoto.jpg',
+        name:'',
       };
     }
 
@@ -52,7 +52,9 @@ import {getUserToken} from '../../../../../AuthMethods'
       .then((response) => response.json())
       .then((responseJson) => {
         console.log(responseJson)
-        this.setState({ name: responseJson.name, photo: responseJson.photo})
+        this.setState({ name: responseJson.name })
+        if(responseJson.photo)
+          this.setState({ photo: responseJson.photo })
       })
 
     }
