@@ -21,12 +21,36 @@ class OrderDetails extends Component {
       this.state = {
         token: 'undefined',
         request: '0',
+        photo:'https://fosterautogroup.com/dist/img/nophoto.jpg',
+        name:'',
       };
     }
 
     componentWillMount(){
       getUserToken()
       .then(res => this.setState({ token: res }))
+
+      const {state} = this.props.navigation;
+      var order = state.params ? state.params.order : undefined;
+
+      const get_profile_path = `${process.env.INTEGRA_LOGIN_AUTH}/api/users/get_profile/`;
+      fetch(get_profile_path,{
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          'user_id': order.fk_buyer,
+        }),
+      })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        this.setState({ name: responseJson.name })
+        if(responseJson.photo)
+          this.setState({ photo: responseJson.photo })
+      })
+
     }
     _cancelButton = async () => {
       const {state} = this.props.navigation;
@@ -128,32 +152,6 @@ class OrderDetails extends Component {
       this.props.navigation.navigate('OrderedProducts', {token:this.state.token});
     }
 
-    loadUser(order){
-      const get_user_path = `${process.env.VENDAS_API}/api/get_name/`;
-
-      var name = 'Usuário sem nome';
-  		fetch(get_user_path, {
-  			method: 'POST',
-  			headers: {
-  			'Content-Type': 'application/json',
-  			},
-  			body: JSON.stringify({
-  				'token': this.state.token,
-        	'user_id': order.fk_buyer,
-  			}),
-  		})
-  			.then((response) => { return response.json() })
-  			.then((responseJson) => {
-          if(responseJson.photo != '')
-            name=responseJson.name;
-  			})
-  			.catch((error) => {
-  				console.error(error);
-        });
-
-      return name;
-    }
-
     loadProduct(order){
       const get_product_path = `${process.env.VENDAS_API}/api/get_product/`;
 
@@ -170,7 +168,6 @@ class OrderDetails extends Component {
   		})
   			.then((response) => { return response.json() })
   			.then((responseJson) => {
-          console.log(responseJson.photo);
           if(responseJson.photo != '')
             photo=responseJson.photo;
   			})
@@ -185,7 +182,6 @@ class OrderDetails extends Component {
       const {state} = this.props.navigation;
       var order = state.params ? state.params.order : undefined;
       var photo = this.loadProduct(order);
-      var name = this.loadUser(order);
 
         return (
           <ScrollView style={{ backgroundColor: 'white' }}>
@@ -206,7 +202,13 @@ class OrderDetails extends Component {
                 </View>
               </View>
               <View style={{ flexDirection: 'column', paddingLeft: 10 }}>
-                <Text style={{fontSize: 20}}>Cliente: {name}</Text>
+                <View style={local_styles.user_container}>
+                  <Image
+                    source={{ uri: this.state.photo }}
+                    style={local_styles.image_circle}
+                  />
+                  <Text style={local_styles.user_name}>{this.state.name}</Text>
+                </View>
                 <View style={{height: 10}}/>
                 <Text style={{fontSize: 16, color: '#5A5A5A'}}>{order.buyer_message}</Text>
                 <View style={{height: 50}}/>
@@ -254,5 +256,22 @@ const local_styles = StyleSheet.create({
       flexDirection: 'column',
       height: 40,
       width: 100,
+    },
+    image_circle: {
+      width: 50,
+      height: 50,
+      borderRadius: 50/2,
+      margin: 10,
+    },
+    user_container:{
+      flexDirection: 'row',
+      //backgroundColor: 'red',
+      height: 70,
+      width: '100%',
+      marginTop:10,
+      alignItems: 'flex-end'
+    },
+    user_name:{
+      paddingBottom:10,
     }
 });

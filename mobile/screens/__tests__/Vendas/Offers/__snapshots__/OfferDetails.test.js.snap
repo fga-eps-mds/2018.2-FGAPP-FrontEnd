@@ -126,27 +126,30 @@ exports[`Test submitDialog renders correctly 1`] = `
       </View>
       <View
         style={
-          Array [
-            Object {
-              "alignItems": "center",
-              "backgroundColor": "#fff",
-              "borderRadius": 2,
-              "flexDirection": "row",
-              "paddingBottom": 10,
-              "paddingLeft": 15,
-              "paddingRight": 15,
-              "paddingTop": 10,
-            },
-            Object {
-              "backgroundColor": "white",
-              "paddingBottom": 0,
-              "paddingRight": "30%",
-              "paddingTop": 0,
-            },
-          ]
+          Object {
+            "alignItems": "flex-end",
+            "flexDirection": "row",
+            "height": 70,
+            "marginTop": 10,
+            "width": "100%",
+          }
         }
-        virtual={undefined}
       >
+        <Image
+          source={
+            Object {
+              "uri": "https://fosterautogroup.com/dist/img/nophoto.jpg",
+            }
+          }
+          style={
+            Object {
+              "borderRadius": 25,
+              "height": 50,
+              "margin": 10,
+              "width": 50,
+            }
+          }
+        />
         <Text
           accessible={true}
           allowFontScaling={true}
@@ -159,17 +162,14 @@ exports[`Test submitDialog renders correctly 1`] = `
                 "fontSize": 16,
               },
               Object {
-                "alignSelf": "flex-start",
-                "color": "black",
-                "fontSize": 10,
-                "fontWeight": "normal",
+                "paddingBottom": 10,
               },
             ]
           }
           uppercase={false}
           virtual={undefined}
         >
-           Fulano da Silva 
+          
         </Text>
       </View>
       <View

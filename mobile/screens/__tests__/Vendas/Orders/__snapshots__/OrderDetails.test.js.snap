@@ -117,19 +117,45 @@ exports[`Test _cancelButton renders correctly 1`] = `
           }
         }
       >
-        <Text
-          accessible={true}
-          allowFontScaling={true}
-          ellipsizeMode="tail"
+        <View
           style={
             Object {
-              "fontSize": 20,
+              "alignItems": "flex-end",
+              "flexDirection": "row",
+              "height": 70,
+              "marginTop": 10,
+              "width": "100%",
             }
           }
         >
-          Cliente: 
-          Usuário sem nome
-        </Text>
+          <Image
+            source={
+              Object {
+                "uri": "https://fosterautogroup.com/dist/img/nophoto.jpg",
+              }
+            }
+            style={
+              Object {
+                "borderRadius": 25,
+                "height": 50,
+                "margin": 10,
+                "width": 50,
+              }
+            }
+          />
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "paddingBottom": 10,
+              }
+            }
+          >
+            
+          </Text>
+        </View>
         <View
           style={
             Object {

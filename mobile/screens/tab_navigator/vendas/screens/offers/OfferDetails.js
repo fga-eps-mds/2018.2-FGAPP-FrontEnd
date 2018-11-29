@@ -5,6 +5,7 @@ import {
     TouchableOpacity,
     Picker,
     Alert,
+    Image,
 } from 'react-native';
 import ProductImage from '../../components/ProductImage';
 import styles from '../../styles';
@@ -24,13 +25,37 @@ import {getUserToken} from '../../../../../AuthMethods'
         isDialogVisible: false,
         buyer_message: '',
         max_characters: '120',
+        photo:'https://fosterautogroup.com/dist/img/nophoto.jpg',
+        name:'',
       };
     }
 
-    componentDidMount(){
+    componentWillMount(){
       getUserToken()
           .then(res => this.setState({ token: res }))
           .catch(err => alert("Erro"));
+
+      const {state} = this.props.navigation;
+      var product = state.params ? state.params.product : undefined;
+
+      const get_profile_path = `${process.env.INTEGRA_LOGIN_AUTH}/api/users/get_profile/`;
+      fetch(get_profile_path,{
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          'user_id': product.fk_vendor,
+        }),
+      })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        this.setState({ name: responseJson.name })
+        if(responseJson.photo)
+          this.setState({ photo: responseJson.photo })
+      })
+
     }
     
     sendNotification = async (product, token) => {
@@ -117,9 +142,13 @@ import {getUserToken} from '../../../../../AuthMethods'
               <ProductImage
                 photo={product.photo}
                 />
-              <CardItem style={styles.info}>
-                <Text style={styles.textVendor}> Fulano da Silva </Text>
-              </CardItem>
+              <View style={styless.user_container}>
+                <Image
+                  source={{ uri: this.state.photo }}
+                  style={styless.image_circle}
+                />
+                <Text style={styless.user_name}>{this.state.name}</Text>
+              </View>
 
               <CardItem style={styles.info}>
                 <Text style={styles.textInfo}> {product.name} </Text>
@@ -154,7 +183,6 @@ import {getUserToken} from '../../../../../AuthMethods'
                 onValueChange={(itemValue, itemIndex) => this.setState({ quantity: itemValue })}
               />
             </Content>
-
           </View>
       );
     }
@@ -166,5 +194,23 @@ const styless = StyleSheet.create({
         flex: 1,
         backgroundColor: 'white',
         //width: '100%',
+    },
+    image_circle: {
+      width: 50,
+      height: 50,
+      borderRadius: 50/2,
+      margin: 10,
+    },
+    user_container:{
+      flexDirection: 'row',
+      //backgroundColor: 'red',
+      height: 70,
+      width: '100%',
+      marginTop:10,
+      alignItems: 'flex-end'
+    },
+    user_name:{
+      paddingBottom:10,
     }
+
 });
