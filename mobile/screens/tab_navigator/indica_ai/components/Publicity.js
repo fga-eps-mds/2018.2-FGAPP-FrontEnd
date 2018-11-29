@@ -17,7 +17,7 @@ class Publicity extends Component {
 
   render() {
 
-    const {name, address , local_images} = this.props.local 
+    const {name, address , local_images} = this.props.local
     const image  = (local_images.length !== 0) ?
       {uri: "data:image/jpg;base64," + local_images[local_images.length - 1]["image"]}
       :require('../assets/IntegraApps_icon.png')
@@ -42,10 +42,8 @@ class Publicity extends Component {
               </Body>
             </Left>
           </CardItem>
-          <CardItem>
-            <Right>
-              <Text style={styles.localAnuncio}>Anúncio</Text>
-            </Right>
+          <CardItem style={{justifyContent: 'flex-end'}}>
+            <Text style={styles.localAnuncio}>Anúncio</Text>
           </CardItem>
         </Card>
       </TouchableOpacity>

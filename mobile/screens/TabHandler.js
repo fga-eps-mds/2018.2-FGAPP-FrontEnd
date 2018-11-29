@@ -8,7 +8,6 @@ import { TabNavigator } from 'react-navigation';
 import TabHandlerVendasApp from './tab_navigator/vendas/TabHandlerVendasApp';
 import TabHandlerIndicaAi from './tab_navigator/indica_ai/TabHandlerIndicaAi';
 import RolesApp from './tab_navigator/roles/RolesApp';
-import CarDefenseApp from './tab_navigator/car_defense/CarDefenseApp';
 import SettingScreen from './tab_navigator/settings/SettingScreen';
 import RolesTabHandler from './tab_navigator/roles/RolesTabHandler';
 

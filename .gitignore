@@ -2,6 +2,7 @@
 .env*
 *.env
 Config.js
+mobile/app.json
 
 # Xcode
 !**/*.xcodeproj

@@ -5,6 +5,7 @@ import {
   ScrollView,
   TouchableHighlight,
   ImageBackground,
+  RefreshControl
 } from "react-native";
 import {
   Content,
@@ -19,15 +20,17 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withNavigation } from 'react-navigation';
 import FavoriteCard from '../components/FavoriteCard';
+import IconMessage from "../components/IconMessage";
 import jwt_decode from 'jwt-decode';
-import { favoriteAction } from "../actions"
+import { favoriteAction } from "../actions";
 
 class ListFavorites extends Component {
   constructor(props) {
     super(props);
     this.state = {
       favorites: props ? props.favorites : [],
-      locals: props ? props.locals : []
+      locals: props ? props.locals : [],
+      refreshing: false,
     };
   }
 
@@ -68,31 +71,53 @@ class ListFavorites extends Component {
       this.setState({ locals: newProps.locals })
     }
   }
-
+    _onRefresh = () => {
+    this.setState({refreshing: true});
+    this.fetchFavoritesList().then(() => {
+      this.setState({refreshing: false});
+    });
+  }
   render() {
     const { favorites } = this.state
     const { locals } = this.state
-    if ((Object.keys(favorites).length === 0)) {
+
+    if (!favorites || (Object.keys(favorites).length === 0)) {
+
       return (
-        <Text>Empty</Text>
-      )
+        <IconMessage
+          message='Nenhum Favorito Adicionado'
+          icon='sad'
+        />
+      );
+
     } else {
+
       return (
-        <ScrollView style={styles.Container}>
+        <ScrollView style={styles.Container}
+            refreshControl={
+                            <RefreshControl
+                              refreshing={this.state.refreshing}
+                              onRefresh={this._onRefresh}
+                            />
+                          }
+        >
+
           {favorites.map(favorite =>
             <View key={favorite.id}>
-              <FavoriteCard key={favorite.id} />
+              <FavoriteCard key={favorite.id}
+                local={favorite.local}
+              />
             </View>
           )}
         </ScrollView>
       );
+
     }
   }
 }
 
 const mapStateToProps = store => ({
   favorites: store.favoriteReducer.favorites,
-  locals: store.searchReducer.locals
 })
 
 const mapDispatchToProps = dispatch => (

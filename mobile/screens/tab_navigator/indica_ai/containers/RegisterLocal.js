@@ -17,6 +17,7 @@ import Expo from "expo";
 import LocalDetails from "../components/LocalDetails";
 import SuccessModal from '../components/SuccessModal';
 import ErrorModal from '../components/ErrorModal';
+import { withNavigation, createStackNavigator } from 'react-navigation';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { searchAction } from '../actions'
@@ -33,10 +34,11 @@ class RegisterLocal extends Component {
       jsonResponse: null,
       jsonDetails: null,
       opening_hours: [],
+      local: {},
       successModalVisible: false,
       errorModalVisible: false,
     };
-  }
+}
   async componentWillMount() {
     await Expo.Font.loadAsync({
       Roboto: require("native-base/Fonts/Roboto.ttf"),
@@ -117,77 +119,89 @@ class RegisterLocal extends Component {
       });
       place_id = this.state.jsonResponse['results'][index]['place_id'];
     }
-    try {
-      const response = await fetch('https://maps.googleapis.com/maps/api/place/details/json?placeid=' +
-        place_id +
-        '&fields=opening_hours,formatted_address,name,rating,formatted_phone_number,'
-        + 'photo,rating,geometry,reviews&key=AIzaSyBM9WYVio--JddgNX3TTF6flEhubkpjJYc')
-      if (response.ok) {
-        const jsonDetails = await response.json();
-        this.setState({ jsonDetails });
-        let obj = [];
-        for (let i = 0; i < 7; i++) {
-          if (jsonDetails['result']['opening_hours']['periods'][i]) {
-            day = i + 1;
-            this.setState({ day });
-            opens = jsonDetails['result']['opening_hours']['periods'][i]['open']['time'];
-            this.setState({ opens });
-            closes = jsonDetails['result']['opening_hours']['periods'][i]['close']['time'];
-            this.setState({ closes });
-            obj = { day, opens, closes };
-            this.state.opening_hours = [...this.state.opening_hours, obj];
-          }
-        }
-        this.state.opening_hours = []
-      }
-      throw new Error('Request failed!');
-    } catch (Error) {
-      console.log(Error);
-    }
-  };
-  takeNewCoords = (newLatitude, newLongitude) => {
-    this._getNewDataAsync(newLatitude, newLongitude);
-    this.setState({ latitude: newLatitude, longitude: newLongitude });
-  }
+     try{
+       const response = await fetch('https://maps.googleapis.com/maps/api/place/details/json?placeid='+
+                                    place_id+
+                                    '&fields=opening_hours,formatted_address,name,rating,formatted_phone_number,'
+                                     +'photo,rating,geometry,reviews&key=AIzaSyBM9WYVio--JddgNX3TTF6flEhubkpjJYc')
+       if(response.ok){
+         const jsonDetails = await response.json();
+         this.setState({jsonDetails});
+         let obj=[];
+         for(let i=0; i<7; i++){
+           if(jsonDetails['result']['opening_hours']['periods'][i]){
+             day = i+1;
+             this.setState({day});
+             hourO = jsonDetails['result']['opening_hours']['periods'][i]['open']['time'];
+             sep=':'
+             open = [hourO.slice(0,2), sep, hourO.slice(2)]
+             opens = open[0].concat(sep, open[2])
+             this.setState({opens});
+             hourC = jsonDetails['result']['opening_hours']['periods'][i]['close']['time'];
+             close = [hourC.slice(0,2), sep, hourC.slice(2)]
+             closes = close[0].concat(sep, close[2])
+             this.setState({closes});
+             obj = {day, opens, closes};
+             this.state.opening_hours = [ ...this.state.opening_hours, obj];
+           }
+         }
+         this.state.opening_hours = []
+       }
+       throw new Error('Request failed!');
+     } catch(Error){
+       console.log(Error);
+     }
+   };
+   takeNewCoords = (newLatitude, newLongitude) => {
+     this._getNewDataAsync(newLatitude,newLongitude);
+     this.setState({latitude: newLatitude, longitude: newLongitude});
+   }
 
-  sendData = async (data) => {
-    try {
-      const response = await fetch(`${process.env.INDICA_AI_API}/locals/`, {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      })
-      if (response.ok) {
-        const jsonResponse = await response.json();
-        this.setState({ successModalVisible: true })
-        this._updateFunction();
-      }
-    }
-    catch (error) {
-      this.setState({ errorModalVisible: true })
-    }
-  };
-  _updateFunction = () => {
+   sendData = async (data) => {
+     try{
+       const response = await fetch(`${process.env.INDICA_AI_API}/locals/`, {
+         method: 'POST',
+         headers: {
+           Accept: 'application/json',
+           'Content-Type': 'application/json'
+         },
+         body: JSON.stringify(data)
+       })
+       if(response.ok){
+         const jsonResponse = await response.json();
+         this.setState({ successModalVisible: true })
+         this.setState({
+           local: jsonResponse.data[0]
+         })
+         this._updateFunction();
+       }
+     }
+     catch(error){
+       this.setState({ errorModalVisible: true })
+     }
+   };
+   _updateFunction = () => {
     fetch(`${process.env.INDICA_AI_API}/locals/`, {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "aplication/json"
-      }
-    })
-      .then(response => response.json())
-      .then(responseJson => {
-        this.props.searchAction(responseJson)
-      })
-      .catch(error => {
-        console.log(error);
-      });
+     method: "GET",
+     headers: {
+       Accept: "application/json",
+       "Content-Type": "aplication/json"
+     }
+   })
+   .then(response => response.json())
+   .then(responseJson => {
+     this.props.searchAction(responseJson)
+   })
+   .catch(error => {
+     console.log(error);
+   });
 
-  }
-
+ }
+   afterRegister() {
+     const { local } = this.state
+     this.setState({ successModalVisible: false });
+     this.props.navigation.navigate('LocalDetails', {local});
+   }
 
   render() {
 
@@ -232,23 +246,22 @@ class RegisterLocal extends Component {
     return (
       <View style={styles.container}>
         <UserLocationMap
-          latitude={latitude}
-          longitude={longitude}
-          markLat={markLat}
-          markLong={markLong}
-          sendNewCoods={this.takeNewCoords}
-        />
-        <LocalDetails
-          data={data}
-          sendData={this.sendData}
-          name={name}
-          address={address}
-          latitude={this.state.latitude}
-          longitude={this.state.longitude}
-
+          latitude = {latitude}
+          longitude = {longitude}
+          markLat = {markLat}
+          markLong = {markLong}
+          sendNewCoods = {this.takeNewCoords}
+         />
+         <LocalDetails
+           data = {data}
+           sendData = {this.sendData}
+           name = {name}
+           address = {address}
+           latitude = {this.state.latitude}
+           longitude = {this.state.longitude}
         />
         <SuccessModal
-          onCancel={() => this.setState({ successModalVisible: false })}
+          onCancel={() => this.afterRegister()}
           visible={this.state.successModalVisible}
           message={"Local cadastrado com sucesso"}
         />
@@ -265,21 +278,15 @@ class RegisterLocal extends Component {
 const mapDispatchToProps = dispatch => (
   bindActionCreators({ searchAction }, dispatch)
 )
-export default connect(
+export default withNavigation(connect(
   null,
   mapDispatchToProps
-)(RegisterLocal);
+)(RegisterLocal));
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    position: "absolute",
     backgroundColor: "white",
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0
+    flex: 1
   },
   titleName: {
     alignItems: 'center',
@@ -288,12 +295,7 @@ const styles = StyleSheet.create({
     marginTop: 30,
     color: "#0AACCC",
   },
-  localMap: {
-    height: 300,
-    width: "100%",
-    top: 10,
-    padding: 20,
-    backgroundColor: '#d9d9d9',
+  localMap:{
     shadowColor: "#000000",
     shadowOpacity: 0.8,
     shadowRadius: 2,

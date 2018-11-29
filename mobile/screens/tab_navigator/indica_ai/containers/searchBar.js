@@ -42,7 +42,7 @@ export class SearchBar extends Component {
           console.log(error);
         });
     } else {
-      const url = fetch(`https://dev-indicaai.herokuapp.com/locals/`, {
+      const url = fetch(`${process.env.INDICA_AI_API}/locals/`, {
         method: "GET",
         headers: {
           Accept: "application/json",

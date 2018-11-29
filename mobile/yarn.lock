@@ -8663,7 +8663,7 @@ react-native-image-view@^2.0.12:
   resolved "https://registry.yarnpkg.com/react-native-image-view/-/react-native-image-view-2.1.1.tgz#ae3254751cddc5d5044f815da4e4cb7b79bd0874"
   integrity sha512-EMBHtgNh8XvJTuZK/2oFJqQbqYrw3wJFAV7ABOpt9JYZLfDn5XUSclO0AtcNdwVTo7IlBmTFKt0Ieu0bYcLYMw==
 
-react-native-iphone-x-helper@^1.0.1:
+react-native-iphone-x-helper@^1.0.1, react-native-iphone-x-helper@^1.0.3:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.2.0.tgz#9f8a376eb00bc712115abff4420318a0063fa796"
   integrity sha512-xIeTo4s77wwKgBZLVRIZC9tM9/PkXS46Ul76NXmvmixEb3ZwqGdQesR3zRiLMOoIdfOURB6N9bba9po7+x9Bag==
@@ -8675,6 +8675,13 @@ react-native-keyboard-aware-scroll-view@0.5.0:
   dependencies:
     prop-types "^15.6.0"
     react-native-iphone-x-helper "^1.0.1"
+
+react-native-keyboard-aware-scroll-view@^0.7.4:
+  version "0.7.4"
+  resolved "https://registry.yarnpkg.com/react-native-keyboard-aware-scroll-view/-/react-native-keyboard-aware-scroll-view-0.7.4.tgz#80fb4b56f3c5cb399da0c6832ec52729856ac08a"
+  dependencies:
+    prop-types "^15.6.2"
+    react-native-iphone-x-helper "^1.0.3"
 
 react-native-maps@0.21.0, react-native-maps@^0.21.0:
   version "0.21.0"
