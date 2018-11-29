@@ -295,7 +295,9 @@ export default class CadastroEventos1 extends Component {
 
 			case 3:
 				if (this.state.address == "") {
-					Alert.alert("Erro", "Campo de nome do local inválido!");
+          Alert.alert("Erro", "Campo de nome do local inválido!");
+        } else if (this.state.localization.latitude == null || this.state.localization.latitude == 0 || this.state.localization.longitude == null || this.state.localization.longitude == 0){
+          Alert.alert("Erro", "Você não selecionou uma localização!");
 				} else if (this.state.organizer == "") {
 					Alert.alert("Erro", "Campo de nome do organizador inválido!");
 				} else {
@@ -304,12 +306,7 @@ export default class CadastroEventos1 extends Component {
 				break;
 		}
 
-		if (blocked === true) {
-			Alert.alert(
-				"Erro",
-				"Seu evento ainda não está pronto para ser criado. Verifique se as informações estão corretas."
-			);
-		} else {
+		if (blocked === false) {
 			this._uploadImage(this.state.photo);
 		}
 	}
