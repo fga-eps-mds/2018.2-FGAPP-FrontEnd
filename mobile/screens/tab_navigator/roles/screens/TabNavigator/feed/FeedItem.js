@@ -29,7 +29,7 @@ class FeedItem extends Component {
             .catch(() => {});
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this._getCommentsLength();
     }
 
@@ -50,7 +50,6 @@ class FeedItem extends Component {
                         <View
                             style={{
                                 width: '50%',
-                                height: '100%',
                                 alignItems: 'center',
                                 paddingTop: 20
                             }}
@@ -74,7 +73,6 @@ class FeedItem extends Component {
                         <View
                             style={{
                                 width: '50%',
-                                height: '100%',
                                 alignItems: 'center',
                                 alignContent: 'center',
                                 justifyContent: 'center',
@@ -110,7 +108,7 @@ class FeedItem extends Component {
                 <Button
                     style={{
                         width: '100%',
-                        height: 50,
+                        height: 60,
                         flexDirection: 'row',
                         justifyContent: 'center'
                     }}
@@ -144,7 +142,6 @@ const styles = StyleSheet.create({
     },
     mb: {
         marginBottom: 15,
-        height: 250,
         justifyContent: 'space-between'
     },
     cardBtn: {
