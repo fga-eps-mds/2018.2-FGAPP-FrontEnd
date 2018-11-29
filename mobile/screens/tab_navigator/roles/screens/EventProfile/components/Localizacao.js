@@ -18,29 +18,23 @@ class Localizacao extends Component {
 		region: {
 			latitude: 0,
 			longitude: 0,
-			latitudeDelta: latLngDelta,
-			longitudeDelta: latLngDelta
+			latitudeDelta: 0,
+			longitudeDelta: 0
 		},
 		coordenadaRole: {
 			//Valores Padrões para Latitude e Longitude. Servem para caso a informação dada de localização não seja válida
-			latitude: -15.7856594,
-			longitude: -47.8959588,
-			latitudeDelta: latLngDelta,
-			longitudeDelta: latLngDelta
+			latitude: this.props.latitude,
+			longitude: this.props.longitude,
+			latitudeDelta: this.props.latitudeDelta,
+			longitudeDelta: this.props.longitudeDelta
 		},
 		alignLocalBtn: false
 	}
 
 	componentDidMount() {
-		Permissions.askAsync(Permissions.LOCATION)
-		this._getLocalizationFromAddress()
-			.then( () => {
-				this._getAddressFromCoordinates()				
-			})
-			.then( () => {
-				this.setState({ region: this.state.coordenadaRole })
-				// console.log(JSON.stringify(this.state.coordenadaRole))
-			})
+    Permissions.askAsync(Permissions.LOCATION)
+    this._getAddressFromCoordinates()
+    this.setState({ region: this.state.coordenadaRole })
 	}
 
 	_onRegionChange(region) {
@@ -57,24 +51,7 @@ class Localizacao extends Component {
 		} catch (e) {
 			this.setState({ error: e })
 		}
-	}
-
-	// Pra definir o local onde o marcador vai ficar
-	_getLocalizationFromAddress = async () => {
-		try {
-			let result = await Location.geocodeAsync(this.props.placeRef)
-			this.setState({
-				coordenadaRole: {
-					latitude: result[0].latitude,
-					longitude: result[0].longitude,
-					latitudeDelta: latLngDelta,
-					longitudeDelta: latLngDelta
-				}
-			})
-		} catch (e) {
-			this.setState({ error: e })
-		}
-	}
+  }
 
 	render() {
 		const { enderecoRole } = this.state
@@ -82,8 +59,6 @@ class Localizacao extends Component {
 		return (
 			<View>
 				<Card>
-					<CardHeader text="Localização" />
-
 					<CardItem>
 						<Icon name="pin" style={styles.pinIcon} />
 
@@ -119,7 +94,6 @@ class Localizacao extends Component {
 									height: 250
 								}}
 								region={this.state.region}
-								initialRegion={this.state.coordenadaRole}
 								onRegionChangeComplete={region =>
 									this._onRegionChange(region)
 								}

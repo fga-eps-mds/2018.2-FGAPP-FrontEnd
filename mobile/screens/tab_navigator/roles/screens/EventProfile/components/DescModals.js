@@ -1,13 +1,10 @@
 import React, { Component } from "react"
-import { Card, CardItem, Body, Icon, Button } from "native-base"
+import { Card, CardItem, Icon } from "native-base"
 import {
 	ScrollView,
 	Text,
 	StyleSheet,
-	TouchableOpacity,
 	Linking,
-	View,
-	TouchableHighlight
 } from "react-native"
 import Modal from "react-native-modal"
 
@@ -50,18 +47,6 @@ class DescModals extends Component {
 							{"\n" + this.props.text + "\n"}
 						</Text>
 					</ScrollView>
-
-					
-					{this.props.link != null && 
-						<CardItem style={{ alignSelf: "center" }}>
-							<Icon name="link" />
-							<TouchableOpacity onPress={this._gotoURL}>
-								<Text style={{ color: "blue" }}>
-									{this.props.link}
-								</Text>
-							</TouchableOpacity>
-						</CardItem>
-					}
 
 				</Card>
 			</Modal>

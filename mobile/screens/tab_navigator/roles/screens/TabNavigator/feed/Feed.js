@@ -1,5 +1,3 @@
-import { Icon, Text } from 'native-base';
-
 import React, { Component } from 'react';
 import {
     View,
@@ -8,6 +6,8 @@ import {
     RefreshControl,
     ActivityIndicator
 } from 'react-native';
+import { Icon, Text } from 'native-base';
+
 import FeedItem from './FeedItem';
 import * as helpers from '../../../utils/helpers';
 
@@ -25,16 +25,16 @@ class Feed extends Component {
     };
 
     async componentWillMount() {
-      Expo.Font.loadAsync({
+        Expo.Font.loadAsync({
             Roboto,
             Roboto_medium,
-            Ionicons,
-      })
-        .then( () => {
-          this.setState({ loading: false });
+            Ionicons
         })
+            .then(() => {
+                this.setState({ loading: false });
+            })
 
-        .catch( () => {});
+            .catch(() => {});
     }
 
     _refreshFeed = () => {
@@ -46,18 +46,7 @@ class Feed extends Component {
                 // RETIRANDO EVENTOS PASSADOS
                 resJson = resJson.filter(role => {
                     const { hasPassed, formatDate } = helpers;
-                    if (hasPassed(formatDate(role.eventDate).formatted)) {
-                        // console.log(
-                        //     role.eventName + ':\t',
-                        //     helpers.formatDate(role.eventDate).formatted,
-                        //     '\tEVENTO PASSADO!'
-                        // );
-                    } else {
-                        // console.log(
-                        //     role.eventName + ':\t',
-                        //     helpers.formatDate(role.eventDate).formatted,
-                        //     '\tEVENTO FUTURO!'
-                        // );
+                    if (!hasPassed(formatDate(role.eventDate).formatted)) {
                         return role;
                     }
                 });
@@ -86,6 +75,10 @@ class Feed extends Component {
             });
     };
 
+    componentDidMount(){
+      this._refreshFeed();
+    }
+
     render() {
         return (
             <View>
@@ -99,56 +92,36 @@ class Feed extends Component {
                         <ActivityIndicator size="large" color="#00a50b" />
                     </View>
                 )}
-
-                {this.state.feedInit == true ? (
-                    <ScrollView
-                        refreshControl={
-                            <RefreshControl
-                                refreshing={this.state.refreshing}
-                                onRefresh={this._refreshFeed}
-                            />
-                        }
-                    >
-                        <View style={styles.refreshBox}>
-                            <Text style={styles.refreshBoxText}>
-                                <Icon name="refresh" />
-                                {'\n'}
-                                Puxe para carregar o feed
+                <ScrollView
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={this.state.refreshing}
+                            onRefresh={this._refreshFeed}
+                        />
+                    }
+                >
+                    {this.state.zeroRoles ? (
+                        <View style={styles.notFoundBox}>
+                            <Text style={styles.notFoundBoxText}>
+                                <Icon type="Entypo" name="emoji-sad" />
+                                {'\n'}Não foram encontrados rolês.
+                                {'\n'}Tente novamente mais tarde!
                             </Text>
                         </View>
-                    </ScrollView>
-                ) : (
-                    <ScrollView
-                        refreshControl={
-                            <RefreshControl
-                                refreshing={this.state.refreshing}
-                                onRefresh={this._refreshFeed}
+                    ) : (
+                        this.state.roles.map((role, index) => (
+                            <FeedItem
+                                key={index}
+                                idRole={role.id}
+                                imgRole={role.photo}
+                                nomeRole={role.eventName}
+                                org={role.ownerName}
+                                eventDate={role.eventDate}
+                                navigation={this.props.navigation}
                             />
-                        }
-                    >
-                        {this.state.zeroRoles ? (
-                            <View style={styles.notFoundBox}>
-                                <Text style={styles.notFoundBoxText}>
-                                    <Icon type="Entypo" name="emoji-sad" />
-                                    {'\n'}Não foram encontrados rolês.
-                                    {'\n'}Tente novamente mais tarde!
-                                </Text>
-                            </View>
-                        ) : (
-                            this.state.roles.map((role, index) => (
-                                <FeedItem
-                                    key={index}
-                                    idRole={role.id}
-                                    imgRole={role.photo}
-                                    nomeRole={role.eventName}
-                                    org={role.ownerName}
-                                    eventDate={role.eventDate}
-                                    navigation={this.props.navigation}
-                                />
-                            ))
-                        )}
-                    </ScrollView>
-                )}
+                        ))
+                    )}
+                </ScrollView>
             </View>
         );
     }

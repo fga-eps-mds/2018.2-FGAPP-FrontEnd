@@ -17,6 +17,7 @@ import jwt_decode from 'jwt-decode';
 import CadastroInput from "./CadastroInput/index.js";
 import MapsModal from "./MapsModal/index.js";
 import ImageModal from "./ImageModal/index.js";
+import * as helpers from '../../../utils/helpers';
 
 const eighteen = require("../../../static/eighteen.png");
 const date = new Date();
@@ -29,12 +30,15 @@ export default class CadastroEventos1 extends Component {
 		eventDescription: "",
 		ownerName: "",
 		ownerId: "",
-		linkReference: "",
+		// linkReference: "",
 		organizer: "",
 		organizerTel: "",
 		value: "",
 		address: "",
-		linkAddress: "",
+    latitude: 0,
+    longitude: 0,
+    latitudeDelta: 0,
+    longitudeDelta: 0,
 		eventDate: "",
 		eventHour: "",
 		adultOnly: true,
@@ -144,12 +148,15 @@ export default class CadastroEventos1 extends Component {
 			eventDescription: "",
 			ownerName: "",
 			ownerId: "",
-			linkReference: "",
+			// linkReference: "",
 			organizer: "",
 			organizerTel: "",
 			value: "",
 			address: "",
-			linkAddress: "",
+      latitude: 0,
+      longitude: 0,
+      latitudeDelta: 0,
+      longitudeDelta: 0,
 			eventDate: "",
 			eventHour: "",
 			adultOnly: true,
@@ -171,7 +178,10 @@ export default class CadastroEventos1 extends Component {
 	}
 
 	_cadastraRole(photoURL) {
-		console.log(this.state);
+    if(this.state.drinks == "") this.setState({drinks: null})
+    if(this.state.eventDescription == "") this.setState({eventDescription: null})
+    if(this.state.foods == "") this.setState({foods: null})
+    
 		const eventPath = `${process.env.ROLES_EVENTS_API}/events/`;
 		fetch(eventPath, {
 			method: "POST",
@@ -183,12 +193,14 @@ export default class CadastroEventos1 extends Component {
 				ownerName: this.state.profileInfo.name,
 				ownerId: this.state.userId, 
 				eventName: this.state.eventName,
-				linkReference: "https://" + this.state.linkReference + ".com", // Verificar Front-End e Back para decisão sobre este campo
 				organizer: this.state.organizer,
 				value: this.state.value,
 				address: this.state.address,
-				linkAddress: "https://www.google.com/", // Verificar Front-End e Back para decisão sobre este campo
-				eventDate: this.state.eventDate,
+        latitude: this.state.localization.latitude,
+        longitude: this.state.localization.longitude,
+        latitudeDelta: this.state.localization.latitudeDelta,
+        longitudeDelta: this.state.localization.longitudeDelta,
+        eventDate: this.state.eventDate,
 				eventHour: this.state.eventHour,
 				adultOnly: this.state.adultOnly,
 				eventDescription: this.state.eventDescription,
@@ -203,7 +215,7 @@ export default class CadastroEventos1 extends Component {
 					responseOk: response.ok
 				});
 				console.log(JSON.stringify(response));
-				response.json();
+				return response.json();
 			})
 			.then(responseJson => {
 				console.log(
@@ -212,27 +224,28 @@ export default class CadastroEventos1 extends Component {
 					"//",
 					"Status:",
 					this.state.responseStatus
-				);
+        );
+        console.log('Response Message:',responseJson);
 				if (
 					this.state.responseStatus >= 200 &&
 					this.state.responseStatus <= 202 &&
 					this.state.responseOk
 				) {
-					console.log("Rolê cadastrado com sucesso!");
+          console.log("Rolê cadastrado com sucesso!");
 					Alert.alert("Parabéns!", "O Rolê foi cadastrado com sucesso!");
-					this.setState({ uploading: false, stage: 0 });
+          this.setState({ uploading: false, stage: 0 });
+          this.props.navigation.navigate('Feed');
 					this._resetStates();
 				} else {
 					return Promise.reject();
 				}
 			})
-			.catch(error => {
+			.catch( () => {
 				Alert.alert(
 					"Erro " + this.state.responseStatus,
 					"Houveram problemas na conexão. Tente novamente mais tarde."
 				);
 				this.setState({ uploading: false, stage: 0 });
-				this._resetStates();
 			});
 	}
 
@@ -272,14 +285,8 @@ export default class CadastroEventos1 extends Component {
 				}
 				return;
 
-			case 2:
-				if (this.state.eventDescription == "") {
-					Alert.alert("Erro", "Campo de descrição do evento inválido!");
-				} else if (this.state.drinks == "") {
-					Alert.alert("Erro", "Campo de drinks do evento inválido!");
-				} else if (this.state.foods == "") {
-					Alert.alert("Erro", "Campo de comidas do evento inválido!");
-				} else if (this.state.photo == null) {
+      case 2:
+        if (this.state.photo == null) {
 					Alert.alert("Erro", "Envie uma foto!");
 				} else {
 					this.setState({ stage: 3 });
@@ -291,10 +298,6 @@ export default class CadastroEventos1 extends Component {
 					Alert.alert("Erro", "Campo de nome do local inválido!");
 				} else if (this.state.organizer == "") {
 					Alert.alert("Erro", "Campo de nome do organizador inválido!");
-				} else if (this.state.organizerTel == "") {
-					Alert.alert("Erro", "Campo de telefone da organização inválido!");
-				} else if (this.state.linkReference == "") {
-					Alert.alert("Erro", "Campo do link de referência inválido!");
 				} else {
 					blocked = false;
 				}
@@ -318,14 +321,10 @@ export default class CadastroEventos1 extends Component {
 	async datePicker() {
 		try {
 			const { action, year, month, day } = await DatePickerAndroid.open({
-				// Use `new Date()` for current date.
 				date: new Date(),
 				minDate: new Date()
 			});
 			if (action !== DatePickerAndroid.dismissedAction) {
-				// console.log(year);
-				// console.log(month);
-				// console.log(day);
 
 				month += 1; //Month goes from 0 to 11, 0 is January
 				if (month < 10) month = "0" + month;
@@ -388,7 +387,6 @@ export default class CadastroEventos1 extends Component {
 	_handleLocationSelection(region) {
 		this.setState({ localization: region });
 		this._toggleModal("maps");
-		// console.log('--------------------------------------\n','DEBUG HANDLE LOCALIZATION:',region,this.state.localization,'\n--------------------------------------');
 	}
 
 	render() {
@@ -409,10 +407,16 @@ export default class CadastroEventos1 extends Component {
 							fontSize: 15
 						}}
 					>
-						Aconselhamos que você já tenha todos os dados em mãos, para que o
-						processo fique rápido.
-						{`\n\nClique para iniciar!`}
+						{`Aconselhamos que você já tenha todos os dados em mãos, para que o processo fique rápido.
+            
+Clique para iniciar!
+
+`}
 					</Text>
+          <Text style={{color:'grey', alignSelf: 'center'}}>
+              (Os campos marcados com um <Icon style={{ fontSize: 17 ,color: 'rgba(255,0,0,0.2)'}} type="FontAwesome" name="exclamation"/> são obrigatórios!)
+          </Text>
+
 					<TouchableOpacity
 						onPress={() => {
 							this.setState({ stage: 1 });
@@ -444,7 +448,8 @@ export default class CadastroEventos1 extends Component {
 								iconType="MaterialIcons"
 								iconName="text-format"
 								onChangeText={eventName => this.setState({ eventName })}
-								value={this.state.eventName}
+                value={this.state.eventName}
+                required
 							/>
 						</View>
 
@@ -458,7 +463,8 @@ export default class CadastroEventos1 extends Component {
 								iconName="ticket"
 								onChangeText={value => this.setState({ value })}
 								keyboardType="numeric"
-								value={this.state.value}
+                value={this.state.value}
+                required
 							/>
 						</View>
 
@@ -480,9 +486,11 @@ export default class CadastroEventos1 extends Component {
 												marginTop: 15
 											}}
 										/>
-										<Text>{this.state.eventDate || "Data"}</Text>
+										<Text>{helpers.formatDate(this.state.eventDate).formatted || "Data"}</Text>
 									</TouchableOpacity>
 								</View>
+
+                <Icon style={{color: 'rgba(255,0,0,0.2)'}} type="FontAwesome" name="exclamation"/>
 
 								<View>
 									<TouchableOpacity
@@ -497,7 +505,7 @@ export default class CadastroEventos1 extends Component {
 												marginTop: 15
 											}}
 										/>
-										<Text>{this.state.eventHour || "Horário"}</Text>
+										<Text>{this.state.eventHour.slice(0,5) || "Horário"}</Text>
 									</TouchableOpacity>
 								</View>
 							</View>
@@ -507,11 +515,12 @@ export default class CadastroEventos1 extends Component {
 							<Text style={styles.questionText}>
 								É permitido para menores de 18 anos?
 							</Text>
+
 							<View
 								flexDirection="row"
-								justifyContent="space-around"
+								justifyContent="space-between"
 								alignSelf="center"
-								width={100}
+								width={150}
 								marginTop={10}
 							>
 								<Image source={eighteen} style={{ height: 30, width: 30 }} />
@@ -519,6 +528,7 @@ export default class CadastroEventos1 extends Component {
 									onValueChange={() => this._handleToggleSwitch()}
 									value={this.state.adultOnly}
 								/>
+                <Icon style={{color: 'rgba(255,0,0,0.2)'}} type="FontAwesome" name="exclamation"/>
 							</View>
 						</View>
 						<Button
@@ -555,7 +565,7 @@ export default class CadastroEventos1 extends Component {
 								onChangeText={eventDescription =>
 									this.setState({ eventDescription })
 								}
-								value={this.state.eventDescription}
+                value={this.state.eventDescription}
 							/>
 						</View>
 
@@ -600,6 +610,7 @@ export default class CadastroEventos1 extends Component {
 										style={{ color: "black" }}
 									/>
 									<Text>Enviar foto do evento</Text>
+                  <Icon style={{color: 'rgba(255,0,0,0.2)'}} type="FontAwesome" name="exclamation"/>
 								</Button>
 							) : (
 								<Button
@@ -664,18 +675,6 @@ export default class CadastroEventos1 extends Component {
 						<Text>3/3</Text>
 					</View>
 					<View style={styles.container}>
-						<View>
-							<Text style={styles.questionText}>
-								Existe algum link nas redes sociais?
-							</Text>
-							<CadastroInput
-								placeholder="Link de referência"
-								iconType="Feather"
-								iconName="link"
-								onChangeText={linkReference => this.setState({ linkReference })}
-								value={this.state.linkReference}
-							/>
-						</View>
 
 						<View>
 							<Text style={styles.questionText}>
@@ -686,7 +685,8 @@ export default class CadastroEventos1 extends Component {
 								iconType="MaterialIcons"
 								iconName="place"
 								onChangeText={address => this.setState({ address })}
-								value={this.state.address}
+                value={this.state.address}
+                required
 							/>
 							{/* Espaçamento */}
 							<View style={{ height: 10 }} />
@@ -709,6 +709,7 @@ export default class CadastroEventos1 extends Component {
 									name="gps-fixed"
 								/>
 								<Text>Definir Localização</Text>
+                <Icon style={{color: 'rgba(255,0,0,0.2)'}} type="FontAwesome" name="exclamation"/>
 							</Button>
 
 							{this.state.localization.latitude != undefined &&
@@ -747,7 +748,8 @@ export default class CadastroEventos1 extends Component {
 								iconType="MaterialIcons"
 								iconName="person"
 								onChangeText={organizer => this.setState({ organizer })}
-								value={this.state.organizer}
+                value={this.state.organizer}
+                required
 							/>
 							{/* Espaçamento */}
 							<View style={{ height: 10 }} />

@@ -91,22 +91,6 @@ class Avaliacao extends Component {
 							</Right>
 						</CardItem>
 					</Card>
-
-					<Divider size={200}/>
-
-					<Card transparent style={styles.subCards}>
-						<Text style={styles.subHeaders}>Chame alguém!</Text>
-						<Button block primary style={styles.btn}>
-							<Icon name="share" />
-							<Text style={{ color: "white" }}>Compartilhar</Text>
-						</Button>
-
-						<Text style={styles.subHeaders}>Fale que chegou!</Text>
-						<Button block success style={styles.btn}>
-							<Icon name="pin" />
-							<Text style={{ color: "white" }}>Check-in</Text>
-						</Button>
-					</Card>
 				</Body>
 			</Card>
 		)
