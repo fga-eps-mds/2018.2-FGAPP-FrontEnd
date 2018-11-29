@@ -8,11 +8,13 @@ import fetchMock from 'fetch-mock';
 
 Enzyme.configure({adapter: new Adapter()});
 
+const TOKEN_EXAMPLE = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InJvZ2VybGVua2VAZ21haWwuY29tIiwidXNlcl9pZCI6MSwib3JpZ19pYXQiOjE1NDE3MTk3NDksImV4cCI6MTU0MTcyMDA0OSwidXNlcm5hbWUiOiJyb2dlcmxlbmtlQGdtYWlsLmNvbSJ9.eCEGRB9yYAkP5iBIybeDsAoWk4HyusPUTX3LBiP0I64";
+
 describe('Test loadOrders requisition and snapshot', () => {
     const navigation = {
         state: {
             params: {
-                token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InJvZ2VybGVua2VAZ21haWwuY29tIiwidXNlcl9pZCI6MSwib3JpZ19pYXQiOjE1NDE3MTk3NDksImV4cCI6MTU0MTcyMDA0OSwidXNlcm5hbWUiOiJyb2dlcmxlbmtlQGdtYWlsLmNvbSJ9.eCEGRB9yYAkP5iBIybeDsAoWk4HyusPUTX3LBiP0I64"
+                token: TOKEN_EXAMPLE
             }
         },
         navigate: jest.fn(),
@@ -78,6 +80,7 @@ describe('Test loadOrders requisition and snapshot', () => {
           });
 
         const state = {
+            token: TOKEN_EXAMPLE,
             orders: [''],
             buyer_orders: [''],
             refreshing: false,
@@ -102,7 +105,9 @@ describe('Testing navigation', () => {
     const props = {
       navigation: {
         navigate: spyNavigate,
-        state: {}
+        state: {
+            token:TOKEN_EXAMPLE,
+        }
       }
     }
     const params = {

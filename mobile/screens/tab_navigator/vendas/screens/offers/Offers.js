@@ -10,51 +10,57 @@ import {
 	RefreshControl
 } from 'react-native';
 import ProductCard from '../../components/ProductCard';
+import {getUserToken} from '../../../../../AuthMethods'
 
 class Offers extends Component {
 	// productImage initialize with an image cause of asynchronous request
 	constructor(props) {
 		super(props);
 		this.state = {
+			token:undefined,
 			products: [{
 				name: '',
 				price: '',
 				photo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3DELRuKTg7K4gi9v13ELUq3ltLxlNGOsw6BDfsF0jlVKFr4h3',
 			}],
-			refreshing: false,
+			refreshing: true,
 		};
 	}
-
+	componentDidMount(){
+        getUserToken()
+        .then(res => {
+			this.setState({ token: res })
+			this.loadOffers();
+			this.setState({ refreshing: false });
+		})
+	}
+	
 	loadOffers = async () => {
-		const { state } = this.props.navigation;
-		var token = state.params ? state.params.token : undefined;
 		var products_path = `${process.env.VENDAS_API}/api/all_products/`;
 
+		
 		fetch(products_path, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify({
-				'token': token,
+				'token': this.state.token,
 			}),
 		})
-			.then((response) => { return response.json() })
-			.then((responseJson) => {
-				if (responseJson.length > 1) {
-					responseJson.sort((product1, product2) => {
-						return (product1.price - product2.price);
-					});
-				}
-				this.setState({ products: responseJson });
-			})
-			.catch((error) => {
-				console.error(error);
-			});
-	}
-
-	componentDidMount() {
-		this.loadOffers();
+		.then((response) => { return response.json() })
+		.then((responseJson) => {
+			console.log('responseJson', responseJson)
+			if (responseJson.length > 1) {
+				responseJson.sort((product1, product2) => {
+					return (product1.price - product2.price);
+				});
+			}
+			this.setState({ products: responseJson });
+		})
+		.catch((error) => {
+			console.error(error);
+		});
 	}
 
 	refreshOffers = async () => {
@@ -65,8 +71,6 @@ class Offers extends Component {
 	}
 
 	render() {
-		const { state } = this.props.navigation;
-		var token = state.params ? state.params.token : undefined;
 		return (
 			<View style={styles.container}>
 				<ScrollView
@@ -84,7 +88,7 @@ class Offers extends Component {
 								photo={product.photo}
 								name={product.name}
 								price={parseFloat(product.price).toFixed(2)}
-								onPress={() => this.props.navigation.navigate('OfferDetails', { product: product, token: token })}
+								onPress={() => this.props.navigation.navigate('OfferDetails', { product: product, token:this.state.token })}
 							/>
 						);
 					})}

@@ -12,18 +12,16 @@ import {
   TouchableOpacity,
   ImageBackground
 } from 'react-native';
-import {
-  Textarea,
-  Form,
-  Item,
-  Input,
-  Label,
-  Button
-} from 'native-base';
+import ProductImage from '../../components/ProductImage';
+import GreenButton from '../../components/GreenButton';
+import RedButton from '../../components/RedButton';
+import InputLab from '../../components/InputLab';
+import { Textarea, Form } from 'native-base';
 import jwt_decode from 'jwt-decode';
 import ErrorDialog from './ErrorDialog';
 import ToogleView from './ToogleView';
 import { ImagePicker } from 'expo';
+import {getUserToken} from '../../../../../AuthMethods'
 
 class CreateProduct extends Component {
   constructor(props) {
@@ -65,9 +63,16 @@ class CreateProduct extends Component {
     }
   }
 
+  _goBack = async () => {
+    const {state} = this.props.navigation;
+    var token = state.params ? state.params.token : undefined;
+
+    this.props.navigation.navigate('MyProducts', {token:token});
+  }
+
   registerProduct = () => {
-    const { state } = this.props.navigation;
-    const token = state.params ? state.params.token : undefined;
+    const {state} = this.props.navigation;
+    var token = state.params ? state.params.token : undefined;
     const user = jwt_decode(token);
 
     const formData = new FormData();
@@ -89,8 +94,8 @@ class CreateProduct extends Component {
       });
     }
 
-    const createProductPath = `${process.env.VENDAS_API}/api/create_product/`;
-    fetch(createProductPath, {
+      const createProductPath = `${process.env.VENDAS_API}/api/create_product/`;
+      fetch(createProductPath, {
       method: 'POST',
       body: formData,
       headers: {
@@ -152,100 +157,80 @@ class CreateProduct extends Component {
     ]).start();
   }
 
-  render() {
-    const { state } = this.props.navigation;
-    var token = state.params ? state.params.token : undefined;
+    render() {
+      const editableIcon = require('../../assets/editableIcon.png');
+      const defaultPhoto = 'https://res.cloudinary.com/integraappfga/image/upload/v1541634743/SEM_IMAGEM.jpg';
+      var photo = (this.state.photo == null) ? defaultPhoto : this.state.photo;
+        return (
+            <Animated.View style={[styles.container, { paddingBottom: this.keyboardHeight }]}>
+              <ErrorDialog
+                  messageError={this.state.messageError}
+                  isDialogVisible={this.state.isDialogVisible}
+                  backButton = {this.closeDialog}
+              />
+              <TouchableOpacity onPress={this._clickPhoto}>
+                <Animated.Image
+                  source={{ uri: photo }}
+                  style={{ height: this.imageHeight, width: '100%' }}
+                />
+                <Animated.Image
+                  source={editableIcon}
+                  style={{ position: 'absolute', left: '90%', top: '5%' }}
+                />
+              </TouchableOpacity>
 
-    const editableIcon = require('../../assets/editableIcon.png');
-    const defaultPhoto = 'https://res.cloudinary.com/integraappfga/image/upload/v1541634743/SEM_IMAGEM.jpg';
-    var photo = (this.state.photo == null) ? defaultPhoto : this.state.photo;
+              <Form style={styles.description}>
 
-    return (
-      <Animated.View
-        style={[styles.container, { paddingBottom: this.keyboardHeight }]}
-      >
-        <ErrorDialog
-          messageError={this.state.messageError}
-          isDialogVisible={this.state.isDialogVisible}
-          backButton={this.closeDialog}
-        />
-        <TouchableOpacity onPress={this._clickPhoto}>
-          <Animated.Image
-            source={{ uri: photo }}
-            style={{ height: this.imageHeight, width: '100%' }}
-          />
-          <Animated.Image
-            source={editableIcon}
-            style={{ position: 'absolute', left: '90%', top: '5%' }}
-          />
-        </TouchableOpacity>
-        
-        <Form style={styles.description}>
-          <Item floatingLabel>
-            <Label>Título</Label>
-            <Input
-              style={{ color: 'black' }}
-              onChangeText={(title) => { this.setState({ title }) }}
-            />
-          </Item>
-          <Item floatingLabel>
-            <Label>Preço</Label>
-            <Input
-              style={{ color: 'black' }}
-              keyboardType='numeric'
-              onChangeText={(price) => { this.setState({ price }) }}
-            />
-          </Item>
-          <Textarea
-            style={{ color: 'black' }}
-            onChangeText={(description) => { this.setState({ description }) }}
-            rowSpan={2}
-            underline
-            placeholder="Descrição"
-          />
-        </Form>
-        <ToogleView hide={this.state.isButtonsHidden}>
-          <View style={styles.buttonContainer}>
-            <Button
-              onPress={() => { this.props.navigation.navigate('MyProducts', { token: token }); }}
-              style={styles.button}
-              danger
-            >
-              <Text style={{ color: 'white' }}> CANCELAR </Text>
-            </Button>
-            <Button
-              onPress={this.registerProduct}
-              style={styles.button}
-              success
-            >
-              <Text style={{ color: 'white' }}> SALVAR </Text>
-            </Button>
-          </View>
-        </ToogleView>
-      </Animated.View>
-    );
-  }
+                <InputLab
+                  nameLabel='Título'
+                  onChangeText={(title) => this.setState({title})}
+                />
+
+                <InputLab
+                  nameLabel = 'Preço'
+                  keyboardType='numeric'
+                  onChangeText={(price) => {this.setState({price})}}
+                />
+
+                <Textarea
+                  style={{ color: 'black' }}
+                  onChangeText={(description) => {this.setState({description})}}
+                  rowSpan={2}
+                  underline
+                  placeholder="Descrição"
+                />
+              </Form>
+              <ToogleView hide={this.state.isButtonsHidden}>
+                <View style={styles.buttonContainer}>
+                  <RedButton
+                    onPress={this._goBack}
+                    text="CANCELAR"
+                  />
+                  <GreenButton
+                    onPress={this.registerProduct}
+                    text="SALVAR"
+                  />
+                </View>
+              </ToogleView>
+            </Animated.View>
+        );
+    }
 }
 export default CreateProduct;
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: 'white',
-    flex: 1
-  },
-  description: {
-    flex: 1,
-    height: '35%',
-    width: '95%',
-  },
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    paddingBottom: 10,
-  },
-  button: {
-    justifyContent: 'center',
-    height: 40,
-    width: 100,
-  }
+    container: {
+      backgroundColor: 'white',
+        flex: 1
+    },
+    description: {
+      flex: 1,
+      height: '35%',
+      width: '95%',
+    },
+    buttonContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-around',
+      paddingBottom: 10,
+    },
 });

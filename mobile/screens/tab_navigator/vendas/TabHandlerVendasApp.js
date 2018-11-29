@@ -3,7 +3,7 @@
 */
 
 import React, { Component } from 'react';
-import { TabNavigator, StackNavigator } from 'react-navigation';
+import { TabNavigator } from 'react-navigation';
 import MyProductsScreen from './screens/MyProductsScreen';
 import OfferScreen from './screens/OfferScreen';
 import OrderScreen from './screens/OrderScreen';
