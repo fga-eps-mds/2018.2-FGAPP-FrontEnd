@@ -12,80 +12,9 @@ import styles from '../../styles';
 import { Card, CardItem, Text, Left, Right, Content, Body} from 'native-base';
 import OfferDialog from '../../components/OfferDialog';
 import jwt_decode from 'jwt-decode';
-<<<<<<< HEAD
-
-const Quantity = [
-  {
-    label: '1',
-    value: '1'
-  },
-  {
-    label: '2',
-    value: '2'
-  },
-  {
-    label: '3',
-    value: '3'
-  },
-  {
-    label: '4',
-    value: '4'
-  },
-  {
-    label: '5',
-    value: '5'
-  },
-  {
-    label: '6',
-    value: '6'
-  },
-  {
-    label: '7',
-    value: '7'
-  },
-  {
-    label: '8',
-    value: '8'
-  },
-  {
-    label: '9',
-    value: '9',
-  },
-  {
-    label: '10',
-    value: '10'
-  }
-];
-
-class FormPicker extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-        modalVisible: false
-    };
-  }
-
-  render(){
-    return (
-      <Picker
-      selectedValue = {this.props.value}
-      onValueChange = {this.props.onValueChange}
-      style = {styles.PickerStyle}
-      mode = 'dropdown'
-      >
-      {this.props.items.map((i, index) => (
-        <Picker.Item key = {index} label = {i.label} value = {i.value} />
-      ))}
-      </Picker>
-    );
-  }
-}
-
-=======
 import GreenButton from '../../components/GreenButton';
 import FormPicker from '../../components/FormPicker';
 import {getUserToken} from '../../../../../AuthMethods'
->>>>>>> 49a5d28e6055bd7a001595d7068cdb1395b2fccd
 
  class OfferDetails extends Component {
     constructor(props){
@@ -96,13 +25,36 @@ import {getUserToken} from '../../../../../AuthMethods'
         isDialogVisible: false,
         buyer_message: '',
         max_characters: '120',
+        photo:'https://res.cloudinary.com/integraappfga/image/upload/v1543060378/pg9po2nkmp613tyhyhfl.jpg',
+        name:'Fulano da silva',
       };
     }
 
-    componentDidMount(){
+    componentWillMount(){
       getUserToken()
           .then(res => this.setState({ token: res }))
           .catch(err => alert("Erro"));
+
+      const {state} = this.props.navigation;
+      var product = state.params ? state.params.product : undefined;
+
+      const get_profile_path = `${process.env.INTEGRA_LOGIN_AUTH}/api/users/get_profile/`;
+      fetch(get_profile_path,{
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          'user_id': product.fk_vendor,
+        }),
+      })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log(responseJson)
+        this.setState({ name: responseJson.name, photo: responseJson.photo})
+      })
+
     }
     
     sendNotification = async (product, token) => {
@@ -191,10 +143,10 @@ import {getUserToken} from '../../../../../AuthMethods'
                 />
               <View style={styless.user_container}>
                 <Image
-                  source={{ uri: 'https://res.cloudinary.com/integraappfga/image/upload/v1543060378/pg9po2nkmp613tyhyhfl.jpg' }}
+                  source={{ uri: this.state.photo }}
                   style={styless.image_circle}
                 />
-                <Text style={styless.user_name}>Fulano da Silva 29</Text>
+                <Text style={styless.user_name}>{this.state.name}</Text>
               </View>
 
               <CardItem style={styles.info}>
