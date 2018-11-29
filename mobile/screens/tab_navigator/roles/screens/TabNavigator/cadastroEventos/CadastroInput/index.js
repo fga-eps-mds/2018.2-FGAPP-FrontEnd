@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
 		backgroundColor: "white"
 	},
 	inputContainer: {
-		width: "80%",
+		width: "100%",
 		alignSelf: "center",
 		justifyContent: "space-around",
 		alignItems: "center",
@@ -22,12 +22,8 @@ export default class CadastroInput extends Component {
 	render() {
 		return (
 			<View style={styles.inputContainer}>
-				<Icon
-					type={this.props.iconType}
-					name={this.props.iconName}
-          style={{ fontSize: 30, marginTop: 15 }}
-				/>
 				<Item style={{ width: "80%" }}>
+          <Icon type={this.props.iconType} name={this.props.iconName} />
 					<Input
 						placeholder={this.props.placeholder}
             style={{ textAlign: "center" }}
@@ -36,6 +32,9 @@ export default class CadastroInput extends Component {
             defaultValue=''
             value={this.props.value === '' || this.props.value === null ? '' : this.props.value } 
 					/>
+          {this.props.required && 
+            <Icon style={{color: 'rgba(255,0,0,0.2)'}} type="FontAwesome" name="exclamation"/>
+          }
 				</Item>
 			</View>
 		);

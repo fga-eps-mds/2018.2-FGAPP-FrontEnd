@@ -25,6 +25,9 @@
             "apiKey": "AIzaSyCTPTVfQS6T0YQn60cPezC-qYGinpMd5ag"
         }
       }
+    },
+    "ios": {
+      "bundleIdentifier": "com.unbgama.integra",
     }
   }
 }

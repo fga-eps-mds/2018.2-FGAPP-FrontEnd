@@ -1,0 +1,364 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<Modal
+  animationType="none"
+  hardwareAccelerated={false}
+  hideModalContentWhileAnimating={false}
+  onModalHide={[Function]}
+  onRequestClose={[Function]}
+  scrollOffset={0}
+  scrollOffsetMax={0}
+  scrollTo={null}
+  supportedOrientations={
+    Array [
+      "portrait",
+      "landscape",
+    ]
+  }
+  swipeThreshold={100}
+  transparent={true}
+  visible={false}
+>
+  <View
+    accessibilityComponentType={undefined}
+    accessibilityLabel={undefined}
+    accessibilityTraits={undefined}
+    accessible={true}
+    collapsable={undefined}
+    hitSlop={undefined}
+    nativeID={undefined}
+    onLayout={undefined}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "backgroundColor": "black",
+        "bottom": 0,
+        "height": 1334,
+        "left": 0,
+        "opacity": 0,
+        "position": "absolute",
+        "right": 0,
+        "top": 0,
+        "width": 750,
+      }
+    }
+    testID={undefined}
+  />
+  <View
+    collapsable={undefined}
+    hideModalContentWhileAnimating={false}
+    onModalHide={[Function]}
+    pointerEvents="box-none"
+    scrollOffset={0}
+    scrollOffsetMax={0}
+    scrollTo={null}
+    style={
+      Object {
+        "flex": 1,
+        "justifyContent": "center",
+        "margin": 37.5,
+        "transform": Array [
+          Object {
+            "translateY": 0,
+          },
+        ],
+      }
+    }
+    supportedOrientations={
+      Array [
+        "portrait",
+        "landscape",
+      ]
+    }
+    swipeThreshold={100}
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "#fff",
+            "borderBottomWidth": 0.5,
+            "borderColor": "#ccc",
+            "borderLeftWidth": 0.5,
+            "borderRadius": 2,
+            "borderRightWidth": 0.5,
+            "borderTopWidth": 0.5,
+            "elevation": 3,
+            "flexWrap": "nowrap",
+            "marginBottom": 5,
+            "marginLeft": 2,
+            "marginRight": 2,
+            "marginTop": 5,
+            "shadowColor": "#000",
+            "shadowOffset": Object {
+              "height": 2,
+              "width": 0,
+            },
+            "shadowOpacity": 0.1,
+            "shadowRadius": 1.5,
+          },
+          Object {
+            "alignItems": "stretch",
+            "alignSelf": "stretch",
+            "backgroundColor": "white",
+            "borderRadius": 10,
+            "height": "80%",
+            "width": "100%",
+          },
+        ]
+      }
+      virtual={undefined}
+    >
+      <RCTScrollView
+        keyboardDismissMode="on-drag"
+        keyboardShouldPersistTaps="always"
+      >
+        <View>
+          <View>
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "margin": 10,
+                  "textAlign": "center",
+                }
+              }
+            >
+              Informe o nome do local do evento para pesquisar:
+            </Text>
+            <View
+              borderColor="lightgrey"
+              borderWidth={1}
+              flexDirection="row"
+              width="100%"
+            >
+              <TextInput
+                allowFontScaling={true}
+                editable={true}
+                multiline={false}
+                onChangeText={[Function]}
+                placeholder="Pesquisar Endereço"
+                placeholderTextColor="#575757"
+                style={
+                  Array [
+                    Object {
+                      "color": "#000",
+                      "flex": 1,
+                      "fontSize": 17,
+                      "height": 50,
+                      "paddingLeft": 5,
+                      "paddingRight": 5,
+                    },
+                    Object {
+                      "textAlign": "center",
+                    },
+                  ]
+                }
+                underlineColorAndroid="rgba(0,0,0,0)"
+                virtual={undefined}
+                width="90%"
+              />
+              <View
+                accessibilityComponentType={undefined}
+                accessibilityLabel={undefined}
+                accessibilityTraits={undefined}
+                accessible={true}
+                collapsable={undefined}
+                hasTVPreferredFocus={undefined}
+                hitSlop={undefined}
+                isTVSelectable={true}
+                nativeID={undefined}
+                onLayout={undefined}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "alignSelf": "flex-start",
+                    "backgroundColor": "transparent",
+                    "borderBottomWidth": null,
+                    "borderColor": "#007aff",
+                    "borderLeftWidth": null,
+                    "borderRadius": 5,
+                    "borderRightWidth": null,
+                    "borderTopWidth": null,
+                    "borderWidth": undefined,
+                    "elevation": 0,
+                    "flexDirection": "row",
+                    "height": 45,
+                    "justifyContent": "space-between",
+                    "opacity": 1,
+                    "paddingBottom": 6,
+                    "paddingTop": 6,
+                    "shadowColor": null,
+                    "shadowOffset": null,
+                    "shadowOpacity": null,
+                    "shadowRadius": null,
+                  }
+                }
+                testID={undefined}
+                tvParallaxProperties={undefined}
+              >
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  ellipsizeMode="tail"
+                />
+              </View>
+            </View>
+            <MapView
+              initialRegion={
+                Object {
+                  "latitude": -15.989373048115894,
+                  "latitudeDelta": 0.003,
+                  "longitude": -48.044495824724436,
+                  "longitudeDelta": 0.003,
+                }
+              }
+              onRegionChangeComplete={[Function]}
+              style={
+                Object {
+                  "height": 200,
+                  "width": "100%",
+                }
+              }
+            >
+              <Marker
+                coordinate={
+                  Object {
+                    "latitude": 0,
+                    "longitude": 0,
+                  }
+                }
+                description="Local do Rolê"
+                title={undefined}
+              />
+            </MapView>
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "alignSelf": "center",
+                  "color": "grey",
+                  "fontSize": 10,
+                  "marginBottom": 10,
+                }
+              }
+            >
+              0  0
+            </Text>
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "color": "grey",
+                  "textAlign": "center",
+                }
+              }
+            />
+          </View>
+          <View
+            alignSelf="center"
+            borderColor="rgba(0,0,0,0.1)"
+            borderWidth={1}
+            margin={5}
+            width="100%"
+          />
+          <View
+            marginBottom={10}
+          >
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "margin": 10,
+                  "textAlign": "center",
+                }
+              }
+            >
+              O local apresentado no mapa está correto?
+            </Text>
+            <View
+              accessibilityComponentType={undefined}
+              accessibilityLabel={undefined}
+              accessibilityTraits={undefined}
+              accessible={true}
+              collapsable={undefined}
+              hasTVPreferredFocus={undefined}
+              hitSlop={undefined}
+              isTVSelectable={true}
+              nativeID={undefined}
+              onLayout={undefined}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                Object {
+                  "alignItems": "center",
+                  "alignSelf": "center",
+                  "backgroundColor": "#5cb85c",
+                  "borderBottomWidth": null,
+                  "borderColor": "#007aff",
+                  "borderLeftWidth": null,
+                  "borderRadius": 10,
+                  "borderRightWidth": null,
+                  "borderTopWidth": null,
+                  "borderWidth": undefined,
+                  "elevation": 2,
+                  "flexDirection": "row",
+                  "height": 45,
+                  "justifyContent": "center",
+                  "opacity": 1,
+                  "paddingBottom": 6,
+                  "paddingTop": 6,
+                  "shadowColor": undefined,
+                  "shadowOffset": undefined,
+                  "shadowOpacity": undefined,
+                  "shadowRadius": undefined,
+                  "width": "90%",
+                }
+              }
+              testID={undefined}
+              tvParallaxProperties={undefined}
+            >
+              <Text
+                accessible={true}
+                allowFontScaling={true}
+                ellipsizeMode="tail"
+                style={
+                  Object {
+                    "color": "white",
+                  }
+                }
+              >
+                Sim, é ali mesmo!
+              </Text>
+            </View>
+          </View>
+        </View>
+      </RCTScrollView>
+    </View>
+  </View>
+</Modal>
+`;

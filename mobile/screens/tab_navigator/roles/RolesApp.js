@@ -8,7 +8,6 @@ import {Provider as PaperProvider} from 'react-native-paper';
 
 import {Button} from 'native-base'
 
-import HomeScreen from './screens/HomeScreen'
 import {StackNavigator} from 'react-navigation'
 import RolesTabHandler from './RolesTabHandler'
 

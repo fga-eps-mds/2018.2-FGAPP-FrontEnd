@@ -1,115 +1,121 @@
-import React, { Component } from "react";
-import {
-	Card,
-	CardItem,
-	Left,
-	Thumbnail,
-	Body,
-	Right,
-	Icon,
-	H2,
-	List,
-	ListItem
-} from "native-base";
-import { Text, StyleSheet } from "react-native";
-import Divider from "./Divider";
-import CardHeader from "./CardHeader";
+import React, { Component } from 'react';
+import { Card, CardItem, Left, Thumbnail, Body, H2 } from 'native-base';
+import { View, Text, StyleSheet } from 'react-native';
+import Divider from './Divider';
+import GeralDetails from './GeralDetails';
+import * as helpers from '../../../utils/helpers';
 
-const noPic = require("../../../static/noPic.png");
-const adultOnly = require("../../../static/adultOnly.png");
+const noPic = require('../../../static/noPic.png');
+const adultOnly = require('../../../static/adultOnly.png');
 
 class Geral extends Component {
-	render() {
-		const uri = this.props.photo;
-		const dataFormatada =
-			this.props.eventDate.slice(-2) +
-			"/" +
-			this.props.eventDate.slice(5, 7) +
-			"/" +
-			this.props.eventDate.slice(0, 4);
-		return (
-			<Card>
-				<CardHeader text="Geral" />
-				<CardItem>
-					<Left>
-						<Thumbnail
-							style={styles.thumbnailGeral}
-							source={this.props.photo == null ? noPic : { uri: uri }}
-						/>
-					</Left>
+    render() {
+        const uri = this.props.photo;
+        return (
+            <Card>
+                <CardItem>
+                    <Left>
+                        <Thumbnail
+                            style={styles.thumbnailGeral}
+                            source={
+                                this.props.photo == null ? noPic : { uri: uri }
+                            }
+                        />
+                    </Left>
 
-					<Body>
-						<H2
-							style={{
-								textAlign: "center",
-								alignSelf: "center"
-							}}
-						>
-							{this.props.eventName}
-						</H2>
+                    <Body>
+                        <H2
+                            style={{
+                                textAlign: 'center',
+                                alignSelf: 'center'
+                            }}
+                        >
+                            {this.props.eventName}
+                        </H2>
 
-						<Divider />
+                        <Divider />
 
-						<Card style={styles.descCards}>
-							<Left>
-								<Icon name="time" />
-							</Left>
-							<Right>
-								<Text>{this.props.eventHour.slice(0, 5)}h</Text>
-							</Right>
-						</Card>
+                        <GeralDetails
+                            iconName="time"
+                            text={`${this.props.eventHour.slice(0, 5)}h`}
+                        />
 
-						<Card style={styles.descCards}>
-							<Left>
-								<Icon name="calendar" />
-							</Left>
-							<Right>
-								<Text>{dataFormatada}</Text>
-							</Right>
-						</Card>
+                        <GeralDetails
+                            iconName="calendar"
+                            text={
+                                helpers.formatDate(this.props.eventDate)
+                                    .formatted
+                            }
+                        />
 
-						<Card style={styles.descCards}>
-							<Left>
-								<Icon name="cash" />
-							</Left>
-							<Right>
-								<Text>R$ {this.props.value}</Text>
-							</Right>
-						</Card>
-					</Body>
-				</CardItem>
+                        <GeralDetails
+                            iconName="cash"
+                            text={`R$ ${this.props.value}`}
+                        />
+                    </Body>
+                </CardItem>
 
-				{/* Sessão do +18; Se for true, ele mostra o card dizendo que a classificação indicativa é +18 */}
-				{this.props.adultOnly == true && (
-					<Card transparent>
-						<Body>
-							<CardItem>
-								<Text>Classificação Indicativa:</Text>
-								<Thumbnail
-									style={{ marginLeft: 20 }}
-									small
-									source={adultOnly}
-								/>
-							</CardItem>
-						</Body>
-					</Card>
-				)}
-			</Card>
-		);
-	}
+                {this.props.eventDescription != null && (
+                    <View
+                        style={{
+                            width: '90%',
+                            alignSelf: 'center'
+                        }}
+                    >
+                        <Text style={{ color: 'grey' }}>Descrição</Text>
+                        <View
+                            style={{
+                                width: '100%',
+                                borderWidth: 0.25,
+                                borderColor: 'rgba(0,0,0,0.25)',
+                                alignSelf: 'center',
+                                marginBottom: 10
+                            }}
+                        />
+                        <Text>{this.props.eventDescription}</Text>
+                        <View
+                            style={{
+                                width: '100%',
+                                borderWidth: 0.25,
+                                borderColor: 'rgba(0,0,0,0.25)',
+                                alignSelf: 'center',
+                                marginTop: 10
+                            }}
+                        />
+                    </View>
+                )}
+
+                {/* Sessão do +18; Se for true, ele mostra o card dizendo que a classificação indicativa é +18 */}
+                {this.props.adultOnly == true && (
+                    <Card transparent>
+                        <Body>
+                            <CardItem>
+                                <Text>Classificação Indicativa:</Text>
+                                <Thumbnail
+                                    style={{ marginLeft: 20 }}
+                                    small
+                                    source={adultOnly}
+                                />
+                            </CardItem>
+                        </Body>
+                    </Card>
+                )}
+            </Card>
+        );
+    }
 }
 
 const styles = StyleSheet.create({
-	descCards: {
-		flexDirection: "row"
-	},
-	thumbnailGeral: {
-		borderWidth: 1,
-		borderColor: "grey",
-		borderRadius: 125,
-		width: 140,
-		height: 140
-	}
+    descCards: {
+        flexDirection: 'row'
+    },
+    thumbnailGeral: {
+        borderWidth: 1,
+        borderColor: 'grey',
+        borderRadius: 125,
+        width: 140,
+        height: 140
+    }
 });
 
 export default Geral;
