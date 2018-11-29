@@ -2,62 +2,31 @@
 
 exports[`renders correctly 1`] = `
 <View>
+  <View
+    style={
+      Object {
+        "flex": 1,
+        "margin": "50%",
+      }
+    }
+  >
+    <ActivityIndicator
+      animating={true}
+      color="#00a50b"
+      hidesWhenStopped={true}
+      size="large"
+    />
+  </View>
   <RCTScrollView
     refreshControl={
       <RefreshControlMock
         onRefresh={[Function]}
-        refreshing={false}
+        refreshing={true}
       />
     }
   >
     <RCTRefreshControl />
-    <View>
-      <View
-        style={
-          Object {
-            "alignSelf": "center",
-            "backgroundColor": "white",
-            "borderRadius": 20,
-            "borderWidth": 1,
-            "height": 100,
-            "margin": "50%",
-            "width": 100,
-          }
-        }
-      >
-        <Text
-          accessible={true}
-          allowFontScaling={true}
-          ellipsizeMode="tail"
-          style={
-            Array [
-              Object {
-                "color": "#000",
-                "fontFamily": "System",
-                "fontSize": 16,
-              },
-              Object {
-                "alignSelf": "center",
-                "color": "black",
-                "margin": 5,
-                "textAlign": "center",
-              },
-            ]
-          }
-          uppercase={false}
-          virtual={undefined}
-        >
-          <Text
-            accessible={true}
-            allowFontScaling={true}
-            ellipsizeMode="tail"
-          />
-          
-
-          Puxe para carregar o feed
-        </Text>
-      </View>
-    </View>
+    <View />
   </RCTScrollView>
 </View>
 `;

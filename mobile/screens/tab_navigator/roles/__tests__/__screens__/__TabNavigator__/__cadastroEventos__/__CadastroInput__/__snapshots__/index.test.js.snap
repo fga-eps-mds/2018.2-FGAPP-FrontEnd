@@ -9,15 +9,10 @@ exports[`renders correctly 1`] = `
       "flexDirection": "row",
       "justifyContent": "space-around",
       "marginTop": -5,
-      "width": "80%",
+      "width": "100%",
     }
   }
 >
-  <Text
-    accessible={true}
-    allowFontScaling={true}
-    ellipsizeMode="tail"
-  />
   <View
     accessibilityComponentType={undefined}
     accessibilityLabel={undefined}
@@ -55,6 +50,11 @@ exports[`renders correctly 1`] = `
     testID={undefined}
     tvParallaxProperties={undefined}
   >
+    <Text
+      accessible={true}
+      allowFontScaling={true}
+      ellipsizeMode="tail"
+    />
     <TextInput
       allowFontScaling={true}
       defaultValue=""

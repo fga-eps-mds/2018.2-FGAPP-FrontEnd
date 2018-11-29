@@ -207,62 +207,31 @@ exports[`renders correctly 1`] = `
                           }
                         >
                           <View>
+                            <View
+                              style={
+                                Object {
+                                  "flex": 1,
+                                  "margin": "50%",
+                                }
+                              }
+                            >
+                              <ActivityIndicator
+                                animating={true}
+                                color="#00a50b"
+                                hidesWhenStopped={true}
+                                size="large"
+                              />
+                            </View>
                             <RCTScrollView
                               refreshControl={
                                 <RefreshControlMock
                                   onRefresh={[Function]}
-                                  refreshing={false}
+                                  refreshing={true}
                                 />
                               }
                             >
                               <RCTRefreshControl />
-                              <View>
-                                <View
-                                  style={
-                                    Object {
-                                      "alignSelf": "center",
-                                      "backgroundColor": "white",
-                                      "borderRadius": 20,
-                                      "borderWidth": 1,
-                                      "height": 100,
-                                      "margin": "50%",
-                                      "width": 100,
-                                    }
-                                  }
-                                >
-                                  <Text
-                                    accessible={true}
-                                    allowFontScaling={true}
-                                    ellipsizeMode="tail"
-                                    style={
-                                      Array [
-                                        Object {
-                                          "color": "#000",
-                                          "fontFamily": "System",
-                                          "fontSize": 16,
-                                        },
-                                        Object {
-                                          "alignSelf": "center",
-                                          "color": "black",
-                                          "margin": 5,
-                                          "textAlign": "center",
-                                        },
-                                      ]
-                                    }
-                                    uppercase={false}
-                                    virtual={undefined}
-                                  >
-                                    <Text
-                                      accessible={true}
-                                      allowFontScaling={true}
-                                      ellipsizeMode="tail"
-                                    />
-                                    
-
-                                    Puxe para carregar o feed
-                                  </Text>
-                                </View>
-                              </View>
+                              <View />
                             </RCTScrollView>
                           </View>
                         </View>
@@ -366,8 +335,8 @@ exports[`renders correctly 1`] = `
                     style={
                       Object {
                         "backgroundColor": "transparent",
-                        "color": "rgba(28, 189, 36, 1)",
-                        "fontSize": 11,
+                        "color": "rgba(0, 0, 0, 1)",
+                        "fontSize": 10,
                         "marginBottom": 1.5,
                         "textAlign": "center",
                       }
@@ -447,8 +416,8 @@ exports[`renders correctly 1`] = `
                     style={
                       Object {
                         "backgroundColor": "transparent",
-                        "color": "rgba(128, 128, 128, 1)",
-                        "fontSize": 11,
+                        "color": "rgba(90, 90, 90, 1)",
+                        "fontSize": 10,
                         "marginBottom": 1.5,
                         "textAlign": "center",
                       }
@@ -528,8 +497,8 @@ exports[`renders correctly 1`] = `
                     style={
                       Object {
                         "backgroundColor": "transparent",
-                        "color": "rgba(128, 128, 128, 1)",
-                        "fontSize": 11,
+                        "color": "rgba(90, 90, 90, 1)",
+                        "fontSize": 10,
                         "marginBottom": 1.5,
                         "textAlign": "center",
                       }

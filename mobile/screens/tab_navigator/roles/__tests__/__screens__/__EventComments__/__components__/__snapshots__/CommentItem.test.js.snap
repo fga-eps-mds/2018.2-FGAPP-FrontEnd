@@ -73,7 +73,7 @@ exports[`renders correctly 1`] = `
           Object {
             "alignItems": "center",
             "alignSelf": "flex-start",
-            "backgroundColor": "transparent",
+            "backgroundColor": null,
             "borderBottomWidth": null,
             "borderColor": "#007aff",
             "borderLeftWidth": null,
@@ -118,30 +118,6 @@ exports[`renders correctly 1`] = `
       uppercase={false}
       virtual={undefined}
     />
-    <Text
-      accessible={true}
-      allowFontScaling={true}
-      ellipsizeMode="tail"
-      style={
-        Array [
-          Object {
-            "color": "#000",
-            "fontFamily": "System",
-            "fontSize": 16,
-          },
-          Object {
-            "color": "grey",
-            "fontSize": 12,
-          },
-        ]
-      }
-      uppercase={false}
-      virtual={undefined}
-    >
-      Postado em:
-       
-      1
-    </Text>
   </View>
   <Modal
     animationType="fade"

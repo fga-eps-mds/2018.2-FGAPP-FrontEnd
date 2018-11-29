@@ -42,9 +42,29 @@ exports[`renders correctly 1`] = `
     }
   >
     Aconselhamos que você já tenha todos os dados em mãos, para que o processo fique rápido.
-    
-
+            
 Clique para iniciar!
+
+
+  </Text>
+  <Text
+    accessible={true}
+    allowFontScaling={true}
+    ellipsizeMode="tail"
+    style={
+      Object {
+        "alignSelf": "center",
+        "color": "grey",
+      }
+    }
+  >
+    (Os campos marcados com um 
+    <Text
+      accessible={true}
+      allowFontScaling={true}
+      ellipsizeMode="tail"
+    />
+     são obrigatórios!)
   </Text>
   <View
     accessibilityComponentType={undefined}
