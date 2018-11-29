@@ -46,7 +46,6 @@ class OrderDetails extends Component {
       })
       .then((response) => response.json())
       .then((responseJson) => {
-        console.log(responseJson)
         this.setState({ name: responseJson.name })
         if(responseJson.photo)
           this.setState({ photo: responseJson.photo })
@@ -169,7 +168,6 @@ class OrderDetails extends Component {
   		})
   			.then((response) => { return response.json() })
   			.then((responseJson) => {
-          console.log(responseJson.photo);
           if(responseJson.photo != '')
             photo=responseJson.photo;
   			})

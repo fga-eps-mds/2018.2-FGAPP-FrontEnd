@@ -51,7 +51,6 @@ import {getUserToken} from '../../../../../AuthMethods'
       })
       .then((response) => response.json())
       .then((responseJson) => {
-        console.log(responseJson)
         this.setState({ name: responseJson.name })
         if(responseJson.photo)
           this.setState({ photo: responseJson.photo })
