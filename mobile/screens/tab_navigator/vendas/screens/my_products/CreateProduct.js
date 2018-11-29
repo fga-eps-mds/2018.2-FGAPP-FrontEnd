@@ -28,6 +28,7 @@ class CreateProduct extends Component {
     super(props);
     this.keyboardHeight = new Animated.Value(0);
     this.imageHeight = new Animated.Value(199);
+
     this.state = {
       isButtonsHidden: false,
       title: null,
@@ -72,14 +73,14 @@ class CreateProduct extends Component {
   registerProduct = () => {
     const {state} = this.props.navigation;
     var token = state.params ? state.params.token : undefined;
-    const user = jwt_decode(this.state.token);
+    const user = jwt_decode(token);
 
     const formData = new FormData();
     formData.append('fk_vendor', user.user_id);
     formData.append('name', this.state.title);
     formData.append('price', this.state.price);
     formData.append('description', this.state.description);
-    formData.append('token', this.state.token);
+    formData.append('token', token);
 
     var uri = this.state.photo;
     if (uri != null) {
@@ -92,7 +93,7 @@ class CreateProduct extends Component {
         type: `application/${fileType}`,
       });
     }
-    
+
       const createProductPath = `${process.env.VENDAS_API}/api/create_product/`;
       fetch(createProductPath, {
       method: 'POST',
@@ -177,7 +178,7 @@ class CreateProduct extends Component {
                   style={{ position: 'absolute', left: '90%', top: '5%' }}
                 />
               </TouchableOpacity>
-              
+
               <Form style={styles.description}>
 
                 <InputLab
