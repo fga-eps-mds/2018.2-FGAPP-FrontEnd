@@ -72,14 +72,14 @@ class CreateProduct extends Component {
   registerProduct = () => {
     const {state} = this.props.navigation;
     var token = state.params ? state.params.token : undefined;
-    const user = jwt_decode(this.state.token);
+    const user = jwt_decode(token);
 
     const formData = new FormData();
     formData.append('fk_vendor', user.user_id);
     formData.append('name', this.state.title);
     formData.append('price', this.state.price);
     formData.append('description', this.state.description);
-    formData.append('token', this.state.token);
+    formData.append('token', token);
 
     var uri = this.state.photo;
     if (uri != null) {
