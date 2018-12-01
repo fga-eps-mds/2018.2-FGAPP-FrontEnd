@@ -36,8 +36,8 @@ class Settings extends Component {
     .then(res => {
       this.setState({ token: res })
       this._loadProfile();
+      BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
     })
-    BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
   }
   componentWillUnmount() {
       BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
@@ -73,7 +73,7 @@ class Settings extends Component {
         <Content>
           <List>
             <ListItem
-              onPress={() => this.props.navigation.navigate('UserProfile', { userInfo: this.state.profileInfo })}
+              onPress={() => this.props.navigation.navigate('UserProfile', { userInfo: this.state.profileInfo , token:this.state.token})}
               noIndent
               style={styles.cardItem}
             >

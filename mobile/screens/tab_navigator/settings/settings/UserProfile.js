@@ -105,7 +105,7 @@ class UserProfile extends Component {
         }
         else{
           Alert.alert('Informações atualizadas com sucesso.');
-          this.props.navigation.navigate('Settings', { token: token });
+          this.props.navigation.navigate('Settings', { token: this.state.token });
         }
       }
     });

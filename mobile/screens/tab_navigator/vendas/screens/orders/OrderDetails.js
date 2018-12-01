@@ -27,7 +27,17 @@ class OrderDetails extends Component {
 
     componentWillMount(){
       getUserToken()
-      .then(res => this.setState({ token: res }))
+      .then(res =>{ 
+        this.setState({ token: res })
+        BackHandler.addEventListener('hardwareBackPress', this.backPressed);  
+      })
+    }
+    componentWillUnmount () {
+      BackHandler.removeEventListener('hardwareBackPress', this.backPressed);
+    }
+    backPressed = () => {
+        this.props.navigation.goBack();
+        return true;
     }
     _cancelButton = async () => {
       const {state} = this.props.navigation;
@@ -59,16 +69,6 @@ class OrderDetails extends Component {
       .catch((err) => {
         console.error(err)
       })
-    }
-    componentWillMount() {
-      BackHandler.addEventListener('hardwareBackPress', this.backPressed);
-    }
-    componentWillUnmount () {
-      BackHandler.removeEventListener('hardwareBackPress', this.backPressed);
-    }
-    backPressed = () => {
-        this.props.navigation.goBack();
-        return true;
     }
     _closeButton = async () => {
       const {state} = this.props.navigation;
