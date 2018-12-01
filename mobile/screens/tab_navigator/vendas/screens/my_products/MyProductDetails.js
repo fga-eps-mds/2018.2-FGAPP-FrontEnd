@@ -36,7 +36,10 @@ class MyProductDetails extends Component {
     }
     componentWillMount(){
       getUserToken()
-      .then(res => this.setState({ token: res }))
+      .then(res => {
+        this.setState({ token: res });
+        BackHandler.addEventListener('hardwareBackPress', this.backPressed);
+      })
     }
 
     openDialog = async () => {
@@ -120,9 +123,6 @@ class MyProductDetails extends Component {
     componentDidMount () {
       this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
       this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
-    }
-    componentWillMount() {
-      BackHandler.addEventListener('hardwareBackPress', this.backPressed);
     }
 
     backPressed = () => {
