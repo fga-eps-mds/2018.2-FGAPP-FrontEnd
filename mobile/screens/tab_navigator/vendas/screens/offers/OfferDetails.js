@@ -2,89 +2,24 @@ import React, { Component } from 'react';
 import {
     View,
     StyleSheet,
-    TouchableOpacity,
-    Picker,
     Alert,
+    BackHandler,
 } from 'react-native';
 import ProductImage from '../../components/ProductImage';
-import styles from '../../components/styles';
+import styles from '../../styles';
 import { CardItem, Text, Content, Body} from 'native-base';
 import OfferDialog from '../../components/OfferDialog';
 import jwt_decode from 'jwt-decode';
-
-const Quantity = [
-  {
-    label: '1',
-    value: '1'
-  },
-  {
-    label: '2',
-    value: '2'
-  },
-  {
-    label: '3',
-    value: '3'
-  },
-  {
-    label: '4',
-    value: '4'
-  },
-  {
-    label: '5',
-    value: '5'
-  },
-  {
-    label: '6',
-    value: '6'
-  },
-  {
-    label: '7',
-    value: '7'
-  },
-  {
-    label: '8',
-    value: '8'
-  },
-  {
-    label: '9',
-    value: '9'
-  },
-  {
-    label: '10',
-    value: '10'
-  }
-];
-
-class FormPicker extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-        modalVisible: false
-    };
-  }
-
-  render(){
-    return (
-      <Picker
-      selectedValue = {this.props.value}
-      onValueChange = {this.props.onValueChange}
-      style = {styles.PickerStyle}
-      mode = 'dropdown'
-      >
-      {this.props.items.map((i, index) => (
-        <Picker.Item key = {index} label = {i.label} value = {i.value} />
-      ))}
-      </Picker>
-    );
-  }
-}
-
+import GreenButton from '../../components/GreenButton';
+import FormPicker from '../../components/FormPicker';
+import {getUserToken} from '../../../../../AuthMethods'
 
  class OfferDetails extends Component {
     constructor(props){
       super(props);
       this.state = {
         seller: 'Usuário sem nome',
+        token: undefined,
         quantity: '1',
         isDialogVisible: false,
         buyer_message: '',
@@ -92,14 +27,30 @@ class FormPicker extends Component {
       };
     }
 
-    componentDidMount() {
-      const {state} = this.props.navigation;
-      const token = state.params ? state.params.token : undefined;
-      var product = state.params ? state.params.product : undefined;
-
-      this.sellerName(product.fk_vendor, token);
+    componentWillMount() {
+      BackHandler.addEventListener('hardwareBackPress', this.backPressed);
     }
 
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.backPressed);
+    }
+
+    backPressed = () => {
+        this.props.navigation.goBack();
+        return true;
+    }
+
+    componentDidMount(){
+      const {state} = this.props.navigation;
+      var product = state.params ? state.params.product : undefined;
+
+      getUserToken()
+        .then(res => {
+          this.setState({token: res });
+          this.sellerName(product.fk_vendor, this.state.token);
+        })
+    }
+    
     sellerName = async (fk_vendor, token) => {
       const getNamePath = `${process.env.VENDAS_API}/api/get_name/`;
   		fetch(getNamePath, {
@@ -134,7 +85,7 @@ class FormPicker extends Component {
         body: JSON.stringify({
           'user_id': product.fk_vendor,
           'title': 'Novo pedido',
-          'message': 'Existe(m) pedido(s) para '+product.name,
+          'message': 'Existe(m) pedido(s) para ' + product.name,
           'token': token,
         }),
       })
@@ -153,8 +104,7 @@ class FormPicker extends Component {
     submitDialog = async () => {
       const {state} = this.props.navigation;
       var product = state.params ? state.params.product : undefined;
-      var token = state.params ? state.params.token : undefined;
-      var user = jwt_decode(token);
+      var user = jwt_decode(this.state.token);
       const create_order_path = `${process.env.VENDAS_API}/api/create_order/`;
 
       fetch(create_order_path,{
@@ -170,17 +120,17 @@ class FormPicker extends Component {
           'total_price': product.price*this.state.quantity,
           'quantity': this.state.quantity,
           'product_name': product.name,
-          'token': token,
+          'token': this.state.token,
         }),
     })
     .then((response) => response.json())
     .then((responseJson) => {
-      this.sendNotification(product, token);
+      this.sendNotification(product, this.state.token);
       if(responseJson.error != undefined)
         Alert.alert(responseJson.error);
       else
         Alert.alert('Compra realizada com sucesso');
-        this.props.navigation.navigate('Offers', {token:token})
+        this.props.navigation.navigate('Offers', { token:this.state.token })
      })
 
      .catch( err => {
@@ -199,9 +149,7 @@ class FormPicker extends Component {
     render() {
       const {state} = this.props.navigation;
       var product = state.params ? state.params.product : undefined;
-
       const characters = `${this.state.buyer_message.length.toString()}/${this.state.max_characters}`;
-
       var price = `${this.state.quantity*product.price}`;
 
       return (
@@ -228,11 +176,10 @@ class FormPicker extends Component {
                 </Body>
               </CardItem>
               <CardItem style = {styles.buttonCard}>
-              <TouchableOpacity style={styles.customBtnBG}
-              onPress={this.openDialog}>
-                <Text style={styles.customBtnText}> Pedir </Text>
-              </TouchableOpacity>
-
+              <GreenButton
+                onPress={this.openDialog}
+                text="Pedir"
+              />
               <OfferDialog
                 isDialogVisible = {this.state.isDialogVisible}
                 backButton = {this.closeDialog}
@@ -244,7 +191,6 @@ class FormPicker extends Component {
               <Text style = {styles.PickerText}> Quantidade </Text>
 
               <FormPicker
-                items={Quantity}
                 value={this.state.quantity}
                 onValueChange={(itemValue, itemIndex) => this.setState({ quantity: itemValue })}
               />
@@ -259,6 +205,5 @@ const styless = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'white',
-        //width: '100%',
     }
 });

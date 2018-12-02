@@ -8,17 +8,20 @@ import {
     Text,
     StyleSheet,
     ScrollView,
-    RefreshControl
+    RefreshControl,
+    BackHandler,
 } from 'react-native';
 import OrderCard from '../../components/OrderCard'
 import BuyerOrderCard from '../../components/BuyerOrderCard'
 import OrderHeader from '../../components/OrderHeader'
 import jwt_decode from 'jwt-decode'
+import {getUserToken} from '../../../../../AuthMethods'
 
 class OrderedProducts extends Component {
     constructor(props) {
       super(props);
       this.state = {
+          token: undefined,
           orders: [''],
           buyer_orders: [''],
           refreshing: false,
@@ -27,14 +30,26 @@ class OrderedProducts extends Component {
       };
     }
     componentDidMount(){
-        this.loadOrders();
+        getUserToken()
+        .then(res =>{
+            this.setState({ token: res })
+            this.loadOrders();
+        })
+    }
+    componentWillMount() {
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
+    }
+	  componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+	  }
+	  handleBackButtonClick() {
+        BackHandler.exitApp();
+        return true;
     }
     loadOrders = async () => {
-      const {state} = this.props.navigation;
-      var token = state.params ? state.params.token : undefined;
-      var user = jwt_decode(token);
+      var user = jwt_decode(this.state.token);
 
-      //Referencia para API gateway
+      //Reference to API gateway
       const orders_screen_path = `${process.env.VENDAS_API}/api/orders_screen/`;
 
       fetch(orders_screen_path, {
@@ -44,7 +59,7 @@ class OrderedProducts extends Component {
           },
           body: JSON.stringify({
           'user_id': user.user_id, //UsernameField foi definido como email
-          'token': token,
+          'token': this.state.token,
         }),
       })
       .then((response) => response.json())
@@ -63,9 +78,6 @@ class OrderedProducts extends Component {
           }
           this.setState({ orders: responseJson });
       })
-      .catch((error) => {
-          console.error(error);
-      });
 
       const buyer_orders_path = `${process.env.VENDAS_API}/api/buyer_orders/`;
 
@@ -76,7 +88,7 @@ class OrderedProducts extends Component {
           },
           body: JSON.stringify({
           'user_id': user.user_id,
-          'token': token, // TODO test token
+          'token': this.state.token, // TODO test token
         }),
       })
       .then((response) => response.json())
@@ -95,9 +107,6 @@ class OrderedProducts extends Component {
           }
           this.setState({ buyer_orders: responseJson });
       })
-      .catch((error) => {
-          console.error(error);
-      });
     }
 
     refreshOrders = async () => {
@@ -109,10 +118,6 @@ class OrderedProducts extends Component {
 
 
     render() {
-      const {state} = this.props.navigation;
-      var token = state.params ? state.params.token : undefined;
-
-
         return (
           <View style={styles.container}>
                 <ScrollView
@@ -135,7 +140,7 @@ class OrderedProducts extends Component {
                         orderQuantity = {`Quantidade: ${buyer_order.quantity}`}
                         orderPrice = {parseFloat(buyer_order.total_price).toFixed(2)}
                         orderStatus = {`${buyer_order.status}`}
-                        onPress={() => this.props.navigation.navigate('OrderDetails', {order: buyer_order, token:token})}
+                        onPress={() => this.props.navigation.navigate('OrderDetails', { order: buyer_order, token:this.state.token })}
                       />
                     );
                 })}
@@ -152,7 +157,7 @@ class OrderedProducts extends Component {
                         orderStatus = {`${order.status}`}
                         orderPrice = {parseFloat(order.total_price).toFixed(2)}
                         orderStatus = {`${order.status}`}
-                        onPress={() => this.props.navigation.navigate('OrderDetails', {order: order, token:token})}
+                        onPress={() => this.props.navigation.navigate('OrderDetails', { order: order, token:this.state.token })}
                       />
                     );
                 })}

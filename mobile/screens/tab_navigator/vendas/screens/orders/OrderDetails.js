@@ -6,9 +6,12 @@ import {
     Image,
     ScrollView,
     Alert,
+    BackHandler
 } from 'react-native';
-import styles from '../../components/styles'
+import styles from '../../styles'
 import { Button } from 'native-base';
+import {getUserToken} from '../../../../../AuthMethods'
+
 
 class OrderDetails extends Component {
 
@@ -17,23 +20,36 @@ class OrderDetails extends Component {
       this.state = {
         photo: 'https://res.cloudinary.com/integraappfga/image/upload/v1543023378/WHITE_BACKGROUND.jpg',
         seller: 'Usuário sem nome',
+        token: undefined,
         request: '0',
       };
     }
 
-    componentDidMount() {
+    componentDidMount(){
       const {state} = this.props.navigation;
-      var token = state.params ? state.params.token : undefined;
       var order = state.params ? state.params.order : undefined;
 
-      this.loadProduct(token, order);
-      this.loadUser(token, order);
+      getUserToken()
+      .then(res =>{ 
+        this.setState({ token: res });
+        this.loadProduct(order);
+        this.loadUser(order);
+        BackHandler.addEventListener('hardwareBackPress', this.backPressed);  
+      })
+    }
+
+    componentWillUnmount () {
+      BackHandler.removeEventListener('hardwareBackPress', this.backPressed);
+    }
+
+    backPressed = () => {
+        this.props.navigation.goBack();
+        return true;
     }
 
     _cancelButton = async () => {
       const {state} = this.props.navigation;
       var order = state.params ? state.params.order : undefined;
-      var token = state.params ? state.params.token : undefined;
       const set_order_status_path = `${process.env.VENDAS_API}/api/set_order_status/`;
 
       fetch(set_order_status_path, {
@@ -44,7 +60,7 @@ class OrderDetails extends Component {
         body: JSON.stringify({
           'order_id': order.id,
           'new_status': '2',
-          'token': token,
+          'token': this.state.token,
         }),
       })
       .then((response) => {
@@ -56,17 +72,16 @@ class OrderDetails extends Component {
 
         else
           Alert.alert('Operação realizada com sucesso.')
-          this.props.navigation.navigate('OrderedProducts', {token:token})
+          this.props.navigation.navigate('OrderedProducts', {token:this.state.token})
       })
       .catch((err) => {
         console.error(err)
       })
     }
-
+    
     _closeButton = async () => {
       const {state} = this.props.navigation;
       var order = state.params ? state.params.order : undefined;
-      var token = state.params ? state.params.token : undefined;
       const set_order_status_path = `${process.env.VENDAS_API}/api/set_order_status/`;
 
       fetch(set_order_status_path, {
@@ -77,7 +92,7 @@ class OrderDetails extends Component {
         body: JSON.stringify({
           'order_id': order.id,
           'new_status': '1',
-          'token': token,
+          'token': this.state.token,
         }),
       })
       .then((response) => {
@@ -89,7 +104,7 @@ class OrderDetails extends Component {
 
         else
           Alert.alert('Operação realizada com sucesso.')
-          this.props.navigation.navigate('OrderedProducts', {token:token})
+          this.props.navigation.navigate('OrderedProducts', {token:this.state.token})
       })
       .catch((err) => {
         console.error(err)
@@ -99,7 +114,6 @@ class OrderDetails extends Component {
     _buttonRequest() {
       const {state} = this.props.navigation;
       var order = state.params ? state.params.order : undefined;
-      var token = state.params ? state.params.token : undefined;
       const set_order_status_path = `${process.env.VENDAS_API}/api/set_order_status/`;
 
       fetch(set_order_status_path, {
@@ -110,7 +124,7 @@ class OrderDetails extends Component {
         body: JSON.stringify({
           'order_id': order.id,
           'new_status': this.state.request,
-          'token': token,
+          'token': this.state.token,
         }),
       })
       .then((response) => {
@@ -122,23 +136,27 @@ class OrderDetails extends Component {
 
         else
           Alert.alert('Operação realizada com sucesso.')
-          this.props.navigation.navigate('OrderedProducts', {token:token})
+          this.props.navigation.navigate('OrderedProducts', {token:this.state.token})
       })
       .catch((err) => {
         console.error(err)
       })
     }
 
-    loadUser(token, order){
-      const get_product_path = `${process.env.VENDAS_API}/api/get_name/`;
+    _goBack= async () => {
+      this.props.navigation.navigate('OrderedProducts', {token:this.state.token});
+    }
 
-  		fetch(get_product_path, {
+    loadUser(order){
+      const get_user_path = `${process.env.VENDAS_API}/api/get_name/`;
+
+  		fetch(get_user_path, {
   			method: 'POST',
   			headers: {
   			'Content-Type': 'application/json',
   			},
   			body: JSON.stringify({
-  				'token': token,
+  				'token': this.state.token,
         	'user_id': order.fk_buyer,
   			}),
   		})
@@ -154,7 +172,7 @@ class OrderDetails extends Component {
         });
     }
 
-    loadProduct(token, order){
+    loadProduct(order){
       const get_product_path = `${process.env.VENDAS_API}/api/get_product/`;
 
   		fetch(get_product_path, {
@@ -163,7 +181,7 @@ class OrderDetails extends Component {
   				'Content-Type': 'application/json',
   			},
   			body: JSON.stringify({
-  				'token': token,
+  				'token': this.state.token,
           'product_id': order.fk_product,
   			}),
   		})
@@ -211,7 +229,7 @@ class OrderDetails extends Component {
                 <Button
                   onPress={this._cancelButton}
                   style={local_styles.button}
-                  danger
+                  backgroundColor = "#830037"
                 >
                   <Text style={{color: 'white'}}> CANCELAR </Text>
                   <Text style={{color: 'white'}}> PEDIDO </Text>

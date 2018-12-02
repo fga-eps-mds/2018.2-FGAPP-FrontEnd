@@ -6,18 +6,18 @@ import React, { Component } from 'react';
 import {
     View,
     StyleSheet,
-    Text,
     Keyboard,
     TouchableOpacity,
     Animated,
-    ImageBackground,
-    Image
+    BackHandler,
 } from 'react-native';
-import ProductImage from '../../components/ProductImage';
-import { Textarea, Form, Item, Input, Label, Button } from 'native-base';
-import jwt_decode from 'jwt-decode';
+import { Textarea, Form } from 'native-base';
 import ErrorDialog from './ErrorDialog';
 import ToogleView from './ToogleView';
+import {getUserToken} from '../../../../../AuthMethods'
+import GreenButton from '../../components/GreenButton';
+import RedButton from '../../components/RedButton';
+import InputLab from '../../components/InputLab';
 
 class MyProductDetails extends Component {
     constructor(props) {
@@ -25,6 +25,7 @@ class MyProductDetails extends Component {
       this.keyboardHeight = new Animated.Value(0);
       this.imageHeight = new Animated.Value(199);
       this.state = {
+        token:undefined,
         isButtonsHidden: false,
         name: '',
         price: '',
@@ -33,12 +34,24 @@ class MyProductDetails extends Component {
         messageError: '',
       };
     }
+    componentWillMount(){
+      getUserToken()
+      .then(res => {
+        this.setState({ token: res });
+        BackHandler.addEventListener('hardwareBackPress', this.backPressed);
+      })
+    }
 
     openDialog = async () => {
       this.setState({ isDialogVisible: true })
     }
     closeDialog = async () => {
       this.setState({ isDialogVisible: false })
+    }
+
+    _goBack = async () => {
+
+      this.props.navigation.navigate('MyProducts', {token:this.state.token});
     }
 
     _clickPhoto = async () => {
@@ -51,7 +64,7 @@ class MyProductDetails extends Component {
         quality: 0.7,
         base64: true
       });
-  
+
       if (!cancelled) {
         this.setState({ photo: uri });
       }
@@ -59,7 +72,6 @@ class MyProductDetails extends Component {
 
     editProduct = async () => {
       const {state} = this.props.navigation;
-      var token = state.params ? state.params.token : undefined;
       var product = state.params ? state.params.product : undefined;
 
       const formData = new FormData();
@@ -67,7 +79,7 @@ class MyProductDetails extends Component {
       formData.append('name', (this.state.name ? this.state.name : product.name));
       formData.append('price', (this.state.price ? this.state.price : product.price));
       formData.append('description', (this.state.description ? this.state.description : product.description));
-      formData.append('token', token);
+      formData.append('token', this.state.token);
 
       var uri = this.state.photo;
       if (uri != null) {
@@ -99,7 +111,7 @@ class MyProductDetails extends Component {
           this.setState({ isDialogVisible: true })
         }
         else{
-          this.props.navigation.navigate('MyProducts', {token:token});
+          this.props.navigation.navigate('MyProducts', {token:this.state.token});
         }
       })
       .catch((err) => {
@@ -113,7 +125,12 @@ class MyProductDetails extends Component {
       this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
     }
 
+    backPressed = () => {
+        this.props.navigation.goBack();
+        return true;
+    }
     componentWillUnmount () {
+      BackHandler.removeEventListener('hardwareBackPress', this.backPressed);
       this.keyboardDidShowListener.remove();
       this.keyboardDidHideListener.remove();
     }
@@ -146,7 +163,6 @@ class MyProductDetails extends Component {
 
     render() {
         const {state} = this.props.navigation;
-        var token = state.params ? state.params.token : undefined;
         var product = state.params ? state.params.product : undefined;
 
         const editableIcon = require('../../assets/editableIcon.png');
@@ -170,21 +186,18 @@ class MyProductDetails extends Component {
                 />
               </TouchableOpacity>
               <Form style={styles.description}>
-                <Item floatingLabel>
-                  <Label>Nome atual: {product.name}</Label>
-                  <Input
-                    style={{ color: 'black' }}
+
+                  <InputLab
+                    nameLabel={product.name}
                     onChangeText={(name) => {this.setState({name})}}
                   />
-                </Item>
-                <Item floatingLabel>
-                  <Label>Preço atual: {product.price}</Label>
-                  <Input
-                    style={{ color: 'black' }}
+
+                  <InputLab
+                    nameLabel={product.price}
                     keyboardType='numeric'
                     onChangeText={(price) => {this.setState({price})}}
                   />
-                </Item>
+
                 <Textarea
                   style={{ color: 'black' }}
                   onChangeText={(description) => {this.setState({description})}}
@@ -195,20 +208,14 @@ class MyProductDetails extends Component {
               </Form>
               <ToogleView hide={this.state.isButtonsHidden}>
                 <View style={styles.buttonContainer}>
-                  <Button
-                    onPress={() => {this.props.navigation.navigate('MyProducts', {token:token});}}
-                    style={styles.button}
-                    danger
-                  >
-                    <Text style={{color: 'white'}}> CANCELAR </Text>
-                  </Button>
-                  <Button
+                  <RedButton
+                    onPress={this._goBack}
+                    text="CANCELAR"
+                  />
+                  <GreenButton
                     onPress={this.editProduct}
-                    style={styles.button}
-                    success
-                  >
-                    <Text style={{color: 'white'}}> SALVAR </Text>
-                  </Button>
+                    text="SALVAR"
+                  />
                 </View>
               </ToogleView>
             </Animated.View>
@@ -232,9 +239,4 @@ const styles = StyleSheet.create({
       justifyContent: 'space-around',
       paddingBottom: 10,
     },
-    button: {
-      justifyContent: 'center',
-      height: 40,
-      width: 100,
-    }
 });

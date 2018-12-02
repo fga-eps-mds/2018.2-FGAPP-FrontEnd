@@ -5,7 +5,7 @@
 import React, { Component } from 'react';
 import { Image, ImageBackground, View } from 'react-native';
 import { Card, CardItem, Text, Left, Right } from 'native-base';
-import styles from './styles';
+import styles from '../styles';
 import { LinearGradient } from 'expo';
 
 class ProductImage extends Component {

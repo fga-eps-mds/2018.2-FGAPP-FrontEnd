@@ -7,28 +7,38 @@ import {
 	View,
 	StyleSheet,
 	ScrollView,
-	RefreshControl
+	RefreshControl,
+	BackHandler,
 } from 'react-native';
 import ProductCard from '../../components/ProductCard';
+import {getUserToken} from '../../../../../AuthMethods'
 
 class Offers extends Component {
 	// productImage initialize with an image cause of asynchronous request
 	constructor(props) {
 		super(props);
 		this.state = {
+			token:undefined,
 			products: [{
 				name: '',
 				price: '',
 				photo: 'https://res.cloudinary.com/integraappfga/image/upload/v1541634743/SEM_IMAGEM.jpg',
 			}],
-			refreshing: false,
+			refreshing: true,
 		};
+	}
+	componentDidMount(){
+        getUserToken()
+        .then(res => {
+			this.setState({ token: res })
+			this.loadOffers();
+			this.setState({ refreshing: false });
+		})
 	}
 
 	loadOffers = async () => {
-		const { state } = this.props.navigation;
-		var token = state.params ? state.params.token : undefined;
 		var products_path = `${process.env.VENDAS_API}/api/all_products/`;
+
 
 		fetch(products_path, {
 			method: 'POST',
@@ -36,7 +46,7 @@ class Offers extends Component {
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify({
-				'token': token,
+				'token': this.state.token,
 			}),
 		})
 			.then((response) => { return response.json() })
@@ -52,10 +62,16 @@ class Offers extends Component {
 				console.error(error);
 			});
 	}
-
-	componentDidMount() {
-		this.loadOffers();
+	componentWillMount() {
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
+    }
+	componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
 	}
+	handleBackButtonClick() {
+        BackHandler.exitApp();
+        return true;
+    }
 
 	refreshOffers = async () => {
 		this.setState({ refreshing: true });
@@ -65,8 +81,6 @@ class Offers extends Component {
 	}
 
 	render() {
-		const { state } = this.props.navigation;
-		var token = state.params ? state.params.token : undefined;
 		return (
 			<View style={styles.container}>
 				<ScrollView
@@ -84,7 +98,7 @@ class Offers extends Component {
 								photo={product.photo}
 								name={product.name}
 								price={parseFloat(product.price).toFixed(2)}
-								onPress={() => this.props.navigation.navigate('OfferDetails', { product: product, token: token })}
+								onPress={() => this.props.navigation.navigate('OfferDetails', { product: product, token:this.state.token })}
 							/>
 						);
 					})}

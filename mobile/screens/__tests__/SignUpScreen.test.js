@@ -3,6 +3,7 @@ import { configure, shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 import App from '../SignUpScreen'
 import {KeyboardAvoidingView} from 'react-native';
+import renderer from 'react-test-renderer';
 
 jest.mock('../components/SignUp')
 
@@ -35,7 +36,7 @@ describe('Testing SignUp', () => {
 
     it('should test _onPressButton', () => {
         wrapper.instance()._onPressButton()
-    }) 
+    })
 
     it('should test checkJson bad email', () => {
         const responseJson = {
@@ -84,5 +85,23 @@ describe('Testing SignUp', () => {
         wrapper.instance().checkJson(responseJson)
         expect(spyNavigate).toHaveBeenCalled()
     })
+
+    test('change input name ', () => {
+      const name = wrapper.find('Field').at(0);
+      name.simulate('changeText','text');
+      expect(wrapper.state('name')).toBe('text');
+    });
+
+    test('change input email ', () => {
+      const email = wrapper.find('Field').at(1);
+      email.simulate('changeText','text');
+      expect(wrapper.state('email')).toBe('text');
+    });
+
+    test('change input password ', () => {
+      const password = wrapper.find('Field').at(2);
+      password.simulate('changeText','text');
+      expect(wrapper.state('password')).toBe('text');
+    });
 
 })
