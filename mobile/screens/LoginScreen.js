@@ -10,6 +10,7 @@ import {
     TouchableOpacity,
     Linking,
     Keyboard,
+    BackHandler
 } from "react-native";
 import {Button} from 'native-base';
 import Field from './components/Field';
@@ -27,6 +28,16 @@ const LOGO_IMAGE = 'https://i.imgur.com/F7PTwBg.png';
 
 class LoginScreen extends Component {
 
+  componentWillMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
+  }
+  handleBackButtonClick() {
+      BackHandler.exitApp();
+      return true;
+  }
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+  }
   constructor(props) {
       super(props);
       this.state = {
@@ -45,11 +56,11 @@ class LoginScreen extends Component {
       alert('Você precisa permitir notificações nas configurações.');
       return;
     }
-  
+
     const notificationToken = await Expo.Notifications.getExpoPushTokenAsync();
     this.storeToken(loginToken, notificationToken)
   }
-  
+
   storeToken = async (loginToken, notificationToken) => {
     var user = jwt_decode(loginToken);
     const notification_path = `${process.env.VENDAS_API}/api/save_user_token/`;
@@ -63,9 +74,7 @@ class LoginScreen extends Component {
         'user_id': user.user_id,
         'token': loginToken,
       }),
-    }).catch( err => {
-      console.log(err)
-    });
+    })
   }
 
   componentDidMount() {

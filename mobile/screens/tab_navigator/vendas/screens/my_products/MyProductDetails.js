@@ -9,6 +9,7 @@ import {
     Keyboard,
     TouchableOpacity,
     Animated,
+    BackHandler,
 } from 'react-native';
 import { Textarea, Form } from 'native-base';
 import ErrorDialog from './ErrorDialog';
@@ -35,7 +36,10 @@ class MyProductDetails extends Component {
     }
     componentWillMount(){
       getUserToken()
-      .then(res => this.setState({ token: res }))
+      .then(res => {
+        this.setState({ token: res });
+        BackHandler.addEventListener('hardwareBackPress', this.backPressed);
+      })
     }
 
     openDialog = async () => {
@@ -49,7 +53,7 @@ class MyProductDetails extends Component {
 
       this.props.navigation.navigate('MyProducts', {token:this.state.token});
     }
-    
+
     _clickPhoto = async () => {
       const {
         cancelled,
@@ -60,7 +64,7 @@ class MyProductDetails extends Component {
         quality: 0.7,
         base64: true
       });
-  
+
       if (!cancelled) {
         this.setState({ photo: uri });
       }
@@ -121,7 +125,12 @@ class MyProductDetails extends Component {
       this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
     }
 
+    backPressed = () => {
+        this.props.navigation.goBack();
+        return true;
+    }
     componentWillUnmount () {
+      BackHandler.removeEventListener('hardwareBackPress', this.backPressed);
       this.keyboardDidShowListener.remove();
       this.keyboardDidHideListener.remove();
     }

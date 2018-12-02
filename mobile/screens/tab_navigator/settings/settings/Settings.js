@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
   Text,
   StyleSheet,
+  BackHandler,
 } from 'react-native';
 import {
   List,
@@ -35,13 +36,18 @@ class Settings extends Component {
     .then(res => {
       this.setState({ token: res })
       this._loadProfile();
+      BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
     })
-    .catch(err => alert("Erro"));
   }
-
+  componentWillUnmount() {
+      BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+  }
+  handleBackButtonClick() {
+      BackHandler.exitApp();
+      return true;
+  }
   _loadProfile = async () => {
     const user = jwt_decode(this.state.token);
-
     const profileInfoPath = `${process.env.INTEGRA_LOGIN_AUTH}/api/users/get_profile/`;
     fetch(profileInfoPath, {
       method: 'POST',
@@ -58,9 +64,6 @@ class Settings extends Component {
         this.setState({ profileInfo: responseJson });
       }
     })
-    .catch((error) => {
-      console.error(error);
-    });
   }
 
   render() {
@@ -70,7 +73,7 @@ class Settings extends Component {
         <Content>
           <List>
             <ListItem
-              onPress={() => this.props.navigation.navigate('UserProfile', { userInfo: this.state.profileInfo })}
+              onPress={() => this.props.navigation.navigate('UserProfile', { userInfo: this.state.profileInfo , token:this.state.token})}
               noIndent
               style={styles.cardItem}
             >

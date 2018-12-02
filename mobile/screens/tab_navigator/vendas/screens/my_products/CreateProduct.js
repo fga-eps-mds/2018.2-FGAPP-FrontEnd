@@ -10,7 +10,7 @@ import {
   Keyboard,
   Animated,
   TouchableOpacity,
-  ImageBackground
+  BackHandler,
 } from 'react-native';
 import ProductImage from '../../components/ProductImage';
 import GreenButton from '../../components/GreenButton';
@@ -120,13 +120,19 @@ class CreateProduct extends Component {
       this.setState({ isDialogVisible: true })
     })
   }
-
+  componentWillMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.backPressed);
+  }
+  backPressed = () => {
+      this.props.navigation.goBack();
+      return true;
+  }
   componentDidMount() {
     this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
     this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
   }
-
   componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.backPressed);
     this.keyboardDidShowListener.remove();
     this.keyboardDidHideListener.remove();
   }
@@ -158,6 +164,9 @@ class CreateProduct extends Component {
   }
 
     render() {
+      const { state } = this.props.navigation;
+      var token = state.params ? state.params.token : undefined;
+
       const editableIcon = require('../../assets/editableIcon.png');
       const defaultPhoto = 'https://res.cloudinary.com/integraappfga/image/upload/v1541634743/SEM_IMAGEM.jpg';
       var photo = (this.state.photo == null) ? defaultPhoto : this.state.photo;

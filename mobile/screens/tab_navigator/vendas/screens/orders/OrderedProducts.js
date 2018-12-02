@@ -8,7 +8,8 @@ import {
     Text,
     StyleSheet,
     ScrollView,
-    RefreshControl
+    RefreshControl,
+    BackHandler,
 } from 'react-native';
 import OrderCard from '../../components/OrderCard'
 import BuyerOrderCard from '../../components/BuyerOrderCard'
@@ -30,12 +31,21 @@ class OrderedProducts extends Component {
     }
     componentDidMount(){
         getUserToken()
-        .then(res =>{ 
+        .then(res =>{
             this.setState({ token: res })
             this.loadOrders();
         })
     }
-
+    componentWillMount() {
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
+    }
+	  componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+	  }
+	  handleBackButtonClick() {
+        BackHandler.exitApp();
+        return true;
+    }
     loadOrders = async () => {
       var user = jwt_decode(this.state.token);
 
@@ -68,9 +78,6 @@ class OrderedProducts extends Component {
           }
           this.setState({ orders: responseJson });
       })
-      .catch((error) => {
-          console.error(error);
-      });
 
       const buyer_orders_path = `${process.env.VENDAS_API}/api/buyer_orders/`;
 
@@ -110,7 +117,7 @@ class OrderedProducts extends Component {
     }
 
 
-    render() {      
+    render() {
         return (
           <View style={styles.container}>
                 <ScrollView

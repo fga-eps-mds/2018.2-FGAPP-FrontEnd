@@ -6,6 +6,7 @@ import {
   Image,
   TouchableOpacity,
   Alert,
+  BackHandler,
 } from 'react-native';
 import { Card, CardItem, Body, Item, Label, Input } from 'native-base';
 import jwt_decode from 'jwt-decode'
@@ -23,17 +24,20 @@ class UserProfile extends Component {
       need_logout: false,
     };
   }
+
   componentWillMount(){
     getUserToken()
     .then(res => this.setState({ token: res }))
     .catch(err => alert("Erro"));
+    BackHandler.addEventListener('hardwareBackPress', this.backPressed);
   }
 
-  _goBack = async () => {
-    const { state } = this.props.navigation;
-    var token = state.params ? state.params.token : undefined;
-
-    this.props.navigation.navigate('Settings', { token: token });
+  componentWillUnmount () {
+    BackHandler.removeEventListener('hardwareBackPress', this.backPressed);
+  }
+  backPressed = () => {
+      this.props.navigation.goBack();
+      return true;
   }
 
   _clickPhoto = async () => {
@@ -66,7 +70,7 @@ class UserProfile extends Component {
     if ((email != undefined)){
       formData.append('email', email);
       this.setState({ need_logout: true });
-    }  
+    }
     if (uri != undefined) {
       const uriParts = uri.split('.');
       const fileType = uriParts[uriParts.length - 1];
@@ -101,7 +105,7 @@ class UserProfile extends Component {
         }
         else{
           Alert.alert('Informações atualizadas com sucesso.');
-          this._goBack();
+          this.props.navigation.navigate('Settings', { token: this.state.token });
         }
       }
     });

@@ -7,7 +7,8 @@ import {
 	View,
 	StyleSheet,
 	ScrollView,
-	RefreshControl
+	RefreshControl,
+	BackHandler,
 } from 'react-native';
 import ProductCard from '../../components/ProductCard';
 import {getUserToken} from '../../../../../AuthMethods'
@@ -34,11 +35,11 @@ class Offers extends Component {
 			this.setState({ refreshing: false });
 		})
 	}
-	
+
 	loadOffers = async () => {
 		var products_path = `${process.env.VENDAS_API}/api/all_products/`;
 
-		
+
 		fetch(products_path, {
 			method: 'POST',
 			headers: {
@@ -48,20 +49,29 @@ class Offers extends Component {
 				'token': this.state.token,
 			}),
 		})
-		.then((response) => { return response.json() })
-		.then((responseJson) => {
-			console.log('responseJson', responseJson)
-			if (responseJson.length > 1) {
-				responseJson.sort((product1, product2) => {
-					return (product1.price - product2.price);
-				});
-			}
-			this.setState({ products: responseJson });
-		})
-		.catch((error) => {
-			console.error(error);
-		});
+			.then((response) => { return response.json() })
+			.then((responseJson) => {
+				if (responseJson.length > 1) {
+					responseJson.sort((product1, product2) => {
+						return (product1.price - product2.price);
+					});
+				}
+				this.setState({ products: responseJson });
+			})
+			.catch((error) => {
+				console.error(error);
+			});
 	}
+	componentWillMount() {
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
+    }
+	componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+	}
+	handleBackButtonClick() {
+        BackHandler.exitApp();
+        return true;
+    }
 
 	refreshOffers = async () => {
 		this.setState({ refreshing: true });

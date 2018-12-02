@@ -134,3 +134,35 @@ describe('Testing navigation', () => {
       expect(spyNavigate).toBeCalled();
     })
 })
+
+describe('Testing back buttom calls', () => {
+  const navigation = {
+      state: {
+          params: {
+              token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InJvZ2VybGVua2VAZ21haWwuY29tIiwidXNlcl9pZCI6MSwib3JpZ19pYXQiOjE1NDE3MTk3NDksImV4cCI6MTU0MTcyMDA0OSwidXNlcm5hbWUiOiJyb2dlcmxlbmtlQGdtYWlsLmNvbSJ9.eCEGRB9yYAkP5iBIybeDsAoWk4HyusPUTX3LBiP0I64",
+              order: {
+                "buyer_message": "",
+                "date": "2018-11-14T01:16:07.680903Z",
+                "fk_buyer": 3,
+                "fk_product": 2,
+                "id": 5,
+                "product_name": "Shiana",
+                "quantity": 1,
+                "status": 1,
+                "total_price": 999.99,
+                }
+          }
+      },
+      navigate: jest.fn(),
+    }
+
+  it('tests componentWillUnmount function',() => {
+    const wrapper = shallow(<OrderedProducts navigation = {navigation}/>);
+    const componentWillUnmount = wrapper.instance().componentWillUnmount();
+  });
+
+  it('tests handleBackButtonClick function',() => {
+    const wrapper = shallow(<OrderedProducts navigation = {navigation}/>);
+    const handleBackButtonClick = wrapper.instance().handleBackButtonClick();
+  });
+})

@@ -81,12 +81,6 @@ describe('Test UserProfile', () => {
         });
     });
 
-    it('Should test navigation', async() => {
-        const wrapper = shallow(<UserProfile navigation = {navigation}/>); 
-        await wrapper.instance()._goBack();
-        expect(spyNavigate).toHaveBeenCalled();
-    });
-
     it('Test clickPhoto', () => {
         const wrapper = shallow(<UserProfile navigation = {navigation}/>); 
         const clickPhoto = wrapper.instance()._clickPhoto();

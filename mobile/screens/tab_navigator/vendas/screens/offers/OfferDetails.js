@@ -5,6 +5,7 @@ import {
     TouchableOpacity,
     Picker,
     Alert,
+    BackHandler,
 } from 'react-native';
 import ProductImage from '../../components/ProductImage';
 import styles from '../../styles';
@@ -27,12 +28,23 @@ import {getUserToken} from '../../../../../AuthMethods'
       };
     }
 
+    componentWillMount() {
+      BackHandler.addEventListener('hardwareBackPress', this.backPressed);
+    }
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.backPressed);
+    }
+    backPressed = () => {
+        this.props.navigation.goBack();
+        return true;
+    }
+
     componentDidMount(){
       getUserToken()
           .then(res => this.setState({ token: res }))
-          .catch(err => alert("Erro"));
     }
-    
+
     sendNotification = async (product, token) => {
       const path = `${process.env.VENDAS_API}/api/send_push_message/`
       fetch( path, {

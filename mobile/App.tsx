@@ -17,15 +17,6 @@ export default class App extends React.Component<{}> {
   }
 
   async componentDidMount() {
-    this._isMounted = true;
-    isSignedIn()
-    .then(res => {
-      if(this._isMounted)
-        this.setState({ signed: res })
-      
-    })
-
-    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
 
     const localNotification = {
       title: 'Confira os produtos próximos de você.',
@@ -62,15 +53,6 @@ export default class App extends React.Component<{}> {
     else{
       console.log('Notification permissions not granted.');
     }
-  }
-
-  componentWillUnmount() {
-    this._isMounted = false;
-    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
-  }
-
-  handleBackButton() {
-      return true;
   }
 
   render() {
