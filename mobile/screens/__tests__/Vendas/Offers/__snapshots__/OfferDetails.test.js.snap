@@ -169,7 +169,9 @@ exports[`Test submitDialog renders correctly 1`] = `
           uppercase={false}
           virtual={undefined}
         >
-           Fulano da Silva 
+           
+          Usuário sem nome
+           
         </Text>
       </View>
       <View

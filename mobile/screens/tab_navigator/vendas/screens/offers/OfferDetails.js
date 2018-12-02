@@ -2,14 +2,12 @@ import React, { Component } from 'react';
 import {
     View,
     StyleSheet,
-    TouchableOpacity,
-    Picker,
     Alert,
     BackHandler,
 } from 'react-native';
 import ProductImage from '../../components/ProductImage';
 import styles from '../../styles';
-import { Card, CardItem, Text, Left, Right, Content, Body} from 'native-base';
+import { CardItem, Text, Content, Body} from 'native-base';
 import OfferDialog from '../../components/OfferDialog';
 import jwt_decode from 'jwt-decode';
 import GreenButton from '../../components/GreenButton';
@@ -20,6 +18,7 @@ import {getUserToken} from '../../../../../AuthMethods'
     constructor(props){
       super(props);
       this.state = {
+        seller: 'Usuário sem nome',
         token: undefined,
         quantity: '1',
         isDialogVisible: false,
@@ -35,14 +34,45 @@ import {getUserToken} from '../../../../../AuthMethods'
     componentWillUnmount() {
         BackHandler.removeEventListener('hardwareBackPress', this.backPressed);
     }
+
     backPressed = () => {
         this.props.navigation.goBack();
         return true;
     }
 
     componentDidMount(){
+      const {state} = this.props.navigation;
+      var product = state.params ? state.params.product : undefined;
+
       getUserToken()
-          .then(res => this.setState({ token: res }))
+        .then(res => {
+          this.setState({token: res });
+          this.sellerName(product.fk_vendor, this.state.token);
+        })
+    }
+    
+    sellerName = async (fk_vendor, token) => {
+      const getNamePath = `${process.env.VENDAS_API}/api/get_name/`;
+  		fetch(getNamePath, {
+  			method: 'POST',
+  			headers: {
+  			'Content-Type': 'application/json',
+  			},
+  			body: JSON.stringify({
+          'user_id': fk_vendor,
+          'token': token,
+  			}),
+  		})
+  			.then((response) => response.json() )
+  			.then((responseJson) => {
+          if (!responseJson.error) {
+            name = responseJson.name;
+            this.setState({seller: name});
+          }
+        })
+  			.catch((error) => {
+  				console.error(error);
+        });
     }
 
     sendNotification = async (product, token) => {
@@ -96,7 +126,6 @@ import {getUserToken} from '../../../../../AuthMethods'
     .then((response) => response.json())
     .then((responseJson) => {
       this.sendNotification(product, this.state.token);
-      console.log(responseJson);
       if(responseJson.error != undefined)
         Alert.alert(responseJson.error);
       else
@@ -130,7 +159,7 @@ import {getUserToken} from '../../../../../AuthMethods'
                 photo={product.photo}
                 />
               <CardItem style={styles.info}>
-                <Text style={styles.textVendor}> Fulano da Silva </Text>
+                <Text style={styles.textVendor}> {this.state.seller} </Text>
               </CardItem>
 
               <CardItem style={styles.info}>
@@ -166,7 +195,6 @@ import {getUserToken} from '../../../../../AuthMethods'
                 onValueChange={(itemValue, itemIndex) => this.setState({ quantity: itemValue })}
               />
             </Content>
-
           </View>
       );
     }
@@ -177,6 +205,5 @@ const styless = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'white',
-        //width: '100%',
     }
 });
