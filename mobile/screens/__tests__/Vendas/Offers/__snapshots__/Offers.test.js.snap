@@ -89,7 +89,7 @@ exports[`Test loadOffers renders correctly 1`] = `
               <Image
                 source={
                   Object {
-                    "uri": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3DELRuKTg7K4gi9v13ELUq3ltLxlNGOsw6BDfsF0jlVKFr4h3",
+                    "uri": "https://res.cloudinary.com/integraappfga/image/upload/v1541634743/SEM_IMAGEM.jpg",
                   }
                 }
                 style={
